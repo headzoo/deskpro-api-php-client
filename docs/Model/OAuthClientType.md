@@ -1,0 +1,14 @@
+# OAuthClientType
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **string** |  | [optional] 
+**context** | **string** |  | [optional] 
+**allowed_grant_type** | **string** |  | [optional] 
+**redirect_uris** | **string[]** |  | [optional] 
+**is_enabled** | **bool** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

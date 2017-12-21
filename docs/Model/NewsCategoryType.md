@@ -1,0 +1,14 @@
+# NewsCategoryType
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**title** | **string** |  | [optional] 
+**title_translations** | **object[]** |  | [optional] 
+**brand** | **string** |  | [optional] 
+**usergroups** | **string[]** |  | [optional] 
+**parent** | **string** |  | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
