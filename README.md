@@ -64,11 +64,11 @@ $api = new ContentApi(
 );
 
 try {
-    $params = [
+    $filters = [
         "page"  => 1,
         "limit" => 20
     ];
-    $result = $api->getArticles($params);
+    $result = $api->getArticles($filters);
     print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
@@ -90,11 +90,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
     "page"  => 1,
     "limit" => 20
 ];
-$promise = $api->getArticlesAsync($params);
+$promise = $api->getArticlesAsync($filters);
 $promise->then(
     function (Response $result) {
         print_r($result->getData());
