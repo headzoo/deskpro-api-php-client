@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **getWidgetLiveDemoSampleState**
-> \DeskPRO\API\Model\Response getWidgetLiveDemoSampleState(array $params = [])
+> \DeskPRO\API\Model\Response getWidgetLiveDemoSampleState()
 
 
 
@@ -27,12 +27,10 @@ $api = new WidgetSampleOnlineAgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getWidgetLiveDemoSampleState($params);
-    print_r($result);
+    $result = $api->getWidgetLiveDemoSampleState();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -40,7 +38,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -58,7 +61,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setSettingBrandByBrandWidgetSendInstruction**
-> \DeskPRO\API\Model\Response setSettingBrandByBrandWidgetSendInstruction(array $params = [])
+> \DeskPRO\API\Model\Response setSettingBrandByBrandWidgetSendInstruction(string $brand, string $email)
 
 
 
@@ -76,14 +79,12 @@ $api = new WidgetSampleOnlineAgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example", // string | 
-"email" => "email_example" // string | Email address
-];
+$brand = "brand_example"; // string | 
+$email = "email_example"; // string | Email address
 
 try {
-    $result = $api->setSettingBrandByBrandWidgetSendInstruction($params);
-    print_r($result);
+    $result = $api->setSettingBrandByBrandWidgetSendInstruction($brand, $email);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -92,9 +93,17 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+ **email** | **string**| Email address |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **email** | **string**| Email address |
 
 ### Return type

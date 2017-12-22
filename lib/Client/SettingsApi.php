@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class SettingsApi
      * Operation getSettingDepartmentDefault
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingDepartmentDefault(array $params = [])
+    public function getSettingDepartmentDefault()
     {
-        list($response) = $this->getSettingDepartmentDefaultWithHttpInfo($params);
+        list($response) = $this->getSettingDepartmentDefaultWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getSettingDepartmentDefaultWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingDepartmentDefaultWithHttpInfo(array $params = [])
+    public function getSettingDepartmentDefaultWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingDepartmentDefaultRequest($params);
+        $request = $this->getSettingDepartmentDefaultRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class SettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingDepartmentDefaultAsync(array $params = [])
+    public function getSettingDepartmentDefaultAsync()
     {
-        return $this->getSettingDepartmentDefaultAsyncWithHttpInfo($params)
+        return $this->getSettingDepartmentDefaultAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class SettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingDepartmentDefaultAsyncWithHttpInfo(array $params = [])
+    public function getSettingDepartmentDefaultAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingDepartmentDefaultRequest($params);
+        $request = $this->getSettingDepartmentDefaultRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class SettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class SettingsApi
     /**
      * Create request for operation 'getSettingDepartmentDefault'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingDepartmentDefaultRequest(array $params = [])
+    protected function getSettingDepartmentDefaultRequest()
     {
         
 
@@ -305,6 +294,7 @@ class SettingsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

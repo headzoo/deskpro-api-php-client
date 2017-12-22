@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class FeedbackApi
      * Operation deleteFeedbackById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteFeedbackById(array $params = [])
+    public function deleteFeedbackById($id)
     {
-        list($response) = $this->deleteFeedbackByIdWithHttpInfo($params);
+        list($response) = $this->deleteFeedbackByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteFeedbackByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteFeedbackByIdWithHttpInfo(array $params = [])
+    public function deleteFeedbackByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteFeedbackByIdRequest($params);
+        $request = $this->deleteFeedbackByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteFeedbackByIdAsync(array $params = [])
+    public function deleteFeedbackByIdAsync($id)
     {
-        return $this->deleteFeedbackByIdAsyncWithHttpInfo($params)
+        return $this->deleteFeedbackByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteFeedbackByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteFeedbackByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteFeedbackByIdRequest($params);
+        $request = $this->deleteFeedbackByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class FeedbackApi
     /**
      * Create request for operation 'deleteFeedbackById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteFeedbackByIdRequest(array $params = [])
+    protected function deleteFeedbackByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in FeedbackApi::deleteFeedbackByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in FeedbackApi::deleteFeedbackByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class FeedbackApi
      * Operation deleteFeedbackCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteFeedbackCommentById(array $params = [])
+    public function deleteFeedbackCommentById($id)
     {
-        list($response) = $this->deleteFeedbackCommentByIdWithHttpInfo($params);
+        list($response) = $this->deleteFeedbackCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteFeedbackCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteFeedbackCommentByIdWithHttpInfo(array $params = [])
+    public function deleteFeedbackCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteFeedbackCommentByIdRequest($params);
+        $request = $this->deleteFeedbackCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteFeedbackCommentByIdAsync(array $params = [])
+    public function deleteFeedbackCommentByIdAsync($id)
     {
-        return $this->deleteFeedbackCommentByIdAsyncWithHttpInfo($params)
+        return $this->deleteFeedbackCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteFeedbackCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteFeedbackCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteFeedbackCommentByIdRequest($params);
+        $request = $this->deleteFeedbackCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class FeedbackApi
     /**
      * Create request for operation 'deleteFeedbackCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteFeedbackCommentByIdRequest(array $params = [])
+    protected function deleteFeedbackCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in FeedbackApi::deleteFeedbackCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in FeedbackApi::deleteFeedbackCommentByIdRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -691,8 +676,7 @@ class FeedbackApi
     /**
      * Operation getFeedback
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -712,22 +696,22 @@ class FeedbackApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedback(array $params = [])
+    public function getFeedback(array $filters = [])
     {
-        list($response) = $this->getFeedbackWithHttpInfo($params);
+        list($response) = $this->getFeedbackWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getFeedbackWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -747,16 +731,16 @@ class FeedbackApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackWithHttpInfo(array $params = [])
+    public function getFeedbackWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackRequest($params);
+        $request = $this->getFeedbackRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -830,7 +814,7 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -850,16 +834,16 @@ class FeedbackApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackAsync(array $params = [])
+    public function getFeedbackAsync(array $filters = [])
     {
-        return $this->getFeedbackAsyncWithHttpInfo($params)
+        return $this->getFeedbackAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -870,7 +854,7 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -890,20 +874,20 @@ class FeedbackApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackRequest($params);
+        $request = $this->getFeedbackRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -923,7 +907,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -943,7 +927,7 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedback'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -963,66 +947,65 @@ class FeedbackApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackRequest(array $params = [])
+    protected function getFeedbackRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['awaiting_validation'])) {
-            $params['awaiting_validation'] = null;
+        if (!isset($filters['awaiting_validation'])) {
+            $filters['awaiting_validation'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['status_category'])) {
-            $params['status_category'] = null;
+        if (!isset($filters['status_category'])) {
+            $filters['status_category'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['custom_category'])) {
-            $params['custom_category'] = null;
+        if (!isset($filters['custom_category'])) {
+            $filters['custom_category'] = null;
         }
-        if (!isset($params['labels_mode'])) {
-            $params['labels_mode'] = null;
+        if (!isset($filters['labels_mode'])) {
+            $filters['labels_mode'] = null;
         }
-        if (!isset($params['label'])) {
-            $params['label'] = null;
+        if (!isset($filters['label'])) {
+            $filters['label'] = null;
         }
-        if (!isset($params['no_labels'])) {
-            $params['no_labels'] = null;
+        if (!isset($filters['no_labels'])) {
+            $filters['no_labels'] = null;
         }
-        if (!isset($params['created_from'])) {
-            $params['created_from'] = null;
+        if (!isset($filters['created_from'])) {
+            $filters['created_from'] = null;
         }
-        if (!isset($params['created_to'])) {
-            $params['created_to'] = null;
+        if (!isset($filters['created_to'])) {
+            $filters['created_to'] = null;
         }
-        if (!isset($params['feedback_field_id'])) {
-            $params['feedback_field_id'] = null;
+        if (!isset($filters['feedback_field_id'])) {
+            $filters['feedback_field_id'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
-        if (!isset($params['order_dir'])) {
-            $params['order_dir'] = null;
+        if (!isset($filters['order_dir'])) {
+            $filters['order_dir'] = null;
         }
         
 
@@ -1033,77 +1016,78 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['awaiting_validation'] !== null) {
-            $queryParams['awaiting_validation'] = ObjectSerializer::toQueryValue($params['awaiting_validation']);
+        if ($filters['awaiting_validation'] !== null) {
+            $queryParams['awaiting_validation'] = ObjectSerializer::toQueryValue($filters['awaiting_validation']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['status_category'] !== null) {
-            $queryParams['status_category'] = ObjectSerializer::toQueryValue($params['status_category']);
+        if ($filters['status_category'] !== null) {
+            $queryParams['status_category'] = ObjectSerializer::toQueryValue($filters['status_category']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['custom_category'] !== null) {
-            $queryParams['custom_category'] = ObjectSerializer::toQueryValue($params['custom_category']);
+        if ($filters['custom_category'] !== null) {
+            $queryParams['custom_category'] = ObjectSerializer::toQueryValue($filters['custom_category']);
         }
         // query params
-        if ($params['labels_mode'] !== null) {
-            $queryParams['labels_mode'] = ObjectSerializer::toQueryValue($params['labels_mode']);
+        if ($filters['labels_mode'] !== null) {
+            $queryParams['labels_mode'] = ObjectSerializer::toQueryValue($filters['labels_mode']);
         }
         // query params
-        if ($params['label'] !== null) {
-            $queryParams['label'] = ObjectSerializer::toQueryValue($params['label']);
+        if ($filters['label'] !== null) {
+            $queryParams['label'] = ObjectSerializer::toQueryValue($filters['label']);
         }
         // query params
-        if ($params['no_labels'] !== null) {
-            $queryParams['no_labels'] = ObjectSerializer::toQueryValue($params['no_labels']);
+        if ($filters['no_labels'] !== null) {
+            $queryParams['no_labels'] = ObjectSerializer::toQueryValue($filters['no_labels']);
         }
         // query params
-        if ($params['created_from'] !== null) {
-            $queryParams['created_from'] = ObjectSerializer::toQueryValue($params['created_from']);
+        if ($filters['created_from'] !== null) {
+            $queryParams['created_from'] = ObjectSerializer::toQueryValue($filters['created_from']);
         }
         // query params
-        if ($params['created_to'] !== null) {
-            $queryParams['created_to'] = ObjectSerializer::toQueryValue($params['created_to']);
+        if ($filters['created_to'] !== null) {
+            $queryParams['created_to'] = ObjectSerializer::toQueryValue($filters['created_to']);
         }
         // query params
-        if ($params['feedback_field_id'] !== null) {
-            $queryParams['feedback_field.{id}'] = ObjectSerializer::toQueryValue($params['feedback_field_id']);
+        if ($filters['feedback_field_id'] !== null) {
+            $queryParams['feedback_field.{id}'] = ObjectSerializer::toQueryValue($filters['feedback_field_id']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
         // query params
-        if ($params['order_dir'] !== null) {
-            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($params['order_dir']);
+        if ($filters['order_dir'] !== null) {
+            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($filters['order_dir']);
         }
 
 
@@ -1180,37 +1164,32 @@ class FeedbackApi
      * Operation getFeedbackById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackById(array $params = [])
+    public function getFeedbackById($id)
     {
-        list($response) = $this->getFeedbackByIdWithHttpInfo($params);
+        list($response) = $this->getFeedbackByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getFeedbackByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackByIdWithHttpInfo(array $params = [])
+    public function getFeedbackByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackByIdRequest($params);
+        $request = $this->getFeedbackByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1284,19 +1263,17 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackByIdAsync(array $params = [])
+    public function getFeedbackByIdAsync($id)
     {
-        return $this->getFeedbackByIdAsyncWithHttpInfo($params)
+        return $this->getFeedbackByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1307,23 +1284,21 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackByIdAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackByIdRequest($params);
+        $request = $this->getFeedbackByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1343,7 +1318,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1363,18 +1338,15 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackByIdRequest(array $params = [])
+    protected function getFeedbackByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in FeedbackApi::getFeedbackByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in FeedbackApi::getFeedbackByIdRequest().');
         }
         
 
@@ -1385,12 +1357,16 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1468,35 +1444,30 @@ class FeedbackApi
      * Operation getFeedbackCategories
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackCategories(array $params = [])
+    public function getFeedbackCategories()
     {
-        list($response) = $this->getFeedbackCategoriesWithHttpInfo($params);
+        list($response) = $this->getFeedbackCategoriesWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getFeedbackCategoriesWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackCategoriesWithHttpInfo(array $params = [])
+    public function getFeedbackCategoriesWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCategoriesRequest($params);
+        $request = $this->getFeedbackCategoriesRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1562,18 +1533,16 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCategoriesAsync(array $params = [])
+    public function getFeedbackCategoriesAsync()
     {
-        return $this->getFeedbackCategoriesAsyncWithHttpInfo($params)
+        return $this->getFeedbackCategoriesAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1584,22 +1553,20 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCategoriesAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackCategoriesAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCategoriesRequest($params);
+        $request = $this->getFeedbackCategoriesRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1619,7 +1586,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1639,14 +1606,11 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackCategories'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackCategoriesRequest(array $params = [])
+    protected function getFeedbackCategoriesRequest()
     {
         
 
@@ -1657,6 +1621,7 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1732,37 +1697,32 @@ class FeedbackApi
      * Operation getFeedbackCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackCommentById(array $params = [])
+    public function getFeedbackCommentById($id)
     {
-        list($response) = $this->getFeedbackCommentByIdWithHttpInfo($params);
+        list($response) = $this->getFeedbackCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getFeedbackCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackCommentByIdWithHttpInfo(array $params = [])
+    public function getFeedbackCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCommentByIdRequest($params);
+        $request = $this->getFeedbackCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1836,19 +1796,17 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCommentByIdAsync(array $params = [])
+    public function getFeedbackCommentByIdAsync($id)
     {
-        return $this->getFeedbackCommentByIdAsyncWithHttpInfo($params)
+        return $this->getFeedbackCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1859,23 +1817,21 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCommentByIdRequest($params);
+        $request = $this->getFeedbackCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1895,7 +1851,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1915,18 +1871,15 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackCommentByIdRequest(array $params = [])
+    protected function getFeedbackCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in FeedbackApi::getFeedbackCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in FeedbackApi::getFeedbackCommentByIdRequest().');
         }
         
 
@@ -1937,12 +1890,16 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2020,35 +1977,30 @@ class FeedbackApi
      * Operation getFeedbackCommentCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackCommentCount(array $params = [])
+    public function getFeedbackCommentCount()
     {
-        list($response) = $this->getFeedbackCommentCountWithHttpInfo($params);
+        list($response) = $this->getFeedbackCommentCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getFeedbackCommentCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackCommentCountWithHttpInfo(array $params = [])
+    public function getFeedbackCommentCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCommentCountRequest($params);
+        $request = $this->getFeedbackCommentCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2122,18 +2074,16 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCommentCountAsync(array $params = [])
+    public function getFeedbackCommentCountAsync()
     {
-        return $this->getFeedbackCommentCountAsyncWithHttpInfo($params)
+        return $this->getFeedbackCommentCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2144,22 +2094,20 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCommentCountAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackCommentCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCommentCountRequest($params);
+        $request = $this->getFeedbackCommentCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2179,7 +2127,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2199,14 +2147,11 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackCommentCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackCommentCountRequest(array $params = [])
+    protected function getFeedbackCommentCountRequest()
     {
         
 
@@ -2217,6 +2162,7 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2291,8 +2237,7 @@ class FeedbackApi
     /**
      * Operation getFeedbackComments
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" string  current page (optional)
      *   "count" string  per page comments quantity (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2309,22 +2254,22 @@ class FeedbackApi
      *   "created_to" string  a datetime string to search comments until (optional)
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackComments(array $params = [])
+    public function getFeedbackComments(array $filters = [])
     {
-        list($response) = $this->getFeedbackCommentsWithHttpInfo($params);
+        list($response) = $this->getFeedbackCommentsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getFeedbackCommentsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" string  current page (optional)
      *   "count" string  per page comments quantity (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2341,16 +2286,16 @@ class FeedbackApi
      *   "created_to" string  a datetime string to search comments until (optional)
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackCommentsWithHttpInfo(array $params = [])
+    public function getFeedbackCommentsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCommentsRequest($params);
+        $request = $this->getFeedbackCommentsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2424,7 +2369,7 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" string  current page (optional)
      *   "count" string  per page comments quantity (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2441,16 +2386,16 @@ class FeedbackApi
      *   "created_to" string  a datetime string to search comments until (optional)
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCommentsAsync(array $params = [])
+    public function getFeedbackCommentsAsync(array $filters = [])
     {
-        return $this->getFeedbackCommentsAsyncWithHttpInfo($params)
+        return $this->getFeedbackCommentsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2461,7 +2406,7 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" string  current page (optional)
      *   "count" string  per page comments quantity (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2478,20 +2423,20 @@ class FeedbackApi
      *   "created_to" string  a datetime string to search comments until (optional)
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCommentsAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackCommentsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCommentsRequest($params);
+        $request = $this->getFeedbackCommentsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2511,7 +2456,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2531,7 +2476,7 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackComments'
      *
-     * Parameters:
+     * Filters:
      *   "page" string  current page (optional)
      *   "count" string  per page comments quantity (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2548,57 +2493,56 @@ class FeedbackApi
      *   "created_to" string  a datetime string to search comments until (optional)
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackCommentsRequest(array $params = [])
+    protected function getFeedbackCommentsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['awaiting_validation'])) {
-            $params['awaiting_validation'] = null;
+        if (!isset($filters['awaiting_validation'])) {
+            $filters['awaiting_validation'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['status_category'])) {
-            $params['status_category'] = null;
+        if (!isset($filters['status_category'])) {
+            $filters['status_category'] = null;
         }
-        if (!isset($params['label'])) {
-            $params['label'] = null;
+        if (!isset($filters['label'])) {
+            $filters['label'] = null;
         }
-        if (!isset($params['no_labels'])) {
-            $params['no_labels'] = null;
+        if (!isset($filters['no_labels'])) {
+            $filters['no_labels'] = null;
         }
-        if (!isset($params['custom_category'])) {
-            $params['custom_category'] = null;
+        if (!isset($filters['custom_category'])) {
+            $filters['custom_category'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['created_from'])) {
-            $params['created_from'] = null;
+        if (!isset($filters['created_from'])) {
+            $filters['created_from'] = null;
         }
-        if (!isset($params['created_to'])) {
-            $params['created_to'] = null;
+        if (!isset($filters['created_to'])) {
+            $filters['created_to'] = null;
         }
-        if (!isset($params['feedback_field_id'])) {
-            $params['feedback_field_id'] = null;
+        if (!isset($filters['feedback_field_id'])) {
+            $filters['feedback_field_id'] = null;
         }
         
 
@@ -2609,65 +2553,66 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['awaiting_validation'] !== null) {
-            $queryParams['awaiting_validation'] = ObjectSerializer::toQueryValue($params['awaiting_validation']);
+        if ($filters['awaiting_validation'] !== null) {
+            $queryParams['awaiting_validation'] = ObjectSerializer::toQueryValue($filters['awaiting_validation']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['status_category'] !== null) {
-            $queryParams['statusCategory'] = ObjectSerializer::toQueryValue($params['status_category']);
+        if ($filters['status_category'] !== null) {
+            $queryParams['statusCategory'] = ObjectSerializer::toQueryValue($filters['status_category']);
         }
         // query params
-        if ($params['label'] !== null) {
-            $queryParams['label'] = ObjectSerializer::toQueryValue($params['label']);
+        if ($filters['label'] !== null) {
+            $queryParams['label'] = ObjectSerializer::toQueryValue($filters['label']);
         }
         // query params
-        if ($params['no_labels'] !== null) {
-            $queryParams['no_labels'] = ObjectSerializer::toQueryValue($params['no_labels']);
+        if ($filters['no_labels'] !== null) {
+            $queryParams['no_labels'] = ObjectSerializer::toQueryValue($filters['no_labels']);
         }
         // query params
-        if ($params['custom_category'] !== null) {
-            $queryParams['custom_category'] = ObjectSerializer::toQueryValue($params['custom_category']);
+        if ($filters['custom_category'] !== null) {
+            $queryParams['custom_category'] = ObjectSerializer::toQueryValue($filters['custom_category']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['created_from'] !== null) {
-            $queryParams['created_from'] = ObjectSerializer::toQueryValue($params['created_from']);
+        if ($filters['created_from'] !== null) {
+            $queryParams['created_from'] = ObjectSerializer::toQueryValue($filters['created_from']);
         }
         // query params
-        if ($params['created_to'] !== null) {
-            $queryParams['created_to'] = ObjectSerializer::toQueryValue($params['created_to']);
+        if ($filters['created_to'] !== null) {
+            $queryParams['created_to'] = ObjectSerializer::toQueryValue($filters['created_to']);
         }
         // query params
-        if ($params['feedback_field_id'] !== null) {
-            $queryParams['feedback_field.{id}'] = ObjectSerializer::toQueryValue($params['feedback_field_id']);
+        if ($filters['feedback_field_id'] !== null) {
+            $queryParams['feedback_field.{id}'] = ObjectSerializer::toQueryValue($filters['feedback_field_id']);
         }
 
 
@@ -2743,8 +2688,7 @@ class FeedbackApi
     /**
      * Operation getFeedbackCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "awaiting_validation" bool  select feedback awaiting validation only (optional)
      *   "status" string  filter by status (optional)
      *   "hidden_status" int  limit with hidden_status (optional)
@@ -2760,22 +2704,22 @@ class FeedbackApi
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackCount(array $params = [])
+    public function getFeedbackCount(array $filters = [])
     {
-        list($response) = $this->getFeedbackCountWithHttpInfo($params);
+        list($response) = $this->getFeedbackCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getFeedbackCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "awaiting_validation" bool  select feedback awaiting validation only (optional)
      *   "status" string  filter by status (optional)
      *   "hidden_status" int  limit with hidden_status (optional)
@@ -2791,16 +2735,16 @@ class FeedbackApi
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackCountWithHttpInfo(array $params = [])
+    public function getFeedbackCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCountRequest($params);
+        $request = $this->getFeedbackCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2874,7 +2818,7 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "awaiting_validation" bool  select feedback awaiting validation only (optional)
      *   "status" string  filter by status (optional)
      *   "hidden_status" int  limit with hidden_status (optional)
@@ -2890,16 +2834,16 @@ class FeedbackApi
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCountAsync(array $params = [])
+    public function getFeedbackCountAsync(array $filters = [])
     {
-        return $this->getFeedbackCountAsyncWithHttpInfo($params)
+        return $this->getFeedbackCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2910,7 +2854,7 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "awaiting_validation" bool  select feedback awaiting validation only (optional)
      *   "status" string  filter by status (optional)
      *   "hidden_status" int  limit with hidden_status (optional)
@@ -2926,20 +2870,20 @@ class FeedbackApi
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackCountAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackCountRequest($params);
+        $request = $this->getFeedbackCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2959,7 +2903,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2979,7 +2923,7 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackCount'
      *
-     * Parameters:
+     * Filters:
      *   "awaiting_validation" bool  select feedback awaiting validation only (optional)
      *   "status" string  filter by status (optional)
      *   "hidden_status" int  limit with hidden_status (optional)
@@ -2995,54 +2939,53 @@ class FeedbackApi
      *   "feedback_field_id" string  *                  Custom feedback field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?feedback_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackCountRequest(array $params = [])
+    protected function getFeedbackCountRequest(array $filters = [])
     {
-        if (!isset($params['awaiting_validation'])) {
-            $params['awaiting_validation'] = null;
+        if (!isset($filters['awaiting_validation'])) {
+            $filters['awaiting_validation'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['status_category'])) {
-            $params['status_category'] = null;
+        if (!isset($filters['status_category'])) {
+            $filters['status_category'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['custom_category'])) {
-            $params['custom_category'] = null;
+        if (!isset($filters['custom_category'])) {
+            $filters['custom_category'] = null;
         }
-        if (!isset($params['labels_mode'])) {
-            $params['labels_mode'] = null;
+        if (!isset($filters['labels_mode'])) {
+            $filters['labels_mode'] = null;
         }
-        if (!isset($params['label'])) {
-            $params['label'] = null;
+        if (!isset($filters['label'])) {
+            $filters['label'] = null;
         }
-        if (!isset($params['no_labels'])) {
-            $params['no_labels'] = null;
+        if (!isset($filters['no_labels'])) {
+            $filters['no_labels'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['created_from'])) {
-            $params['created_from'] = null;
+        if (!isset($filters['created_from'])) {
+            $filters['created_from'] = null;
         }
-        if (!isset($params['created_to'])) {
-            $params['created_to'] = null;
+        if (!isset($filters['created_to'])) {
+            $filters['created_to'] = null;
         }
-        if (!isset($params['feedback_field_id'])) {
-            $params['feedback_field_id'] = null;
+        if (!isset($filters['feedback_field_id'])) {
+            $filters['feedback_field_id'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -3053,61 +2996,62 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['awaiting_validation'] !== null) {
-            $queryParams['awaiting_validation'] = ObjectSerializer::toQueryValue($params['awaiting_validation']);
+        if ($filters['awaiting_validation'] !== null) {
+            $queryParams['awaiting_validation'] = ObjectSerializer::toQueryValue($filters['awaiting_validation']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['status_category'] !== null) {
-            $queryParams['status_category'] = ObjectSerializer::toQueryValue($params['status_category']);
+        if ($filters['status_category'] !== null) {
+            $queryParams['status_category'] = ObjectSerializer::toQueryValue($filters['status_category']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['custom_category'] !== null) {
-            $queryParams['custom_category'] = ObjectSerializer::toQueryValue($params['custom_category']);
+        if ($filters['custom_category'] !== null) {
+            $queryParams['custom_category'] = ObjectSerializer::toQueryValue($filters['custom_category']);
         }
         // query params
-        if ($params['labels_mode'] !== null) {
-            $queryParams['labels_mode'] = ObjectSerializer::toQueryValue($params['labels_mode']);
+        if ($filters['labels_mode'] !== null) {
+            $queryParams['labels_mode'] = ObjectSerializer::toQueryValue($filters['labels_mode']);
         }
         // query params
-        if ($params['label'] !== null) {
-            $queryParams['label'] = ObjectSerializer::toQueryValue($params['label']);
+        if ($filters['label'] !== null) {
+            $queryParams['label'] = ObjectSerializer::toQueryValue($filters['label']);
         }
         // query params
-        if ($params['no_labels'] !== null) {
-            $queryParams['no_labels'] = ObjectSerializer::toQueryValue($params['no_labels']);
+        if ($filters['no_labels'] !== null) {
+            $queryParams['no_labels'] = ObjectSerializer::toQueryValue($filters['no_labels']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['created_from'] !== null) {
-            $queryParams['created_from'] = ObjectSerializer::toQueryValue($params['created_from']);
+        if ($filters['created_from'] !== null) {
+            $queryParams['created_from'] = ObjectSerializer::toQueryValue($filters['created_from']);
         }
         // query params
-        if ($params['created_to'] !== null) {
-            $queryParams['created_to'] = ObjectSerializer::toQueryValue($params['created_to']);
+        if ($filters['created_to'] !== null) {
+            $queryParams['created_to'] = ObjectSerializer::toQueryValue($filters['created_to']);
         }
         // query params
-        if ($params['feedback_field_id'] !== null) {
-            $queryParams['feedback_field.{id}'] = ObjectSerializer::toQueryValue($params['feedback_field_id']);
+        if ($filters['feedback_field_id'] !== null) {
+            $queryParams['feedback_field.{id}'] = ObjectSerializer::toQueryValue($filters['feedback_field_id']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
 
@@ -3184,37 +3128,32 @@ class FeedbackApi
      * Operation getFeedbackTypeById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackTypeById(array $params = [])
+    public function getFeedbackTypeById($id)
     {
-        list($response) = $this->getFeedbackTypeByIdWithHttpInfo($params);
+        list($response) = $this->getFeedbackTypeByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getFeedbackTypeByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackTypeByIdWithHttpInfo(array $params = [])
+    public function getFeedbackTypeByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackTypeByIdRequest($params);
+        $request = $this->getFeedbackTypeByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3288,19 +3227,17 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackTypeByIdAsync(array $params = [])
+    public function getFeedbackTypeByIdAsync($id)
     {
-        return $this->getFeedbackTypeByIdAsyncWithHttpInfo($params)
+        return $this->getFeedbackTypeByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3311,23 +3248,21 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackTypeByIdAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackTypeByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackTypeByIdRequest($params);
+        $request = $this->getFeedbackTypeByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3347,7 +3282,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3367,18 +3302,15 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackTypeById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackTypeByIdRequest(array $params = [])
+    protected function getFeedbackTypeByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in FeedbackApi::getFeedbackTypeByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in FeedbackApi::getFeedbackTypeByIdRequest().');
         }
         
 
@@ -3389,12 +3321,16 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -3472,35 +3408,30 @@ class FeedbackApi
      * Operation getFeedbackTypeCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackTypeCount(array $params = [])
+    public function getFeedbackTypeCount()
     {
-        list($response) = $this->getFeedbackTypeCountWithHttpInfo($params);
+        list($response) = $this->getFeedbackTypeCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getFeedbackTypeCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackTypeCountWithHttpInfo(array $params = [])
+    public function getFeedbackTypeCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackTypeCountRequest($params);
+        $request = $this->getFeedbackTypeCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -3574,18 +3505,16 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackTypeCountAsync(array $params = [])
+    public function getFeedbackTypeCountAsync()
     {
-        return $this->getFeedbackTypeCountAsyncWithHttpInfo($params)
+        return $this->getFeedbackTypeCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3596,22 +3525,20 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackTypeCountAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackTypeCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackTypeCountRequest($params);
+        $request = $this->getFeedbackTypeCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3631,7 +3558,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3651,14 +3578,11 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackTypeCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackTypeCountRequest(array $params = [])
+    protected function getFeedbackTypeCountRequest()
     {
         
 
@@ -3669,6 +3593,7 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -3743,44 +3668,43 @@ class FeedbackApi
     /**
      * Operation getFeedbackTypes
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeedbackTypes(array $params = [])
+    public function getFeedbackTypes(array $filters = [])
     {
-        list($response) = $this->getFeedbackTypesWithHttpInfo($params);
+        list($response) = $this->getFeedbackTypesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getFeedbackTypesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeedbackTypesWithHttpInfo(array $params = [])
+    public function getFeedbackTypesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackTypesRequest($params);
+        $request = $this->getFeedbackTypesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3854,22 +3778,22 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackTypesAsync(array $params = [])
+    public function getFeedbackTypesAsync(array $filters = [])
     {
-        return $this->getFeedbackTypesAsyncWithHttpInfo($params)
+        return $this->getFeedbackTypesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3880,26 +3804,26 @@ class FeedbackApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeedbackTypesAsyncWithHttpInfo(array $params = [])
+    public function getFeedbackTypesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeedbackTypesRequest($params);
+        $request = $this->getFeedbackTypesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3919,7 +3843,7 @@ class FeedbackApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3939,30 +3863,29 @@ class FeedbackApi
     /**
      * Create request for operation 'getFeedbackTypes'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeedbackTypesRequest(array $params = [])
+    protected function getFeedbackTypesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -3973,21 +3896,22 @@ class FeedbackApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 

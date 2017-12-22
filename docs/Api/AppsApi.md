@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 
 # **deleteAppProxyHttpByInstance**
-> \DeskPRO\API\Model\Response deleteAppProxyHttpByInstance(array $params = [])
+> \DeskPRO\API\Model\Response deleteAppProxyHttpByInstance(string $instance)
 
 
 
@@ -38,13 +38,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"instance" => "instance_example" // string | 
-];
+$instance = "instance_example"; // string | 
 
 try {
-    $result = $api->deleteAppProxyHttpByInstance($params);
-    print_r($result);
+    $result = $api->deleteAppProxyHttpByInstance($instance);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -53,9 +51,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **instance** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -73,7 +76,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteAppZapierHookById**
-> \DeskPRO\API\Model\Response deleteAppZapierHookById(array $params = [])
+> \DeskPRO\API\Model\Response deleteAppZapierHookById(int $id)
 
 
 
@@ -91,13 +94,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteAppZapierHookById($params);
-    print_r($result);
+    $result = $api->deleteAppZapierHookById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -106,9 +107,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -126,7 +132,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAppPackageById**
-> \DeskPRO\API\Model\Response getAppPackageById(array $params = [])
+> \DeskPRO\API\Model\Response getAppPackageById(int $id)
 
 
 
@@ -144,13 +150,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getAppPackageById($params);
-    print_r($result);
+    $result = $api->getAppPackageById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -159,9 +163,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -179,7 +188,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAppPackageCount**
-> \DeskPRO\API\Model\Response getAppPackageCount(array $params = [])
+> \DeskPRO\API\Model\Response getAppPackageCount()
 
 
 
@@ -197,12 +206,10 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAppPackageCount($params);
-    print_r($result);
+    $result = $api->getAppPackageCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -210,7 +217,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -228,7 +240,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAppPackages**
-> \DeskPRO\API\Model\Response getAppPackages(array $params = [])
+> \DeskPRO\API\Model\Response getAppPackages(array $filters = [])
 
 
 
@@ -246,7 +258,7 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -254,8 +266,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getAppPackages($params);
-    print_r($result);
+    $result = $api->getAppPackages($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -263,6 +275,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -287,7 +306,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAppProxyHttpByInstance**
-> \DeskPRO\API\Model\Response getAppProxyHttpByInstance(array $params = [])
+> \DeskPRO\API\Model\Response getAppProxyHttpByInstance(string $instance)
 
 
 
@@ -305,13 +324,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"instance" => "instance_example" // string | 
-];
+$instance = "instance_example"; // string | 
 
 try {
-    $result = $api->getAppProxyHttpByInstance($params);
-    print_r($result);
+    $result = $api->getAppProxyHttpByInstance($instance);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -320,9 +337,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **instance** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -340,7 +362,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAppZapierPing**
-> \DeskPRO\API\Model\Response getAppZapierPing(array $params = [])
+> \DeskPRO\API\Model\Response getAppZapierPing()
 
 
 
@@ -358,12 +380,10 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAppZapierPing($params);
-    print_r($result);
+    $result = $api->getAppZapierPing();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -371,7 +391,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -389,7 +414,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApps**
-> \DeskPRO\API\Model\Response getApps(array $params = [])
+> \DeskPRO\API\Model\Response getApps()
 
 
 
@@ -407,12 +432,10 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getApps($params);
-    print_r($result);
+    $result = $api->getApps();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -420,7 +443,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -438,7 +466,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **headAppProxyHttpByInstance**
-> \DeskPRO\API\Model\Response headAppProxyHttpByInstance(array $params = [])
+> \DeskPRO\API\Model\Response headAppProxyHttpByInstance(string $instance)
 
 
 
@@ -456,13 +484,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"instance" => "instance_example" // string | 
-];
+$instance = "instance_example"; // string | 
 
 try {
-    $result = $api->headAppProxyHttpByInstance($params);
-    print_r($result);
+    $result = $api->headAppProxyHttpByInstance($instance);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -471,9 +497,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **instance** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -491,7 +522,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **optionsAppProxyHttpByInstance**
-> \DeskPRO\API\Model\Response optionsAppProxyHttpByInstance(array $params = [])
+> \DeskPRO\API\Model\Response optionsAppProxyHttpByInstance(string $instance)
 
 
 
@@ -509,13 +540,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"instance" => "instance_example" // string | 
-];
+$instance = "instance_example"; // string | 
 
 try {
-    $result = $api->optionsAppProxyHttpByInstance($params);
-    print_r($result);
+    $result = $api->optionsAppProxyHttpByInstance($instance);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -524,9 +553,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **instance** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -544,7 +578,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **patchAppProxyHttpByInstance**
-> \DeskPRO\API\Model\Response patchAppProxyHttpByInstance(array $params = [])
+> \DeskPRO\API\Model\Response patchAppProxyHttpByInstance(string $instance)
 
 
 
@@ -562,13 +596,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"instance" => "instance_example" // string | 
-];
+$instance = "instance_example"; // string | 
 
 try {
-    $result = $api->patchAppProxyHttpByInstance($params);
-    print_r($result);
+    $result = $api->patchAppProxyHttpByInstance($instance);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -577,9 +609,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **instance** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -597,7 +634,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setAppProxyHttpByInstance**
-> \DeskPRO\API\Model\Response setAppProxyHttpByInstance(array $params = [])
+> \DeskPRO\API\Model\Response setAppProxyHttpByInstance(string $instance)
 
 
 
@@ -615,13 +652,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"instance" => "instance_example" // string | 
-];
+$instance = "instance_example"; // string | 
 
 try {
-    $result = $api->setAppProxyHttpByInstance($params);
-    print_r($result);
+    $result = $api->setAppProxyHttpByInstance($instance);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -630,9 +665,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **instance** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -650,7 +690,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateAppProxyHttpByInstance**
-> \DeskPRO\API\Model\Response updateAppProxyHttpByInstance(array $params = [])
+> \DeskPRO\API\Model\Response updateAppProxyHttpByInstance(string $instance)
 
 
 
@@ -668,13 +708,11 @@ $api = new AppsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"instance" => "instance_example" // string | 
-];
+$instance = "instance_example"; // string | 
 
 try {
-    $result = $api->updateAppProxyHttpByInstance($params);
-    print_r($result);
+    $result = $api->updateAppProxyHttpByInstance($instance);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -683,9 +721,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **instance** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

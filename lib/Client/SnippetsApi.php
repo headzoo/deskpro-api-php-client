@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class SnippetsApi
      * Operation deleteSnippetById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteSnippetById(array $params = [])
+    public function deleteSnippetById($id)
     {
-        list($response) = $this->deleteSnippetByIdWithHttpInfo($params);
+        list($response) = $this->deleteSnippetByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteSnippetByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteSnippetByIdWithHttpInfo(array $params = [])
+    public function deleteSnippetByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSnippetByIdRequest($params);
+        $request = $this->deleteSnippetByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSnippetByIdAsync(array $params = [])
+    public function deleteSnippetByIdAsync($id)
     {
-        return $this->deleteSnippetByIdAsyncWithHttpInfo($params)
+        return $this->deleteSnippetByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSnippetByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteSnippetByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSnippetByIdRequest($params);
+        $request = $this->deleteSnippetByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class SnippetsApi
     /**
      * Create request for operation 'deleteSnippetById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteSnippetByIdRequest(array $params = [])
+    protected function deleteSnippetByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in SnippetsApi::deleteSnippetByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in SnippetsApi::deleteSnippetByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class SnippetsApi
      * Operation getSnippetById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippetById(array $params = [])
+    public function getSnippetById($id)
     {
-        list($response) = $this->getSnippetByIdWithHttpInfo($params);
+        list($response) = $this->getSnippetByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getSnippetByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetByIdWithHttpInfo(array $params = [])
+    public function getSnippetByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetByIdRequest($params);
+        $request = $this->getSnippetByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetByIdAsync(array $params = [])
+    public function getSnippetByIdAsync($id)
     {
-        return $this->getSnippetByIdAsyncWithHttpInfo($params)
+        return $this->getSnippetByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetByIdAsyncWithHttpInfo(array $params = [])
+    public function getSnippetByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetByIdRequest($params);
+        $request = $this->getSnippetByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippetById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetByIdRequest(array $params = [])
+    protected function getSnippetByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in SnippetsApi::getSnippetByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in SnippetsApi::getSnippetByIdRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -691,8 +676,7 @@ class SnippetsApi
     /**
      * Operation getSnippetCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "inline_sideloads" string  sideload entities (optional)
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
@@ -701,22 +685,22 @@ class SnippetsApi
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippetCount(array $params = [])
+    public function getSnippetCount(array $filters = [])
     {
-        list($response) = $this->getSnippetCountWithHttpInfo($params);
+        list($response) = $this->getSnippetCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSnippetCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "inline_sideloads" string  sideload entities (optional)
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
@@ -725,16 +709,16 @@ class SnippetsApi
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetCountWithHttpInfo(array $params = [])
+    public function getSnippetCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetCountRequest($params);
+        $request = $this->getSnippetCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -808,7 +792,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "inline_sideloads" string  sideload entities (optional)
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
@@ -817,16 +801,16 @@ class SnippetsApi
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetCountAsync(array $params = [])
+    public function getSnippetCountAsync(array $filters = [])
     {
-        return $this->getSnippetCountAsyncWithHttpInfo($params)
+        return $this->getSnippetCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -837,7 +821,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "inline_sideloads" string  sideload entities (optional)
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
@@ -846,20 +830,20 @@ class SnippetsApi
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetCountAsyncWithHttpInfo(array $params = [])
+    public function getSnippetCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetCountRequest($params);
+        $request = $this->getSnippetCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -879,7 +863,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -899,7 +883,7 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippetCount'
      *
-     * Parameters:
+     * Filters:
      *   "inline_sideloads" string  sideload entities (optional)
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
@@ -908,33 +892,32 @@ class SnippetsApi
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetCountRequest(array $params = [])
+    protected function getSnippetCountRequest(array $filters = [])
     {
-        if (!isset($params['inline_sideloads'])) {
-            $params['inline_sideloads'] = null;
+        if (!isset($filters['inline_sideloads'])) {
+            $filters['inline_sideloads'] = null;
         }
-        if (!isset($params['include'])) {
-            $params['include'] = null;
+        if (!isset($filters['include'])) {
+            $filters['include'] = null;
         }
-        if (!isset($params['type'])) {
-            $params['type'] = null;
+        if (!isset($filters['type'])) {
+            $filters['type'] = null;
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -945,33 +928,34 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['inline_sideloads'] !== null) {
-            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($params['inline_sideloads']);
+        if ($filters['inline_sideloads'] !== null) {
+            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($filters['inline_sideloads']);
         }
         // query params
-        if ($params['include'] !== null) {
-            $queryParams['include'] = ObjectSerializer::toQueryValue($params['include']);
+        if ($filters['include'] !== null) {
+            $queryParams['include'] = ObjectSerializer::toQueryValue($filters['include']);
         }
         // query params
-        if ($params['type'] !== null) {
-            $queryParams['type'] = ObjectSerializer::toQueryValue($params['type']);
+        if ($filters['type'] !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($filters['type']);
         }
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -1047,44 +1031,43 @@ class SnippetsApi
     /**
      * Operation getSnippetCsv
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippetCsv(array $params = [])
+    public function getSnippetCsv(array $filters = [])
     {
-        list($response) = $this->getSnippetCsvWithHttpInfo($params);
+        list($response) = $this->getSnippetCsvWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSnippetCsvWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetCsvWithHttpInfo(array $params = [])
+    public function getSnippetCsvWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetCsvRequest($params);
+        $request = $this->getSnippetCsvRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1158,22 +1141,22 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetCsvAsync(array $params = [])
+    public function getSnippetCsvAsync(array $filters = [])
     {
-        return $this->getSnippetCsvAsyncWithHttpInfo($params)
+        return $this->getSnippetCsvAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1184,26 +1167,26 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetCsvAsyncWithHttpInfo(array $params = [])
+    public function getSnippetCsvAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetCsvRequest($params);
+        $request = $this->getSnippetCsvRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1223,7 +1206,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1243,30 +1226,29 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippetCsv'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetCsvRequest(array $params = [])
+    protected function getSnippetCsvRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1277,21 +1259,22 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -1367,44 +1350,43 @@ class SnippetsApi
     /**
      * Operation getSnippetLabel
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippetLabel(array $params = [])
+    public function getSnippetLabel(array $filters = [])
     {
-        list($response) = $this->getSnippetLabelWithHttpInfo($params);
+        list($response) = $this->getSnippetLabelWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSnippetLabelWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetLabelWithHttpInfo(array $params = [])
+    public function getSnippetLabelWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetLabelRequest($params);
+        $request = $this->getSnippetLabelRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1478,22 +1460,22 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetLabelAsync(array $params = [])
+    public function getSnippetLabelAsync(array $filters = [])
     {
-        return $this->getSnippetLabelAsyncWithHttpInfo($params)
+        return $this->getSnippetLabelAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1504,26 +1486,26 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetLabelAsyncWithHttpInfo(array $params = [])
+    public function getSnippetLabelAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetLabelRequest($params);
+        $request = $this->getSnippetLabelRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1543,7 +1525,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1563,30 +1545,29 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippetLabel'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetLabelRequest(array $params = [])
+    protected function getSnippetLabelRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1597,21 +1578,22 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -1688,41 +1670,36 @@ class SnippetsApi
      * Operation getSnippetRenderByIdByTypeByObjectId
      *
      *
-     * Parameters:
-     *   "id" int  The id of the object (required)
-     *   "type" string  The type of object to render the snippet for (required)
-     *   "object_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the object
+     * @param string $type The type of object to render the snippet for
+     * @param string $object_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippetRenderByIdByTypeByObjectId(array $params = [])
+    public function getSnippetRenderByIdByTypeByObjectId($id, $type, $object_id)
     {
-        list($response) = $this->getSnippetRenderByIdByTypeByObjectIdWithHttpInfo($params);
+        list($response) = $this->getSnippetRenderByIdByTypeByObjectIdWithHttpInfo($id, $type, $object_id);
         return $response;
     }
 
     /**
      * Operation getSnippetRenderByIdByTypeByObjectIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the object (required)
-     *   "type" string  The type of object to render the snippet for (required)
-     *   "object_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the object
+     * @param string $type The type of object to render the snippet for
+     * @param string $object_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetRenderByIdByTypeByObjectIdWithHttpInfo(array $params = [])
+    public function getSnippetRenderByIdByTypeByObjectIdWithHttpInfo($id, $type, $object_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetRenderByIdByTypeByObjectIdRequest($params);
+        $request = $this->getSnippetRenderByIdByTypeByObjectIdRequest($id, $type, $object_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1796,21 +1773,19 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the object (required)
-     *   "type" string  The type of object to render the snippet for (required)
-     *   "object_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the object
+     * @param string $type The type of object to render the snippet for
+     * @param string $object_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetRenderByIdByTypeByObjectIdAsync(array $params = [])
+    public function getSnippetRenderByIdByTypeByObjectIdAsync($id, $type, $object_id)
     {
-        return $this->getSnippetRenderByIdByTypeByObjectIdAsyncWithHttpInfo($params)
+        return $this->getSnippetRenderByIdByTypeByObjectIdAsyncWithHttpInfo($id, $type, $object_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1821,25 +1796,23 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the object (required)
-     *   "type" string  The type of object to render the snippet for (required)
-     *   "object_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the object
+     * @param string $type The type of object to render the snippet for
+     * @param string $object_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetRenderByIdByTypeByObjectIdAsyncWithHttpInfo(array $params = [])
+    public function getSnippetRenderByIdByTypeByObjectIdAsyncWithHttpInfo($id, $type, $object_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetRenderByIdByTypeByObjectIdRequest($params);
+        $request = $this->getSnippetRenderByIdByTypeByObjectIdRequest($id, $type, $object_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1859,7 +1832,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1879,26 +1852,23 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippetRenderByIdByTypeByObjectId'
      *
-     * Parameters:
-     *   "id" int  The id of the object (required)
-     *   "type" string  The type of object to render the snippet for (required)
-     *   "object_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the object
+     * @param string $type The type of object to render the snippet for
+     * @param string $object_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetRenderByIdByTypeByObjectIdRequest(array $params = [])
+    protected function getSnippetRenderByIdByTypeByObjectIdRequest($id, $type, $object_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in SnippetsApi::getSnippetRenderByIdByTypeByObjectIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in SnippetsApi::getSnippetRenderByIdByTypeByObjectIdRequest().');
         }
-        if (empty($params['type'])) {
-            throw new \InvalidArgumentException('Missing parameter "type" in SnippetsApi::getSnippetRenderByIdByTypeByObjectIdRequest().');
+        if (empty($type)) {
+            throw new \InvalidArgumentException('Missing parameter "$type" in SnippetsApi::getSnippetRenderByIdByTypeByObjectIdRequest().');
         }
-        if (empty($params['object_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "object_id" in SnippetsApi::getSnippetRenderByIdByTypeByObjectIdRequest().');
+        if (empty($object_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$object_id" in SnippetsApi::getSnippetRenderByIdByTypeByObjectIdRequest().');
         }
         
 
@@ -1909,28 +1879,38 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($type !== null) {
+            $type = ObjectSerializer::toQueryValue($type);
+        }
+        if ($object_id !== null) {
+            $object_id = ObjectSerializer::toQueryValue($object_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['type'] !== null) {
+        if ($type !== null) {
             $resourcePath = str_replace(
                 '{' . 'type' . '}',
-                ObjectSerializer::toPathValue($params['type']),
+                ObjectSerializer::toPathValue($type),
                 $resourcePath
             );
         }
         // path params
-        if ($params['object_id'] !== null) {
+        if ($object_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'objectId' . '}',
-                ObjectSerializer::toPathValue($params['object_id']),
+                ObjectSerializer::toPathValue($object_id),
                 $resourcePath
             );
         }
@@ -2007,8 +1987,7 @@ class SnippetsApi
     /**
      * Operation getSnippets
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2017,22 +1996,22 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippets(array $params = [])
+    public function getSnippets(array $filters = [])
     {
-        list($response) = $this->getSnippetsWithHttpInfo($params);
+        list($response) = $this->getSnippetsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSnippetsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2041,16 +2020,16 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetsWithHttpInfo(array $params = [])
+    public function getSnippetsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetsRequest($params);
+        $request = $this->getSnippetsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2124,7 +2103,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2133,16 +2112,16 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetsAsync(array $params = [])
+    public function getSnippetsAsync(array $filters = [])
     {
-        return $this->getSnippetsAsyncWithHttpInfo($params)
+        return $this->getSnippetsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2153,7 +2132,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2162,20 +2141,20 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetsAsyncWithHttpInfo(array $params = [])
+    public function getSnippetsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetsRequest($params);
+        $request = $this->getSnippetsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2195,7 +2174,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2215,7 +2194,7 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippets'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2224,33 +2203,32 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: snippet_translation) (optional)
      *   "type" string  type to limit result (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetsRequest(array $params = [])
+    protected function getSnippetsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['inline_sideloads'])) {
-            $params['inline_sideloads'] = null;
+        if (!isset($filters['inline_sideloads'])) {
+            $filters['inline_sideloads'] = null;
         }
-        if (!isset($params['include'])) {
-            $params['include'] = null;
+        if (!isset($filters['include'])) {
+            $filters['include'] = null;
         }
-        if (!isset($params['type'])) {
-            $params['type'] = null;
+        if (!isset($filters['type'])) {
+            $filters['type'] = null;
         }
         
 
@@ -2261,33 +2239,34 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['inline_sideloads'] !== null) {
-            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($params['inline_sideloads']);
+        if ($filters['inline_sideloads'] !== null) {
+            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($filters['inline_sideloads']);
         }
         // query params
-        if ($params['include'] !== null) {
-            $queryParams['include'] = ObjectSerializer::toQueryValue($params['include']);
+        if ($filters['include'] !== null) {
+            $queryParams['include'] = ObjectSerializer::toQueryValue($filters['include']);
         }
         // query params
-        if ($params['type'] !== null) {
-            $queryParams['type'] = ObjectSerializer::toQueryValue($params['type']);
+        if ($filters['type'] !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($filters['type']);
         }
 
 
@@ -2363,8 +2342,7 @@ class SnippetsApi
     /**
      * Operation getSnippetsChangeLogs
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2375,22 +2353,22 @@ class SnippetsApi
      *   "language_id" string  Language Id (optional)
      *   "type" string  Type (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippetsChangeLogs(array $params = [])
+    public function getSnippetsChangeLogs(array $filters = [])
     {
-        list($response) = $this->getSnippetsChangeLogsWithHttpInfo($params);
+        list($response) = $this->getSnippetsChangeLogsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSnippetsChangeLogsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2401,16 +2379,16 @@ class SnippetsApi
      *   "language_id" string  Language Id (optional)
      *   "type" string  Type (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetsChangeLogsWithHttpInfo(array $params = [])
+    public function getSnippetsChangeLogsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetsChangeLogsRequest($params);
+        $request = $this->getSnippetsChangeLogsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2484,7 +2462,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2495,16 +2473,16 @@ class SnippetsApi
      *   "language_id" string  Language Id (optional)
      *   "type" string  Type (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetsChangeLogsAsync(array $params = [])
+    public function getSnippetsChangeLogsAsync(array $filters = [])
     {
-        return $this->getSnippetsChangeLogsAsyncWithHttpInfo($params)
+        return $this->getSnippetsChangeLogsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2515,7 +2493,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2526,20 +2504,20 @@ class SnippetsApi
      *   "language_id" string  Language Id (optional)
      *   "type" string  Type (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetsChangeLogsAsyncWithHttpInfo(array $params = [])
+    public function getSnippetsChangeLogsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetsChangeLogsRequest($params);
+        $request = $this->getSnippetsChangeLogsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2559,7 +2537,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2579,7 +2557,7 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippetsChangeLogs'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2590,39 +2568,38 @@ class SnippetsApi
      *   "language_id" string  Language Id (optional)
      *   "type" string  Type (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetsChangeLogsRequest(array $params = [])
+    protected function getSnippetsChangeLogsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['inline_sideloads'])) {
-            $params['inline_sideloads'] = null;
+        if (!isset($filters['inline_sideloads'])) {
+            $filters['inline_sideloads'] = null;
         }
-        if (!isset($params['include'])) {
-            $params['include'] = null;
+        if (!isset($filters['include'])) {
+            $filters['include'] = null;
         }
-        if (!isset($params['snippet_id'])) {
-            $params['snippet_id'] = null;
+        if (!isset($filters['snippet_id'])) {
+            $filters['snippet_id'] = null;
         }
-        if (!isset($params['language_id'])) {
-            $params['language_id'] = null;
+        if (!isset($filters['language_id'])) {
+            $filters['language_id'] = null;
         }
-        if (!isset($params['type'])) {
-            $params['type'] = null;
+        if (!isset($filters['type'])) {
+            $filters['type'] = null;
         }
         
 
@@ -2633,41 +2610,42 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['inline_sideloads'] !== null) {
-            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($params['inline_sideloads']);
+        if ($filters['inline_sideloads'] !== null) {
+            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($filters['inline_sideloads']);
         }
         // query params
-        if ($params['include'] !== null) {
-            $queryParams['include'] = ObjectSerializer::toQueryValue($params['include']);
+        if ($filters['include'] !== null) {
+            $queryParams['include'] = ObjectSerializer::toQueryValue($filters['include']);
         }
         // query params
-        if ($params['snippet_id'] !== null) {
-            $queryParams['snippet_id'] = ObjectSerializer::toQueryValue($params['snippet_id']);
+        if ($filters['snippet_id'] !== null) {
+            $queryParams['snippet_id'] = ObjectSerializer::toQueryValue($filters['snippet_id']);
         }
         // query params
-        if ($params['language_id'] !== null) {
-            $queryParams['language_id'] = ObjectSerializer::toQueryValue($params['language_id']);
+        if ($filters['language_id'] !== null) {
+            $queryParams['language_id'] = ObjectSerializer::toQueryValue($filters['language_id']);
         }
         // query params
-        if ($params['type'] !== null) {
-            $queryParams['type'] = ObjectSerializer::toQueryValue($params['type']);
+        if ($filters['type'] !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($filters['type']);
         }
 
 
@@ -2743,8 +2721,7 @@ class SnippetsApi
     /**
      * Operation getSnippetsUse
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2753,22 +2730,22 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: ticket_message) (optional)
      *   "snippet_id" string  Snippet Id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSnippetsUse(array $params = [])
+    public function getSnippetsUse(array $filters = [])
     {
-        list($response) = $this->getSnippetsUseWithHttpInfo($params);
+        list($response) = $this->getSnippetsUseWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSnippetsUseWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2777,16 +2754,16 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: ticket_message) (optional)
      *   "snippet_id" string  Snippet Id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSnippetsUseWithHttpInfo(array $params = [])
+    public function getSnippetsUseWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetsUseRequest($params);
+        $request = $this->getSnippetsUseRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2860,7 +2837,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2869,16 +2846,16 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: ticket_message) (optional)
      *   "snippet_id" string  Snippet Id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetsUseAsync(array $params = [])
+    public function getSnippetsUseAsync(array $filters = [])
     {
-        return $this->getSnippetsUseAsyncWithHttpInfo($params)
+        return $this->getSnippetsUseAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2889,7 +2866,7 @@ class SnippetsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2898,20 +2875,20 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: ticket_message) (optional)
      *   "snippet_id" string  Snippet Id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSnippetsUseAsyncWithHttpInfo(array $params = [])
+    public function getSnippetsUseAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSnippetsUseRequest($params);
+        $request = $this->getSnippetsUseRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2931,7 +2908,7 @@ class SnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2951,7 +2928,7 @@ class SnippetsApi
     /**
      * Create request for operation 'getSnippetsUse'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2960,33 +2937,32 @@ class SnippetsApi
      *   "include" string  entities to sideload (ex: ticket_message) (optional)
      *   "snippet_id" string  Snippet Id (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSnippetsUseRequest(array $params = [])
+    protected function getSnippetsUseRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['inline_sideloads'])) {
-            $params['inline_sideloads'] = null;
+        if (!isset($filters['inline_sideloads'])) {
+            $filters['inline_sideloads'] = null;
         }
-        if (!isset($params['include'])) {
-            $params['include'] = null;
+        if (!isset($filters['include'])) {
+            $filters['include'] = null;
         }
-        if (!isset($params['snippet_id'])) {
-            $params['snippet_id'] = null;
+        if (!isset($filters['snippet_id'])) {
+            $filters['snippet_id'] = null;
         }
         
 
@@ -2997,33 +2973,34 @@ class SnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['inline_sideloads'] !== null) {
-            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($params['inline_sideloads']);
+        if ($filters['inline_sideloads'] !== null) {
+            $queryParams['inline_sideloads'] = ObjectSerializer::toQueryValue($filters['inline_sideloads']);
         }
         // query params
-        if ($params['include'] !== null) {
-            $queryParams['include'] = ObjectSerializer::toQueryValue($params['include']);
+        if ($filters['include'] !== null) {
+            $queryParams['include'] = ObjectSerializer::toQueryValue($filters['include']);
         }
         // query params
-        if ($params['snippet_id'] !== null) {
-            $queryParams['snippet_id'] = ObjectSerializer::toQueryValue($params['snippet_id']);
+        if ($filters['snippet_id'] !== null) {
+            $queryParams['snippet_id'] = ObjectSerializer::toQueryValue($filters['snippet_id']);
         }
 
 

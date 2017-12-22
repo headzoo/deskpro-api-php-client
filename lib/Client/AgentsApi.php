@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class AgentsApi
      * Operation deleteAgentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAgentById(array $params = [])
+    public function deleteAgentById($id)
     {
-        list($response) = $this->deleteAgentByIdWithHttpInfo($params);
+        list($response) = $this->deleteAgentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteAgentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentByIdWithHttpInfo(array $params = [])
+    public function deleteAgentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentByIdRequest($params);
+        $request = $this->deleteAgentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentByIdAsync(array $params = [])
+    public function deleteAgentByIdAsync($id)
     {
-        return $this->deleteAgentByIdAsyncWithHttpInfo($params)
+        return $this->deleteAgentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteAgentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentByIdRequest($params);
+        $request = $this->deleteAgentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class AgentsApi
     /**
      * Create request for operation 'deleteAgentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAgentByIdRequest(array $params = [])
+    protected function deleteAgentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AgentsApi::deleteAgentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AgentsApi::deleteAgentByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class AgentsApi
      * Operation deleteAgentByIdAgentPermission
      *
      *
-     * Parameters:
-     *   "id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAgentByIdAgentPermission(array $params = [])
+    public function deleteAgentByIdAgentPermission($id)
     {
-        list($response) = $this->deleteAgentByIdAgentPermissionWithHttpInfo($params);
+        list($response) = $this->deleteAgentByIdAgentPermissionWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteAgentByIdAgentPermissionWithHttpInfo
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentByIdAgentPermissionWithHttpInfo(array $params = [])
+    public function deleteAgentByIdAgentPermissionWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentByIdAgentPermissionRequest($params);
+        $request = $this->deleteAgentByIdAgentPermissionRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -500,19 +488,17 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentByIdAgentPermissionAsync(array $params = [])
+    public function deleteAgentByIdAgentPermissionAsync($id)
     {
-        return $this->deleteAgentByIdAgentPermissionAsyncWithHttpInfo($params)
+        return $this->deleteAgentByIdAgentPermissionAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -523,23 +509,21 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentByIdAgentPermissionAsyncWithHttpInfo(array $params = [])
+    public function deleteAgentByIdAgentPermissionAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentByIdAgentPermissionRequest($params);
+        $request = $this->deleteAgentByIdAgentPermissionRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -559,7 +543,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -579,18 +563,15 @@ class AgentsApi
     /**
      * Create request for operation 'deleteAgentByIdAgentPermission'
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAgentByIdAgentPermissionRequest(array $params = [])
+    protected function deleteAgentByIdAgentPermissionRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AgentsApi::deleteAgentByIdAgentPermissionRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AgentsApi::deleteAgentByIdAgentPermissionRequest().');
         }
         
 
@@ -601,12 +582,16 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -684,37 +669,32 @@ class AgentsApi
      * Operation deleteAgentTeamById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAgentTeamById(array $params = [])
+    public function deleteAgentTeamById($id)
     {
-        list($response) = $this->deleteAgentTeamByIdWithHttpInfo($params);
+        list($response) = $this->deleteAgentTeamByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteAgentTeamByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentTeamByIdWithHttpInfo(array $params = [])
+    public function deleteAgentTeamByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentTeamByIdRequest($params);
+        $request = $this->deleteAgentTeamByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -788,19 +768,17 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentTeamByIdAsync(array $params = [])
+    public function deleteAgentTeamByIdAsync($id)
     {
-        return $this->deleteAgentTeamByIdAsyncWithHttpInfo($params)
+        return $this->deleteAgentTeamByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -811,23 +789,21 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentTeamByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteAgentTeamByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentTeamByIdRequest($params);
+        $request = $this->deleteAgentTeamByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -847,7 +823,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -867,18 +843,15 @@ class AgentsApi
     /**
      * Create request for operation 'deleteAgentTeamById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAgentTeamByIdRequest(array $params = [])
+    protected function deleteAgentTeamByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AgentsApi::deleteAgentTeamByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AgentsApi::deleteAgentTeamByIdRequest().');
         }
         
 
@@ -889,12 +862,16 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -972,35 +949,30 @@ class AgentsApi
      * Operation getAgentAssignedToChat
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentAssignedToChat(array $params = [])
+    public function getAgentAssignedToChat()
     {
-        list($response) = $this->getAgentAssignedToChatWithHttpInfo($params);
+        list($response) = $this->getAgentAssignedToChatWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentAssignedToChatWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentAssignedToChatWithHttpInfo(array $params = [])
+    public function getAgentAssignedToChatWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentAssignedToChatRequest($params);
+        $request = $this->getAgentAssignedToChatRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1066,18 +1038,16 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentAssignedToChatAsync(array $params = [])
+    public function getAgentAssignedToChatAsync()
     {
-        return $this->getAgentAssignedToChatAsyncWithHttpInfo($params)
+        return $this->getAgentAssignedToChatAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1088,22 +1058,20 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentAssignedToChatAsyncWithHttpInfo(array $params = [])
+    public function getAgentAssignedToChatAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentAssignedToChatRequest($params);
+        $request = $this->getAgentAssignedToChatRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1123,7 +1091,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1143,14 +1111,11 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentAssignedToChat'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentAssignedToChatRequest(array $params = [])
+    protected function getAgentAssignedToChatRequest()
     {
         
 
@@ -1161,6 +1126,7 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1236,37 +1202,32 @@ class AgentsApi
      * Operation getAgentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentById(array $params = [])
+    public function getAgentById($id)
     {
-        list($response) = $this->getAgentByIdWithHttpInfo($params);
+        list($response) = $this->getAgentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getAgentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentByIdWithHttpInfo(array $params = [])
+    public function getAgentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentByIdRequest($params);
+        $request = $this->getAgentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1340,19 +1301,17 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentByIdAsync(array $params = [])
+    public function getAgentByIdAsync($id)
     {
-        return $this->getAgentByIdAsyncWithHttpInfo($params)
+        return $this->getAgentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1363,23 +1322,21 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentByIdAsyncWithHttpInfo(array $params = [])
+    public function getAgentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentByIdRequest($params);
+        $request = $this->getAgentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1399,7 +1356,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1419,18 +1376,15 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentByIdRequest(array $params = [])
+    protected function getAgentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AgentsApi::getAgentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AgentsApi::getAgentByIdRequest().');
         }
         
 
@@ -1441,12 +1395,16 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1524,35 +1482,30 @@ class AgentsApi
      * Operation getAgentCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentCount(array $params = [])
+    public function getAgentCount()
     {
-        list($response) = $this->getAgentCountWithHttpInfo($params);
+        list($response) = $this->getAgentCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentCountWithHttpInfo(array $params = [])
+    public function getAgentCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentCountRequest($params);
+        $request = $this->getAgentCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1626,18 +1579,16 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentCountAsync(array $params = [])
+    public function getAgentCountAsync()
     {
-        return $this->getAgentCountAsyncWithHttpInfo($params)
+        return $this->getAgentCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1648,22 +1599,20 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentCountAsyncWithHttpInfo(array $params = [])
+    public function getAgentCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentCountRequest($params);
+        $request = $this->getAgentCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1683,7 +1632,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1703,14 +1652,11 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentCountRequest(array $params = [])
+    protected function getAgentCountRequest()
     {
         
 
@@ -1721,6 +1667,7 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1796,37 +1743,32 @@ class AgentsApi
      * Operation getAgentGroupById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentGroupById(array $params = [])
+    public function getAgentGroupById($id)
     {
-        list($response) = $this->getAgentGroupByIdWithHttpInfo($params);
+        list($response) = $this->getAgentGroupByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getAgentGroupByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentGroupByIdWithHttpInfo(array $params = [])
+    public function getAgentGroupByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentGroupByIdRequest($params);
+        $request = $this->getAgentGroupByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1900,19 +1842,17 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentGroupByIdAsync(array $params = [])
+    public function getAgentGroupByIdAsync($id)
     {
-        return $this->getAgentGroupByIdAsyncWithHttpInfo($params)
+        return $this->getAgentGroupByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1923,23 +1863,21 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentGroupByIdAsyncWithHttpInfo(array $params = [])
+    public function getAgentGroupByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentGroupByIdRequest($params);
+        $request = $this->getAgentGroupByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1959,7 +1897,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1979,18 +1917,15 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentGroupById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentGroupByIdRequest(array $params = [])
+    protected function getAgentGroupByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AgentsApi::getAgentGroupByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AgentsApi::getAgentGroupByIdRequest().');
         }
         
 
@@ -2001,12 +1936,16 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2084,35 +2023,30 @@ class AgentsApi
      * Operation getAgentGroupCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentGroupCount(array $params = [])
+    public function getAgentGroupCount()
     {
-        list($response) = $this->getAgentGroupCountWithHttpInfo($params);
+        list($response) = $this->getAgentGroupCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentGroupCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentGroupCountWithHttpInfo(array $params = [])
+    public function getAgentGroupCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentGroupCountRequest($params);
+        $request = $this->getAgentGroupCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2186,18 +2120,16 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentGroupCountAsync(array $params = [])
+    public function getAgentGroupCountAsync()
     {
-        return $this->getAgentGroupCountAsyncWithHttpInfo($params)
+        return $this->getAgentGroupCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2208,22 +2140,20 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentGroupCountAsyncWithHttpInfo(array $params = [])
+    public function getAgentGroupCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentGroupCountRequest($params);
+        $request = $this->getAgentGroupCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2243,7 +2173,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2263,14 +2193,11 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentGroupCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentGroupCountRequest(array $params = [])
+    protected function getAgentGroupCountRequest()
     {
         
 
@@ -2281,6 +2208,7 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2355,44 +2283,43 @@ class AgentsApi
     /**
      * Operation getAgentGroups
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentGroups(array $params = [])
+    public function getAgentGroups(array $filters = [])
     {
-        list($response) = $this->getAgentGroupsWithHttpInfo($params);
+        list($response) = $this->getAgentGroupsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getAgentGroupsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentGroupsWithHttpInfo(array $params = [])
+    public function getAgentGroupsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentGroupsRequest($params);
+        $request = $this->getAgentGroupsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2466,22 +2393,22 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentGroupsAsync(array $params = [])
+    public function getAgentGroupsAsync(array $filters = [])
     {
-        return $this->getAgentGroupsAsyncWithHttpInfo($params)
+        return $this->getAgentGroupsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2492,26 +2419,26 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentGroupsAsyncWithHttpInfo(array $params = [])
+    public function getAgentGroupsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentGroupsRequest($params);
+        $request = $this->getAgentGroupsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2531,7 +2458,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2551,30 +2478,29 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentGroups'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentGroupsRequest(array $params = [])
+    protected function getAgentGroupsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -2585,21 +2511,22 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -2676,35 +2603,30 @@ class AgentsApi
      * Operation getAgentOnline
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentOnline(array $params = [])
+    public function getAgentOnline()
     {
-        list($response) = $this->getAgentOnlineWithHttpInfo($params);
+        list($response) = $this->getAgentOnlineWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentOnlineWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentOnlineWithHttpInfo(array $params = [])
+    public function getAgentOnlineWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentOnlineRequest($params);
+        $request = $this->getAgentOnlineRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2770,18 +2692,16 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentOnlineAsync(array $params = [])
+    public function getAgentOnlineAsync()
     {
-        return $this->getAgentOnlineAsyncWithHttpInfo($params)
+        return $this->getAgentOnlineAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2792,22 +2712,20 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentOnlineAsyncWithHttpInfo(array $params = [])
+    public function getAgentOnlineAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentOnlineRequest($params);
+        $request = $this->getAgentOnlineRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2827,7 +2745,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2847,14 +2765,11 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentOnline'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentOnlineRequest(array $params = [])
+    protected function getAgentOnlineRequest()
     {
         
 
@@ -2865,6 +2780,7 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2940,37 +2856,32 @@ class AgentsApi
      * Operation getAgentTeamById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentTeamById(array $params = [])
+    public function getAgentTeamById($id)
     {
-        list($response) = $this->getAgentTeamByIdWithHttpInfo($params);
+        list($response) = $this->getAgentTeamByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getAgentTeamByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentTeamByIdWithHttpInfo(array $params = [])
+    public function getAgentTeamByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamByIdRequest($params);
+        $request = $this->getAgentTeamByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3044,19 +2955,17 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamByIdAsync(array $params = [])
+    public function getAgentTeamByIdAsync($id)
     {
-        return $this->getAgentTeamByIdAsyncWithHttpInfo($params)
+        return $this->getAgentTeamByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3067,23 +2976,21 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamByIdAsyncWithHttpInfo(array $params = [])
+    public function getAgentTeamByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamByIdRequest($params);
+        $request = $this->getAgentTeamByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3103,7 +3010,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3123,18 +3030,15 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentTeamById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentTeamByIdRequest(array $params = [])
+    protected function getAgentTeamByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AgentsApi::getAgentTeamByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AgentsApi::getAgentTeamByIdRequest().');
         }
         
 
@@ -3145,12 +3049,16 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -3228,37 +3136,32 @@ class AgentsApi
      * Operation getAgentTeamByIdAgent
      *
      *
-     * Parameters:
-     *   "id" int  the id of team (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of team
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentTeamByIdAgent(array $params = [])
+    public function getAgentTeamByIdAgent($id)
     {
-        list($response) = $this->getAgentTeamByIdAgentWithHttpInfo($params);
+        list($response) = $this->getAgentTeamByIdAgentWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getAgentTeamByIdAgentWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of team (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of team
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentTeamByIdAgentWithHttpInfo(array $params = [])
+    public function getAgentTeamByIdAgentWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamByIdAgentRequest($params);
+        $request = $this->getAgentTeamByIdAgentRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3340,19 +3243,17 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of team (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of team
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamByIdAgentAsync(array $params = [])
+    public function getAgentTeamByIdAgentAsync($id)
     {
-        return $this->getAgentTeamByIdAgentAsyncWithHttpInfo($params)
+        return $this->getAgentTeamByIdAgentAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3363,23 +3264,21 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of team (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of team
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamByIdAgentAsyncWithHttpInfo(array $params = [])
+    public function getAgentTeamByIdAgentAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamByIdAgentRequest($params);
+        $request = $this->getAgentTeamByIdAgentRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3399,7 +3298,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3419,18 +3318,15 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentTeamByIdAgent'
      *
-     * Parameters:
-     *   "id" int  the id of team (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of team
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentTeamByIdAgentRequest(array $params = [])
+    protected function getAgentTeamByIdAgentRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AgentsApi::getAgentTeamByIdAgentRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AgentsApi::getAgentTeamByIdAgentRequest().');
         }
         
 
@@ -3441,12 +3337,16 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -3524,35 +3424,30 @@ class AgentsApi
      * Operation getAgentTeamCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentTeamCount(array $params = [])
+    public function getAgentTeamCount()
     {
-        list($response) = $this->getAgentTeamCountWithHttpInfo($params);
+        list($response) = $this->getAgentTeamCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentTeamCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentTeamCountWithHttpInfo(array $params = [])
+    public function getAgentTeamCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamCountRequest($params);
+        $request = $this->getAgentTeamCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -3626,18 +3521,16 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamCountAsync(array $params = [])
+    public function getAgentTeamCountAsync()
     {
-        return $this->getAgentTeamCountAsyncWithHttpInfo($params)
+        return $this->getAgentTeamCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3648,22 +3541,20 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamCountAsyncWithHttpInfo(array $params = [])
+    public function getAgentTeamCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamCountRequest($params);
+        $request = $this->getAgentTeamCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3683,7 +3574,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3703,14 +3594,11 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentTeamCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentTeamCountRequest(array $params = [])
+    protected function getAgentTeamCountRequest()
     {
         
 
@@ -3721,6 +3609,7 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -3795,44 +3684,43 @@ class AgentsApi
     /**
      * Operation getAgentTeams
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentTeams(array $params = [])
+    public function getAgentTeams(array $filters = [])
     {
-        list($response) = $this->getAgentTeamsWithHttpInfo($params);
+        list($response) = $this->getAgentTeamsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getAgentTeamsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentTeamsWithHttpInfo(array $params = [])
+    public function getAgentTeamsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamsRequest($params);
+        $request = $this->getAgentTeamsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3906,22 +3794,22 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamsAsync(array $params = [])
+    public function getAgentTeamsAsync(array $filters = [])
     {
-        return $this->getAgentTeamsAsyncWithHttpInfo($params)
+        return $this->getAgentTeamsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3932,26 +3820,26 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentTeamsAsyncWithHttpInfo(array $params = [])
+    public function getAgentTeamsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentTeamsRequest($params);
+        $request = $this->getAgentTeamsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3971,7 +3859,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3991,30 +3879,29 @@ class AgentsApi
     /**
      * Create request for operation 'getAgentTeams'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentTeamsRequest(array $params = [])
+    protected function getAgentTeamsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -4025,21 +3912,22 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -4115,46 +4003,45 @@ class AgentsApi
     /**
      * Operation getAgents
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *   "is_deleted" int  deleted filter, defaults to 0 (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgents(array $params = [])
+    public function getAgents(array $filters = [])
     {
-        list($response) = $this->getAgentsWithHttpInfo($params);
+        list($response) = $this->getAgentsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getAgentsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *   "is_deleted" int  deleted filter, defaults to 0 (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsWithHttpInfo(array $params = [])
+    public function getAgentsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentsRequest($params);
+        $request = $this->getAgentsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4228,23 +4115,23 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *   "is_deleted" int  deleted filter, defaults to 0 (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsAsync(array $params = [])
+    public function getAgentsAsync(array $filters = [])
     {
-        return $this->getAgentsAsyncWithHttpInfo($params)
+        return $this->getAgentsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4255,27 +4142,27 @@ class AgentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *   "is_deleted" int  deleted filter, defaults to 0 (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsAsyncWithHttpInfo(array $params = [])
+    public function getAgentsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentsRequest($params);
+        $request = $this->getAgentsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4295,7 +4182,7 @@ class AgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4315,34 +4202,33 @@ class AgentsApi
     /**
      * Create request for operation 'getAgents'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *   "is_deleted" int  deleted filter, defaults to 0 (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentsRequest(array $params = [])
+    protected function getAgentsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['is_deleted'])) {
-            $params['is_deleted'] = null;
+        if (!isset($filters['is_deleted'])) {
+            $filters['is_deleted'] = null;
         }
         
 
@@ -4353,25 +4239,26 @@ class AgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['is_deleted'] !== null) {
-            $queryParams['is_deleted'] = ObjectSerializer::toQueryValue($params['is_deleted']);
+        if ($filters['is_deleted'] !== null) {
+            $queryParams['is_deleted'] = ObjectSerializer::toQueryValue($filters['is_deleted']);
         }
 
 

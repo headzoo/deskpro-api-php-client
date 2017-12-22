@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,39 +117,34 @@ class TasksApi
      * Operation deleteTaskByParentIdCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTaskByParentIdCommentById(array $params = [])
+    public function deleteTaskByParentIdCommentById($id, $parent_id)
     {
-        list($response) = $this->deleteTaskByParentIdCommentByIdWithHttpInfo($params);
+        list($response) = $this->deleteTaskByParentIdCommentByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deleteTaskByParentIdCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTaskByParentIdCommentByIdWithHttpInfo(array $params = [])
+    public function deleteTaskByParentIdCommentByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTaskByParentIdCommentByIdRequest($params);
+        $request = $this->deleteTaskByParentIdCommentByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -222,20 +218,18 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTaskByParentIdCommentByIdAsync(array $params = [])
+    public function deleteTaskByParentIdCommentByIdAsync($id, $parent_id)
     {
-        return $this->deleteTaskByParentIdCommentByIdAsyncWithHttpInfo($params)
+        return $this->deleteTaskByParentIdCommentByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -246,24 +240,22 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTaskByParentIdCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTaskByParentIdCommentByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTaskByParentIdCommentByIdRequest($params);
+        $request = $this->deleteTaskByParentIdCommentByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -283,7 +275,7 @@ class TasksApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -303,22 +295,19 @@ class TasksApi
     /**
      * Create request for operation 'deleteTaskByParentIdCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTaskByParentIdCommentByIdRequest(array $params = [])
+    protected function deleteTaskByParentIdCommentByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TasksApi::deleteTaskByParentIdCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TasksApi::deleteTaskByParentIdCommentByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TasksApi::deleteTaskByParentIdCommentByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TasksApi::deleteTaskByParentIdCommentByIdRequest().');
         }
         
 
@@ -329,20 +318,27 @@ class TasksApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -419,46 +415,45 @@ class TasksApi
     /**
      * Operation getTaskByParentIdComment
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTaskByParentIdComment(array $params = [])
+    public function getTaskByParentIdComment($parent_id, array $filters = [])
     {
-        list($response) = $this->getTaskByParentIdCommentWithHttpInfo($params);
+        list($response) = $this->getTaskByParentIdCommentWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getTaskByParentIdCommentWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTaskByParentIdCommentWithHttpInfo(array $params = [])
+    public function getTaskByParentIdCommentWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTaskByParentIdCommentRequest($params);
+        $request = $this->getTaskByParentIdCommentRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -532,23 +527,23 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTaskByParentIdCommentAsync(array $params = [])
+    public function getTaskByParentIdCommentAsync($parent_id, array $filters = [])
     {
-        return $this->getTaskByParentIdCommentAsyncWithHttpInfo($params)
+        return $this->getTaskByParentIdCommentAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -559,27 +554,27 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTaskByParentIdCommentAsyncWithHttpInfo(array $params = [])
+    public function getTaskByParentIdCommentAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTaskByParentIdCommentRequest($params);
+        $request = $this->getTaskByParentIdCommentRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -599,7 +594,7 @@ class TasksApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -619,34 +614,33 @@ class TasksApi
     /**
      * Create request for operation 'getTaskByParentIdComment'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTaskByParentIdCommentRequest(array $params = [])
+    protected function getTaskByParentIdCommentRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TasksApi::getTaskByParentIdCommentRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TasksApi::getTaskByParentIdCommentRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -657,28 +651,32 @@ class TasksApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -756,39 +754,34 @@ class TasksApi
      * Operation getTaskByParentIdCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTaskByParentIdCommentById(array $params = [])
+    public function getTaskByParentIdCommentById($id, $parent_id)
     {
-        list($response) = $this->getTaskByParentIdCommentByIdWithHttpInfo($params);
+        list($response) = $this->getTaskByParentIdCommentByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getTaskByParentIdCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTaskByParentIdCommentByIdWithHttpInfo(array $params = [])
+    public function getTaskByParentIdCommentByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTaskByParentIdCommentByIdRequest($params);
+        $request = $this->getTaskByParentIdCommentByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -862,20 +855,18 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTaskByParentIdCommentByIdAsync(array $params = [])
+    public function getTaskByParentIdCommentByIdAsync($id, $parent_id)
     {
-        return $this->getTaskByParentIdCommentByIdAsyncWithHttpInfo($params)
+        return $this->getTaskByParentIdCommentByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -886,24 +877,22 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTaskByParentIdCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function getTaskByParentIdCommentByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTaskByParentIdCommentByIdRequest($params);
+        $request = $this->getTaskByParentIdCommentByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -923,7 +912,7 @@ class TasksApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -943,22 +932,19 @@ class TasksApi
     /**
      * Create request for operation 'getTaskByParentIdCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTaskByParentIdCommentByIdRequest(array $params = [])
+    protected function getTaskByParentIdCommentByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TasksApi::getTaskByParentIdCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TasksApi::getTaskByParentIdCommentByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TasksApi::getTaskByParentIdCommentByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TasksApi::getTaskByParentIdCommentByIdRequest().');
         }
         
 
@@ -969,20 +955,27 @@ class TasksApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -1060,37 +1053,32 @@ class TasksApi
      * Operation getTaskByParentIdCommentCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTaskByParentIdCommentCount(array $params = [])
+    public function getTaskByParentIdCommentCount($parent_id)
     {
-        list($response) = $this->getTaskByParentIdCommentCountWithHttpInfo($params);
+        list($response) = $this->getTaskByParentIdCommentCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getTaskByParentIdCommentCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTaskByParentIdCommentCountWithHttpInfo(array $params = [])
+    public function getTaskByParentIdCommentCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTaskByParentIdCommentCountRequest($params);
+        $request = $this->getTaskByParentIdCommentCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1164,19 +1152,17 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTaskByParentIdCommentCountAsync(array $params = [])
+    public function getTaskByParentIdCommentCountAsync($parent_id)
     {
-        return $this->getTaskByParentIdCommentCountAsyncWithHttpInfo($params)
+        return $this->getTaskByParentIdCommentCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1187,23 +1173,21 @@ class TasksApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTaskByParentIdCommentCountAsyncWithHttpInfo(array $params = [])
+    public function getTaskByParentIdCommentCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTaskByParentIdCommentCountRequest($params);
+        $request = $this->getTaskByParentIdCommentCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1223,7 +1207,7 @@ class TasksApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1243,18 +1227,15 @@ class TasksApi
     /**
      * Create request for operation 'getTaskByParentIdCommentCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTaskByParentIdCommentCountRequest(array $params = [])
+    protected function getTaskByParentIdCommentCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TasksApi::getTaskByParentIdCommentCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TasksApi::getTaskByParentIdCommentCountRequest().');
         }
         
 
@@ -1265,12 +1246,16 @@ class TasksApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }

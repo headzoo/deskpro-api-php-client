@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **getHelpdeskAgentClientInfo**
-> \DeskPRO\API\Model\Response getHelpdeskAgentClientInfo(array $params = [])
+> \DeskPRO\API\Model\Response getHelpdeskAgentClientInfo()
 
 
 
@@ -31,12 +31,10 @@ $api = new HelpdeskApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getHelpdeskAgentClientInfo($params);
-    print_r($result);
+    $result = $api->getHelpdeskAgentClientInfo();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -44,7 +42,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -62,7 +65,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getHelpdeskAgentClientSetting**
-> \DeskPRO\API\Model\Response getHelpdeskAgentClientSetting(array $params = [])
+> \DeskPRO\API\Model\Response getHelpdeskAgentClientSetting()
 
 
 
@@ -80,12 +83,10 @@ $api = new HelpdeskApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getHelpdeskAgentClientSetting($params);
-    print_r($result);
+    $result = $api->getHelpdeskAgentClientSetting();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -93,7 +94,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -111,7 +117,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getHelpdeskDiscover**
-> \DeskPRO\API\Model\Response getHelpdeskDiscover(array $params = [])
+> \DeskPRO\API\Model\Response getHelpdeskDiscover()
 
 
 
@@ -129,12 +135,10 @@ $api = new HelpdeskApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getHelpdeskDiscover($params);
-    print_r($result);
+    $result = $api->getHelpdeskDiscover();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -142,7 +146,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -160,7 +169,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getHelpdeskUpdaterSetting**
-> \DeskPRO\API\Model\Response getHelpdeskUpdaterSetting(array $params = [])
+> \DeskPRO\API\Model\Response getHelpdeskUpdaterSetting()
 
 
 
@@ -178,12 +187,10 @@ $api = new HelpdeskApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getHelpdeskUpdaterSetting($params);
-    print_r($result);
+    $result = $api->getHelpdeskUpdaterSetting();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -191,7 +198,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -209,7 +221,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getHelpdeskUpdaterStatu**
-> \DeskPRO\API\Model\Response getHelpdeskUpdaterStatu(array $params = [])
+> \DeskPRO\API\Model\Response getHelpdeskUpdaterStatu()
 
 
 
@@ -227,12 +239,10 @@ $api = new HelpdeskApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getHelpdeskUpdaterStatu($params);
-    print_r($result);
+    $result = $api->getHelpdeskUpdaterStatu();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -240,7 +250,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -258,7 +273,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setHelpdeskUpdaterManualSchedule**
-> \DeskPRO\API\Model\Response setHelpdeskUpdaterManualSchedule(array $params = [])
+> \DeskPRO\API\Model\Response setHelpdeskUpdaterManualSchedule(int $delay)
 
 
 
@@ -276,13 +291,11 @@ $api = new HelpdeskApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"delay" => 56 // int | delay before start
-];
+$delay = 56; // int | delay before start
 
 try {
-    $result = $api->setHelpdeskUpdaterManualSchedule($params);
-    print_r($result);
+    $result = $api->setHelpdeskUpdaterManualSchedule($delay);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -290,6 +303,14 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **delay** | **int**| delay before start |
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

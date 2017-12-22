@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -115,40 +116,39 @@ class LogsApi
     /**
      * Operation getApiLogById
      *
-     *
-     * Parameters:
-     *   "id" string   (required)
+     * Filters:
      *   "page" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiLogById(array $params = [])
+    public function getApiLogById($id, array $filters = [])
     {
-        list($response) = $this->getApiLogByIdWithHttpInfo($params);
+        list($response) = $this->getApiLogByIdWithHttpInfo($id, $filters);
         return $response;
     }
 
     /**
      * Operation getApiLogByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" string   (required)
+     * Filters:
      *   "page" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiLogByIdWithHttpInfo(array $params = [])
+    public function getApiLogByIdWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiLogByIdRequest($params);
+        $request = $this->getApiLogByIdRequest($id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -214,20 +214,20 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
+     * Filters:
      *   "page" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiLogByIdAsync(array $params = [])
+    public function getApiLogByIdAsync($id, array $filters = [])
     {
-        return $this->getApiLogByIdAsyncWithHttpInfo($params)
+        return $this->getApiLogByIdAsyncWithHttpInfo($id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -238,24 +238,24 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
+     * Filters:
      *   "page" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiLogByIdAsyncWithHttpInfo(array $params = [])
+    public function getApiLogByIdAsyncWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiLogByIdRequest($params);
+        $request = $this->getApiLogByIdRequest($id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -275,7 +275,7 @@ class LogsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -295,22 +295,21 @@ class LogsApi
     /**
      * Create request for operation 'getApiLogById'
      *
-     * Parameters:
-     *   "id" string   (required)
+     * Filters:
      *   "page" string   (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiLogByIdRequest(array $params = [])
+    protected function getApiLogByIdRequest($id, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in LogsApi::getApiLogByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in LogsApi::getApiLogByIdRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
         
 
@@ -321,16 +320,20 @@ class LogsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -408,35 +411,30 @@ class LogsApi
      * Operation getApiLogs
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiLogs(array $params = [])
+    public function getApiLogs()
     {
-        list($response) = $this->getApiLogsWithHttpInfo($params);
+        list($response) = $this->getApiLogsWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getApiLogsWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiLogsWithHttpInfo(array $params = [])
+    public function getApiLogsWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiLogsRequest($params);
+        $request = $this->getApiLogsRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -502,18 +500,16 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiLogsAsync(array $params = [])
+    public function getApiLogsAsync()
     {
-        return $this->getApiLogsAsyncWithHttpInfo($params)
+        return $this->getApiLogsAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -524,22 +520,20 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiLogsAsyncWithHttpInfo(array $params = [])
+    public function getApiLogsAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiLogsRequest($params);
+        $request = $this->getApiLogsRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -559,7 +553,7 @@ class LogsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -579,14 +573,11 @@ class LogsApi
     /**
      * Create request for operation 'getApiLogs'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiLogsRequest(array $params = [])
+    protected function getApiLogsRequest()
     {
         
 
@@ -597,6 +588,7 @@ class LogsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -672,35 +664,30 @@ class LogsApi
      * Operation getApiLogsOptions
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiLogsOptions(array $params = [])
+    public function getApiLogsOptions()
     {
-        list($response) = $this->getApiLogsOptionsWithHttpInfo($params);
+        list($response) = $this->getApiLogsOptionsWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getApiLogsOptionsWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiLogsOptionsWithHttpInfo(array $params = [])
+    public function getApiLogsOptionsWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiLogsOptionsRequest($params);
+        $request = $this->getApiLogsOptionsRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -766,18 +753,16 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiLogsOptionsAsync(array $params = [])
+    public function getApiLogsOptionsAsync()
     {
-        return $this->getApiLogsOptionsAsyncWithHttpInfo($params)
+        return $this->getApiLogsOptionsAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -788,22 +773,20 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiLogsOptionsAsyncWithHttpInfo(array $params = [])
+    public function getApiLogsOptionsAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiLogsOptionsRequest($params);
+        $request = $this->getApiLogsOptionsRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -823,7 +806,7 @@ class LogsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -843,14 +826,11 @@ class LogsApi
     /**
      * Create request for operation 'getApiLogsOptions'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiLogsOptionsRequest(array $params = [])
+    protected function getApiLogsOptionsRequest()
     {
         
 
@@ -861,6 +841,7 @@ class LogsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -935,40 +916,39 @@ class LogsApi
     /**
      * Operation setApiLogByIdReplay
      *
-     *
-     * Parameters:
-     *   "id" int  id of entry to replay (required)
+     * Filters:
      *   "mode" string  how to replay (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id id of entry to replay
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setApiLogByIdReplay(array $params = [])
+    public function setApiLogByIdReplay($id, array $filters = [])
     {
-        list($response) = $this->setApiLogByIdReplayWithHttpInfo($params);
+        list($response) = $this->setApiLogByIdReplayWithHttpInfo($id, $filters);
         return $response;
     }
 
     /**
      * Operation setApiLogByIdReplayWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  id of entry to replay (required)
+     * Filters:
      *   "mode" string  how to replay (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id id of entry to replay
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setApiLogByIdReplayWithHttpInfo(array $params = [])
+    public function setApiLogByIdReplayWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setApiLogByIdReplayRequest($params);
+        $request = $this->setApiLogByIdReplayRequest($id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1050,20 +1030,20 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  id of entry to replay (required)
+     * Filters:
      *   "mode" string  how to replay (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id id of entry to replay
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setApiLogByIdReplayAsync(array $params = [])
+    public function setApiLogByIdReplayAsync($id, array $filters = [])
     {
-        return $this->setApiLogByIdReplayAsyncWithHttpInfo($params)
+        return $this->setApiLogByIdReplayAsyncWithHttpInfo($id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1074,24 +1054,24 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  id of entry to replay (required)
+     * Filters:
      *   "mode" string  how to replay (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id id of entry to replay
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setApiLogByIdReplayAsyncWithHttpInfo(array $params = [])
+    public function setApiLogByIdReplayAsyncWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setApiLogByIdReplayRequest($params);
+        $request = $this->setApiLogByIdReplayRequest($id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1111,7 +1091,7 @@ class LogsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1131,22 +1111,21 @@ class LogsApi
     /**
      * Create request for operation 'setApiLogByIdReplay'
      *
-     * Parameters:
-     *   "id" int  id of entry to replay (required)
+     * Filters:
      *   "mode" string  how to replay (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id id of entry to replay
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setApiLogByIdReplayRequest(array $params = [])
+    protected function setApiLogByIdReplayRequest($id, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in LogsApi::setApiLogByIdReplayRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in LogsApi::setApiLogByIdReplayRequest().');
         }
-        if (!isset($params['mode'])) {
-            $params['mode'] = null;
+        if (!isset($filters['mode'])) {
+            $filters['mode'] = null;
         }
         
 
@@ -1157,16 +1136,20 @@ class LogsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
         // query params
-        if ($params['mode'] !== null) {
-            $queryParams['mode'] = ObjectSerializer::toQueryValue($params['mode']);
+        if ($filters['mode'] !== null) {
+            $queryParams['mode'] = ObjectSerializer::toQueryValue($filters['mode']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1243,44 +1226,47 @@ class LogsApi
     /**
      * Operation updateApiLogsOptions
      *
-     *
-     * Parameters:
-     *   "request_length" int   (required)
-     *   "response_length" int   (required)
+     * Filters:
      *   "enabled" bool  provide 1 if you want to enable logging (optional)
      *   "modes" string[]  strings array, values are session, key, token (optional)
+     *   "request_length" int   (required)
+     *   "response_length" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $request_length 
+     * @param int $response_length 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateApiLogsOptions(array $params = [])
+    public function updateApiLogsOptions($request_length, $response_length, array $filters = [])
     {
-        list($response) = $this->updateApiLogsOptionsWithHttpInfo($params);
+        list($response) = $this->updateApiLogsOptionsWithHttpInfo($request_length, $response_length, $filters);
         return $response;
     }
 
     /**
      * Operation updateApiLogsOptionsWithHttpInfo
      *
-     * Parameters:
-     *   "request_length" int   (required)
-     *   "response_length" int   (required)
+     * Filters:
      *   "enabled" bool  provide 1 if you want to enable logging (optional)
      *   "modes" string[]  strings array, values are session, key, token (optional)
+     *   "request_length" int   (required)
+     *   "response_length" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $request_length 
+     * @param int $response_length 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateApiLogsOptionsWithHttpInfo(array $params = [])
+    public function updateApiLogsOptionsWithHttpInfo($request_length, $response_length, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateApiLogsOptionsRequest($params);
+        $request = $this->updateApiLogsOptionsRequest($request_length, $response_length, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1346,22 +1332,24 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
-     *   "request_length" int   (required)
-     *   "response_length" int   (required)
+     * Filters:
      *   "enabled" bool  provide 1 if you want to enable logging (optional)
      *   "modes" string[]  strings array, values are session, key, token (optional)
+     *   "request_length" int   (required)
+     *   "response_length" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $request_length 
+     * @param int $response_length 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateApiLogsOptionsAsync(array $params = [])
+    public function updateApiLogsOptionsAsync($request_length, $response_length, array $filters = [])
     {
-        return $this->updateApiLogsOptionsAsyncWithHttpInfo($params)
+        return $this->updateApiLogsOptionsAsyncWithHttpInfo($request_length, $response_length, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1372,26 +1360,28 @@ class LogsApi
      *
      * 
      *
-     * Parameters:
-     *   "request_length" int   (required)
-     *   "response_length" int   (required)
+     * Filters:
      *   "enabled" bool  provide 1 if you want to enable logging (optional)
      *   "modes" string[]  strings array, values are session, key, token (optional)
+     *   "request_length" int   (required)
+     *   "response_length" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $request_length 
+     * @param int $response_length 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateApiLogsOptionsAsyncWithHttpInfo(array $params = [])
+    public function updateApiLogsOptionsAsyncWithHttpInfo($request_length, $response_length, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateApiLogsOptionsRequest($params);
+        $request = $this->updateApiLogsOptionsRequest($request_length, $response_length, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1411,7 +1401,7 @@ class LogsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1431,30 +1421,31 @@ class LogsApi
     /**
      * Create request for operation 'updateApiLogsOptions'
      *
-     * Parameters:
-     *   "request_length" int   (required)
-     *   "response_length" int   (required)
+     * Filters:
      *   "enabled" bool  provide 1 if you want to enable logging (optional)
      *   "modes" string[]  strings array, values are session, key, token (optional)
+     *   "request_length" int   (required)
+     *   "response_length" int   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $request_length 
+     * @param int $response_length 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateApiLogsOptionsRequest(array $params = [])
+    protected function updateApiLogsOptionsRequest($request_length, $response_length, array $filters = [])
     {
-        if (empty($params['request_length'])) {
-            throw new \InvalidArgumentException('Missing parameter "request_length" in LogsApi::updateApiLogsOptionsRequest().');
+        if (empty($request_length)) {
+            throw new \InvalidArgumentException('Missing parameter "$request_length" in LogsApi::updateApiLogsOptionsRequest().');
         }
-        if (empty($params['response_length'])) {
-            throw new \InvalidArgumentException('Missing parameter "response_length" in LogsApi::updateApiLogsOptionsRequest().');
+        if (empty($response_length)) {
+            throw new \InvalidArgumentException('Missing parameter "$response_length" in LogsApi::updateApiLogsOptionsRequest().');
         }
-        if (!isset($params['enabled'])) {
-            $params['enabled'] = null;
+        if (!isset($filters['enabled'])) {
+            $filters['enabled'] = null;
         }
-        if (!isset($params['modes'])) {
-            $params['modes'] = null;
+        if (!isset($filters['modes'])) {
+            $filters['modes'] = null;
         }
         
 
@@ -1465,24 +1456,31 @@ class LogsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($request_length !== null) {
+            $request_length = ObjectSerializer::toQueryValue($request_length);
+        }
+        if ($response_length !== null) {
+            $response_length = ObjectSerializer::toQueryValue($response_length);
+        }
+        
         // query params
-        if ($params['enabled'] !== null) {
-            $queryParams['enabled'] = ObjectSerializer::toQueryValue($params['enabled']);
+        if ($filters['enabled'] !== null) {
+            $queryParams['enabled'] = ObjectSerializer::toQueryValue($filters['enabled']);
         }
         // query params
-        if (is_array($params['modes'])) {
-            $params['modes'] = ObjectSerializer::serializeCollection($params['modes'], 'csv', true);
+        if (is_array($filters['modes'])) {
+            $filters['modes'] = ObjectSerializer::serializeCollection($filters['modes'], 'csv', true);
         }
-        if ($params['modes'] !== null) {
-            $queryParams['modes'] = ObjectSerializer::toQueryValue($params['modes']);
-        }
-        // query params
-        if ($params['request_length'] !== null) {
-            $queryParams['request_length'] = ObjectSerializer::toQueryValue($params['request_length']);
+        if ($filters['modes'] !== null) {
+            $queryParams['modes'] = ObjectSerializer::toQueryValue($filters['modes']);
         }
         // query params
-        if ($params['response_length'] !== null) {
-            $queryParams['response_length'] = ObjectSerializer::toQueryValue($params['response_length']);
+        if ($filters['request_length'] !== null) {
+            $queryParams['request_length'] = ObjectSerializer::toQueryValue($filters['request_length']);
+        }
+        // query params
+        if ($filters['response_length'] !== null) {
+            $queryParams['response_length'] = ObjectSerializer::toQueryValue($filters['response_length']);
         }
 
 

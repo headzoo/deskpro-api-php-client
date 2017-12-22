@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class WebhooksApi
      * Operation deleteWebhookTicketById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteWebhookTicketById(array $params = [])
+    public function deleteWebhookTicketById($id)
     {
-        list($response) = $this->deleteWebhookTicketByIdWithHttpInfo($params);
+        list($response) = $this->deleteWebhookTicketByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteWebhookTicketByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteWebhookTicketByIdWithHttpInfo(array $params = [])
+    public function deleteWebhookTicketByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteWebhookTicketByIdRequest($params);
+        $request = $this->deleteWebhookTicketByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class WebhooksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteWebhookTicketByIdAsync(array $params = [])
+    public function deleteWebhookTicketByIdAsync($id)
     {
-        return $this->deleteWebhookTicketByIdAsyncWithHttpInfo($params)
+        return $this->deleteWebhookTicketByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class WebhooksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteWebhookTicketByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteWebhookTicketByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteWebhookTicketByIdRequest($params);
+        $request = $this->deleteWebhookTicketByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class WebhooksApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class WebhooksApi
     /**
      * Create request for operation 'deleteWebhookTicketById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteWebhookTicketByIdRequest(array $params = [])
+    protected function deleteWebhookTicketByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in WebhooksApi::deleteWebhookTicketByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in WebhooksApi::deleteWebhookTicketByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class WebhooksApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -403,44 +396,43 @@ class WebhooksApi
     /**
      * Operation getWebhookTicket
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getWebhookTicket(array $params = [])
+    public function getWebhookTicket(array $filters = [])
     {
-        list($response) = $this->getWebhookTicketWithHttpInfo($params);
+        list($response) = $this->getWebhookTicketWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getWebhookTicketWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWebhookTicketWithHttpInfo(array $params = [])
+    public function getWebhookTicketWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getWebhookTicketRequest($params);
+        $request = $this->getWebhookTicketRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -514,22 +506,22 @@ class WebhooksApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWebhookTicketAsync(array $params = [])
+    public function getWebhookTicketAsync(array $filters = [])
     {
-        return $this->getWebhookTicketAsyncWithHttpInfo($params)
+        return $this->getWebhookTicketAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -540,26 +532,26 @@ class WebhooksApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWebhookTicketAsyncWithHttpInfo(array $params = [])
+    public function getWebhookTicketAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getWebhookTicketRequest($params);
+        $request = $this->getWebhookTicketRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -579,7 +571,7 @@ class WebhooksApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -599,30 +591,29 @@ class WebhooksApi
     /**
      * Create request for operation 'getWebhookTicket'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getWebhookTicketRequest(array $params = [])
+    protected function getWebhookTicketRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -633,21 +624,22 @@ class WebhooksApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -724,37 +716,32 @@ class WebhooksApi
      * Operation getWebhookTicketById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getWebhookTicketById(array $params = [])
+    public function getWebhookTicketById($id)
     {
-        list($response) = $this->getWebhookTicketByIdWithHttpInfo($params);
+        list($response) = $this->getWebhookTicketByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getWebhookTicketByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWebhookTicketByIdWithHttpInfo(array $params = [])
+    public function getWebhookTicketByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getWebhookTicketByIdRequest($params);
+        $request = $this->getWebhookTicketByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -828,19 +815,17 @@ class WebhooksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWebhookTicketByIdAsync(array $params = [])
+    public function getWebhookTicketByIdAsync($id)
     {
-        return $this->getWebhookTicketByIdAsyncWithHttpInfo($params)
+        return $this->getWebhookTicketByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -851,23 +836,21 @@ class WebhooksApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWebhookTicketByIdAsyncWithHttpInfo(array $params = [])
+    public function getWebhookTicketByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getWebhookTicketByIdRequest($params);
+        $request = $this->getWebhookTicketByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -887,7 +870,7 @@ class WebhooksApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -907,18 +890,15 @@ class WebhooksApi
     /**
      * Create request for operation 'getWebhookTicketById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getWebhookTicketByIdRequest(array $params = [])
+    protected function getWebhookTicketByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in WebhooksApi::getWebhookTicketByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in WebhooksApi::getWebhookTicketByIdRequest().');
         }
         
 
@@ -929,12 +909,16 @@ class WebhooksApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }

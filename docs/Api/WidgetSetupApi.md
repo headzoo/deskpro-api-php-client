@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **deleteSettingBrandByBrandWidgetSetup**
-> \DeskPRO\API\Model\Response deleteSettingBrandByBrandWidgetSetup(array $params = [])
+> \DeskPRO\API\Model\Response deleteSettingBrandByBrandWidgetSetup(string $brand)
 
 
 
@@ -29,13 +29,11 @@ $api = new WidgetSetupApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->deleteSettingBrandByBrandWidgetSetup($params);
-    print_r($result);
+    $result = $api->deleteSettingBrandByBrandWidgetSetup($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -44,9 +42,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -64,7 +67,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandWidgetCode**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandWidgetCode(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandWidgetCode(string $brand)
 
 
 
@@ -82,13 +85,11 @@ $api = new WidgetSetupApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandWidgetCode($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandWidgetCode($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -97,9 +98,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -117,7 +123,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandWidgetLiveDemoCode**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandWidgetLiveDemoCode(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandWidgetLiveDemoCode(string $brand)
 
 
 
@@ -135,13 +141,11 @@ $api = new WidgetSetupApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandWidgetLiveDemoCode($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandWidgetLiveDemoCode($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -150,9 +154,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -170,7 +179,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandWidgetSetup**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandWidgetSetup(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandWidgetSetup(string $brand)
 
 
 
@@ -188,13 +197,11 @@ $api = new WidgetSetupApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandWidgetSetup($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandWidgetSetup($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -203,9 +210,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **getTimezones**
-> \DeskPRO\API\Model\Response getTimezones(array $params = [])
+> \DeskPRO\API\Model\Response getTimezones()
 
 
 
@@ -26,12 +26,10 @@ $api = new TimezonesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getTimezones($params);
-    print_r($result);
+    $result = $api->getTimezones();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -39,7 +37,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

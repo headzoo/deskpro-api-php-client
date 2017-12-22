@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **getUserSourceByContext**
-> \DeskPRO\API\Model\Response getUserSourceByContext(array $params = [])
+> \DeskPRO\API\Model\Response getUserSourceByContext(string $context, array $filters = [])
 
 
 
@@ -28,8 +28,8 @@ $api = new UsersourcesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"context" => "context_example", // string | 
+$context = "context_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -37,8 +37,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getUserSourceByContext($params);
-    print_r($result);
+    $result = $api->getUserSourceByContext($context, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -47,9 +47,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **context** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -71,7 +78,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserSourceByContextById**
-> \DeskPRO\API\Model\Response getUserSourceByContextById(array $params = [])
+> \DeskPRO\API\Model\Response getUserSourceByContextById(int $id, string $context)
 
 
 
@@ -89,14 +96,12 @@ $api = new UsersourcesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"context" => "context_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->getUserSourceByContextById($params);
-    print_r($result);
+    $result = $api->getUserSourceByContextById($id, $context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -105,10 +110,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -126,7 +136,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserSourceByContextCount**
-> \DeskPRO\API\Model\Response getUserSourceByContextCount(array $params = [])
+> \DeskPRO\API\Model\Response getUserSourceByContextCount(string $context)
 
 
 
@@ -144,13 +154,11 @@ $api = new UsersourcesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"context" => "context_example" // string | 
-];
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->getUserSourceByContextCount($params);
-    print_r($result);
+    $result = $api->getUserSourceByContextCount($context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -159,9 +167,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

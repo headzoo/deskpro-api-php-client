@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class UsersourceSettingsApi
      * Operation getSettingUserSource
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingUserSource(array $params = [])
+    public function getSettingUserSource()
     {
-        list($response) = $this->getSettingUserSourceWithHttpInfo($params);
+        list($response) = $this->getSettingUserSourceWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getSettingUserSourceWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingUserSourceWithHttpInfo(array $params = [])
+    public function getSettingUserSourceWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingUserSourceRequest($params);
+        $request = $this->getSettingUserSourceRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class UsersourceSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingUserSourceAsync(array $params = [])
+    public function getSettingUserSourceAsync()
     {
-        return $this->getSettingUserSourceAsyncWithHttpInfo($params)
+        return $this->getSettingUserSourceAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class UsersourceSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingUserSourceAsyncWithHttpInfo(array $params = [])
+    public function getSettingUserSourceAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingUserSourceRequest($params);
+        $request = $this->getSettingUserSourceRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class UsersourceSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class UsersourceSettingsApi
     /**
      * Create request for operation 'getSettingUserSource'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingUserSourceRequest(array $params = [])
+    protected function getSettingUserSourceRequest()
     {
         
 
@@ -305,6 +294,7 @@ class UsersourceSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

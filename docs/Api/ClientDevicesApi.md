@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **deleteClientDeviceByAppTypeById**
-> \DeskPRO\API\Model\Response deleteClientDeviceByAppTypeById(array $params = [])
+> \DeskPRO\API\Model\Response deleteClientDeviceByAppTypeById(int $id, string $app_type)
 
 
 
@@ -29,14 +29,12 @@ $api = new ClientDevicesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id or device_id of the resource
-"app_type" => "app_type_example" // string | 
-];
+$id = 56; // int | The id or device_id of the resource
+$app_type = "app_type_example"; // string | 
 
 try {
-    $result = $api->deleteClientDeviceByAppTypeById($params);
-    print_r($result);
+    $result = $api->deleteClientDeviceByAppTypeById($id, $app_type);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -45,10 +43,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id or device_id of the resource |
  **app_type** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -66,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getClientDeviceByAppType**
-> \DeskPRO\API\Model\Response getClientDeviceByAppType(array $params = [])
+> \DeskPRO\API\Model\Response getClientDeviceByAppType(string $app_type, array $filters = [])
 
 
 
@@ -84,8 +87,8 @@ $api = new ClientDevicesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"app_type" => "app_type_example", // string | 
+$app_type = "app_type_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -93,8 +96,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getClientDeviceByAppType($params);
-    print_r($result);
+    $result = $api->getClientDeviceByAppType($app_type, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -103,9 +106,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_type** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -127,7 +137,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getClientDeviceByAppTypeById**
-> \DeskPRO\API\Model\Response getClientDeviceByAppTypeById(array $params = [])
+> \DeskPRO\API\Model\Response getClientDeviceByAppTypeById(int $id, string $app_type)
 
 
 
@@ -145,14 +155,12 @@ $api = new ClientDevicesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id or device_id of the resource
-"app_type" => "app_type_example" // string | 
-];
+$id = 56; // int | The id or device_id of the resource
+$app_type = "app_type_example"; // string | 
 
 try {
-    $result = $api->getClientDeviceByAppTypeById($params);
-    print_r($result);
+    $result = $api->getClientDeviceByAppTypeById($id, $app_type);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -161,10 +169,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id or device_id of the resource |
  **app_type** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -182,7 +195,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getClientDeviceByAppTypeCount**
-> \DeskPRO\API\Model\Response getClientDeviceByAppTypeCount(array $params = [])
+> \DeskPRO\API\Model\Response getClientDeviceByAppTypeCount(string $app_type)
 
 
 
@@ -200,13 +213,11 @@ $api = new ClientDevicesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"app_type" => "app_type_example" // string | 
-];
+$app_type = "app_type_example"; // string | 
 
 try {
-    $result = $api->getClientDeviceByAppTypeCount($params);
-    print_r($result);
+    $result = $api->getClientDeviceByAppTypeCount($app_type);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -215,9 +226,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **app_type** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

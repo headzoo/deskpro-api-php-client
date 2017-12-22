@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class WidgetSetupApi
      * Operation deleteSettingBrandByBrandWidgetSetup
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteSettingBrandByBrandWidgetSetup(array $params = [])
+    public function deleteSettingBrandByBrandWidgetSetup($brand)
     {
-        list($response) = $this->deleteSettingBrandByBrandWidgetSetupWithHttpInfo($params);
+        list($response) = $this->deleteSettingBrandByBrandWidgetSetupWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation deleteSettingBrandByBrandWidgetSetupWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteSettingBrandByBrandWidgetSetupWithHttpInfo(array $params = [])
+    public function deleteSettingBrandByBrandWidgetSetupWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSettingBrandByBrandWidgetSetupRequest($params);
+        $request = $this->deleteSettingBrandByBrandWidgetSetupRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -212,19 +208,17 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSettingBrandByBrandWidgetSetupAsync(array $params = [])
+    public function deleteSettingBrandByBrandWidgetSetupAsync($brand)
     {
-        return $this->deleteSettingBrandByBrandWidgetSetupAsyncWithHttpInfo($params)
+        return $this->deleteSettingBrandByBrandWidgetSetupAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -235,23 +229,21 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSettingBrandByBrandWidgetSetupAsyncWithHttpInfo(array $params = [])
+    public function deleteSettingBrandByBrandWidgetSetupAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSettingBrandByBrandWidgetSetupRequest($params);
+        $request = $this->deleteSettingBrandByBrandWidgetSetupRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -271,7 +263,7 @@ class WidgetSetupApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -291,18 +283,15 @@ class WidgetSetupApi
     /**
      * Create request for operation 'deleteSettingBrandByBrandWidgetSetup'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteSettingBrandByBrandWidgetSetupRequest(array $params = [])
+    protected function deleteSettingBrandByBrandWidgetSetupRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in WidgetSetupApi::deleteSettingBrandByBrandWidgetSetupRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in WidgetSetupApi::deleteSettingBrandByBrandWidgetSetupRequest().');
         }
         
 
@@ -313,12 +302,16 @@ class WidgetSetupApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -396,37 +389,32 @@ class WidgetSetupApi
      * Operation getSettingBrandByBrandWidgetCode
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandWidgetCode(array $params = [])
+    public function getSettingBrandByBrandWidgetCode($brand)
     {
-        list($response) = $this->getSettingBrandByBrandWidgetCodeWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandWidgetCodeWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandWidgetCodeWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandWidgetCodeWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandWidgetCodeWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandWidgetCodeRequest($params);
+        $request = $this->getSettingBrandByBrandWidgetCodeRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -492,19 +480,17 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandWidgetCodeAsync(array $params = [])
+    public function getSettingBrandByBrandWidgetCodeAsync($brand)
     {
-        return $this->getSettingBrandByBrandWidgetCodeAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandWidgetCodeAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -515,23 +501,21 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandWidgetCodeAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandWidgetCodeAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandWidgetCodeRequest($params);
+        $request = $this->getSettingBrandByBrandWidgetCodeRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -551,7 +535,7 @@ class WidgetSetupApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -571,18 +555,15 @@ class WidgetSetupApi
     /**
      * Create request for operation 'getSettingBrandByBrandWidgetCode'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandWidgetCodeRequest(array $params = [])
+    protected function getSettingBrandByBrandWidgetCodeRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in WidgetSetupApi::getSettingBrandByBrandWidgetCodeRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in WidgetSetupApi::getSettingBrandByBrandWidgetCodeRequest().');
         }
         
 
@@ -593,12 +574,16 @@ class WidgetSetupApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -676,37 +661,32 @@ class WidgetSetupApi
      * Operation getSettingBrandByBrandWidgetLiveDemoCode
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandWidgetLiveDemoCode(array $params = [])
+    public function getSettingBrandByBrandWidgetLiveDemoCode($brand)
     {
-        list($response) = $this->getSettingBrandByBrandWidgetLiveDemoCodeWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandWidgetLiveDemoCodeWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandWidgetLiveDemoCodeWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandWidgetLiveDemoCodeWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandWidgetLiveDemoCodeWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandWidgetLiveDemoCodeRequest($params);
+        $request = $this->getSettingBrandByBrandWidgetLiveDemoCodeRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -772,19 +752,17 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandWidgetLiveDemoCodeAsync(array $params = [])
+    public function getSettingBrandByBrandWidgetLiveDemoCodeAsync($brand)
     {
-        return $this->getSettingBrandByBrandWidgetLiveDemoCodeAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandWidgetLiveDemoCodeAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -795,23 +773,21 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandWidgetLiveDemoCodeAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandWidgetLiveDemoCodeAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandWidgetLiveDemoCodeRequest($params);
+        $request = $this->getSettingBrandByBrandWidgetLiveDemoCodeRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -831,7 +807,7 @@ class WidgetSetupApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -851,18 +827,15 @@ class WidgetSetupApi
     /**
      * Create request for operation 'getSettingBrandByBrandWidgetLiveDemoCode'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandWidgetLiveDemoCodeRequest(array $params = [])
+    protected function getSettingBrandByBrandWidgetLiveDemoCodeRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in WidgetSetupApi::getSettingBrandByBrandWidgetLiveDemoCodeRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in WidgetSetupApi::getSettingBrandByBrandWidgetLiveDemoCodeRequest().');
         }
         
 
@@ -873,12 +846,16 @@ class WidgetSetupApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -956,37 +933,32 @@ class WidgetSetupApi
      * Operation getSettingBrandByBrandWidgetSetup
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandWidgetSetup(array $params = [])
+    public function getSettingBrandByBrandWidgetSetup($brand)
     {
-        list($response) = $this->getSettingBrandByBrandWidgetSetupWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandWidgetSetupWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandWidgetSetupWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandWidgetSetupWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandWidgetSetupWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandWidgetSetupRequest($params);
+        $request = $this->getSettingBrandByBrandWidgetSetupRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1052,19 +1024,17 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandWidgetSetupAsync(array $params = [])
+    public function getSettingBrandByBrandWidgetSetupAsync($brand)
     {
-        return $this->getSettingBrandByBrandWidgetSetupAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandWidgetSetupAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1075,23 +1045,21 @@ class WidgetSetupApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandWidgetSetupAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandWidgetSetupAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandWidgetSetupRequest($params);
+        $request = $this->getSettingBrandByBrandWidgetSetupRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1111,7 +1079,7 @@ class WidgetSetupApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1131,18 +1099,15 @@ class WidgetSetupApi
     /**
      * Create request for operation 'getSettingBrandByBrandWidgetSetup'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandWidgetSetupRequest(array $params = [])
+    protected function getSettingBrandByBrandWidgetSetupRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in WidgetSetupApi::getSettingBrandByBrandWidgetSetupRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in WidgetSetupApi::getSettingBrandByBrandWidgetSetupRequest().');
         }
         
 
@@ -1153,12 +1118,16 @@ class WidgetSetupApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }

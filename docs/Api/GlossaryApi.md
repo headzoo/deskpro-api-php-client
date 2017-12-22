@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **deleteGlossaryById**
-> \DeskPRO\API\Model\Response deleteGlossaryById(array $params = [])
+> \DeskPRO\API\Model\Response deleteGlossaryById(int $id)
 
 
 
@@ -31,13 +31,11 @@ $api = new GlossaryApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteGlossaryById($params);
-    print_r($result);
+    $result = $api->deleteGlossaryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -46,9 +44,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -66,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGlossary**
-> \DeskPRO\API\Model\Response getGlossary(array $params = [])
+> \DeskPRO\API\Model\Response getGlossary(array $filters = [])
 
 
 
@@ -84,7 +87,7 @@ $api = new GlossaryApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -92,8 +95,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getGlossary($params);
-    print_r($result);
+    $result = $api->getGlossary($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -101,6 +104,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -125,7 +135,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGlossaryById**
-> \DeskPRO\API\Model\Response getGlossaryById(array $params = [])
+> \DeskPRO\API\Model\Response getGlossaryById(int $id)
 
 
 
@@ -143,13 +153,11 @@ $api = new GlossaryApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getGlossaryById($params);
-    print_r($result);
+    $result = $api->getGlossaryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -158,9 +166,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -178,7 +191,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGlossaryCount**
-> \DeskPRO\API\Model\Response getGlossaryCount(array $params = [])
+> \DeskPRO\API\Model\Response getGlossaryCount()
 
 
 
@@ -196,12 +209,10 @@ $api = new GlossaryApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getGlossaryCount($params);
-    print_r($result);
+    $result = $api->getGlossaryCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -209,7 +220,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -227,7 +243,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGlossaryWord**
-> \DeskPRO\API\Model\Response getGlossaryWord(array $params = [])
+> \DeskPRO\API\Model\Response getGlossaryWord(array $filters = [])
 
 
 
@@ -245,7 +261,7 @@ $api = new GlossaryApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -253,8 +269,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getGlossaryWord($params);
-    print_r($result);
+    $result = $api->getGlossaryWord($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -262,6 +278,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -286,7 +309,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGlossaryWordByWord**
-> \DeskPRO\API\Model\Response getGlossaryWordByWord(array $params = [])
+> \DeskPRO\API\Model\Response getGlossaryWordByWord(string $word)
 
 
 
@@ -304,13 +327,11 @@ $api = new GlossaryApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"word" => "word_example" // string | The word
-];
+$word = "word_example"; // string | The word
 
 try {
-    $result = $api->getGlossaryWordByWord($params);
-    print_r($result);
+    $result = $api->getGlossaryWordByWord($word);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -319,9 +340,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **word** | **string**| The word |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

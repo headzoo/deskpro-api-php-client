@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **deleteTaskByParentIdCommentById**
-> \DeskPRO\API\Model\Response deleteTaskByParentIdCommentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteTaskByParentIdCommentById(int $id, string $parent_id)
 
 
 
@@ -29,14 +29,12 @@ $api = new TasksApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->deleteTaskByParentIdCommentById($params);
-    print_r($result);
+    $result = $api->deleteTaskByParentIdCommentById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -45,10 +43,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -66,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTaskByParentIdComment**
-> \DeskPRO\API\Model\Response getTaskByParentIdComment(array $params = [])
+> \DeskPRO\API\Model\Response getTaskByParentIdComment(string $parent_id, array $filters = [])
 
 
 
@@ -84,8 +87,8 @@ $api = new TasksApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -93,8 +96,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getTaskByParentIdComment($params);
-    print_r($result);
+    $result = $api->getTaskByParentIdComment($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -103,9 +106,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -127,7 +137,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTaskByParentIdCommentById**
-> \DeskPRO\API\Model\Response getTaskByParentIdCommentById(array $params = [])
+> \DeskPRO\API\Model\Response getTaskByParentIdCommentById(int $id, string $parent_id)
 
 
 
@@ -145,14 +155,12 @@ $api = new TasksApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getTaskByParentIdCommentById($params);
-    print_r($result);
+    $result = $api->getTaskByParentIdCommentById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -161,10 +169,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -182,7 +195,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTaskByParentIdCommentCount**
-> \DeskPRO\API\Model\Response getTaskByParentIdCommentCount(array $params = [])
+> \DeskPRO\API\Model\Response getTaskByParentIdCommentCount(string $parent_id)
 
 
 
@@ -200,13 +213,11 @@ $api = new TasksApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getTaskByParentIdCommentCount($params);
-    print_r($result);
+    $result = $api->getTaskByParentIdCommentCount($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -215,9 +226,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

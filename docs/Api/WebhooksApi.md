@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **deleteWebhookTicketById**
-> \DeskPRO\API\Model\Response deleteWebhookTicketById(array $params = [])
+> \DeskPRO\API\Model\Response deleteWebhookTicketById(int $id)
 
 
 
@@ -28,13 +28,11 @@ $api = new WebhooksApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteWebhookTicketById($params);
-    print_r($result);
+    $result = $api->deleteWebhookTicketById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -43,9 +41,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -63,7 +66,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getWebhookTicket**
-> \DeskPRO\API\Model\Response getWebhookTicket(array $params = [])
+> \DeskPRO\API\Model\Response getWebhookTicket(array $filters = [])
 
 
 
@@ -81,7 +84,7 @@ $api = new WebhooksApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -89,8 +92,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getWebhookTicket($params);
-    print_r($result);
+    $result = $api->getWebhookTicket($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -98,6 +101,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -122,7 +132,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getWebhookTicketById**
-> \DeskPRO\API\Model\Response getWebhookTicketById(array $params = [])
+> \DeskPRO\API\Model\Response getWebhookTicketById(int $id)
 
 
 
@@ -140,13 +150,11 @@ $api = new WebhooksApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getWebhookTicketById($params);
-    print_r($result);
+    $result = $api->getWebhookTicketById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -155,9 +163,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

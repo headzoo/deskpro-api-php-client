@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,39 +117,34 @@ class ClientDevicesApi
      * Operation deleteClientDeviceByAppTypeById
      *
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteClientDeviceByAppTypeById(array $params = [])
+    public function deleteClientDeviceByAppTypeById($id, $app_type)
     {
-        list($response) = $this->deleteClientDeviceByAppTypeByIdWithHttpInfo($params);
+        list($response) = $this->deleteClientDeviceByAppTypeByIdWithHttpInfo($id, $app_type);
         return $response;
     }
 
     /**
      * Operation deleteClientDeviceByAppTypeByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteClientDeviceByAppTypeByIdWithHttpInfo(array $params = [])
+    public function deleteClientDeviceByAppTypeByIdWithHttpInfo($id, $app_type)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteClientDeviceByAppTypeByIdRequest($params);
+        $request = $this->deleteClientDeviceByAppTypeByIdRequest($id, $app_type);
 
         try {
             $options = $this->createHttpClientOption();
@@ -222,20 +218,18 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteClientDeviceByAppTypeByIdAsync(array $params = [])
+    public function deleteClientDeviceByAppTypeByIdAsync($id, $app_type)
     {
-        return $this->deleteClientDeviceByAppTypeByIdAsyncWithHttpInfo($params)
+        return $this->deleteClientDeviceByAppTypeByIdAsyncWithHttpInfo($id, $app_type)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -246,24 +240,22 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteClientDeviceByAppTypeByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteClientDeviceByAppTypeByIdAsyncWithHttpInfo($id, $app_type)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteClientDeviceByAppTypeByIdRequest($params);
+        $request = $this->deleteClientDeviceByAppTypeByIdRequest($id, $app_type);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -283,7 +275,7 @@ class ClientDevicesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -303,22 +295,19 @@ class ClientDevicesApi
     /**
      * Create request for operation 'deleteClientDeviceByAppTypeById'
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteClientDeviceByAppTypeByIdRequest(array $params = [])
+    protected function deleteClientDeviceByAppTypeByIdRequest($id, $app_type)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ClientDevicesApi::deleteClientDeviceByAppTypeByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ClientDevicesApi::deleteClientDeviceByAppTypeByIdRequest().');
         }
-        if (empty($params['app_type'])) {
-            throw new \InvalidArgumentException('Missing parameter "app_type" in ClientDevicesApi::deleteClientDeviceByAppTypeByIdRequest().');
+        if (empty($app_type)) {
+            throw new \InvalidArgumentException('Missing parameter "$app_type" in ClientDevicesApi::deleteClientDeviceByAppTypeByIdRequest().');
         }
         
 
@@ -329,20 +318,27 @@ class ClientDevicesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($app_type !== null) {
+            $app_type = ObjectSerializer::toQueryValue($app_type);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['app_type'] !== null) {
+        if ($app_type !== null) {
             $resourcePath = str_replace(
                 '{' . 'app_type' . '}',
-                ObjectSerializer::toPathValue($params['app_type']),
+                ObjectSerializer::toPathValue($app_type),
                 $resourcePath
             );
         }
@@ -419,46 +415,45 @@ class ClientDevicesApi
     /**
      * Operation getClientDeviceByAppType
      *
-     *
-     * Parameters:
-     *   "app_type" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getClientDeviceByAppType(array $params = [])
+    public function getClientDeviceByAppType($app_type, array $filters = [])
     {
-        list($response) = $this->getClientDeviceByAppTypeWithHttpInfo($params);
+        list($response) = $this->getClientDeviceByAppTypeWithHttpInfo($app_type, $filters);
         return $response;
     }
 
     /**
      * Operation getClientDeviceByAppTypeWithHttpInfo
      *
-     * Parameters:
-     *   "app_type" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getClientDeviceByAppTypeWithHttpInfo(array $params = [])
+    public function getClientDeviceByAppTypeWithHttpInfo($app_type, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getClientDeviceByAppTypeRequest($params);
+        $request = $this->getClientDeviceByAppTypeRequest($app_type, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -532,23 +527,23 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "app_type" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getClientDeviceByAppTypeAsync(array $params = [])
+    public function getClientDeviceByAppTypeAsync($app_type, array $filters = [])
     {
-        return $this->getClientDeviceByAppTypeAsyncWithHttpInfo($params)
+        return $this->getClientDeviceByAppTypeAsyncWithHttpInfo($app_type, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -559,27 +554,27 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "app_type" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getClientDeviceByAppTypeAsyncWithHttpInfo(array $params = [])
+    public function getClientDeviceByAppTypeAsyncWithHttpInfo($app_type, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getClientDeviceByAppTypeRequest($params);
+        $request = $this->getClientDeviceByAppTypeRequest($app_type, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -599,7 +594,7 @@ class ClientDevicesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -619,34 +614,33 @@ class ClientDevicesApi
     /**
      * Create request for operation 'getClientDeviceByAppType'
      *
-     * Parameters:
-     *   "app_type" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $app_type 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getClientDeviceByAppTypeRequest(array $params = [])
+    protected function getClientDeviceByAppTypeRequest($app_type, array $filters = [])
     {
-        if (empty($params['app_type'])) {
-            throw new \InvalidArgumentException('Missing parameter "app_type" in ClientDevicesApi::getClientDeviceByAppTypeRequest().');
+        if (empty($app_type)) {
+            throw new \InvalidArgumentException('Missing parameter "$app_type" in ClientDevicesApi::getClientDeviceByAppTypeRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -657,28 +651,32 @@ class ClientDevicesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($app_type !== null) {
+            $app_type = ObjectSerializer::toQueryValue($app_type);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['app_type'] !== null) {
+        if ($app_type !== null) {
             $resourcePath = str_replace(
                 '{' . 'app_type' . '}',
-                ObjectSerializer::toPathValue($params['app_type']),
+                ObjectSerializer::toPathValue($app_type),
                 $resourcePath
             );
         }
@@ -756,39 +754,34 @@ class ClientDevicesApi
      * Operation getClientDeviceByAppTypeById
      *
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getClientDeviceByAppTypeById(array $params = [])
+    public function getClientDeviceByAppTypeById($id, $app_type)
     {
-        list($response) = $this->getClientDeviceByAppTypeByIdWithHttpInfo($params);
+        list($response) = $this->getClientDeviceByAppTypeByIdWithHttpInfo($id, $app_type);
         return $response;
     }
 
     /**
      * Operation getClientDeviceByAppTypeByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getClientDeviceByAppTypeByIdWithHttpInfo(array $params = [])
+    public function getClientDeviceByAppTypeByIdWithHttpInfo($id, $app_type)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getClientDeviceByAppTypeByIdRequest($params);
+        $request = $this->getClientDeviceByAppTypeByIdRequest($id, $app_type);
 
         try {
             $options = $this->createHttpClientOption();
@@ -862,20 +855,18 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getClientDeviceByAppTypeByIdAsync(array $params = [])
+    public function getClientDeviceByAppTypeByIdAsync($id, $app_type)
     {
-        return $this->getClientDeviceByAppTypeByIdAsyncWithHttpInfo($params)
+        return $this->getClientDeviceByAppTypeByIdAsyncWithHttpInfo($id, $app_type)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -886,24 +877,22 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getClientDeviceByAppTypeByIdAsyncWithHttpInfo(array $params = [])
+    public function getClientDeviceByAppTypeByIdAsyncWithHttpInfo($id, $app_type)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getClientDeviceByAppTypeByIdRequest($params);
+        $request = $this->getClientDeviceByAppTypeByIdRequest($id, $app_type);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -923,7 +912,7 @@ class ClientDevicesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -943,22 +932,19 @@ class ClientDevicesApi
     /**
      * Create request for operation 'getClientDeviceByAppTypeById'
      *
-     * Parameters:
-     *   "id" int  The id or device_id of the resource (required)
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id or device_id of the resource
+     * @param string $app_type 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getClientDeviceByAppTypeByIdRequest(array $params = [])
+    protected function getClientDeviceByAppTypeByIdRequest($id, $app_type)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ClientDevicesApi::getClientDeviceByAppTypeByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ClientDevicesApi::getClientDeviceByAppTypeByIdRequest().');
         }
-        if (empty($params['app_type'])) {
-            throw new \InvalidArgumentException('Missing parameter "app_type" in ClientDevicesApi::getClientDeviceByAppTypeByIdRequest().');
+        if (empty($app_type)) {
+            throw new \InvalidArgumentException('Missing parameter "$app_type" in ClientDevicesApi::getClientDeviceByAppTypeByIdRequest().');
         }
         
 
@@ -969,20 +955,27 @@ class ClientDevicesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($app_type !== null) {
+            $app_type = ObjectSerializer::toQueryValue($app_type);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['app_type'] !== null) {
+        if ($app_type !== null) {
             $resourcePath = str_replace(
                 '{' . 'app_type' . '}',
-                ObjectSerializer::toPathValue($params['app_type']),
+                ObjectSerializer::toPathValue($app_type),
                 $resourcePath
             );
         }
@@ -1060,37 +1053,32 @@ class ClientDevicesApi
      * Operation getClientDeviceByAppTypeCount
      *
      *
-     * Parameters:
-     *   "app_type" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getClientDeviceByAppTypeCount(array $params = [])
+    public function getClientDeviceByAppTypeCount($app_type)
     {
-        list($response) = $this->getClientDeviceByAppTypeCountWithHttpInfo($params);
+        list($response) = $this->getClientDeviceByAppTypeCountWithHttpInfo($app_type);
         return $response;
     }
 
     /**
      * Operation getClientDeviceByAppTypeCountWithHttpInfo
      *
-     * Parameters:
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getClientDeviceByAppTypeCountWithHttpInfo(array $params = [])
+    public function getClientDeviceByAppTypeCountWithHttpInfo($app_type)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getClientDeviceByAppTypeCountRequest($params);
+        $request = $this->getClientDeviceByAppTypeCountRequest($app_type);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1164,19 +1152,17 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getClientDeviceByAppTypeCountAsync(array $params = [])
+    public function getClientDeviceByAppTypeCountAsync($app_type)
     {
-        return $this->getClientDeviceByAppTypeCountAsyncWithHttpInfo($params)
+        return $this->getClientDeviceByAppTypeCountAsyncWithHttpInfo($app_type)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1187,23 +1173,21 @@ class ClientDevicesApi
      *
      * 
      *
-     * Parameters:
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $app_type 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getClientDeviceByAppTypeCountAsyncWithHttpInfo(array $params = [])
+    public function getClientDeviceByAppTypeCountAsyncWithHttpInfo($app_type)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getClientDeviceByAppTypeCountRequest($params);
+        $request = $this->getClientDeviceByAppTypeCountRequest($app_type);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1223,7 +1207,7 @@ class ClientDevicesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1243,18 +1227,15 @@ class ClientDevicesApi
     /**
      * Create request for operation 'getClientDeviceByAppTypeCount'
      *
-     * Parameters:
-     *   "app_type" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $app_type 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getClientDeviceByAppTypeCountRequest(array $params = [])
+    protected function getClientDeviceByAppTypeCountRequest($app_type)
     {
-        if (empty($params['app_type'])) {
-            throw new \InvalidArgumentException('Missing parameter "app_type" in ClientDevicesApi::getClientDeviceByAppTypeCountRequest().');
+        if (empty($app_type)) {
+            throw new \InvalidArgumentException('Missing parameter "$app_type" in ClientDevicesApi::getClientDeviceByAppTypeCountRequest().');
         }
         
 
@@ -1265,12 +1246,16 @@ class ClientDevicesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($app_type !== null) {
+            $app_type = ObjectSerializer::toQueryValue($app_type);
+        }
+        
 
         // path params
-        if ($params['app_type'] !== null) {
+        if ($app_type !== null) {
             $resourcePath = str_replace(
                 '{' . 'app_type' . '}',
-                ObjectSerializer::toPathValue($params['app_type']),
+                ObjectSerializer::toPathValue($app_type),
                 $resourcePath
             );
         }

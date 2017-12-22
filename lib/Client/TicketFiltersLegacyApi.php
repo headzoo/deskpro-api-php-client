@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -115,9 +116,7 @@ class TicketFiltersLegacyApi
     /**
      * Operation getTicketFilterByFilterTicket
      *
-     *
-     * Parameters:
-     *   "filter" string   (required)
+     * Filters:
      *   "sort" string  tickets list sort (optional)
      *   "order" string  tickets list sort order (optional)
      *   "page" int  pagination page parameter (optional)
@@ -134,23 +133,23 @@ class TicketFiltersLegacyApi
      *   "date_created" int  date created filter (optional)
      *   "ticket_field_id" string  *                 Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                 ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $filter 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterByFilterTicket(array $params = [])
+    public function getTicketFilterByFilterTicket($filter, array $filters = [])
     {
-        list($response) = $this->getTicketFilterByFilterTicketWithHttpInfo($params);
+        list($response) = $this->getTicketFilterByFilterTicketWithHttpInfo($filter, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketFilterByFilterTicketWithHttpInfo
      *
-     * Parameters:
-     *   "filter" string   (required)
+     * Filters:
      *   "sort" string  tickets list sort (optional)
      *   "order" string  tickets list sort order (optional)
      *   "page" int  pagination page parameter (optional)
@@ -167,16 +166,17 @@ class TicketFiltersLegacyApi
      *   "date_created" int  date created filter (optional)
      *   "ticket_field_id" string  *                 Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                 ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $filter 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterByFilterTicketWithHttpInfo(array $params = [])
+    public function getTicketFilterByFilterTicketWithHttpInfo($filter, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterByFilterTicketRequest($params);
+        $request = $this->getTicketFilterByFilterTicketRequest($filter, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -242,8 +242,7 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "filter" string   (required)
+     * Filters:
      *   "sort" string  tickets list sort (optional)
      *   "order" string  tickets list sort order (optional)
      *   "page" int  pagination page parameter (optional)
@@ -260,16 +259,17 @@ class TicketFiltersLegacyApi
      *   "date_created" int  date created filter (optional)
      *   "ticket_field_id" string  *                 Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                 ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $filter 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterByFilterTicketAsync(array $params = [])
+    public function getTicketFilterByFilterTicketAsync($filter, array $filters = [])
     {
-        return $this->getTicketFilterByFilterTicketAsyncWithHttpInfo($params)
+        return $this->getTicketFilterByFilterTicketAsyncWithHttpInfo($filter, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -280,8 +280,7 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "filter" string   (required)
+     * Filters:
      *   "sort" string  tickets list sort (optional)
      *   "order" string  tickets list sort order (optional)
      *   "page" int  pagination page parameter (optional)
@@ -298,20 +297,21 @@ class TicketFiltersLegacyApi
      *   "date_created" int  date created filter (optional)
      *   "ticket_field_id" string  *                 Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                 ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $filter 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterByFilterTicketAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterByFilterTicketAsyncWithHttpInfo($filter, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterByFilterTicketRequest($params);
+        $request = $this->getTicketFilterByFilterTicketRequest($filter, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -331,7 +331,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -351,8 +351,7 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterByFilterTicket'
      *
-     * Parameters:
-     *   "filter" string   (required)
+     * Filters:
      *   "sort" string  tickets list sort (optional)
      *   "order" string  tickets list sort order (optional)
      *   "page" int  pagination page parameter (optional)
@@ -369,60 +368,60 @@ class TicketFiltersLegacyApi
      *   "date_created" int  date created filter (optional)
      *   "ticket_field_id" string  *                 Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                 ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $filter 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterByFilterTicketRequest(array $params = [])
+    protected function getTicketFilterByFilterTicketRequest($filter, array $filters = [])
     {
-        if (empty($params['filter'])) {
-            throw new \InvalidArgumentException('Missing parameter "filter" in TicketFiltersLegacyApi::getTicketFilterByFilterTicketRequest().');
+        if (empty($filter)) {
+            throw new \InvalidArgumentException('Missing parameter "$filter" in TicketFiltersLegacyApi::getTicketFilterByFilterTicketRequest().');
         }
-        if (!isset($params['sort'])) {
-            $params['sort'] = null;
+        if (!isset($filters['sort'])) {
+            $filters['sort'] = null;
         }
-        if (!isset($params['order'])) {
-            $params['order'] = null;
+        if (!isset($filters['order'])) {
+            $filters['order'] = null;
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['department'])) {
-            $params['department'] = null;
+        if (!isset($filters['department'])) {
+            $filters['department'] = null;
         }
-        if (!isset($params['organization'])) {
-            $params['organization'] = null;
+        if (!isset($filters['organization'])) {
+            $filters['organization'] = null;
         }
-        if (!isset($params['person'])) {
-            $params['person'] = null;
+        if (!isset($filters['person'])) {
+            $filters['person'] = null;
         }
-        if (!isset($params['language'])) {
-            $params['language'] = null;
+        if (!isset($filters['language'])) {
+            $filters['language'] = null;
         }
-        if (!isset($params['urgency'])) {
-            $params['urgency'] = null;
+        if (!isset($filters['urgency'])) {
+            $filters['urgency'] = null;
         }
-        if (!isset($params['agent'])) {
-            $params['agent'] = null;
+        if (!isset($filters['agent'])) {
+            $filters['agent'] = null;
         }
-        if (!isset($params['agent_team'])) {
-            $params['agent_team'] = null;
+        if (!isset($filters['agent_team'])) {
+            $filters['agent_team'] = null;
         }
-        if (!isset($params['waiting_time'])) {
-            $params['waiting_time'] = null;
+        if (!isset($filters['waiting_time'])) {
+            $filters['waiting_time'] = null;
         }
-        if (!isset($params['all_waiting_time'])) {
-            $params['all_waiting_time'] = null;
+        if (!isset($filters['all_waiting_time'])) {
+            $filters['all_waiting_time'] = null;
         }
-        if (!isset($params['date_created'])) {
-            $params['date_created'] = null;
+        if (!isset($filters['date_created'])) {
+            $filters['date_created'] = null;
         }
-        if (!isset($params['ticket_field_id'])) {
-            $params['ticket_field_id'] = null;
+        if (!isset($filters['ticket_field_id'])) {
+            $filters['ticket_field_id'] = null;
         }
         
 
@@ -433,72 +432,76 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        if ($filter !== null) {
+            $filter = ObjectSerializer::toQueryValue($filter);
+        }
+        
         // query params
-        if ($params['sort'] !== null) {
-            $queryParams['sort'] = ObjectSerializer::toQueryValue($params['sort']);
+        if ($filters['sort'] !== null) {
+            $queryParams['sort'] = ObjectSerializer::toQueryValue($filters['sort']);
         }
         // query params
-        if ($params['order'] !== null) {
-            $queryParams['order'] = ObjectSerializer::toQueryValue($params['order']);
+        if ($filters['order'] !== null) {
+            $queryParams['order'] = ObjectSerializer::toQueryValue($filters['order']);
         }
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['department'] !== null) {
-            $queryParams['department'] = ObjectSerializer::toQueryValue($params['department']);
+        if ($filters['department'] !== null) {
+            $queryParams['department'] = ObjectSerializer::toQueryValue($filters['department']);
         }
         // query params
-        if ($params['organization'] !== null) {
-            $queryParams['organization'] = ObjectSerializer::toQueryValue($params['organization']);
+        if ($filters['organization'] !== null) {
+            $queryParams['organization'] = ObjectSerializer::toQueryValue($filters['organization']);
         }
         // query params
-        if ($params['person'] !== null) {
-            $queryParams['person'] = ObjectSerializer::toQueryValue($params['person']);
+        if ($filters['person'] !== null) {
+            $queryParams['person'] = ObjectSerializer::toQueryValue($filters['person']);
         }
         // query params
-        if ($params['language'] !== null) {
-            $queryParams['language'] = ObjectSerializer::toQueryValue($params['language']);
+        if ($filters['language'] !== null) {
+            $queryParams['language'] = ObjectSerializer::toQueryValue($filters['language']);
         }
         // query params
-        if ($params['urgency'] !== null) {
-            $queryParams['urgency'] = ObjectSerializer::toQueryValue($params['urgency']);
+        if ($filters['urgency'] !== null) {
+            $queryParams['urgency'] = ObjectSerializer::toQueryValue($filters['urgency']);
         }
         // query params
-        if ($params['agent'] !== null) {
-            $queryParams['agent'] = ObjectSerializer::toQueryValue($params['agent']);
+        if ($filters['agent'] !== null) {
+            $queryParams['agent'] = ObjectSerializer::toQueryValue($filters['agent']);
         }
         // query params
-        if ($params['agent_team'] !== null) {
-            $queryParams['agent_team'] = ObjectSerializer::toQueryValue($params['agent_team']);
+        if ($filters['agent_team'] !== null) {
+            $queryParams['agent_team'] = ObjectSerializer::toQueryValue($filters['agent_team']);
         }
         // query params
-        if ($params['waiting_time'] !== null) {
-            $queryParams['waiting_time'] = ObjectSerializer::toQueryValue($params['waiting_time']);
+        if ($filters['waiting_time'] !== null) {
+            $queryParams['waiting_time'] = ObjectSerializer::toQueryValue($filters['waiting_time']);
         }
         // query params
-        if ($params['all_waiting_time'] !== null) {
-            $queryParams['all_waiting_time'] = ObjectSerializer::toQueryValue($params['all_waiting_time']);
+        if ($filters['all_waiting_time'] !== null) {
+            $queryParams['all_waiting_time'] = ObjectSerializer::toQueryValue($filters['all_waiting_time']);
         }
         // query params
-        if ($params['date_created'] !== null) {
-            $queryParams['date_created'] = ObjectSerializer::toQueryValue($params['date_created']);
+        if ($filters['date_created'] !== null) {
+            $queryParams['date_created'] = ObjectSerializer::toQueryValue($filters['date_created']);
         }
         // query params
-        if ($params['ticket_field_id'] !== null) {
-            $queryParams['ticket_field.{id}'] = ObjectSerializer::toQueryValue($params['ticket_field_id']);
+        if ($filters['ticket_field_id'] !== null) {
+            $queryParams['ticket_field.{id}'] = ObjectSerializer::toQueryValue($filters['ticket_field_id']);
         }
 
         // path params
-        if ($params['filter'] !== null) {
+        if ($filter !== null) {
             $resourcePath = str_replace(
                 '{' . 'filter' . '}',
-                ObjectSerializer::toPathValue($params['filter']),
+                ObjectSerializer::toPathValue($filter),
                 $resourcePath
             );
         }
@@ -576,37 +579,32 @@ class TicketFiltersLegacyApi
      * Operation getTicketFilterById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterById(array $params = [])
+    public function getTicketFilterById($id)
     {
-        list($response) = $this->getTicketFilterByIdWithHttpInfo($params);
+        list($response) = $this->getTicketFilterByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketFilterByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterByIdWithHttpInfo(array $params = [])
+    public function getTicketFilterByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterByIdRequest($params);
+        $request = $this->getTicketFilterByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -680,19 +678,17 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterByIdAsync(array $params = [])
+    public function getTicketFilterByIdAsync($id)
     {
-        return $this->getTicketFilterByIdAsyncWithHttpInfo($params)
+        return $this->getTicketFilterByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -703,23 +699,21 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterByIdRequest($params);
+        $request = $this->getTicketFilterByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -739,7 +733,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -759,18 +753,15 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterByIdRequest(array $params = [])
+    protected function getTicketFilterByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketFiltersLegacyApi::getTicketFilterByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketFiltersLegacyApi::getTicketFilterByIdRequest().');
         }
         
 
@@ -781,12 +772,16 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -863,40 +858,39 @@ class TicketFiltersLegacyApi
     /**
      * Operation getTicketFilterByIdCount
      *
-     *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string  the grouping order you want (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterByIdCount(array $params = [])
+    public function getTicketFilterByIdCount($id, array $filters = [])
     {
-        list($response) = $this->getTicketFilterByIdCountWithHttpInfo($params);
+        list($response) = $this->getTicketFilterByIdCountWithHttpInfo($id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketFilterByIdCountWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string  the grouping order you want (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterByIdCountWithHttpInfo(array $params = [])
+    public function getTicketFilterByIdCountWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterByIdCountRequest($params);
+        $request = $this->getTicketFilterByIdCountRequest($id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -970,20 +964,20 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string  the grouping order you want (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterByIdCountAsync(array $params = [])
+    public function getTicketFilterByIdCountAsync($id, array $filters = [])
     {
-        return $this->getTicketFilterByIdCountAsyncWithHttpInfo($params)
+        return $this->getTicketFilterByIdCountAsyncWithHttpInfo($id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -994,24 +988,24 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string  the grouping order you want (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterByIdCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterByIdCountAsyncWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterByIdCountRequest($params);
+        $request = $this->getTicketFilterByIdCountRequest($id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1031,7 +1025,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1051,22 +1045,21 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterByIdCount'
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string  the grouping order you want (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterByIdCountRequest(array $params = [])
+    protected function getTicketFilterByIdCountRequest($id, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketFiltersLegacyApi::getTicketFilterByIdCountRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketFiltersLegacyApi::getTicketFilterByIdCountRequest().');
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -1077,16 +1070,20 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1164,35 +1161,30 @@ class TicketFiltersLegacyApi
      * Operation getTicketFilterCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterCount(array $params = [])
+    public function getTicketFilterCount()
     {
-        list($response) = $this->getTicketFilterCountWithHttpInfo($params);
+        list($response) = $this->getTicketFilterCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketFilterCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterCountWithHttpInfo(array $params = [])
+    public function getTicketFilterCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterCountRequest($params);
+        $request = $this->getTicketFilterCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1266,18 +1258,16 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterCountAsync(array $params = [])
+    public function getTicketFilterCountAsync()
     {
-        return $this->getTicketFilterCountAsyncWithHttpInfo($params)
+        return $this->getTicketFilterCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1288,22 +1278,20 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterCountRequest($params);
+        $request = $this->getTicketFilterCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1323,7 +1311,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1343,14 +1331,11 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterCountRequest(array $params = [])
+    protected function getTicketFilterCountRequest()
     {
         
 
@@ -1361,6 +1346,7 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1435,38 +1421,37 @@ class TicketFiltersLegacyApi
     /**
      * Operation getTicketFilterSetAllCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterSetAllCount(array $params = [])
+    public function getTicketFilterSetAllCount(array $filters = [])
     {
-        list($response) = $this->getTicketFilterSetAllCountWithHttpInfo($params);
+        list($response) = $this->getTicketFilterSetAllCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketFilterSetAllCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterSetAllCountWithHttpInfo(array $params = [])
+    public function getTicketFilterSetAllCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetAllCountRequest($params);
+        $request = $this->getTicketFilterSetAllCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1540,19 +1525,19 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetAllCountAsync(array $params = [])
+    public function getTicketFilterSetAllCountAsync(array $filters = [])
     {
-        return $this->getTicketFilterSetAllCountAsyncWithHttpInfo($params)
+        return $this->getTicketFilterSetAllCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1563,23 +1548,23 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetAllCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterSetAllCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetAllCountRequest($params);
+        $request = $this->getTicketFilterSetAllCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1599,7 +1584,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1619,18 +1604,17 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterSetAllCount'
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterSetAllCountRequest(array $params = [])
+    protected function getTicketFilterSetAllCountRequest(array $filters = [])
     {
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -1641,12 +1625,13 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if (is_array($params['group_by'])) {
-            $params['group_by'] = ObjectSerializer::serializeCollection($params['group_by'], 'csv', true);
+        if (is_array($filters['group_by'])) {
+            $filters['group_by'] = ObjectSerializer::serializeCollection($filters['group_by'], 'csv', true);
         }
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
 
@@ -1723,37 +1708,32 @@ class TicketFiltersLegacyApi
      * Operation getTicketFilterSetById
      *
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterSetById(array $params = [])
+    public function getTicketFilterSetById($id)
     {
-        list($response) = $this->getTicketFilterSetByIdWithHttpInfo($params);
+        list($response) = $this->getTicketFilterSetByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketFilterSetByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterSetByIdWithHttpInfo(array $params = [])
+    public function getTicketFilterSetByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetByIdRequest($params);
+        $request = $this->getTicketFilterSetByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1827,19 +1807,17 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetByIdAsync(array $params = [])
+    public function getTicketFilterSetByIdAsync($id)
     {
-        return $this->getTicketFilterSetByIdAsyncWithHttpInfo($params)
+        return $this->getTicketFilterSetByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1850,23 +1828,21 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterSetByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetByIdRequest($params);
+        $request = $this->getTicketFilterSetByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1886,7 +1862,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1906,18 +1882,15 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterSetById'
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the filter set
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterSetByIdRequest(array $params = [])
+    protected function getTicketFilterSetByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketFiltersLegacyApi::getTicketFilterSetByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketFiltersLegacyApi::getTicketFilterSetByIdRequest().');
         }
         
 
@@ -1928,12 +1901,16 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2010,40 +1987,39 @@ class TicketFiltersLegacyApi
     /**
      * Operation getTicketFilterSetByIdCount
      *
-     *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterSetByIdCount(array $params = [])
+    public function getTicketFilterSetByIdCount($id, array $filters = [])
     {
-        list($response) = $this->getTicketFilterSetByIdCountWithHttpInfo($params);
+        list($response) = $this->getTicketFilterSetByIdCountWithHttpInfo($id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketFilterSetByIdCountWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterSetByIdCountWithHttpInfo(array $params = [])
+    public function getTicketFilterSetByIdCountWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetByIdCountRequest($params);
+        $request = $this->getTicketFilterSetByIdCountRequest($id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2117,20 +2093,20 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetByIdCountAsync(array $params = [])
+    public function getTicketFilterSetByIdCountAsync($id, array $filters = [])
     {
-        return $this->getTicketFilterSetByIdCountAsyncWithHttpInfo($params)
+        return $this->getTicketFilterSetByIdCountAsyncWithHttpInfo($id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2141,24 +2117,24 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetByIdCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterSetByIdCountAsyncWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetByIdCountRequest($params);
+        $request = $this->getTicketFilterSetByIdCountRequest($id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2178,7 +2154,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2198,22 +2174,21 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterSetByIdCount'
      *
-     * Parameters:
-     *   "id" int  the id of the filter (required)
+     * Filters:
      *   "group_by" string[]  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the filter
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterSetByIdCountRequest(array $params = [])
+    protected function getTicketFilterSetByIdCountRequest($id, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketFiltersLegacyApi::getTicketFilterSetByIdCountRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketFiltersLegacyApi::getTicketFilterSetByIdCountRequest().');
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -2224,19 +2199,23 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        if (is_array($params['group_by'])) {
-            $params['group_by'] = ObjectSerializer::serializeCollection($params['group_by'], 'csv', true);
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
         }
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        
+        // query params
+        if (is_array($filters['group_by'])) {
+            $filters['group_by'] = ObjectSerializer::serializeCollection($filters['group_by'], 'csv', true);
+        }
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2314,37 +2293,32 @@ class TicketFiltersLegacyApi
      * Operation getTicketFilterSetByIdFilter
      *
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterSetByIdFilter(array $params = [])
+    public function getTicketFilterSetByIdFilter($id)
     {
-        list($response) = $this->getTicketFilterSetByIdFilterWithHttpInfo($params);
+        list($response) = $this->getTicketFilterSetByIdFilterWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketFilterSetByIdFilterWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterSetByIdFilterWithHttpInfo(array $params = [])
+    public function getTicketFilterSetByIdFilterWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetByIdFilterRequest($params);
+        $request = $this->getTicketFilterSetByIdFilterRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2418,19 +2392,17 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetByIdFilterAsync(array $params = [])
+    public function getTicketFilterSetByIdFilterAsync($id)
     {
-        return $this->getTicketFilterSetByIdFilterAsyncWithHttpInfo($params)
+        return $this->getTicketFilterSetByIdFilterAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2441,23 +2413,21 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the filter set
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetByIdFilterAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterSetByIdFilterAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetByIdFilterRequest($params);
+        $request = $this->getTicketFilterSetByIdFilterRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2477,7 +2447,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2497,18 +2467,15 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterSetByIdFilter'
      *
-     * Parameters:
-     *   "id" int  the id of the filter set (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the filter set
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterSetByIdFilterRequest(array $params = [])
+    protected function getTicketFilterSetByIdFilterRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketFiltersLegacyApi::getTicketFilterSetByIdFilterRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketFiltersLegacyApi::getTicketFilterSetByIdFilterRequest().');
         }
         
 
@@ -2519,12 +2486,16 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2602,35 +2573,30 @@ class TicketFiltersLegacyApi
      * Operation getTicketFilterSets
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilterSets(array $params = [])
+    public function getTicketFilterSets()
     {
-        list($response) = $this->getTicketFilterSetsWithHttpInfo($params);
+        list($response) = $this->getTicketFilterSetsWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketFilterSetsWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFilterSetsWithHttpInfo(array $params = [])
+    public function getTicketFilterSetsWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetsRequest($params);
+        $request = $this->getTicketFilterSetsRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2696,18 +2662,16 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetsAsync(array $params = [])
+    public function getTicketFilterSetsAsync()
     {
-        return $this->getTicketFilterSetsAsyncWithHttpInfo($params)
+        return $this->getTicketFilterSetsAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2718,22 +2682,20 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFilterSetsAsyncWithHttpInfo(array $params = [])
+    public function getTicketFilterSetsAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFilterSetsRequest($params);
+        $request = $this->getTicketFilterSetsRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2753,7 +2715,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2773,14 +2735,11 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilterSets'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFilterSetsRequest(array $params = [])
+    protected function getTicketFilterSetsRequest()
     {
         
 
@@ -2791,6 +2750,7 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2865,44 +2825,43 @@ class TicketFiltersLegacyApi
     /**
      * Operation getTicketFilters
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFilters(array $params = [])
+    public function getTicketFilters(array $filters = [])
     {
-        list($response) = $this->getTicketFiltersWithHttpInfo($params);
+        list($response) = $this->getTicketFiltersWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketFiltersWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFiltersWithHttpInfo(array $params = [])
+    public function getTicketFiltersWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFiltersRequest($params);
+        $request = $this->getTicketFiltersRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2976,22 +2935,22 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFiltersAsync(array $params = [])
+    public function getTicketFiltersAsync(array $filters = [])
     {
-        return $this->getTicketFiltersAsyncWithHttpInfo($params)
+        return $this->getTicketFiltersAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3002,26 +2961,26 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFiltersAsyncWithHttpInfo(array $params = [])
+    public function getTicketFiltersAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFiltersRequest($params);
+        $request = $this->getTicketFiltersRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3041,7 +3000,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3061,30 +3020,29 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFilters'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFiltersRequest(array $params = [])
+    protected function getTicketFiltersRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -3095,21 +3053,22 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -3185,38 +3144,37 @@ class TicketFiltersLegacyApi
     /**
      * Operation getTicketFiltersCounts
      *
-     *
-     * Parameters:
+     * Filters:
      *   "group_by" string  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFiltersCounts(array $params = [])
+    public function getTicketFiltersCounts(array $filters = [])
     {
-        list($response) = $this->getTicketFiltersCountsWithHttpInfo($params);
+        list($response) = $this->getTicketFiltersCountsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketFiltersCountsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFiltersCountsWithHttpInfo(array $params = [])
+    public function getTicketFiltersCountsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFiltersCountsRequest($params);
+        $request = $this->getTicketFiltersCountsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3290,19 +3248,19 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFiltersCountsAsync(array $params = [])
+    public function getTicketFiltersCountsAsync(array $filters = [])
     {
-        return $this->getTicketFiltersCountsAsyncWithHttpInfo($params)
+        return $this->getTicketFiltersCountsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3313,23 +3271,23 @@ class TicketFiltersLegacyApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFiltersCountsAsyncWithHttpInfo(array $params = [])
+    public function getTicketFiltersCountsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFiltersCountsRequest($params);
+        $request = $this->getTicketFiltersCountsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3349,7 +3307,7 @@ class TicketFiltersLegacyApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3369,18 +3327,17 @@ class TicketFiltersLegacyApi
     /**
      * Create request for operation 'getTicketFiltersCounts'
      *
-     * Parameters:
+     * Filters:
      *   "group_by" string  [Ticket filter ID &#x3D;&gt; group_by] map (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFiltersCountsRequest(array $params = [])
+    protected function getTicketFiltersCountsRequest(array $filters = [])
     {
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -3391,9 +3348,10 @@ class TicketFiltersLegacyApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
 

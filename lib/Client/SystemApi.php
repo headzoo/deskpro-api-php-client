@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class SystemApi
      * Operation deleteSystemIncident
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteSystemIncident(array $params = [])
+    public function deleteSystemIncident()
     {
-        list($response) = $this->deleteSystemIncidentWithHttpInfo($params);
+        list($response) = $this->deleteSystemIncidentWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation deleteSystemIncidentWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteSystemIncidentWithHttpInfo(array $params = [])
+    public function deleteSystemIncidentWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSystemIncidentRequest($params);
+        $request = $this->deleteSystemIncidentRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSystemIncidentAsync(array $params = [])
+    public function deleteSystemIncidentAsync()
     {
-        return $this->deleteSystemIncidentAsyncWithHttpInfo($params)
+        return $this->deleteSystemIncidentAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSystemIncidentAsyncWithHttpInfo(array $params = [])
+    public function deleteSystemIncidentAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSystemIncidentRequest($params);
+        $request = $this->deleteSystemIncidentRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class SystemApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class SystemApi
     /**
      * Create request for operation 'deleteSystemIncident'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteSystemIncidentRequest(array $params = [])
+    protected function deleteSystemIncidentRequest()
     {
         
 
@@ -305,6 +294,7 @@ class SystemApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -380,37 +370,32 @@ class SystemApi
      * Operation deleteSystemIncidentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteSystemIncidentById(array $params = [])
+    public function deleteSystemIncidentById($id)
     {
-        list($response) = $this->deleteSystemIncidentByIdWithHttpInfo($params);
+        list($response) = $this->deleteSystemIncidentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteSystemIncidentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteSystemIncidentByIdWithHttpInfo(array $params = [])
+    public function deleteSystemIncidentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSystemIncidentByIdRequest($params);
+        $request = $this->deleteSystemIncidentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -484,19 +469,17 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSystemIncidentByIdAsync(array $params = [])
+    public function deleteSystemIncidentByIdAsync($id)
     {
-        return $this->deleteSystemIncidentByIdAsyncWithHttpInfo($params)
+        return $this->deleteSystemIncidentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -507,23 +490,21 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteSystemIncidentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteSystemIncidentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteSystemIncidentByIdRequest($params);
+        $request = $this->deleteSystemIncidentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -543,7 +524,7 @@ class SystemApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -563,18 +544,15 @@ class SystemApi
     /**
      * Create request for operation 'deleteSystemIncidentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteSystemIncidentByIdRequest(array $params = [])
+    protected function deleteSystemIncidentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in SystemApi::deleteSystemIncidentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in SystemApi::deleteSystemIncidentByIdRequest().');
         }
         
 
@@ -585,12 +563,16 @@ class SystemApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -668,37 +650,32 @@ class SystemApi
      * Operation getSystemEventById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSystemEventById(array $params = [])
+    public function getSystemEventById($id)
     {
-        list($response) = $this->getSystemEventByIdWithHttpInfo($params);
+        list($response) = $this->getSystemEventByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getSystemEventByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSystemEventByIdWithHttpInfo(array $params = [])
+    public function getSystemEventByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemEventByIdRequest($params);
+        $request = $this->getSystemEventByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -772,19 +749,17 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemEventByIdAsync(array $params = [])
+    public function getSystemEventByIdAsync($id)
     {
-        return $this->getSystemEventByIdAsyncWithHttpInfo($params)
+        return $this->getSystemEventByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -795,23 +770,21 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemEventByIdAsyncWithHttpInfo(array $params = [])
+    public function getSystemEventByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemEventByIdRequest($params);
+        $request = $this->getSystemEventByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -831,7 +804,7 @@ class SystemApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -851,18 +824,15 @@ class SystemApi
     /**
      * Create request for operation 'getSystemEventById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSystemEventByIdRequest(array $params = [])
+    protected function getSystemEventByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in SystemApi::getSystemEventByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in SystemApi::getSystemEventByIdRequest().');
         }
         
 
@@ -873,12 +843,16 @@ class SystemApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -955,44 +929,43 @@ class SystemApi
     /**
      * Operation getSystemIncident
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSystemIncident(array $params = [])
+    public function getSystemIncident(array $filters = [])
     {
-        list($response) = $this->getSystemIncidentWithHttpInfo($params);
+        list($response) = $this->getSystemIncidentWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSystemIncidentWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSystemIncidentWithHttpInfo(array $params = [])
+    public function getSystemIncidentWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemIncidentRequest($params);
+        $request = $this->getSystemIncidentRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1066,22 +1039,22 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemIncidentAsync(array $params = [])
+    public function getSystemIncidentAsync(array $filters = [])
     {
-        return $this->getSystemIncidentAsyncWithHttpInfo($params)
+        return $this->getSystemIncidentAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1092,26 +1065,26 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemIncidentAsyncWithHttpInfo(array $params = [])
+    public function getSystemIncidentAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemIncidentRequest($params);
+        $request = $this->getSystemIncidentRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1131,7 +1104,7 @@ class SystemApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1151,30 +1124,29 @@ class SystemApi
     /**
      * Create request for operation 'getSystemIncident'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSystemIncidentRequest(array $params = [])
+    protected function getSystemIncidentRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1185,21 +1157,22 @@ class SystemApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -1276,37 +1249,32 @@ class SystemApi
      * Operation getSystemIncidentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSystemIncidentById(array $params = [])
+    public function getSystemIncidentById($id)
     {
-        list($response) = $this->getSystemIncidentByIdWithHttpInfo($params);
+        list($response) = $this->getSystemIncidentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getSystemIncidentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSystemIncidentByIdWithHttpInfo(array $params = [])
+    public function getSystemIncidentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemIncidentByIdRequest($params);
+        $request = $this->getSystemIncidentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1380,19 +1348,17 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemIncidentByIdAsync(array $params = [])
+    public function getSystemIncidentByIdAsync($id)
     {
-        return $this->getSystemIncidentByIdAsyncWithHttpInfo($params)
+        return $this->getSystemIncidentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1403,23 +1369,21 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemIncidentByIdAsyncWithHttpInfo(array $params = [])
+    public function getSystemIncidentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemIncidentByIdRequest($params);
+        $request = $this->getSystemIncidentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1439,7 +1403,7 @@ class SystemApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1459,18 +1423,15 @@ class SystemApi
     /**
      * Create request for operation 'getSystemIncidentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSystemIncidentByIdRequest(array $params = [])
+    protected function getSystemIncidentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in SystemApi::getSystemIncidentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in SystemApi::getSystemIncidentByIdRequest().');
         }
         
 
@@ -1481,12 +1442,16 @@ class SystemApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1564,35 +1529,30 @@ class SystemApi
      * Operation getSystemIncidentCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSystemIncidentCount(array $params = [])
+    public function getSystemIncidentCount()
     {
-        list($response) = $this->getSystemIncidentCountWithHttpInfo($params);
+        list($response) = $this->getSystemIncidentCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getSystemIncidentCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSystemIncidentCountWithHttpInfo(array $params = [])
+    public function getSystemIncidentCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemIncidentCountRequest($params);
+        $request = $this->getSystemIncidentCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1666,18 +1626,16 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemIncidentCountAsync(array $params = [])
+    public function getSystemIncidentCountAsync()
     {
-        return $this->getSystemIncidentCountAsyncWithHttpInfo($params)
+        return $this->getSystemIncidentCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1688,22 +1646,20 @@ class SystemApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSystemIncidentCountAsyncWithHttpInfo(array $params = [])
+    public function getSystemIncidentCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSystemIncidentCountRequest($params);
+        $request = $this->getSystemIncidentCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1723,7 +1679,7 @@ class SystemApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1743,14 +1699,11 @@ class SystemApi
     /**
      * Create request for operation 'getSystemIncidentCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSystemIncidentCountRequest(array $params = [])
+    protected function getSystemIncidentCountRequest()
     {
         
 
@@ -1761,6 +1714,7 @@ class SystemApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

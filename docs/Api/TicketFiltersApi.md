@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 
 # **deleteNewTicketFilterById**
-> \DeskPRO\API\Model\Response deleteNewTicketFilterById(array $params = [])
+> \DeskPRO\API\Model\Response deleteNewTicketFilterById(int $id)
 
 
 
@@ -39,13 +39,11 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteNewTicketFilterById($params);
-    print_r($result);
+    $result = $api->deleteNewTicketFilterById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -54,9 +52,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -74,7 +77,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteNewTicketFilterSetById**
-> \DeskPRO\API\Model\Response deleteNewTicketFilterSetById(array $params = [])
+> \DeskPRO\API\Model\Response deleteNewTicketFilterSetById(int $id)
 
 
 
@@ -92,13 +95,11 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteNewTicketFilterSetById($params);
-    print_r($result);
+    $result = $api->deleteNewTicketFilterSetById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -107,9 +108,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -127,7 +133,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilter**
-> \DeskPRO\API\Model\Response getNewTicketFilter(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilter(array $filters = [])
 
 
 
@@ -145,7 +151,7 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -153,8 +159,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNewTicketFilter($params);
-    print_r($result);
+    $result = $api->getNewTicketFilter($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -162,6 +168,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -186,7 +199,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterByFilterCount**
-> \DeskPRO\API\Model\Response getNewTicketFilterByFilterCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterByFilterCount(int $filter, array $filters = [])
 
 
 
@@ -204,14 +217,14 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"filter" => 56, // int | the id of the filter
+$filter = 56; // int | the id of the filter
+$filters = [
 "group_by" => "group_by_example" // string | the grouping order you want
 ];
 
 try {
-    $result = $api->getNewTicketFilterByFilterCount($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterByFilterCount($filter, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -220,9 +233,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **int**| the id of the filter |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **group_by** | **string**| the grouping order you want | [optional]
 
 ### Return type
@@ -241,7 +261,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterByFilterTicket**
-> \DeskPRO\API\Model\Response getNewTicketFilterByFilterTicket(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterByFilterTicket(string $filter)
 
 
 
@@ -259,13 +279,11 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"filter" => "filter_example" // string | 
-];
+$filter = "filter_example"; // string | 
 
 try {
-    $result = $api->getNewTicketFilterByFilterTicket($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterByFilterTicket($filter);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -274,9 +292,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -294,7 +317,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterById**
-> \DeskPRO\API\Model\Response getNewTicketFilterById(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterById(int $id)
 
 
 
@@ -312,13 +335,11 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getNewTicketFilterById($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -327,9 +348,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -347,7 +373,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterCount**
-> \DeskPRO\API\Model\Response getNewTicketFilterCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterCount()
 
 
 
@@ -365,12 +391,10 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getNewTicketFilterCount($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -378,7 +402,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -396,7 +425,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterSet**
-> \DeskPRO\API\Model\Response getNewTicketFilterSet(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterSet(array $filters = [])
 
 
 
@@ -414,7 +443,7 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -422,8 +451,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNewTicketFilterSet($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterSet($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -431,6 +460,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -455,7 +491,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterSetAllCount**
-> \DeskPRO\API\Model\Response getNewTicketFilterSetAllCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterSetAllCount(array $filters = [])
 
 
 
@@ -473,13 +509,13 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "group_by" => array("group_by_example") // string[] | [Ticket filter ID => group_by] map
 ];
 
 try {
-    $result = $api->getNewTicketFilterSetAllCount($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterSetAllCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -487,6 +523,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -508,7 +551,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterSetById**
-> \DeskPRO\API\Model\Response getNewTicketFilterSetById(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterSetById(int $id)
 
 
 
@@ -526,13 +569,11 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getNewTicketFilterSetById($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterSetById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -541,9 +582,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -561,7 +607,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterSetBySetCount**
-> \DeskPRO\API\Model\Response getNewTicketFilterSetBySetCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterSetBySetCount(int $set, array $filters = [])
 
 
 
@@ -579,14 +625,14 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"set" => 56, // int | the id of the filter
+$set = 56; // int | the id of the filter
+$filters = [
 "group_by" => array("group_by_example") // string[] | [Ticket filter ID => group_by] map
 ];
 
 try {
-    $result = $api->getNewTicketFilterSetBySetCount($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterSetBySetCount($set, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -595,9 +641,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **set** | **int**| the id of the filter |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **group_by** | [**string[]**](../Model/string.md)| [Ticket filter ID &#x3D;&gt; group_by] map | [optional]
 
 ### Return type
@@ -616,7 +669,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterSetBySetFilter**
-> \DeskPRO\API\Model\Response getNewTicketFilterSetBySetFilter(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterSetBySetFilter(string $set, array $filters = [])
 
 
 
@@ -634,14 +687,14 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"set" => "set_example", // string | 
+$set = "set_example"; // string | 
+$filters = [
 "id" => 56 // int | the id of the filter set
 ];
 
 try {
-    $result = $api->getNewTicketFilterSetBySetFilter($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterSetBySetFilter($set, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -650,9 +703,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **set** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **id** | **int**| the id of the filter set | [optional]
 
 ### Return type
@@ -671,7 +731,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterSetCount**
-> \DeskPRO\API\Model\Response getNewTicketFilterSetCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterSetCount()
 
 
 
@@ -689,12 +749,10 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getNewTicketFilterSetCount($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterSetCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -702,7 +760,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -720,7 +783,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFiltersCount**
-> \DeskPRO\API\Model\Response getNewTicketFiltersCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFiltersCount(array $filters = [])
 
 
 
@@ -738,13 +801,13 @@ $api = new TicketFiltersApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "group_by" => "group_by_example" // string | [Ticket filter ID => group_by] map
 ];
 
 try {
-    $result = $api->getNewTicketFiltersCount($params);
-    print_r($result);
+    $result = $api->getNewTicketFiltersCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -752,6 +815,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class NotificationsAndAlertsApi
      * Operation deleteMeNotificationById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteMeNotificationById(array $params = [])
+    public function deleteMeNotificationById($id)
     {
-        list($response) = $this->deleteMeNotificationByIdWithHttpInfo($params);
+        list($response) = $this->deleteMeNotificationByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteMeNotificationByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteMeNotificationByIdWithHttpInfo(array $params = [])
+    public function deleteMeNotificationByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteMeNotificationByIdRequest($params);
+        $request = $this->deleteMeNotificationByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteMeNotificationByIdAsync(array $params = [])
+    public function deleteMeNotificationByIdAsync($id)
     {
-        return $this->deleteMeNotificationByIdAsyncWithHttpInfo($params)
+        return $this->deleteMeNotificationByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteMeNotificationByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteMeNotificationByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteMeNotificationByIdRequest($params);
+        $request = $this->deleteMeNotificationByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'deleteMeNotificationById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteMeNotificationByIdRequest(array $params = [])
+    protected function deleteMeNotificationByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in NotificationsAndAlertsApi::deleteMeNotificationByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in NotificationsAndAlertsApi::deleteMeNotificationByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -403,44 +396,43 @@ class NotificationsAndAlertsApi
     /**
      * Operation getMeNotification
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getMeNotification(array $params = [])
+    public function getMeNotification(array $filters = [])
     {
-        list($response) = $this->getMeNotificationWithHttpInfo($params);
+        list($response) = $this->getMeNotificationWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getMeNotificationWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMeNotificationWithHttpInfo(array $params = [])
+    public function getMeNotificationWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeNotificationRequest($params);
+        $request = $this->getMeNotificationRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -514,22 +506,22 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeNotificationAsync(array $params = [])
+    public function getMeNotificationAsync(array $filters = [])
     {
-        return $this->getMeNotificationAsyncWithHttpInfo($params)
+        return $this->getMeNotificationAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -540,26 +532,26 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeNotificationAsyncWithHttpInfo(array $params = [])
+    public function getMeNotificationAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeNotificationRequest($params);
+        $request = $this->getMeNotificationRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -579,7 +571,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -599,30 +591,29 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'getMeNotification'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getMeNotificationRequest(array $params = [])
+    protected function getMeNotificationRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -633,21 +624,22 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -724,37 +716,32 @@ class NotificationsAndAlertsApi
      * Operation getMeNotificationById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getMeNotificationById(array $params = [])
+    public function getMeNotificationById($id)
     {
-        list($response) = $this->getMeNotificationByIdWithHttpInfo($params);
+        list($response) = $this->getMeNotificationByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getMeNotificationByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMeNotificationByIdWithHttpInfo(array $params = [])
+    public function getMeNotificationByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeNotificationByIdRequest($params);
+        $request = $this->getMeNotificationByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -828,19 +815,17 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeNotificationByIdAsync(array $params = [])
+    public function getMeNotificationByIdAsync($id)
     {
-        return $this->getMeNotificationByIdAsyncWithHttpInfo($params)
+        return $this->getMeNotificationByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -851,23 +836,21 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeNotificationByIdAsyncWithHttpInfo(array $params = [])
+    public function getMeNotificationByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeNotificationByIdRequest($params);
+        $request = $this->getMeNotificationByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -887,7 +870,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -907,18 +890,15 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'getMeNotificationById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getMeNotificationByIdRequest(array $params = [])
+    protected function getMeNotificationByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in NotificationsAndAlertsApi::getMeNotificationByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in NotificationsAndAlertsApi::getMeNotificationByIdRequest().');
         }
         
 
@@ -929,12 +909,16 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1012,35 +996,30 @@ class NotificationsAndAlertsApi
      * Operation getMeNotificationCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getMeNotificationCount(array $params = [])
+    public function getMeNotificationCount()
     {
-        list($response) = $this->getMeNotificationCountWithHttpInfo($params);
+        list($response) = $this->getMeNotificationCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getMeNotificationCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMeNotificationCountWithHttpInfo(array $params = [])
+    public function getMeNotificationCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeNotificationCountRequest($params);
+        $request = $this->getMeNotificationCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1114,18 +1093,16 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeNotificationCountAsync(array $params = [])
+    public function getMeNotificationCountAsync()
     {
-        return $this->getMeNotificationCountAsyncWithHttpInfo($params)
+        return $this->getMeNotificationCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1136,22 +1113,20 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeNotificationCountAsyncWithHttpInfo(array $params = [])
+    public function getMeNotificationCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeNotificationCountRequest($params);
+        $request = $this->getMeNotificationCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1171,7 +1146,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1191,14 +1166,11 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'getMeNotificationCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getMeNotificationCountRequest(array $params = [])
+    protected function getMeNotificationCountRequest()
     {
         
 
@@ -1209,6 +1181,7 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1284,35 +1257,30 @@ class NotificationsAndAlertsApi
      * Operation getNotifySetupActionAlert
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNotifySetupActionAlert(array $params = [])
+    public function getNotifySetupActionAlert()
     {
-        list($response) = $this->getNotifySetupActionAlertWithHttpInfo($params);
+        list($response) = $this->getNotifySetupActionAlertWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getNotifySetupActionAlertWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNotifySetupActionAlertWithHttpInfo(array $params = [])
+    public function getNotifySetupActionAlertWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNotifySetupActionAlertRequest($params);
+        $request = $this->getNotifySetupActionAlertRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1378,18 +1346,16 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNotifySetupActionAlertAsync(array $params = [])
+    public function getNotifySetupActionAlertAsync()
     {
-        return $this->getNotifySetupActionAlertAsyncWithHttpInfo($params)
+        return $this->getNotifySetupActionAlertAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1400,22 +1366,20 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNotifySetupActionAlertAsyncWithHttpInfo(array $params = [])
+    public function getNotifySetupActionAlertAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNotifySetupActionAlertRequest($params);
+        $request = $this->getNotifySetupActionAlertRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1435,7 +1399,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1455,14 +1419,11 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'getNotifySetupActionAlert'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNotifySetupActionAlertRequest(array $params = [])
+    protected function getNotifySetupActionAlertRequest()
     {
         
 
@@ -1473,6 +1434,7 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1548,41 +1510,36 @@ class NotificationsAndAlertsApi
      * Operation getNotifySetupActionAlertClient
      *
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNotifySetupActionAlertClient(array $params = [])
+    public function getNotifySetupActionAlertClient($user_id, $channel_name, $socket_id)
     {
-        list($response) = $this->getNotifySetupActionAlertClientWithHttpInfo($params);
+        list($response) = $this->getNotifySetupActionAlertClientWithHttpInfo($user_id, $channel_name, $socket_id);
         return $response;
     }
 
     /**
      * Operation getNotifySetupActionAlertClientWithHttpInfo
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNotifySetupActionAlertClientWithHttpInfo(array $params = [])
+    public function getNotifySetupActionAlertClientWithHttpInfo($user_id, $channel_name, $socket_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNotifySetupActionAlertClientRequest($params);
+        $request = $this->getNotifySetupActionAlertClientRequest($user_id, $channel_name, $socket_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1648,21 +1605,19 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNotifySetupActionAlertClientAsync(array $params = [])
+    public function getNotifySetupActionAlertClientAsync($user_id, $channel_name, $socket_id)
     {
-        return $this->getNotifySetupActionAlertClientAsyncWithHttpInfo($params)
+        return $this->getNotifySetupActionAlertClientAsyncWithHttpInfo($user_id, $channel_name, $socket_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1673,25 +1628,23 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNotifySetupActionAlertClientAsyncWithHttpInfo(array $params = [])
+    public function getNotifySetupActionAlertClientAsyncWithHttpInfo($user_id, $channel_name, $socket_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNotifySetupActionAlertClientRequest($params);
+        $request = $this->getNotifySetupActionAlertClientRequest($user_id, $channel_name, $socket_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1711,7 +1664,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1731,26 +1684,23 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'getNotifySetupActionAlertClient'
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNotifySetupActionAlertClientRequest(array $params = [])
+    protected function getNotifySetupActionAlertClientRequest($user_id, $channel_name, $socket_id)
     {
-        if (empty($params['user_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "user_id" in NotificationsAndAlertsApi::getNotifySetupActionAlertClientRequest().');
+        if (empty($user_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$user_id" in NotificationsAndAlertsApi::getNotifySetupActionAlertClientRequest().');
         }
-        if (empty($params['channel_name'])) {
-            throw new \InvalidArgumentException('Missing parameter "channel_name" in NotificationsAndAlertsApi::getNotifySetupActionAlertClientRequest().');
+        if (empty($channel_name)) {
+            throw new \InvalidArgumentException('Missing parameter "$channel_name" in NotificationsAndAlertsApi::getNotifySetupActionAlertClientRequest().');
         }
-        if (empty($params['socket_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "socket_id" in NotificationsAndAlertsApi::getNotifySetupActionAlertClientRequest().');
+        if (empty($socket_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$socket_id" in NotificationsAndAlertsApi::getNotifySetupActionAlertClientRequest().');
         }
         
 
@@ -1761,17 +1711,27 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($user_id !== null) {
+            $user_id = ObjectSerializer::toQueryValue($user_id);
+        }
+        if ($channel_name !== null) {
+            $channel_name = ObjectSerializer::toQueryValue($channel_name);
+        }
+        if ($socket_id !== null) {
+            $socket_id = ObjectSerializer::toQueryValue($socket_id);
+        }
+        
         // query params
-        if ($params['user_id'] !== null) {
-            $queryParams['user_id'] = ObjectSerializer::toQueryValue($params['user_id']);
+        if ($filters['user_id'] !== null) {
+            $queryParams['user_id'] = ObjectSerializer::toQueryValue($filters['user_id']);
         }
         // query params
-        if ($params['channel_name'] !== null) {
-            $queryParams['channel_name'] = ObjectSerializer::toQueryValue($params['channel_name']);
+        if ($filters['channel_name'] !== null) {
+            $queryParams['channel_name'] = ObjectSerializer::toQueryValue($filters['channel_name']);
         }
         // query params
-        if ($params['socket_id'] !== null) {
-            $queryParams['socket_id'] = ObjectSerializer::toQueryValue($params['socket_id']);
+        if ($filters['socket_id'] !== null) {
+            $queryParams['socket_id'] = ObjectSerializer::toQueryValue($filters['socket_id']);
         }
 
 
@@ -1848,37 +1808,32 @@ class NotificationsAndAlertsApi
      * Operation setMeNotificationDismi
      *
      *
-     * Parameters:
-     *   "alert_ids" string[]   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string[] $alert_ids 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setMeNotificationDismi(array $params = [])
+    public function setMeNotificationDismi($alert_ids)
     {
-        list($response) = $this->setMeNotificationDismiWithHttpInfo($params);
+        list($response) = $this->setMeNotificationDismiWithHttpInfo($alert_ids);
         return $response;
     }
 
     /**
      * Operation setMeNotificationDismiWithHttpInfo
      *
-     * Parameters:
-     *   "alert_ids" string[]   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string[] $alert_ids 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setMeNotificationDismiWithHttpInfo(array $params = [])
+    public function setMeNotificationDismiWithHttpInfo($alert_ids)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setMeNotificationDismiRequest($params);
+        $request = $this->setMeNotificationDismiRequest($alert_ids);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1944,19 +1899,17 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "alert_ids" string[]   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string[] $alert_ids 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setMeNotificationDismiAsync(array $params = [])
+    public function setMeNotificationDismiAsync($alert_ids)
     {
-        return $this->setMeNotificationDismiAsyncWithHttpInfo($params)
+        return $this->setMeNotificationDismiAsyncWithHttpInfo($alert_ids)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1967,23 +1920,21 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "alert_ids" string[]   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string[] $alert_ids 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setMeNotificationDismiAsyncWithHttpInfo(array $params = [])
+    public function setMeNotificationDismiAsyncWithHttpInfo($alert_ids)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setMeNotificationDismiRequest($params);
+        $request = $this->setMeNotificationDismiRequest($alert_ids);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2003,7 +1954,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2023,18 +1974,15 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'setMeNotificationDismi'
      *
-     * Parameters:
-     *   "alert_ids" string[]   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string[] $alert_ids 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setMeNotificationDismiRequest(array $params = [])
+    protected function setMeNotificationDismiRequest($alert_ids)
     {
-        if (empty($params['alert_ids'])) {
-            throw new \InvalidArgumentException('Missing parameter "alert_ids" in NotificationsAndAlertsApi::setMeNotificationDismiRequest().');
+        if (empty($alert_ids)) {
+            throw new \InvalidArgumentException('Missing parameter "$alert_ids" in NotificationsAndAlertsApi::setMeNotificationDismiRequest().');
         }
         
 
@@ -2045,12 +1993,19 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        if (is_array($params['alert_ids'])) {
-            $params['alert_ids'] = ObjectSerializer::serializeCollection($params['alert_ids'], 'csv', true);
+        if (is_array($alert_ids)) {
+            $alert_ids = ObjectSerializer::serializeCollection($alert_ids, 'csv', true);
         }
-        if ($params['alert_ids'] !== null) {
-            $queryParams['alert_ids'] = ObjectSerializer::toQueryValue($params['alert_ids']);
+        if ($alert_ids !== null) {
+            $alert_ids = ObjectSerializer::toQueryValue($alert_ids);
+        }
+        
+        // query params
+        if (is_array($filters['alert_ids'])) {
+            $filters['alert_ids'] = ObjectSerializer::serializeCollection($filters['alert_ids'], 'csv', true);
+        }
+        if ($filters['alert_ids'] !== null) {
+            $queryParams['alert_ids'] = ObjectSerializer::toQueryValue($filters['alert_ids']);
         }
 
 
@@ -2127,35 +2082,30 @@ class NotificationsAndAlertsApi
      * Operation setMeNotificationDismiAll
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setMeNotificationDismiAll(array $params = [])
+    public function setMeNotificationDismiAll()
     {
-        list($response) = $this->setMeNotificationDismiAllWithHttpInfo($params);
+        list($response) = $this->setMeNotificationDismiAllWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation setMeNotificationDismiAllWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setMeNotificationDismiAllWithHttpInfo(array $params = [])
+    public function setMeNotificationDismiAllWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setMeNotificationDismiAllRequest($params);
+        $request = $this->setMeNotificationDismiAllRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2221,18 +2171,16 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setMeNotificationDismiAllAsync(array $params = [])
+    public function setMeNotificationDismiAllAsync()
     {
-        return $this->setMeNotificationDismiAllAsyncWithHttpInfo($params)
+        return $this->setMeNotificationDismiAllAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2243,22 +2191,20 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setMeNotificationDismiAllAsyncWithHttpInfo(array $params = [])
+    public function setMeNotificationDismiAllAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setMeNotificationDismiAllRequest($params);
+        $request = $this->setMeNotificationDismiAllRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2278,7 +2224,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2298,14 +2244,11 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'setMeNotificationDismiAll'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setMeNotificationDismiAllRequest(array $params = [])
+    protected function setMeNotificationDismiAllRequest()
     {
         
 
@@ -2316,6 +2259,7 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2391,41 +2335,36 @@ class NotificationsAndAlertsApi
      * Operation setPusherAuth
      *
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setPusherAuth(array $params = [])
+    public function setPusherAuth($user_id, $channel_name, $socket_id)
     {
-        list($response) = $this->setPusherAuthWithHttpInfo($params);
+        list($response) = $this->setPusherAuthWithHttpInfo($user_id, $channel_name, $socket_id);
         return $response;
     }
 
     /**
      * Operation setPusherAuthWithHttpInfo
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setPusherAuthWithHttpInfo(array $params = [])
+    public function setPusherAuthWithHttpInfo($user_id, $channel_name, $socket_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setPusherAuthRequest($params);
+        $request = $this->setPusherAuthRequest($user_id, $channel_name, $socket_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2491,21 +2430,19 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setPusherAuthAsync(array $params = [])
+    public function setPusherAuthAsync($user_id, $channel_name, $socket_id)
     {
-        return $this->setPusherAuthAsyncWithHttpInfo($params)
+        return $this->setPusherAuthAsyncWithHttpInfo($user_id, $channel_name, $socket_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2516,25 +2453,23 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setPusherAuthAsyncWithHttpInfo(array $params = [])
+    public function setPusherAuthAsyncWithHttpInfo($user_id, $channel_name, $socket_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setPusherAuthRequest($params);
+        $request = $this->setPusherAuthRequest($user_id, $channel_name, $socket_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2554,7 +2489,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2574,26 +2509,23 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'setPusherAuth'
      *
-     * Parameters:
-     *   "user_id" int   (required)
-     *   "channel_name" string   (required)
-     *   "socket_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $user_id 
+     * @param string $channel_name 
+     * @param string $socket_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setPusherAuthRequest(array $params = [])
+    protected function setPusherAuthRequest($user_id, $channel_name, $socket_id)
     {
-        if (empty($params['user_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "user_id" in NotificationsAndAlertsApi::setPusherAuthRequest().');
+        if (empty($user_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$user_id" in NotificationsAndAlertsApi::setPusherAuthRequest().');
         }
-        if (empty($params['channel_name'])) {
-            throw new \InvalidArgumentException('Missing parameter "channel_name" in NotificationsAndAlertsApi::setPusherAuthRequest().');
+        if (empty($channel_name)) {
+            throw new \InvalidArgumentException('Missing parameter "$channel_name" in NotificationsAndAlertsApi::setPusherAuthRequest().');
         }
-        if (empty($params['socket_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "socket_id" in NotificationsAndAlertsApi::setPusherAuthRequest().');
+        if (empty($socket_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$socket_id" in NotificationsAndAlertsApi::setPusherAuthRequest().');
         }
         
 
@@ -2604,17 +2536,27 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($user_id !== null) {
+            $user_id = ObjectSerializer::toQueryValue($user_id);
+        }
+        if ($channel_name !== null) {
+            $channel_name = ObjectSerializer::toQueryValue($channel_name);
+        }
+        if ($socket_id !== null) {
+            $socket_id = ObjectSerializer::toQueryValue($socket_id);
+        }
+        
         // query params
-        if ($params['user_id'] !== null) {
-            $queryParams['user_id'] = ObjectSerializer::toQueryValue($params['user_id']);
+        if ($filters['user_id'] !== null) {
+            $queryParams['user_id'] = ObjectSerializer::toQueryValue($filters['user_id']);
         }
         // query params
-        if ($params['channel_name'] !== null) {
-            $queryParams['channel_name'] = ObjectSerializer::toQueryValue($params['channel_name']);
+        if ($filters['channel_name'] !== null) {
+            $queryParams['channel_name'] = ObjectSerializer::toQueryValue($filters['channel_name']);
         }
         // query params
-        if ($params['socket_id'] !== null) {
-            $queryParams['socket_id'] = ObjectSerializer::toQueryValue($params['socket_id']);
+        if ($filters['socket_id'] !== null) {
+            $queryParams['socket_id'] = ObjectSerializer::toQueryValue($filters['socket_id']);
         }
 
 
@@ -2691,47 +2633,42 @@ class NotificationsAndAlertsApi
      * Operation updateNotifySetupActionAlertClient
      *
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "key" string   (required)
-     *   "secret" string   (required)
-     *   "host" string   (required)
-     *   "port" string   (required)
-     *   "mode" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param string $key 
+     * @param string $secret 
+     * @param string $host 
+     * @param string $port 
+     * @param string $mode 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateNotifySetupActionAlertClient(array $params = [])
+    public function updateNotifySetupActionAlertClient($id, $key, $secret, $host, $port, $mode)
     {
-        list($response) = $this->updateNotifySetupActionAlertClientWithHttpInfo($params);
+        list($response) = $this->updateNotifySetupActionAlertClientWithHttpInfo($id, $key, $secret, $host, $port, $mode);
         return $response;
     }
 
     /**
      * Operation updateNotifySetupActionAlertClientWithHttpInfo
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "key" string   (required)
-     *   "secret" string   (required)
-     *   "host" string   (required)
-     *   "port" string   (required)
-     *   "mode" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param string $key 
+     * @param string $secret 
+     * @param string $host 
+     * @param string $port 
+     * @param string $mode 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateNotifySetupActionAlertClientWithHttpInfo(array $params = [])
+    public function updateNotifySetupActionAlertClientWithHttpInfo($id, $key, $secret, $host, $port, $mode)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateNotifySetupActionAlertClientRequest($params);
+        $request = $this->updateNotifySetupActionAlertClientRequest($id, $key, $secret, $host, $port, $mode);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2797,24 +2734,22 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "key" string   (required)
-     *   "secret" string   (required)
-     *   "host" string   (required)
-     *   "port" string   (required)
-     *   "mode" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param string $key 
+     * @param string $secret 
+     * @param string $host 
+     * @param string $port 
+     * @param string $mode 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateNotifySetupActionAlertClientAsync(array $params = [])
+    public function updateNotifySetupActionAlertClientAsync($id, $key, $secret, $host, $port, $mode)
     {
-        return $this->updateNotifySetupActionAlertClientAsyncWithHttpInfo($params)
+        return $this->updateNotifySetupActionAlertClientAsyncWithHttpInfo($id, $key, $secret, $host, $port, $mode)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2825,28 +2760,26 @@ class NotificationsAndAlertsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "key" string   (required)
-     *   "secret" string   (required)
-     *   "host" string   (required)
-     *   "port" string   (required)
-     *   "mode" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param string $key 
+     * @param string $secret 
+     * @param string $host 
+     * @param string $port 
+     * @param string $mode 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateNotifySetupActionAlertClientAsyncWithHttpInfo(array $params = [])
+    public function updateNotifySetupActionAlertClientAsyncWithHttpInfo($id, $key, $secret, $host, $port, $mode)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateNotifySetupActionAlertClientRequest($params);
+        $request = $this->updateNotifySetupActionAlertClientRequest($id, $key, $secret, $host, $port, $mode);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2866,7 +2799,7 @@ class NotificationsAndAlertsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2886,38 +2819,35 @@ class NotificationsAndAlertsApi
     /**
      * Create request for operation 'updateNotifySetupActionAlertClient'
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "key" string   (required)
-     *   "secret" string   (required)
-     *   "host" string   (required)
-     *   "port" string   (required)
-     *   "mode" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $id 
+     * @param string $key 
+     * @param string $secret 
+     * @param string $host 
+     * @param string $port 
+     * @param string $mode 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateNotifySetupActionAlertClientRequest(array $params = [])
+    protected function updateNotifySetupActionAlertClientRequest($id, $key, $secret, $host, $port, $mode)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
         }
-        if (empty($params['key'])) {
-            throw new \InvalidArgumentException('Missing parameter "key" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
+        if (empty($key)) {
+            throw new \InvalidArgumentException('Missing parameter "$key" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
         }
-        if (empty($params['secret'])) {
-            throw new \InvalidArgumentException('Missing parameter "secret" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
+        if (empty($secret)) {
+            throw new \InvalidArgumentException('Missing parameter "$secret" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
         }
-        if (empty($params['host'])) {
-            throw new \InvalidArgumentException('Missing parameter "host" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
+        if (empty($host)) {
+            throw new \InvalidArgumentException('Missing parameter "$host" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
         }
-        if (empty($params['port'])) {
-            throw new \InvalidArgumentException('Missing parameter "port" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
+        if (empty($port)) {
+            throw new \InvalidArgumentException('Missing parameter "$port" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
         }
-        if (empty($params['mode'])) {
-            throw new \InvalidArgumentException('Missing parameter "mode" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
+        if (empty($mode)) {
+            throw new \InvalidArgumentException('Missing parameter "$mode" in NotificationsAndAlertsApi::updateNotifySetupActionAlertClientRequest().');
         }
         
 
@@ -2928,29 +2858,48 @@ class NotificationsAndAlertsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($key !== null) {
+            $key = ObjectSerializer::toQueryValue($key);
+        }
+        if ($secret !== null) {
+            $secret = ObjectSerializer::toQueryValue($secret);
+        }
+        if ($host !== null) {
+            $host = ObjectSerializer::toQueryValue($host);
+        }
+        if ($port !== null) {
+            $port = ObjectSerializer::toQueryValue($port);
+        }
+        if ($mode !== null) {
+            $mode = ObjectSerializer::toQueryValue($mode);
+        }
+        
         // query params
-        if ($params['id'] !== null) {
-            $queryParams['id'] = ObjectSerializer::toQueryValue($params['id']);
+        if ($filters['id'] !== null) {
+            $queryParams['id'] = ObjectSerializer::toQueryValue($filters['id']);
         }
         // query params
-        if ($params['key'] !== null) {
-            $queryParams['key'] = ObjectSerializer::toQueryValue($params['key']);
+        if ($filters['key'] !== null) {
+            $queryParams['key'] = ObjectSerializer::toQueryValue($filters['key']);
         }
         // query params
-        if ($params['secret'] !== null) {
-            $queryParams['secret'] = ObjectSerializer::toQueryValue($params['secret']);
+        if ($filters['secret'] !== null) {
+            $queryParams['secret'] = ObjectSerializer::toQueryValue($filters['secret']);
         }
         // query params
-        if ($params['host'] !== null) {
-            $queryParams['host'] = ObjectSerializer::toQueryValue($params['host']);
+        if ($filters['host'] !== null) {
+            $queryParams['host'] = ObjectSerializer::toQueryValue($filters['host']);
         }
         // query params
-        if ($params['port'] !== null) {
-            $queryParams['port'] = ObjectSerializer::toQueryValue($params['port']);
+        if ($filters['port'] !== null) {
+            $queryParams['port'] = ObjectSerializer::toQueryValue($filters['port']);
         }
         // query params
-        if ($params['mode'] !== null) {
-            $queryParams['mode'] = ObjectSerializer::toQueryValue($params['mode']);
+        if ($filters['mode'] !== null) {
+            $queryParams['mode'] = ObjectSerializer::toQueryValue($filters['mode']);
         }
 
 

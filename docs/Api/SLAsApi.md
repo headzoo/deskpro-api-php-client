@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **getSlaById**
-> \DeskPRO\API\Model\Response getSlaById(array $params = [])
+> \DeskPRO\API\Model\Response getSlaById(int $id)
 
 
 
@@ -27,13 +27,11 @@ $api = new SLAsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | the id of SLA
-];
+$id = 56; // int | the id of SLA
 
 try {
-    $result = $api->getSlaById($params);
-    print_r($result);
+    $result = $api->getSlaById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -42,9 +40,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| the id of SLA |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -62,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSlas**
-> \DeskPRO\API\Model\Response getSlas(array $params = [])
+> \DeskPRO\API\Model\Response getSlas()
 
 
 
@@ -80,12 +83,10 @@ $api = new SLAsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getSlas($params);
-    print_r($result);
+    $result = $api->getSlas();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -93,7 +94,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

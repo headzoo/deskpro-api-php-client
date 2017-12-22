@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **getSearch**
-> \DeskPRO\API\Model\Response getSearch(array $params = [])
+> \DeskPRO\API\Model\Response getSearch(array $filters = [])
 
 
 
@@ -28,15 +28,15 @@ $api = new SearchApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "q" => "q_example", // string | search term
 "sort" => "sort_example", // string | how to sort
 "types" => "types_example" // string | comma separated list of types
 ];
 
 try {
-    $result = $api->getSearch($params);
-    print_r($result);
+    $result = $api->getSearch($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -44,6 +44,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -67,7 +74,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSearchByType**
-> \DeskPRO\API\Model\Response getSearchByType(array $params = [])
+> \DeskPRO\API\Model\Response getSearchByType(string $type, array $filters = [])
 
 
 
@@ -85,15 +92,15 @@ $api = new SearchApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"type" => "type_example", // string | 
+$type = "type_example"; // string | 
+$filters = [
 "q" => "q_example", // string | search term
 "sort" => "sort_example" // string | how to sort
 ];
 
 try {
-    $result = $api->getSearchByType($params);
-    print_r($result);
+    $result = $api->getSearchByType($type, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -102,9 +109,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **type** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **q** | **string**| search term | [optional]
  **sort** | **string**| how to sort | [optional]
 
@@ -124,7 +138,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSearchPeopleAndOrg**
-> \DeskPRO\API\Model\Response getSearchPeopleAndOrg(array $params = [])
+> \DeskPRO\API\Model\Response getSearchPeopleAndOrg(array $filters = [])
 
 
 
@@ -142,14 +156,14 @@ $api = new SearchApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "q" => "q_example", // string | search term
 "sort" => "sort_example" // string | how to sort
 ];
 
 try {
-    $result = $api->getSearchPeopleAndOrg($params);
-    print_r($result);
+    $result = $api->getSearchPeopleAndOrg($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -157,6 +171,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

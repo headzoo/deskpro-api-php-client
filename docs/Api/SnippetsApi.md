@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **deleteSnippetById**
-> \DeskPRO\API\Model\Response deleteSnippetById(array $params = [])
+> \DeskPRO\API\Model\Response deleteSnippetById(int $id)
 
 
 
@@ -34,13 +34,11 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteSnippetById($params);
-    print_r($result);
+    $result = $api->deleteSnippetById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -49,9 +47,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -69,7 +72,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippetById**
-> \DeskPRO\API\Model\Response getSnippetById(array $params = [])
+> \DeskPRO\API\Model\Response getSnippetById(int $id)
 
 
 
@@ -87,13 +90,11 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getSnippetById($params);
-    print_r($result);
+    $result = $api->getSnippetById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -102,9 +103,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -122,7 +128,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippetCount**
-> \DeskPRO\API\Model\Response getSnippetCount(array $params = [])
+> \DeskPRO\API\Model\Response getSnippetCount(array $filters = [])
 
 
 
@@ -140,7 +146,7 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "inline_sideloads" => "inline_sideloads_example", // string | sideload entities
 "include" => "include_example", // string | entities to sideload (ex: snippet_translation)
 "type" => "type_example", // string | type to limit result
@@ -151,8 +157,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getSnippetCount($params);
-    print_r($result);
+    $result = $api->getSnippetCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -160,6 +166,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -187,7 +200,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippetCsv**
-> \DeskPRO\API\Model\Response getSnippetCsv(array $params = [])
+> \DeskPRO\API\Model\Response getSnippetCsv(array $filters = [])
 
 
 
@@ -205,7 +218,7 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -213,8 +226,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getSnippetCsv($params);
-    print_r($result);
+    $result = $api->getSnippetCsv($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -222,6 +235,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -246,7 +266,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippetLabel**
-> \DeskPRO\API\Model\Response getSnippetLabel(array $params = [])
+> \DeskPRO\API\Model\Response getSnippetLabel(array $filters = [])
 
 
 
@@ -264,7 +284,7 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -272,8 +292,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getSnippetLabel($params);
-    print_r($result);
+    $result = $api->getSnippetLabel($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -281,6 +301,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -305,7 +332,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippetRenderByIdByTypeByObjectId**
-> \DeskPRO\API\Model\Response getSnippetRenderByIdByTypeByObjectId(array $params = [])
+> \DeskPRO\API\Model\Response getSnippetRenderByIdByTypeByObjectId(int $id, string $type, string $object_id)
 
 
 
@@ -323,15 +350,13 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the object
-"type" => "type_example", // string | The type of object to render the snippet for
-"object_id" => "object_id_example" // string | 
-];
+$id = 56; // int | The id of the object
+$type = "type_example"; // string | The type of object to render the snippet for
+$object_id = "object_id_example"; // string | 
 
 try {
-    $result = $api->getSnippetRenderByIdByTypeByObjectId($params);
-    print_r($result);
+    $result = $api->getSnippetRenderByIdByTypeByObjectId($id, $type, $object_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -340,11 +365,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the object |
  **type** | **string**| The type of object to render the snippet for |
  **object_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -362,7 +392,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippets**
-> \DeskPRO\API\Model\Response getSnippets(array $params = [])
+> \DeskPRO\API\Model\Response getSnippets(array $filters = [])
 
 
 
@@ -380,7 +410,7 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -391,8 +421,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getSnippets($params);
-    print_r($result);
+    $result = $api->getSnippets($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -400,6 +430,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -427,7 +464,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippetsChangeLogs**
-> \DeskPRO\API\Model\Response getSnippetsChangeLogs(array $params = [])
+> \DeskPRO\API\Model\Response getSnippetsChangeLogs(array $filters = [])
 
 
 
@@ -445,7 +482,7 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -458,8 +495,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getSnippetsChangeLogs($params);
-    print_r($result);
+    $result = $api->getSnippetsChangeLogs($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -467,6 +504,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -496,7 +540,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSnippetsUse**
-> \DeskPRO\API\Model\Response getSnippetsUse(array $params = [])
+> \DeskPRO\API\Model\Response getSnippetsUse(array $filters = [])
 
 
 
@@ -514,7 +558,7 @@ $api = new SnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -525,8 +569,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getSnippetsUse($params);
-    print_r($result);
+    $result = $api->getSnippetsUse($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -534,6 +578,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

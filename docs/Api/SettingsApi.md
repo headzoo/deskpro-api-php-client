@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **getSettingDepartmentDefault**
-> \DeskPRO\API\Model\Response getSettingDepartmentDefault(array $params = [])
+> \DeskPRO\API\Model\Response getSettingDepartmentDefault()
 
 
 
@@ -26,12 +26,10 @@ $api = new SettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getSettingDepartmentDefault($params);
-    print_r($result);
+    $result = $api->getSettingDepartmentDefault();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -39,7 +37,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

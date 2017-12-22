@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **deleteAgentById**
-> \DeskPRO\API\Model\Response deleteAgentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteAgentById(int $id)
 
 
 
@@ -40,13 +40,11 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteAgentById($params);
-    print_r($result);
+    $result = $api->deleteAgentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -55,9 +53,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -75,7 +78,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteAgentByIdAgentPermission**
-> \DeskPRO\API\Model\Response deleteAgentByIdAgentPermission(array $params = [])
+> \DeskPRO\API\Model\Response deleteAgentByIdAgentPermission(string $id)
 
 
 
@@ -93,13 +96,11 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => "id_example" // string | 
-];
+$id = "id_example"; // string | 
 
 try {
-    $result = $api->deleteAgentByIdAgentPermission($params);
-    print_r($result);
+    $result = $api->deleteAgentByIdAgentPermission($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -108,9 +109,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -128,7 +134,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteAgentTeamById**
-> \DeskPRO\API\Model\Response deleteAgentTeamById(array $params = [])
+> \DeskPRO\API\Model\Response deleteAgentTeamById(int $id)
 
 
 
@@ -146,13 +152,11 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteAgentTeamById($params);
-    print_r($result);
+    $result = $api->deleteAgentTeamById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -161,9 +165,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -181,7 +190,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentAssignedToChat**
-> \DeskPRO\API\Model\Response getAgentAssignedToChat(array $params = [])
+> \DeskPRO\API\Model\Response getAgentAssignedToChat()
 
 
 
@@ -199,12 +208,10 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentAssignedToChat($params);
-    print_r($result);
+    $result = $api->getAgentAssignedToChat();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -212,7 +219,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -230,7 +242,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentById**
-> \DeskPRO\API\Model\Response getAgentById(array $params = [])
+> \DeskPRO\API\Model\Response getAgentById(int $id)
 
 
 
@@ -248,13 +260,11 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getAgentById($params);
-    print_r($result);
+    $result = $api->getAgentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -263,9 +273,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -283,7 +298,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentCount**
-> \DeskPRO\API\Model\Response getAgentCount(array $params = [])
+> \DeskPRO\API\Model\Response getAgentCount()
 
 
 
@@ -301,12 +316,10 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentCount($params);
-    print_r($result);
+    $result = $api->getAgentCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -314,7 +327,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -332,7 +350,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentGroupById**
-> \DeskPRO\API\Model\Response getAgentGroupById(array $params = [])
+> \DeskPRO\API\Model\Response getAgentGroupById(int $id)
 
 
 
@@ -350,13 +368,11 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getAgentGroupById($params);
-    print_r($result);
+    $result = $api->getAgentGroupById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -365,9 +381,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -385,7 +406,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentGroupCount**
-> \DeskPRO\API\Model\Response getAgentGroupCount(array $params = [])
+> \DeskPRO\API\Model\Response getAgentGroupCount()
 
 
 
@@ -403,12 +424,10 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentGroupCount($params);
-    print_r($result);
+    $result = $api->getAgentGroupCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -416,7 +435,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -434,7 +458,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentGroups**
-> \DeskPRO\API\Model\Response getAgentGroups(array $params = [])
+> \DeskPRO\API\Model\Response getAgentGroups(array $filters = [])
 
 
 
@@ -452,7 +476,7 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -460,8 +484,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getAgentGroups($params);
-    print_r($result);
+    $result = $api->getAgentGroups($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -469,6 +493,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -493,7 +524,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentOnline**
-> \DeskPRO\API\Model\Response getAgentOnline(array $params = [])
+> \DeskPRO\API\Model\Response getAgentOnline()
 
 
 
@@ -511,12 +542,10 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentOnline($params);
-    print_r($result);
+    $result = $api->getAgentOnline();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -524,7 +553,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -542,7 +576,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentTeamById**
-> \DeskPRO\API\Model\Response getAgentTeamById(array $params = [])
+> \DeskPRO\API\Model\Response getAgentTeamById(int $id)
 
 
 
@@ -560,13 +594,11 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getAgentTeamById($params);
-    print_r($result);
+    $result = $api->getAgentTeamById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -575,9 +607,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -595,7 +632,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentTeamByIdAgent**
-> \DeskPRO\API\Model\Response getAgentTeamByIdAgent(array $params = [])
+> \DeskPRO\API\Model\Response getAgentTeamByIdAgent(int $id)
 
 
 
@@ -613,13 +650,11 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | the id of team
-];
+$id = 56; // int | the id of team
 
 try {
-    $result = $api->getAgentTeamByIdAgent($params);
-    print_r($result);
+    $result = $api->getAgentTeamByIdAgent($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -628,9 +663,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| the id of team |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -648,7 +688,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentTeamCount**
-> \DeskPRO\API\Model\Response getAgentTeamCount(array $params = [])
+> \DeskPRO\API\Model\Response getAgentTeamCount()
 
 
 
@@ -666,12 +706,10 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentTeamCount($params);
-    print_r($result);
+    $result = $api->getAgentTeamCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -679,7 +717,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -697,7 +740,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentTeams**
-> \DeskPRO\API\Model\Response getAgentTeams(array $params = [])
+> \DeskPRO\API\Model\Response getAgentTeams(array $filters = [])
 
 
 
@@ -715,7 +758,7 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -723,8 +766,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getAgentTeams($params);
-    print_r($result);
+    $result = $api->getAgentTeams($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -732,6 +775,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -756,7 +806,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgents**
-> \DeskPRO\API\Model\Response getAgents(array $params = [])
+> \DeskPRO\API\Model\Response getAgents(array $filters = [])
 
 
 
@@ -774,7 +824,7 @@ $api = new AgentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -783,8 +833,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getAgents($params);
-    print_r($result);
+    $result = $api->getAgents($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -792,6 +842,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

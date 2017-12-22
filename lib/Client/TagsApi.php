@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class TagsApi
      * Operation getApiTagById
      *
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiTagById(array $params = [])
+    public function getApiTagById($id)
     {
-        list($response) = $this->getApiTagByIdWithHttpInfo($params);
+        list($response) = $this->getApiTagByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getApiTagByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiTagByIdWithHttpInfo(array $params = [])
+    public function getApiTagByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTagByIdRequest($params);
+        $request = $this->getApiTagByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -212,19 +208,17 @@ class TagsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTagByIdAsync(array $params = [])
+    public function getApiTagByIdAsync($id)
     {
-        return $this->getApiTagByIdAsyncWithHttpInfo($params)
+        return $this->getApiTagByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -235,23 +229,21 @@ class TagsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTagByIdAsyncWithHttpInfo(array $params = [])
+    public function getApiTagByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTagByIdRequest($params);
+        $request = $this->getApiTagByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -271,7 +263,7 @@ class TagsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -291,18 +283,15 @@ class TagsApi
     /**
      * Create request for operation 'getApiTagById'
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of key
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiTagByIdRequest(array $params = [])
+    protected function getApiTagByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TagsApi::getApiTagByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TagsApi::getApiTagByIdRequest().');
         }
         
 
@@ -313,12 +302,16 @@ class TagsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -396,37 +389,32 @@ class TagsApi
      * Operation getApiTagByIdFlatten
      *
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiTagByIdFlatten(array $params = [])
+    public function getApiTagByIdFlatten($id)
     {
-        list($response) = $this->getApiTagByIdFlattenWithHttpInfo($params);
+        list($response) = $this->getApiTagByIdFlattenWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getApiTagByIdFlattenWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiTagByIdFlattenWithHttpInfo(array $params = [])
+    public function getApiTagByIdFlattenWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTagByIdFlattenRequest($params);
+        $request = $this->getApiTagByIdFlattenRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -492,19 +480,17 @@ class TagsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTagByIdFlattenAsync(array $params = [])
+    public function getApiTagByIdFlattenAsync($id)
     {
-        return $this->getApiTagByIdFlattenAsyncWithHttpInfo($params)
+        return $this->getApiTagByIdFlattenAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -515,23 +501,21 @@ class TagsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTagByIdFlattenAsyncWithHttpInfo(array $params = [])
+    public function getApiTagByIdFlattenAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTagByIdFlattenRequest($params);
+        $request = $this->getApiTagByIdFlattenRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -551,7 +535,7 @@ class TagsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -571,18 +555,15 @@ class TagsApi
     /**
      * Create request for operation 'getApiTagByIdFlatten'
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of key
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiTagByIdFlattenRequest(array $params = [])
+    protected function getApiTagByIdFlattenRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TagsApi::getApiTagByIdFlattenRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TagsApi::getApiTagByIdFlattenRequest().');
         }
         
 
@@ -593,12 +574,16 @@ class TagsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -675,42 +660,41 @@ class TagsApi
     /**
      * Operation updateApiTagById
      *
-     *
-     * Parameters:
-     *   "id" int  The id of key (required)
+     * Filters:
      *   "action" string  Tag name (optional)
      *   "value" bool  Allow|deny (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateApiTagById(array $params = [])
+    public function updateApiTagById($id, array $filters = [])
     {
-        list($response) = $this->updateApiTagByIdWithHttpInfo($params);
+        list($response) = $this->updateApiTagByIdWithHttpInfo($id, $filters);
         return $response;
     }
 
     /**
      * Operation updateApiTagByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
+     * Filters:
      *   "action" string  Tag name (optional)
      *   "value" bool  Allow|deny (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateApiTagByIdWithHttpInfo(array $params = [])
+    public function updateApiTagByIdWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateApiTagByIdRequest($params);
+        $request = $this->updateApiTagByIdRequest($id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -776,21 +760,21 @@ class TagsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
+     * Filters:
      *   "action" string  Tag name (optional)
      *   "value" bool  Allow|deny (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateApiTagByIdAsync(array $params = [])
+    public function updateApiTagByIdAsync($id, array $filters = [])
     {
-        return $this->updateApiTagByIdAsyncWithHttpInfo($params)
+        return $this->updateApiTagByIdAsyncWithHttpInfo($id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -801,25 +785,25 @@ class TagsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
+     * Filters:
      *   "action" string  Tag name (optional)
      *   "value" bool  Allow|deny (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of key
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateApiTagByIdAsyncWithHttpInfo(array $params = [])
+    public function updateApiTagByIdAsyncWithHttpInfo($id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateApiTagByIdRequest($params);
+        $request = $this->updateApiTagByIdRequest($id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -839,7 +823,7 @@ class TagsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -859,26 +843,25 @@ class TagsApi
     /**
      * Create request for operation 'updateApiTagById'
      *
-     * Parameters:
-     *   "id" int  The id of key (required)
+     * Filters:
      *   "action" string  Tag name (optional)
      *   "value" bool  Allow|deny (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of key
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateApiTagByIdRequest(array $params = [])
+    protected function updateApiTagByIdRequest($id, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TagsApi::updateApiTagByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TagsApi::updateApiTagByIdRequest().');
         }
-        if (!isset($params['action'])) {
-            $params['action'] = null;
+        if (!isset($filters['action'])) {
+            $filters['action'] = null;
         }
-        if (!isset($params['value'])) {
-            $params['value'] = null;
+        if (!isset($filters['value'])) {
+            $filters['value'] = null;
         }
         
 
@@ -889,20 +872,24 @@ class TagsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
         // query params
-        if ($params['action'] !== null) {
-            $queryParams['action'] = ObjectSerializer::toQueryValue($params['action']);
+        if ($filters['action'] !== null) {
+            $queryParams['action'] = ObjectSerializer::toQueryValue($filters['action']);
         }
         // query params
-        if ($params['value'] !== null) {
-            $queryParams['value'] = ObjectSerializer::toQueryValue($params['value']);
+        if ($filters['value'] !== null) {
+            $queryParams['value'] = ObjectSerializer::toQueryValue($filters['value']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }

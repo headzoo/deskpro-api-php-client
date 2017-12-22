@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **getLanguageAdminPhrase**
-> \DeskPRO\API\Model\Response getLanguageAdminPhrase(array $params = [])
+> \DeskPRO\API\Model\Response getLanguageAdminPhrase()
 
 
 
@@ -30,12 +30,10 @@ $api = new LanguagesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getLanguageAdminPhrase($params);
-    print_r($result);
+    $result = $api->getLanguageAdminPhrase();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -43,7 +41,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -61,7 +64,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getLanguageAgentPhrase**
-> \DeskPRO\API\Model\Response getLanguageAgentPhrase(array $params = [])
+> \DeskPRO\API\Model\Response getLanguageAgentPhrase()
 
 
 
@@ -79,12 +82,10 @@ $api = new LanguagesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getLanguageAgentPhrase($params);
-    print_r($result);
+    $result = $api->getLanguageAgentPhrase();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -92,7 +93,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -110,7 +116,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getLanguageById**
-> \DeskPRO\API\Model\Response getLanguageById(array $params = [])
+> \DeskPRO\API\Model\Response getLanguageById(int $id)
 
 
 
@@ -128,13 +134,11 @@ $api = new LanguagesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getLanguageById($params);
-    print_r($result);
+    $result = $api->getLanguageById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -143,9 +147,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -163,7 +172,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getLanguageCount**
-> \DeskPRO\API\Model\Response getLanguageCount(array $params = [])
+> \DeskPRO\API\Model\Response getLanguageCount()
 
 
 
@@ -181,12 +190,10 @@ $api = new LanguagesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getLanguageCount($params);
-    print_r($result);
+    $result = $api->getLanguageCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -194,7 +201,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -212,7 +224,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getLanguages**
-> \DeskPRO\API\Model\Response getLanguages(array $params = [])
+> \DeskPRO\API\Model\Response getLanguages(array $filters = [])
 
 
 
@@ -230,7 +242,7 @@ $api = new LanguagesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -238,8 +250,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getLanguages($params);
-    print_r($result);
+    $result = $api->getLanguages($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -247,6 +259,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

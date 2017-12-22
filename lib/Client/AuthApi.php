@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class AuthApi
      * Operation deleteOauthClientById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteOauthClientById(array $params = [])
+    public function deleteOauthClientById($id)
     {
-        list($response) = $this->deleteOauthClientByIdWithHttpInfo($params);
+        list($response) = $this->deleteOauthClientByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteOauthClientByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteOauthClientByIdWithHttpInfo(array $params = [])
+    public function deleteOauthClientByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOauthClientByIdRequest($params);
+        $request = $this->deleteOauthClientByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOauthClientByIdAsync(array $params = [])
+    public function deleteOauthClientByIdAsync($id)
     {
-        return $this->deleteOauthClientByIdAsyncWithHttpInfo($params)
+        return $this->deleteOauthClientByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOauthClientByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteOauthClientByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOauthClientByIdRequest($params);
+        $request = $this->deleteOauthClientByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class AuthApi
     /**
      * Create request for operation 'deleteOauthClientById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteOauthClientByIdRequest(array $params = [])
+    protected function deleteOauthClientByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AuthApi::deleteOauthClientByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AuthApi::deleteOauthClientByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class AuthApi
      * Operation getApiTokenDeviceSetupByAuth
      *
      *
-     * Parameters:
-     *   "auth" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $auth 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiTokenDeviceSetupByAuth(array $params = [])
+    public function getApiTokenDeviceSetupByAuth($auth)
     {
-        list($response) = $this->getApiTokenDeviceSetupByAuthWithHttpInfo($params);
+        list($response) = $this->getApiTokenDeviceSetupByAuthWithHttpInfo($auth);
         return $response;
     }
 
     /**
      * Operation getApiTokenDeviceSetupByAuthWithHttpInfo
      *
-     * Parameters:
-     *   "auth" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $auth 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiTokenDeviceSetupByAuthWithHttpInfo(array $params = [])
+    public function getApiTokenDeviceSetupByAuthWithHttpInfo($auth)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTokenDeviceSetupByAuthRequest($params);
+        $request = $this->getApiTokenDeviceSetupByAuthRequest($auth);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "auth" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $auth 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenDeviceSetupByAuthAsync(array $params = [])
+    public function getApiTokenDeviceSetupByAuthAsync($auth)
     {
-        return $this->getApiTokenDeviceSetupByAuthAsyncWithHttpInfo($params)
+        return $this->getApiTokenDeviceSetupByAuthAsyncWithHttpInfo($auth)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "auth" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $auth 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenDeviceSetupByAuthAsyncWithHttpInfo(array $params = [])
+    public function getApiTokenDeviceSetupByAuthAsyncWithHttpInfo($auth)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTokenDeviceSetupByAuthRequest($params);
+        $request = $this->getApiTokenDeviceSetupByAuthRequest($auth);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class AuthApi
     /**
      * Create request for operation 'getApiTokenDeviceSetupByAuth'
      *
-     * Parameters:
-     *   "auth" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $auth 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiTokenDeviceSetupByAuthRequest(array $params = [])
+    protected function getApiTokenDeviceSetupByAuthRequest($auth)
     {
-        if (empty($params['auth'])) {
-            throw new \InvalidArgumentException('Missing parameter "auth" in AuthApi::getApiTokenDeviceSetupByAuthRequest().');
+        if (empty($auth)) {
+            throw new \InvalidArgumentException('Missing parameter "$auth" in AuthApi::getApiTokenDeviceSetupByAuthRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        if ($auth !== null) {
+            $auth = ObjectSerializer::toQueryValue($auth);
+        }
+        
 
         // path params
-        if ($params['auth'] !== null) {
+        if ($auth !== null) {
             $resourcePath = str_replace(
                 '{' . 'auth' . '}',
-                ObjectSerializer::toPathValue($params['auth']),
+                ObjectSerializer::toPathValue($auth),
                 $resourcePath
             );
         }
@@ -692,35 +677,30 @@ class AuthApi
      * Operation getApiTokenSession
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiTokenSession(array $params = [])
+    public function getApiTokenSession()
     {
-        list($response) = $this->getApiTokenSessionWithHttpInfo($params);
+        list($response) = $this->getApiTokenSessionWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getApiTokenSessionWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiTokenSessionWithHttpInfo(array $params = [])
+    public function getApiTokenSessionWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTokenSessionRequest($params);
+        $request = $this->getApiTokenSessionRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -794,18 +774,16 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenSessionAsync(array $params = [])
+    public function getApiTokenSessionAsync()
     {
-        return $this->getApiTokenSessionAsyncWithHttpInfo($params)
+        return $this->getApiTokenSessionAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -816,22 +794,20 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenSessionAsyncWithHttpInfo(array $params = [])
+    public function getApiTokenSessionAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTokenSessionRequest($params);
+        $request = $this->getApiTokenSessionRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -851,7 +827,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -871,14 +847,11 @@ class AuthApi
     /**
      * Create request for operation 'getApiTokenSession'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiTokenSessionRequest(array $params = [])
+    protected function getApiTokenSessionRequest()
     {
         
 
@@ -889,6 +862,7 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -964,39 +938,34 @@ class AuthApi
      * Operation getApiTokenUserSourceByUsersourceCallbackByFormat
      *
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApiTokenUserSourceByUsersourceCallbackByFormat(array $params = [])
+    public function getApiTokenUserSourceByUsersourceCallbackByFormat($format, $usersource)
     {
-        list($response) = $this->getApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo($params);
+        list($response) = $this->getApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo($format, $usersource);
         return $response;
     }
 
     /**
      * Operation getApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo(array $params = [])
+    public function getApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo($format, $usersource)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTokenUserSourceByUsersourceCallbackByFormatRequest($params);
+        $request = $this->getApiTokenUserSourceByUsersourceCallbackByFormatRequest($format, $usersource);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1062,20 +1031,18 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenUserSourceByUsersourceCallbackByFormatAsync(array $params = [])
+    public function getApiTokenUserSourceByUsersourceCallbackByFormatAsync($format, $usersource)
     {
-        return $this->getApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo($params)
+        return $this->getApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo($format, $usersource)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1086,24 +1053,22 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo(array $params = [])
+    public function getApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo($format, $usersource)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getApiTokenUserSourceByUsersourceCallbackByFormatRequest($params);
+        $request = $this->getApiTokenUserSourceByUsersourceCallbackByFormatRequest($format, $usersource);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1123,7 +1088,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1143,22 +1108,19 @@ class AuthApi
     /**
      * Create request for operation 'getApiTokenUserSourceByUsersourceCallbackByFormat'
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $format 
+     * @param string $usersource 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiTokenUserSourceByUsersourceCallbackByFormatRequest(array $params = [])
+    protected function getApiTokenUserSourceByUsersourceCallbackByFormatRequest($format, $usersource)
     {
-        if (empty($params['format'])) {
-            throw new \InvalidArgumentException('Missing parameter "format" in AuthApi::getApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
+        if (empty($format)) {
+            throw new \InvalidArgumentException('Missing parameter "$format" in AuthApi::getApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
         }
-        if (empty($params['usersource'])) {
-            throw new \InvalidArgumentException('Missing parameter "usersource" in AuthApi::getApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
+        if (empty($usersource)) {
+            throw new \InvalidArgumentException('Missing parameter "$usersource" in AuthApi::getApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
         }
         
 
@@ -1169,20 +1131,27 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        if ($format !== null) {
+            $format = ObjectSerializer::toQueryValue($format);
+        }
+        if ($usersource !== null) {
+            $usersource = ObjectSerializer::toQueryValue($usersource);
+        }
+        
 
         // path params
-        if ($params['format'] !== null) {
+        if ($format !== null) {
             $resourcePath = str_replace(
                 '{' . 'format' . '}',
-                ObjectSerializer::toPathValue($params['format']),
+                ObjectSerializer::toPathValue($format),
                 $resourcePath
             );
         }
         // path params
-        if ($params['usersource'] !== null) {
+        if ($usersource !== null) {
             $resourcePath = str_replace(
                 '{' . 'usersource' . '}',
-                ObjectSerializer::toPathValue($params['usersource']),
+                ObjectSerializer::toPathValue($usersource),
                 $resourcePath
             );
         }
@@ -1260,36 +1229,31 @@ class AuthApi
      * Operation getApiTokenUserSourceByUsersourceLogin
      *
      *
-     * Parameters:
-     *   "usersource" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $usersource 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getApiTokenUserSourceByUsersourceLogin(array $params = [])
+    public function getApiTokenUserSourceByUsersourceLogin($usersource)
     {
-        $this->getApiTokenUserSourceByUsersourceLoginWithHttpInfo($params);
+        $this->getApiTokenUserSourceByUsersourceLoginWithHttpInfo($usersource);
     }
 
     /**
      * Operation getApiTokenUserSourceByUsersourceLoginWithHttpInfo
      *
-     * Parameters:
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $usersource 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiTokenUserSourceByUsersourceLoginWithHttpInfo(array $params = [])
+    public function getApiTokenUserSourceByUsersourceLoginWithHttpInfo($usersource)
     {
         $returnType = '';
-        $request = $this->getApiTokenUserSourceByUsersourceLoginRequest($params);
+        $request = $this->getApiTokenUserSourceByUsersourceLoginRequest($usersource);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1341,19 +1305,17 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $usersource 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenUserSourceByUsersourceLoginAsync(array $params = [])
+    public function getApiTokenUserSourceByUsersourceLoginAsync($usersource)
     {
-        return $this->getApiTokenUserSourceByUsersourceLoginAsyncWithHttpInfo($params)
+        return $this->getApiTokenUserSourceByUsersourceLoginAsyncWithHttpInfo($usersource)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1364,26 +1326,24 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $usersource 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenUserSourceByUsersourceLoginAsyncWithHttpInfo(array $params = [])
+    public function getApiTokenUserSourceByUsersourceLoginAsyncWithHttpInfo($usersource)
     {
         $returnType = '';
-        $request = $this->getApiTokenUserSourceByUsersourceLoginRequest($params);
+        $request = $this->getApiTokenUserSourceByUsersourceLoginRequest($usersource);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1403,18 +1363,15 @@ class AuthApi
     /**
      * Create request for operation 'getApiTokenUserSourceByUsersourceLogin'
      *
-     * Parameters:
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $usersource 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiTokenUserSourceByUsersourceLoginRequest(array $params = [])
+    protected function getApiTokenUserSourceByUsersourceLoginRequest($usersource)
     {
-        if (empty($params['usersource'])) {
-            throw new \InvalidArgumentException('Missing parameter "usersource" in AuthApi::getApiTokenUserSourceByUsersourceLoginRequest().');
+        if (empty($usersource)) {
+            throw new \InvalidArgumentException('Missing parameter "$usersource" in AuthApi::getApiTokenUserSourceByUsersourceLoginRequest().');
         }
         
 
@@ -1425,12 +1382,16 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        if ($usersource !== null) {
+            $usersource = ObjectSerializer::toQueryValue($usersource);
+        }
+        
 
         // path params
-        if ($params['usersource'] !== null) {
+        if ($usersource !== null) {
             $resourcePath = str_replace(
                 '{' . 'usersource' . '}',
-                ObjectSerializer::toPathValue($params['usersource']),
+                ObjectSerializer::toPathValue($usersource),
                 $resourcePath
             );
         }
@@ -1508,38 +1469,33 @@ class AuthApi
      * Operation getApiTokenUserSourceContextFormat
      *
      *
-     * Parameters:
-     *   "context" string   (required)
-     *   "_format" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param string $_format 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getApiTokenUserSourceContextFormat(array $params = [])
+    public function getApiTokenUserSourceContextFormat($context, $_format)
     {
-        $this->getApiTokenUserSourceContextFormatWithHttpInfo($params);
+        $this->getApiTokenUserSourceContextFormatWithHttpInfo($context, $_format);
     }
 
     /**
      * Operation getApiTokenUserSourceContextFormatWithHttpInfo
      *
-     * Parameters:
-     *   "context" string   (required)
-     *   "_format" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param string $_format 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getApiTokenUserSourceContextFormatWithHttpInfo(array $params = [])
+    public function getApiTokenUserSourceContextFormatWithHttpInfo($context, $_format)
     {
         $returnType = '';
-        $request = $this->getApiTokenUserSourceContextFormatRequest($params);
+        $request = $this->getApiTokenUserSourceContextFormatRequest($context, $_format);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1591,20 +1547,18 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
-     *   "_format" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param string $_format 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenUserSourceContextFormatAsync(array $params = [])
+    public function getApiTokenUserSourceContextFormatAsync($context, $_format)
     {
-        return $this->getApiTokenUserSourceContextFormatAsyncWithHttpInfo($params)
+        return $this->getApiTokenUserSourceContextFormatAsyncWithHttpInfo($context, $_format)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1615,27 +1569,25 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
-     *   "_format" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param string $_format 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getApiTokenUserSourceContextFormatAsyncWithHttpInfo(array $params = [])
+    public function getApiTokenUserSourceContextFormatAsyncWithHttpInfo($context, $_format)
     {
         $returnType = '';
-        $request = $this->getApiTokenUserSourceContextFormatRequest($params);
+        $request = $this->getApiTokenUserSourceContextFormatRequest($context, $_format);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1655,22 +1607,19 @@ class AuthApi
     /**
      * Create request for operation 'getApiTokenUserSourceContextFormat'
      *
-     * Parameters:
-     *   "context" string   (required)
-     *   "_format" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context 
+     * @param string $_format 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getApiTokenUserSourceContextFormatRequest(array $params = [])
+    protected function getApiTokenUserSourceContextFormatRequest($context, $_format)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in AuthApi::getApiTokenUserSourceContextFormatRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in AuthApi::getApiTokenUserSourceContextFormatRequest().');
         }
-        if (empty($params['_format'])) {
-            throw new \InvalidArgumentException('Missing parameter "_format" in AuthApi::getApiTokenUserSourceContextFormatRequest().');
+        if (empty($_format)) {
+            throw new \InvalidArgumentException('Missing parameter "$_format" in AuthApi::getApiTokenUserSourceContextFormatRequest().');
         }
         
 
@@ -1681,20 +1630,27 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        if ($_format !== null) {
+            $_format = ObjectSerializer::toQueryValue($_format);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
         // path params
-        if ($params['_format'] !== null) {
+        if ($_format !== null) {
             $resourcePath = str_replace(
                 '{' . '_format' . '}',
-                ObjectSerializer::toPathValue($params['_format']),
+                ObjectSerializer::toPathValue($_format),
                 $resourcePath
             );
         }
@@ -1772,35 +1728,30 @@ class AuthApi
      * Operation getMe
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getMe(array $params = [])
+    public function getMe()
     {
-        list($response) = $this->getMeWithHttpInfo($params);
+        list($response) = $this->getMeWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getMeWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMeWithHttpInfo(array $params = [])
+    public function getMeWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeRequest($params);
+        $request = $this->getMeRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1866,18 +1817,16 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeAsync(array $params = [])
+    public function getMeAsync()
     {
-        return $this->getMeAsyncWithHttpInfo($params)
+        return $this->getMeAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1888,22 +1837,20 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeAsyncWithHttpInfo(array $params = [])
+    public function getMeAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeRequest($params);
+        $request = $this->getMeRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1923,7 +1870,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1943,14 +1890,11 @@ class AuthApi
     /**
      * Create request for operation 'getMe'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getMeRequest(array $params = [])
+    protected function getMeRequest()
     {
         
 
@@ -1961,6 +1905,7 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2036,35 +1981,30 @@ class AuthApi
      * Operation getMeDeviceSetupToken
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getMeDeviceSetupToken(array $params = [])
+    public function getMeDeviceSetupToken()
     {
-        list($response) = $this->getMeDeviceSetupTokenWithHttpInfo($params);
+        list($response) = $this->getMeDeviceSetupTokenWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getMeDeviceSetupTokenWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMeDeviceSetupTokenWithHttpInfo(array $params = [])
+    public function getMeDeviceSetupTokenWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeDeviceSetupTokenRequest($params);
+        $request = $this->getMeDeviceSetupTokenRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2130,18 +2070,16 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeDeviceSetupTokenAsync(array $params = [])
+    public function getMeDeviceSetupTokenAsync()
     {
-        return $this->getMeDeviceSetupTokenAsyncWithHttpInfo($params)
+        return $this->getMeDeviceSetupTokenAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2152,22 +2090,20 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeDeviceSetupTokenAsyncWithHttpInfo(array $params = [])
+    public function getMeDeviceSetupTokenAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeDeviceSetupTokenRequest($params);
+        $request = $this->getMeDeviceSetupTokenRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2187,7 +2123,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2207,14 +2143,11 @@ class AuthApi
     /**
      * Create request for operation 'getMeDeviceSetupToken'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getMeDeviceSetupTokenRequest(array $params = [])
+    protected function getMeDeviceSetupTokenRequest()
     {
         
 
@@ -2225,6 +2158,7 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2300,35 +2234,30 @@ class AuthApi
      * Operation getMeProfile
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getMeProfile(array $params = [])
+    public function getMeProfile()
     {
-        list($response) = $this->getMeProfileWithHttpInfo($params);
+        list($response) = $this->getMeProfileWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getMeProfileWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getMeProfileWithHttpInfo(array $params = [])
+    public function getMeProfileWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeProfileRequest($params);
+        $request = $this->getMeProfileRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2394,18 +2323,16 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeProfileAsync(array $params = [])
+    public function getMeProfileAsync()
     {
-        return $this->getMeProfileAsyncWithHttpInfo($params)
+        return $this->getMeProfileAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2416,22 +2343,20 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getMeProfileAsyncWithHttpInfo(array $params = [])
+    public function getMeProfileAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getMeProfileRequest($params);
+        $request = $this->getMeProfileRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2451,7 +2376,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2471,14 +2396,11 @@ class AuthApi
     /**
      * Create request for operation 'getMeProfile'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getMeProfileRequest(array $params = [])
+    protected function getMeProfileRequest()
     {
         
 
@@ -2489,6 +2411,7 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2564,37 +2487,32 @@ class AuthApi
      * Operation getOauthClientById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOauthClientById(array $params = [])
+    public function getOauthClientById($id)
     {
-        list($response) = $this->getOauthClientByIdWithHttpInfo($params);
+        list($response) = $this->getOauthClientByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getOauthClientByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOauthClientByIdWithHttpInfo(array $params = [])
+    public function getOauthClientByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOauthClientByIdRequest($params);
+        $request = $this->getOauthClientByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2668,19 +2586,17 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOauthClientByIdAsync(array $params = [])
+    public function getOauthClientByIdAsync($id)
     {
-        return $this->getOauthClientByIdAsyncWithHttpInfo($params)
+        return $this->getOauthClientByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2691,23 +2607,21 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOauthClientByIdAsyncWithHttpInfo(array $params = [])
+    public function getOauthClientByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOauthClientByIdRequest($params);
+        $request = $this->getOauthClientByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2727,7 +2641,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2747,18 +2661,15 @@ class AuthApi
     /**
      * Create request for operation 'getOauthClientById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOauthClientByIdRequest(array $params = [])
+    protected function getOauthClientByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AuthApi::getOauthClientByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AuthApi::getOauthClientByIdRequest().');
         }
         
 
@@ -2769,12 +2680,16 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2852,35 +2767,30 @@ class AuthApi
      * Operation getOauthClientCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOauthClientCount(array $params = [])
+    public function getOauthClientCount()
     {
-        list($response) = $this->getOauthClientCountWithHttpInfo($params);
+        list($response) = $this->getOauthClientCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getOauthClientCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOauthClientCountWithHttpInfo(array $params = [])
+    public function getOauthClientCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOauthClientCountRequest($params);
+        $request = $this->getOauthClientCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2954,18 +2864,16 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOauthClientCountAsync(array $params = [])
+    public function getOauthClientCountAsync()
     {
-        return $this->getOauthClientCountAsyncWithHttpInfo($params)
+        return $this->getOauthClientCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2976,22 +2884,20 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOauthClientCountAsyncWithHttpInfo(array $params = [])
+    public function getOauthClientCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOauthClientCountRequest($params);
+        $request = $this->getOauthClientCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3011,7 +2917,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3031,14 +2937,11 @@ class AuthApi
     /**
      * Create request for operation 'getOauthClientCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOauthClientCountRequest(array $params = [])
+    protected function getOauthClientCountRequest()
     {
         
 
@@ -3049,6 +2952,7 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -3123,44 +3027,43 @@ class AuthApi
     /**
      * Operation getOauthClients
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOauthClients(array $params = [])
+    public function getOauthClients(array $filters = [])
     {
-        list($response) = $this->getOauthClientsWithHttpInfo($params);
+        list($response) = $this->getOauthClientsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getOauthClientsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOauthClientsWithHttpInfo(array $params = [])
+    public function getOauthClientsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOauthClientsRequest($params);
+        $request = $this->getOauthClientsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3234,22 +3137,22 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOauthClientsAsync(array $params = [])
+    public function getOauthClientsAsync(array $filters = [])
     {
-        return $this->getOauthClientsAsyncWithHttpInfo($params)
+        return $this->getOauthClientsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3260,26 +3163,26 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOauthClientsAsyncWithHttpInfo(array $params = [])
+    public function getOauthClientsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOauthClientsRequest($params);
+        $request = $this->getOauthClientsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3299,7 +3202,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3319,30 +3222,29 @@ class AuthApi
     /**
      * Create request for operation 'getOauthClients'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOauthClientsRequest(array $params = [])
+    protected function getOauthClientsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -3353,21 +3255,22 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -3444,39 +3347,34 @@ class AuthApi
      * Operation setApiTokenUserSourceByUsersourceCallbackByFormat
      *
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setApiTokenUserSourceByUsersourceCallbackByFormat(array $params = [])
+    public function setApiTokenUserSourceByUsersourceCallbackByFormat($format, $usersource)
     {
-        list($response) = $this->setApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo($params);
+        list($response) = $this->setApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo($format, $usersource);
         return $response;
     }
 
     /**
      * Operation setApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo(array $params = [])
+    public function setApiTokenUserSourceByUsersourceCallbackByFormatWithHttpInfo($format, $usersource)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setApiTokenUserSourceByUsersourceCallbackByFormatRequest($params);
+        $request = $this->setApiTokenUserSourceByUsersourceCallbackByFormatRequest($format, $usersource);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3542,20 +3440,18 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setApiTokenUserSourceByUsersourceCallbackByFormatAsync(array $params = [])
+    public function setApiTokenUserSourceByUsersourceCallbackByFormatAsync($format, $usersource)
     {
-        return $this->setApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo($params)
+        return $this->setApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo($format, $usersource)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3566,24 +3462,22 @@ class AuthApi
      *
      * 
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $format 
+     * @param string $usersource 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo(array $params = [])
+    public function setApiTokenUserSourceByUsersourceCallbackByFormatAsyncWithHttpInfo($format, $usersource)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setApiTokenUserSourceByUsersourceCallbackByFormatRequest($params);
+        $request = $this->setApiTokenUserSourceByUsersourceCallbackByFormatRequest($format, $usersource);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3603,7 +3497,7 @@ class AuthApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3623,22 +3517,19 @@ class AuthApi
     /**
      * Create request for operation 'setApiTokenUserSourceByUsersourceCallbackByFormat'
      *
-     * Parameters:
-     *   "format" string   (required)
-     *   "usersource" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $format 
+     * @param string $usersource 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setApiTokenUserSourceByUsersourceCallbackByFormatRequest(array $params = [])
+    protected function setApiTokenUserSourceByUsersourceCallbackByFormatRequest($format, $usersource)
     {
-        if (empty($params['format'])) {
-            throw new \InvalidArgumentException('Missing parameter "format" in AuthApi::setApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
+        if (empty($format)) {
+            throw new \InvalidArgumentException('Missing parameter "$format" in AuthApi::setApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
         }
-        if (empty($params['usersource'])) {
-            throw new \InvalidArgumentException('Missing parameter "usersource" in AuthApi::setApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
+        if (empty($usersource)) {
+            throw new \InvalidArgumentException('Missing parameter "$usersource" in AuthApi::setApiTokenUserSourceByUsersourceCallbackByFormatRequest().');
         }
         
 
@@ -3649,20 +3540,27 @@ class AuthApi
         $httpBody = '';
         $multipart = false;
 
+        if ($format !== null) {
+            $format = ObjectSerializer::toQueryValue($format);
+        }
+        if ($usersource !== null) {
+            $usersource = ObjectSerializer::toQueryValue($usersource);
+        }
+        
 
         // path params
-        if ($params['format'] !== null) {
+        if ($format !== null) {
             $resourcePath = str_replace(
                 '{' . 'format' . '}',
-                ObjectSerializer::toPathValue($params['format']),
+                ObjectSerializer::toPathValue($format),
                 $resourcePath
             );
         }
         // path params
-        if ($params['usersource'] !== null) {
+        if ($usersource !== null) {
             $resourcePath = str_replace(
                 '{' . 'usersource' . '}',
-                ObjectSerializer::toPathValue($params['usersource']),
+                ObjectSerializer::toPathValue($usersource),
                 $resourcePath
             );
         }

@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class HelpdeskApi
      * Operation getHelpdeskAgentClientInfo
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getHelpdeskAgentClientInfo(array $params = [])
+    public function getHelpdeskAgentClientInfo()
     {
-        list($response) = $this->getHelpdeskAgentClientInfoWithHttpInfo($params);
+        list($response) = $this->getHelpdeskAgentClientInfoWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getHelpdeskAgentClientInfoWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getHelpdeskAgentClientInfoWithHttpInfo(array $params = [])
+    public function getHelpdeskAgentClientInfoWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskAgentClientInfoRequest($params);
+        $request = $this->getHelpdeskAgentClientInfoRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskAgentClientInfoAsync(array $params = [])
+    public function getHelpdeskAgentClientInfoAsync()
     {
-        return $this->getHelpdeskAgentClientInfoAsyncWithHttpInfo($params)
+        return $this->getHelpdeskAgentClientInfoAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskAgentClientInfoAsyncWithHttpInfo(array $params = [])
+    public function getHelpdeskAgentClientInfoAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskAgentClientInfoRequest($params);
+        $request = $this->getHelpdeskAgentClientInfoRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class HelpdeskApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class HelpdeskApi
     /**
      * Create request for operation 'getHelpdeskAgentClientInfo'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getHelpdeskAgentClientInfoRequest(array $params = [])
+    protected function getHelpdeskAgentClientInfoRequest()
     {
         
 
@@ -305,6 +294,7 @@ class HelpdeskApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -380,35 +370,30 @@ class HelpdeskApi
      * Operation getHelpdeskAgentClientSetting
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getHelpdeskAgentClientSetting(array $params = [])
+    public function getHelpdeskAgentClientSetting()
     {
-        list($response) = $this->getHelpdeskAgentClientSettingWithHttpInfo($params);
+        list($response) = $this->getHelpdeskAgentClientSettingWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getHelpdeskAgentClientSettingWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getHelpdeskAgentClientSettingWithHttpInfo(array $params = [])
+    public function getHelpdeskAgentClientSettingWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskAgentClientSettingRequest($params);
+        $request = $this->getHelpdeskAgentClientSettingRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -474,18 +459,16 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskAgentClientSettingAsync(array $params = [])
+    public function getHelpdeskAgentClientSettingAsync()
     {
-        return $this->getHelpdeskAgentClientSettingAsyncWithHttpInfo($params)
+        return $this->getHelpdeskAgentClientSettingAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -496,22 +479,20 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskAgentClientSettingAsyncWithHttpInfo(array $params = [])
+    public function getHelpdeskAgentClientSettingAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskAgentClientSettingRequest($params);
+        $request = $this->getHelpdeskAgentClientSettingRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -531,7 +512,7 @@ class HelpdeskApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -551,14 +532,11 @@ class HelpdeskApi
     /**
      * Create request for operation 'getHelpdeskAgentClientSetting'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getHelpdeskAgentClientSettingRequest(array $params = [])
+    protected function getHelpdeskAgentClientSettingRequest()
     {
         
 
@@ -569,6 +547,7 @@ class HelpdeskApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -644,35 +623,30 @@ class HelpdeskApi
      * Operation getHelpdeskDiscover
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getHelpdeskDiscover(array $params = [])
+    public function getHelpdeskDiscover()
     {
-        list($response) = $this->getHelpdeskDiscoverWithHttpInfo($params);
+        list($response) = $this->getHelpdeskDiscoverWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getHelpdeskDiscoverWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getHelpdeskDiscoverWithHttpInfo(array $params = [])
+    public function getHelpdeskDiscoverWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskDiscoverRequest($params);
+        $request = $this->getHelpdeskDiscoverRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -738,18 +712,16 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskDiscoverAsync(array $params = [])
+    public function getHelpdeskDiscoverAsync()
     {
-        return $this->getHelpdeskDiscoverAsyncWithHttpInfo($params)
+        return $this->getHelpdeskDiscoverAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -760,22 +732,20 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskDiscoverAsyncWithHttpInfo(array $params = [])
+    public function getHelpdeskDiscoverAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskDiscoverRequest($params);
+        $request = $this->getHelpdeskDiscoverRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -795,7 +765,7 @@ class HelpdeskApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -815,14 +785,11 @@ class HelpdeskApi
     /**
      * Create request for operation 'getHelpdeskDiscover'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getHelpdeskDiscoverRequest(array $params = [])
+    protected function getHelpdeskDiscoverRequest()
     {
         
 
@@ -833,6 +800,7 @@ class HelpdeskApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -908,35 +876,30 @@ class HelpdeskApi
      * Operation getHelpdeskUpdaterSetting
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getHelpdeskUpdaterSetting(array $params = [])
+    public function getHelpdeskUpdaterSetting()
     {
-        list($response) = $this->getHelpdeskUpdaterSettingWithHttpInfo($params);
+        list($response) = $this->getHelpdeskUpdaterSettingWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getHelpdeskUpdaterSettingWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getHelpdeskUpdaterSettingWithHttpInfo(array $params = [])
+    public function getHelpdeskUpdaterSettingWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskUpdaterSettingRequest($params);
+        $request = $this->getHelpdeskUpdaterSettingRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1002,18 +965,16 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskUpdaterSettingAsync(array $params = [])
+    public function getHelpdeskUpdaterSettingAsync()
     {
-        return $this->getHelpdeskUpdaterSettingAsyncWithHttpInfo($params)
+        return $this->getHelpdeskUpdaterSettingAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1024,22 +985,20 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskUpdaterSettingAsyncWithHttpInfo(array $params = [])
+    public function getHelpdeskUpdaterSettingAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskUpdaterSettingRequest($params);
+        $request = $this->getHelpdeskUpdaterSettingRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1059,7 +1018,7 @@ class HelpdeskApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1079,14 +1038,11 @@ class HelpdeskApi
     /**
      * Create request for operation 'getHelpdeskUpdaterSetting'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getHelpdeskUpdaterSettingRequest(array $params = [])
+    protected function getHelpdeskUpdaterSettingRequest()
     {
         
 
@@ -1097,6 +1053,7 @@ class HelpdeskApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1172,35 +1129,30 @@ class HelpdeskApi
      * Operation getHelpdeskUpdaterStatu
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getHelpdeskUpdaterStatu(array $params = [])
+    public function getHelpdeskUpdaterStatu()
     {
-        list($response) = $this->getHelpdeskUpdaterStatuWithHttpInfo($params);
+        list($response) = $this->getHelpdeskUpdaterStatuWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getHelpdeskUpdaterStatuWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getHelpdeskUpdaterStatuWithHttpInfo(array $params = [])
+    public function getHelpdeskUpdaterStatuWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskUpdaterStatuRequest($params);
+        $request = $this->getHelpdeskUpdaterStatuRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1266,18 +1218,16 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskUpdaterStatuAsync(array $params = [])
+    public function getHelpdeskUpdaterStatuAsync()
     {
-        return $this->getHelpdeskUpdaterStatuAsyncWithHttpInfo($params)
+        return $this->getHelpdeskUpdaterStatuAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1288,22 +1238,20 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getHelpdeskUpdaterStatuAsyncWithHttpInfo(array $params = [])
+    public function getHelpdeskUpdaterStatuAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getHelpdeskUpdaterStatuRequest($params);
+        $request = $this->getHelpdeskUpdaterStatuRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1323,7 +1271,7 @@ class HelpdeskApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1343,14 +1291,11 @@ class HelpdeskApi
     /**
      * Create request for operation 'getHelpdeskUpdaterStatu'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getHelpdeskUpdaterStatuRequest(array $params = [])
+    protected function getHelpdeskUpdaterStatuRequest()
     {
         
 
@@ -1361,6 +1306,7 @@ class HelpdeskApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1436,37 +1382,32 @@ class HelpdeskApi
      * Operation setHelpdeskUpdaterManualSchedule
      *
      *
-     * Parameters:
-     *   "delay" int  delay before start (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $delay delay before start
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setHelpdeskUpdaterManualSchedule(array $params = [])
+    public function setHelpdeskUpdaterManualSchedule($delay)
     {
-        list($response) = $this->setHelpdeskUpdaterManualScheduleWithHttpInfo($params);
+        list($response) = $this->setHelpdeskUpdaterManualScheduleWithHttpInfo($delay);
         return $response;
     }
 
     /**
      * Operation setHelpdeskUpdaterManualScheduleWithHttpInfo
      *
-     * Parameters:
-     *   "delay" int  delay before start (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $delay delay before start
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setHelpdeskUpdaterManualScheduleWithHttpInfo(array $params = [])
+    public function setHelpdeskUpdaterManualScheduleWithHttpInfo($delay)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setHelpdeskUpdaterManualScheduleRequest($params);
+        $request = $this->setHelpdeskUpdaterManualScheduleRequest($delay);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1540,19 +1481,17 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
-     *   "delay" int  delay before start (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $delay delay before start
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setHelpdeskUpdaterManualScheduleAsync(array $params = [])
+    public function setHelpdeskUpdaterManualScheduleAsync($delay)
     {
-        return $this->setHelpdeskUpdaterManualScheduleAsyncWithHttpInfo($params)
+        return $this->setHelpdeskUpdaterManualScheduleAsyncWithHttpInfo($delay)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1563,23 +1502,21 @@ class HelpdeskApi
      *
      * 
      *
-     * Parameters:
-     *   "delay" int  delay before start (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $delay delay before start
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setHelpdeskUpdaterManualScheduleAsyncWithHttpInfo(array $params = [])
+    public function setHelpdeskUpdaterManualScheduleAsyncWithHttpInfo($delay)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setHelpdeskUpdaterManualScheduleRequest($params);
+        $request = $this->setHelpdeskUpdaterManualScheduleRequest($delay);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1599,7 +1536,7 @@ class HelpdeskApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1619,18 +1556,15 @@ class HelpdeskApi
     /**
      * Create request for operation 'setHelpdeskUpdaterManualSchedule'
      *
-     * Parameters:
-     *   "delay" int  delay before start (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $delay delay before start
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setHelpdeskUpdaterManualScheduleRequest(array $params = [])
+    protected function setHelpdeskUpdaterManualScheduleRequest($delay)
     {
-        if (empty($params['delay'])) {
-            throw new \InvalidArgumentException('Missing parameter "delay" in HelpdeskApi::setHelpdeskUpdaterManualScheduleRequest().');
+        if (empty($delay)) {
+            throw new \InvalidArgumentException('Missing parameter "$delay" in HelpdeskApi::setHelpdeskUpdaterManualScheduleRequest().');
         }
         
 
@@ -1641,9 +1575,13 @@ class HelpdeskApi
         $httpBody = '';
         $multipart = false;
 
+        if ($delay !== null) {
+            $delay = ObjectSerializer::toQueryValue($delay);
+        }
+        
         // query params
-        if ($params['delay'] !== null) {
-            $queryParams['delay'] = ObjectSerializer::toQueryValue($params['delay']);
+        if ($filters['delay'] !== null) {
+            $queryParams['delay'] = ObjectSerializer::toQueryValue($filters['delay']);
         }
 
 

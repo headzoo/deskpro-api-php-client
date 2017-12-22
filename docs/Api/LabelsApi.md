@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **getTypeLabels**
-> \DeskPRO\API\Model\Response getTypeLabels(array $params = [])
+> \DeskPRO\API\Model\Response getTypeLabels(string $type, array $filters = [])
 
 
 
@@ -26,14 +26,14 @@ $api = new LabelsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"type" => "type_example", // string | Which entity type labels we are searching?
+$type = "type_example"; // string | Which entity type labels we are searching?
+$filters = [
 "term" => "term_example" // string | Filter label by given word
 ];
 
 try {
-    $result = $api->getTypeLabels($params);
-    print_r($result);
+    $result = $api->getTypeLabels($type, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -42,9 +42,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **type** | **string**| Which entity type labels we are searching? |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **term** | **string**| Filter label by given word | [optional]
 
 ### Return type

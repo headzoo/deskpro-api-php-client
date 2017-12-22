@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **getSettingBrandNewPortalGeneral**
-> \DeskPRO\API\Model\Response getSettingBrandNewPortalGeneral(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandNewPortalGeneral()
 
 
 
@@ -26,12 +26,10 @@ $api = new PortalNewSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getSettingBrandNewPortalGeneral($params);
-    print_r($result);
+    $result = $api->getSettingBrandNewPortalGeneral();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -39,7 +37,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

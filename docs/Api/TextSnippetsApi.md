@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **deleteContextSnippetById**
-> \DeskPRO\API\Model\Response deleteContextSnippetById(array $params = [])
+> \DeskPRO\API\Model\Response deleteContextSnippetById(int $id, string $context)
 
 
 
@@ -35,14 +35,12 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"context" => "context_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->deleteContextSnippetById($params);
-    print_r($result);
+    $result = $api->deleteContextSnippetById($id, $context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -51,10 +49,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -72,7 +75,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteContextSnippetCategoryById**
-> \DeskPRO\API\Model\Response deleteContextSnippetCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response deleteContextSnippetCategoryById(int $id, string $context)
 
 
 
@@ -90,14 +93,12 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"context" => "context_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->deleteContextSnippetCategoryById($params);
-    print_r($result);
+    $result = $api->deleteContextSnippetCategoryById($id, $context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -106,10 +107,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -127,7 +133,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippetById**
-> \DeskPRO\API\Model\Response getContextSnippetById(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippetById(int $id, string $context)
 
 
 
@@ -145,14 +151,12 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"context" => "context_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->getContextSnippetById($params);
-    print_r($result);
+    $result = $api->getContextSnippetById($id, $context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -161,10 +165,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -182,7 +191,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippetByIdContent**
-> \DeskPRO\API\Model\Response getContextSnippetByIdContent(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippetByIdContent(int $id, string $context, array $filters = [])
 
 
 
@@ -200,15 +209,15 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | the id of the snippet
-"context" => "context_example", // string | 
+$id = 56; // int | the id of the snippet
+$context = "context_example"; // string | 
+$filters = [
 "snippet" => "snippet_example" // string | the context of the category
 ];
 
 try {
-    $result = $api->getContextSnippetByIdContent($params);
-    print_r($result);
+    $result = $api->getContextSnippetByIdContent($id, $context, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -217,10 +226,17 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| the id of the snippet |
  **context** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **snippet** | **string**| the context of the category | [optional]
 
 ### Return type
@@ -239,7 +255,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippetCategories**
-> \DeskPRO\API\Model\Response getContextSnippetCategories(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippetCategories(string $context, array $filters = [])
 
 
 
@@ -257,8 +273,8 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"context" => "context_example", // string | 
+$context = "context_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -266,8 +282,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getContextSnippetCategories($params);
-    print_r($result);
+    $result = $api->getContextSnippetCategories($context, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -276,9 +292,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **context** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -300,7 +323,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippetCategoryById**
-> \DeskPRO\API\Model\Response getContextSnippetCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippetCategoryById(int $id, string $context)
 
 
 
@@ -318,14 +341,12 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"context" => "context_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->getContextSnippetCategoryById($params);
-    print_r($result);
+    $result = $api->getContextSnippetCategoryById($id, $context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -334,10 +355,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -355,7 +381,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippetCategoryByIdSnippet**
-> \DeskPRO\API\Model\Response getContextSnippetCategoryByIdSnippet(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippetCategoryByIdSnippet(int $id, string $context, array $filters = [])
 
 
 
@@ -373,15 +399,15 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | the id of the category
-"context" => "context_example", // string | 
+$id = 56; // int | the id of the category
+$context = "context_example"; // string | 
+$filters = [
 "snippet" => "snippet_example" // string | the context of the category
 ];
 
 try {
-    $result = $api->getContextSnippetCategoryByIdSnippet($params);
-    print_r($result);
+    $result = $api->getContextSnippetCategoryByIdSnippet($id, $context, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -390,10 +416,17 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| the id of the category |
  **context** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **snippet** | **string**| the context of the category | [optional]
 
 ### Return type
@@ -412,7 +445,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippetCategoryCount**
-> \DeskPRO\API\Model\Response getContextSnippetCategoryCount(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippetCategoryCount(string $context)
 
 
 
@@ -430,13 +463,11 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"context" => "context_example" // string | 
-];
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->getContextSnippetCategoryCount($params);
-    print_r($result);
+    $result = $api->getContextSnippetCategoryCount($context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -445,9 +476,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -465,7 +501,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippetCount**
-> \DeskPRO\API\Model\Response getContextSnippetCount(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippetCount(string $context)
 
 
 
@@ -483,13 +519,11 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"context" => "context_example" // string | 
-];
+$context = "context_example"; // string | 
 
 try {
-    $result = $api->getContextSnippetCount($params);
-    print_r($result);
+    $result = $api->getContextSnippetCount($context);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -498,9 +532,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **context** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -518,7 +557,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContextSnippets**
-> \DeskPRO\API\Model\Response getContextSnippets(array $params = [])
+> \DeskPRO\API\Model\Response getContextSnippets(string $context, array $filters = [])
 
 
 
@@ -536,8 +575,8 @@ $api = new TextSnippetsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"context" => "context_example", // string | 
+$context = "context_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -545,8 +584,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getContextSnippets($params);
-    print_r($result);
+    $result = $api->getContextSnippets($context, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -555,9 +594,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **context** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]

@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class TimezonesApi
      * Operation getTimezones
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTimezones(array $params = [])
+    public function getTimezones()
     {
-        list($response) = $this->getTimezonesWithHttpInfo($params);
+        list($response) = $this->getTimezonesWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTimezonesWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTimezonesWithHttpInfo(array $params = [])
+    public function getTimezonesWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTimezonesRequest($params);
+        $request = $this->getTimezonesRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class TimezonesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTimezonesAsync(array $params = [])
+    public function getTimezonesAsync()
     {
-        return $this->getTimezonesAsyncWithHttpInfo($params)
+        return $this->getTimezonesAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class TimezonesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTimezonesAsyncWithHttpInfo(array $params = [])
+    public function getTimezonesAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTimezonesRequest($params);
+        $request = $this->getTimezonesRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class TimezonesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class TimezonesApi
     /**
      * Create request for operation 'getTimezones'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTimezonesRequest(array $params = [])
+    protected function getTimezonesRequest()
     {
         
 
@@ -305,6 +294,7 @@ class TimezonesApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

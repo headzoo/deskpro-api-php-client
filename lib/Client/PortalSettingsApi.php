@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class PortalSettingsApi
      * Operation getSettingBrandByBrandPortalDownload
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandPortalDownload(array $params = [])
+    public function getSettingBrandByBrandPortalDownload($brand)
     {
-        list($response) = $this->getSettingBrandByBrandPortalDownloadWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandPortalDownloadWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandPortalDownloadWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandPortalDownloadWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalDownloadWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalDownloadRequest($params);
+        $request = $this->getSettingBrandByBrandPortalDownloadRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalDownloadAsync(array $params = [])
+    public function getSettingBrandByBrandPortalDownloadAsync($brand)
     {
-        return $this->getSettingBrandByBrandPortalDownloadAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandPortalDownloadAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalDownloadAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalDownloadAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalDownloadRequest($params);
+        $request = $this->getSettingBrandByBrandPortalDownloadRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class PortalSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class PortalSettingsApi
     /**
      * Create request for operation 'getSettingBrandByBrandPortalDownload'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandPortalDownloadRequest(array $params = [])
+    protected function getSettingBrandByBrandPortalDownloadRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in PortalSettingsApi::getSettingBrandByBrandPortalDownloadRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in PortalSettingsApi::getSettingBrandByBrandPortalDownloadRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class PortalSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class PortalSettingsApi
      * Operation getSettingBrandByBrandPortalFeedback
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandPortalFeedback(array $params = [])
+    public function getSettingBrandByBrandPortalFeedback($brand)
     {
-        list($response) = $this->getSettingBrandByBrandPortalFeedbackWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandPortalFeedbackWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandPortalFeedbackWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandPortalFeedbackWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalFeedbackWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalFeedbackRequest($params);
+        $request = $this->getSettingBrandByBrandPortalFeedbackRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalFeedbackAsync(array $params = [])
+    public function getSettingBrandByBrandPortalFeedbackAsync($brand)
     {
-        return $this->getSettingBrandByBrandPortalFeedbackAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandPortalFeedbackAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalFeedbackAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalFeedbackAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalFeedbackRequest($params);
+        $request = $this->getSettingBrandByBrandPortalFeedbackRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class PortalSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class PortalSettingsApi
     /**
      * Create request for operation 'getSettingBrandByBrandPortalFeedback'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandPortalFeedbackRequest(array $params = [])
+    protected function getSettingBrandByBrandPortalFeedbackRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in PortalSettingsApi::getSettingBrandByBrandPortalFeedbackRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in PortalSettingsApi::getSettingBrandByBrandPortalFeedbackRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class PortalSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -692,37 +677,32 @@ class PortalSettingsApi
      * Operation getSettingBrandByBrandPortalGeneral
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandPortalGeneral(array $params = [])
+    public function getSettingBrandByBrandPortalGeneral($brand)
     {
-        list($response) = $this->getSettingBrandByBrandPortalGeneralWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandPortalGeneralWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandPortalGeneralWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandPortalGeneralWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalGeneralWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalGeneralRequest($params);
+        $request = $this->getSettingBrandByBrandPortalGeneralRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -796,19 +776,17 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalGeneralAsync(array $params = [])
+    public function getSettingBrandByBrandPortalGeneralAsync($brand)
     {
-        return $this->getSettingBrandByBrandPortalGeneralAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandPortalGeneralAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -819,23 +797,21 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalGeneralAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalGeneralAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalGeneralRequest($params);
+        $request = $this->getSettingBrandByBrandPortalGeneralRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -855,7 +831,7 @@ class PortalSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -875,18 +851,15 @@ class PortalSettingsApi
     /**
      * Create request for operation 'getSettingBrandByBrandPortalGeneral'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandPortalGeneralRequest(array $params = [])
+    protected function getSettingBrandByBrandPortalGeneralRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in PortalSettingsApi::getSettingBrandByBrandPortalGeneralRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in PortalSettingsApi::getSettingBrandByBrandPortalGeneralRequest().');
         }
         
 
@@ -897,12 +870,16 @@ class PortalSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -980,37 +957,32 @@ class PortalSettingsApi
      * Operation getSettingBrandByBrandPortalGuide
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandPortalGuide(array $params = [])
+    public function getSettingBrandByBrandPortalGuide($brand)
     {
-        list($response) = $this->getSettingBrandByBrandPortalGuideWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandPortalGuideWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandPortalGuideWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandPortalGuideWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalGuideWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalGuideRequest($params);
+        $request = $this->getSettingBrandByBrandPortalGuideRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1084,19 +1056,17 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalGuideAsync(array $params = [])
+    public function getSettingBrandByBrandPortalGuideAsync($brand)
     {
-        return $this->getSettingBrandByBrandPortalGuideAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandPortalGuideAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1107,23 +1077,21 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalGuideAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalGuideAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalGuideRequest($params);
+        $request = $this->getSettingBrandByBrandPortalGuideRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1143,7 +1111,7 @@ class PortalSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1163,18 +1131,15 @@ class PortalSettingsApi
     /**
      * Create request for operation 'getSettingBrandByBrandPortalGuide'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandPortalGuideRequest(array $params = [])
+    protected function getSettingBrandByBrandPortalGuideRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in PortalSettingsApi::getSettingBrandByBrandPortalGuideRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in PortalSettingsApi::getSettingBrandByBrandPortalGuideRequest().');
         }
         
 
@@ -1185,12 +1150,16 @@ class PortalSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -1268,37 +1237,32 @@ class PortalSettingsApi
      * Operation getSettingBrandByBrandPortalKb
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandPortalKb(array $params = [])
+    public function getSettingBrandByBrandPortalKb($brand)
     {
-        list($response) = $this->getSettingBrandByBrandPortalKbWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandPortalKbWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandPortalKbWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandPortalKbWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalKbWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalKbRequest($params);
+        $request = $this->getSettingBrandByBrandPortalKbRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1372,19 +1336,17 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalKbAsync(array $params = [])
+    public function getSettingBrandByBrandPortalKbAsync($brand)
     {
-        return $this->getSettingBrandByBrandPortalKbAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandPortalKbAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1395,23 +1357,21 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalKbAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalKbAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalKbRequest($params);
+        $request = $this->getSettingBrandByBrandPortalKbRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1431,7 +1391,7 @@ class PortalSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1451,18 +1411,15 @@ class PortalSettingsApi
     /**
      * Create request for operation 'getSettingBrandByBrandPortalKb'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandPortalKbRequest(array $params = [])
+    protected function getSettingBrandByBrandPortalKbRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in PortalSettingsApi::getSettingBrandByBrandPortalKbRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in PortalSettingsApi::getSettingBrandByBrandPortalKbRequest().');
         }
         
 
@@ -1473,12 +1430,16 @@ class PortalSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }
@@ -1556,37 +1517,32 @@ class PortalSettingsApi
      * Operation getSettingBrandByBrandPortalNews
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandByBrandPortalNews(array $params = [])
+    public function getSettingBrandByBrandPortalNews($brand)
     {
-        list($response) = $this->getSettingBrandByBrandPortalNewsWithHttpInfo($params);
+        list($response) = $this->getSettingBrandByBrandPortalNewsWithHttpInfo($brand);
         return $response;
     }
 
     /**
      * Operation getSettingBrandByBrandPortalNewsWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandByBrandPortalNewsWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalNewsWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalNewsRequest($params);
+        $request = $this->getSettingBrandByBrandPortalNewsRequest($brand);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1660,19 +1616,17 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalNewsAsync(array $params = [])
+    public function getSettingBrandByBrandPortalNewsAsync($brand)
     {
-        return $this->getSettingBrandByBrandPortalNewsAsyncWithHttpInfo($params)
+        return $this->getSettingBrandByBrandPortalNewsAsyncWithHttpInfo($brand)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1683,23 +1637,21 @@ class PortalSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandByBrandPortalNewsAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandByBrandPortalNewsAsyncWithHttpInfo($brand)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandByBrandPortalNewsRequest($params);
+        $request = $this->getSettingBrandByBrandPortalNewsRequest($brand);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1719,7 +1671,7 @@ class PortalSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1739,18 +1691,15 @@ class PortalSettingsApi
     /**
      * Create request for operation 'getSettingBrandByBrandPortalNews'
      *
-     * Parameters:
-     *   "brand" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandByBrandPortalNewsRequest(array $params = [])
+    protected function getSettingBrandByBrandPortalNewsRequest($brand)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in PortalSettingsApi::getSettingBrandByBrandPortalNewsRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in PortalSettingsApi::getSettingBrandByBrandPortalNewsRequest().');
         }
         
 
@@ -1761,12 +1710,16 @@ class PortalSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }

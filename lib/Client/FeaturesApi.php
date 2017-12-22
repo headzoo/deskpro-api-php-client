@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -115,40 +116,39 @@ class FeaturesApi
     /**
      * Operation getFeatureByFeature
      *
-     *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeatureByFeature(array $params = [])
+    public function getFeatureByFeature($feature, array $filters = [])
     {
-        list($response) = $this->getFeatureByFeatureWithHttpInfo($params);
+        list($response) = $this->getFeatureByFeatureWithHttpInfo($feature, $filters);
         return $response;
     }
 
     /**
      * Operation getFeatureByFeatureWithHttpInfo
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeatureByFeatureWithHttpInfo(array $params = [])
+    public function getFeatureByFeatureWithHttpInfo($feature, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeatureByFeatureRequest($params);
+        $request = $this->getFeatureByFeatureRequest($feature, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -214,20 +214,20 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeatureByFeatureAsync(array $params = [])
+    public function getFeatureByFeatureAsync($feature, array $filters = [])
     {
-        return $this->getFeatureByFeatureAsyncWithHttpInfo($params)
+        return $this->getFeatureByFeatureAsyncWithHttpInfo($feature, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -238,24 +238,24 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeatureByFeatureAsyncWithHttpInfo(array $params = [])
+    public function getFeatureByFeatureAsyncWithHttpInfo($feature, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeatureByFeatureRequest($params);
+        $request = $this->getFeatureByFeatureRequest($feature, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -275,7 +275,7 @@ class FeaturesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -295,22 +295,21 @@ class FeaturesApi
     /**
      * Create request for operation 'getFeatureByFeature'
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeatureByFeatureRequest(array $params = [])
+    protected function getFeatureByFeatureRequest($feature, array $filters = [])
     {
-        if (empty($params['feature'])) {
-            throw new \InvalidArgumentException('Missing parameter "feature" in FeaturesApi::getFeatureByFeatureRequest().');
+        if (empty($feature)) {
+            throw new \InvalidArgumentException('Missing parameter "$feature" in FeaturesApi::getFeatureByFeatureRequest().');
         }
-        if (!isset($params['id'])) {
-            $params['id'] = null;
+        if (!isset($filters['id'])) {
+            $filters['id'] = null;
         }
         
 
@@ -321,16 +320,20 @@ class FeaturesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($feature !== null) {
+            $feature = ObjectSerializer::toQueryValue($feature);
+        }
+        
         // query params
-        if ($params['id'] !== null) {
-            $queryParams['id'] = ObjectSerializer::toQueryValue($params['id']);
+        if ($filters['id'] !== null) {
+            $queryParams['id'] = ObjectSerializer::toQueryValue($filters['id']);
         }
 
         // path params
-        if ($params['feature'] !== null) {
+        if ($feature !== null) {
             $resourcePath = str_replace(
                 '{' . 'feature' . '}',
-                ObjectSerializer::toPathValue($params['feature']),
+                ObjectSerializer::toPathValue($feature),
                 $resourcePath
             );
         }
@@ -408,35 +411,30 @@ class FeaturesApi
      * Operation getFeatures
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getFeatures(array $params = [])
+    public function getFeatures()
     {
-        list($response) = $this->getFeaturesWithHttpInfo($params);
+        list($response) = $this->getFeaturesWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getFeaturesWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFeaturesWithHttpInfo(array $params = [])
+    public function getFeaturesWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeaturesRequest($params);
+        $request = $this->getFeaturesRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -502,18 +500,16 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeaturesAsync(array $params = [])
+    public function getFeaturesAsync()
     {
-        return $this->getFeaturesAsyncWithHttpInfo($params)
+        return $this->getFeaturesAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -524,22 +520,20 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFeaturesAsyncWithHttpInfo(array $params = [])
+    public function getFeaturesAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getFeaturesRequest($params);
+        $request = $this->getFeaturesRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -559,7 +553,7 @@ class FeaturesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -579,14 +573,11 @@ class FeaturesApi
     /**
      * Create request for operation 'getFeatures'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFeaturesRequest(array $params = [])
+    protected function getFeaturesRequest()
     {
         
 
@@ -597,6 +588,7 @@ class FeaturesApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -671,40 +663,39 @@ class FeaturesApi
     /**
      * Operation updateFeatureByFeatureDisable
      *
-     *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateFeatureByFeatureDisable(array $params = [])
+    public function updateFeatureByFeatureDisable($feature, array $filters = [])
     {
-        list($response) = $this->updateFeatureByFeatureDisableWithHttpInfo($params);
+        list($response) = $this->updateFeatureByFeatureDisableWithHttpInfo($feature, $filters);
         return $response;
     }
 
     /**
      * Operation updateFeatureByFeatureDisableWithHttpInfo
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateFeatureByFeatureDisableWithHttpInfo(array $params = [])
+    public function updateFeatureByFeatureDisableWithHttpInfo($feature, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateFeatureByFeatureDisableRequest($params);
+        $request = $this->updateFeatureByFeatureDisableRequest($feature, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -778,20 +769,20 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateFeatureByFeatureDisableAsync(array $params = [])
+    public function updateFeatureByFeatureDisableAsync($feature, array $filters = [])
     {
-        return $this->updateFeatureByFeatureDisableAsyncWithHttpInfo($params)
+        return $this->updateFeatureByFeatureDisableAsyncWithHttpInfo($feature, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -802,24 +793,24 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateFeatureByFeatureDisableAsyncWithHttpInfo(array $params = [])
+    public function updateFeatureByFeatureDisableAsyncWithHttpInfo($feature, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateFeatureByFeatureDisableRequest($params);
+        $request = $this->updateFeatureByFeatureDisableRequest($feature, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -839,7 +830,7 @@ class FeaturesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -859,22 +850,21 @@ class FeaturesApi
     /**
      * Create request for operation 'updateFeatureByFeatureDisable'
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateFeatureByFeatureDisableRequest(array $params = [])
+    protected function updateFeatureByFeatureDisableRequest($feature, array $filters = [])
     {
-        if (empty($params['feature'])) {
-            throw new \InvalidArgumentException('Missing parameter "feature" in FeaturesApi::updateFeatureByFeatureDisableRequest().');
+        if (empty($feature)) {
+            throw new \InvalidArgumentException('Missing parameter "$feature" in FeaturesApi::updateFeatureByFeatureDisableRequest().');
         }
-        if (!isset($params['id'])) {
-            $params['id'] = null;
+        if (!isset($filters['id'])) {
+            $filters['id'] = null;
         }
         
 
@@ -885,16 +875,20 @@ class FeaturesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($feature !== null) {
+            $feature = ObjectSerializer::toQueryValue($feature);
+        }
+        
         // query params
-        if ($params['id'] !== null) {
-            $queryParams['id'] = ObjectSerializer::toQueryValue($params['id']);
+        if ($filters['id'] !== null) {
+            $queryParams['id'] = ObjectSerializer::toQueryValue($filters['id']);
         }
 
         // path params
-        if ($params['feature'] !== null) {
+        if ($feature !== null) {
             $resourcePath = str_replace(
                 '{' . 'feature' . '}',
-                ObjectSerializer::toPathValue($params['feature']),
+                ObjectSerializer::toPathValue($feature),
                 $resourcePath
             );
         }
@@ -971,40 +965,39 @@ class FeaturesApi
     /**
      * Operation updateFeatureByFeatureEnable
      *
-     *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateFeatureByFeatureEnable(array $params = [])
+    public function updateFeatureByFeatureEnable($feature, array $filters = [])
     {
-        list($response) = $this->updateFeatureByFeatureEnableWithHttpInfo($params);
+        list($response) = $this->updateFeatureByFeatureEnableWithHttpInfo($feature, $filters);
         return $response;
     }
 
     /**
      * Operation updateFeatureByFeatureEnableWithHttpInfo
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateFeatureByFeatureEnableWithHttpInfo(array $params = [])
+    public function updateFeatureByFeatureEnableWithHttpInfo($feature, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateFeatureByFeatureEnableRequest($params);
+        $request = $this->updateFeatureByFeatureEnableRequest($feature, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1078,20 +1071,20 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateFeatureByFeatureEnableAsync(array $params = [])
+    public function updateFeatureByFeatureEnableAsync($feature, array $filters = [])
     {
-        return $this->updateFeatureByFeatureEnableAsyncWithHttpInfo($params)
+        return $this->updateFeatureByFeatureEnableAsyncWithHttpInfo($feature, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1102,24 +1095,24 @@ class FeaturesApi
      *
      * 
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateFeatureByFeatureEnableAsyncWithHttpInfo(array $params = [])
+    public function updateFeatureByFeatureEnableAsyncWithHttpInfo($feature, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateFeatureByFeatureEnableRequest($params);
+        $request = $this->updateFeatureByFeatureEnableRequest($feature, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1139,7 +1132,7 @@ class FeaturesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1159,22 +1152,21 @@ class FeaturesApi
     /**
      * Create request for operation 'updateFeatureByFeatureEnable'
      *
-     * Parameters:
-     *   "feature" string   (required)
+     * Filters:
      *   "id" string  id of the feature (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $feature 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateFeatureByFeatureEnableRequest(array $params = [])
+    protected function updateFeatureByFeatureEnableRequest($feature, array $filters = [])
     {
-        if (empty($params['feature'])) {
-            throw new \InvalidArgumentException('Missing parameter "feature" in FeaturesApi::updateFeatureByFeatureEnableRequest().');
+        if (empty($feature)) {
+            throw new \InvalidArgumentException('Missing parameter "$feature" in FeaturesApi::updateFeatureByFeatureEnableRequest().');
         }
-        if (!isset($params['id'])) {
-            $params['id'] = null;
+        if (!isset($filters['id'])) {
+            $filters['id'] = null;
         }
         
 
@@ -1185,16 +1177,20 @@ class FeaturesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($feature !== null) {
+            $feature = ObjectSerializer::toQueryValue($feature);
+        }
+        
         // query params
-        if ($params['id'] !== null) {
-            $queryParams['id'] = ObjectSerializer::toQueryValue($params['id']);
+        if ($filters['id'] !== null) {
+            $queryParams['id'] = ObjectSerializer::toQueryValue($filters['id']);
         }
 
         // path params
-        if ($params['feature'] !== null) {
+        if ($feature !== null) {
             $resourcePath = str_replace(
                 '{' . 'feature' . '}',
-                ObjectSerializer::toPathValue($params['feature']),
+                ObjectSerializer::toPathValue($feature),
                 $resourcePath
             );
         }

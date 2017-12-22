@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 
 # **deleteOauthClientById**
-> \DeskPRO\API\Model\Response deleteOauthClientById(array $params = [])
+> \DeskPRO\API\Model\Response deleteOauthClientById(int $id)
 
 
 
@@ -38,13 +38,11 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteOauthClientById($params);
-    print_r($result);
+    $result = $api->deleteOauthClientById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -53,9 +51,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -73,7 +76,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiTokenDeviceSetupByAuth**
-> \DeskPRO\API\Model\Response getApiTokenDeviceSetupByAuth(array $params = [])
+> \DeskPRO\API\Model\Response getApiTokenDeviceSetupByAuth(string $auth)
 
 
 
@@ -91,13 +94,11 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"auth" => "auth_example" // string | 
-];
+$auth = "auth_example"; // string | 
 
 try {
-    $result = $api->getApiTokenDeviceSetupByAuth($params);
-    print_r($result);
+    $result = $api->getApiTokenDeviceSetupByAuth($auth);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -106,9 +107,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **auth** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -126,7 +132,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiTokenSession**
-> \DeskPRO\API\Model\Response getApiTokenSession(array $params = [])
+> \DeskPRO\API\Model\Response getApiTokenSession()
 
 
 
@@ -144,12 +150,10 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getApiTokenSession($params);
-    print_r($result);
+    $result = $api->getApiTokenSession();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -157,7 +161,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -175,7 +184,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiTokenUserSourceByUsersourceCallbackByFormat**
-> \DeskPRO\API\Model\Response getApiTokenUserSourceByUsersourceCallbackByFormat(array $params = [])
+> \DeskPRO\API\Model\Response getApiTokenUserSourceByUsersourceCallbackByFormat(string $format, string $usersource)
 
 
 
@@ -193,14 +202,12 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"format" => "format_example", // string | 
-"usersource" => "usersource_example" // string | 
-];
+$format = "format_example"; // string | 
+$usersource = "usersource_example"; // string | 
 
 try {
-    $result = $api->getApiTokenUserSourceByUsersourceCallbackByFormat($params);
-    print_r($result);
+    $result = $api->getApiTokenUserSourceByUsersourceCallbackByFormat($format, $usersource);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -209,10 +216,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **format** | **string**|  |
  **usersource** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -230,7 +242,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiTokenUserSourceByUsersourceLogin**
-> getApiTokenUserSourceByUsersourceLogin(array $params = [])
+> getApiTokenUserSourceByUsersourceLogin(string $usersource)
 
 
 
@@ -248,12 +260,10 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"usersource" => "usersource_example" // string | 
-];
+$usersource = "usersource_example"; // string | 
 
 try {
-    $api->getApiTokenUserSourceByUsersourceLogin($params);
+    $api->getApiTokenUserSourceByUsersourceLogin($usersource);
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -262,9 +272,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **usersource** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -282,7 +297,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiTokenUserSourceContextFormat**
-> getApiTokenUserSourceContextFormat(array $params = [])
+> getApiTokenUserSourceContextFormat(string $context, string $_format)
 
 
 
@@ -300,13 +315,11 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"context" => "context_example", // string | 
-"_format" => "_format_example" // string | 
-];
+$context = "context_example"; // string | 
+$_format = "_format_example"; // string | 
 
 try {
-    $api->getApiTokenUserSourceContextFormat($params);
+    $api->getApiTokenUserSourceContextFormat($context, $_format);
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -315,10 +328,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **context** | **string**|  |
  **_format** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -336,7 +354,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getMe**
-> \DeskPRO\API\Model\Response getMe(array $params = [])
+> \DeskPRO\API\Model\Response getMe()
 
 
 
@@ -354,12 +372,10 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getMe($params);
-    print_r($result);
+    $result = $api->getMe();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -367,7 +383,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -385,7 +406,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getMeDeviceSetupToken**
-> \DeskPRO\API\Model\Response getMeDeviceSetupToken(array $params = [])
+> \DeskPRO\API\Model\Response getMeDeviceSetupToken()
 
 
 
@@ -403,12 +424,10 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getMeDeviceSetupToken($params);
-    print_r($result);
+    $result = $api->getMeDeviceSetupToken();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -416,7 +435,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -434,7 +458,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getMeProfile**
-> \DeskPRO\API\Model\Response getMeProfile(array $params = [])
+> \DeskPRO\API\Model\Response getMeProfile()
 
 
 
@@ -452,12 +476,10 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getMeProfile($params);
-    print_r($result);
+    $result = $api->getMeProfile();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -465,7 +487,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -483,7 +510,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOauthClientById**
-> \DeskPRO\API\Model\Response getOauthClientById(array $params = [])
+> \DeskPRO\API\Model\Response getOauthClientById(int $id)
 
 
 
@@ -501,13 +528,11 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getOauthClientById($params);
-    print_r($result);
+    $result = $api->getOauthClientById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -516,9 +541,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -536,7 +566,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOauthClientCount**
-> \DeskPRO\API\Model\Response getOauthClientCount(array $params = [])
+> \DeskPRO\API\Model\Response getOauthClientCount()
 
 
 
@@ -554,12 +584,10 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getOauthClientCount($params);
-    print_r($result);
+    $result = $api->getOauthClientCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -567,7 +595,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -585,7 +618,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOauthClients**
-> \DeskPRO\API\Model\Response getOauthClients(array $params = [])
+> \DeskPRO\API\Model\Response getOauthClients(array $filters = [])
 
 
 
@@ -603,7 +636,7 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -611,8 +644,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getOauthClients($params);
-    print_r($result);
+    $result = $api->getOauthClients($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -620,6 +653,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -644,7 +684,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setApiTokenUserSourceByUsersourceCallbackByFormat**
-> \DeskPRO\API\Model\Response setApiTokenUserSourceByUsersourceCallbackByFormat(array $params = [])
+> \DeskPRO\API\Model\Response setApiTokenUserSourceByUsersourceCallbackByFormat(string $format, string $usersource)
 
 
 
@@ -662,14 +702,12 @@ $api = new AuthApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"format" => "format_example", // string | 
-"usersource" => "usersource_example" // string | 
-];
+$format = "format_example"; // string | 
+$usersource = "usersource_example"; // string | 
 
 try {
-    $result = $api->setApiTokenUserSourceByUsersourceCallbackByFormat($params);
-    print_r($result);
+    $result = $api->setApiTokenUserSourceByUsersourceCallbackByFormat($format, $usersource);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -678,10 +716,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **format** | **string**|  |
  **usersource** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

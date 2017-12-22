@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -115,40 +116,39 @@ class LabelsApi
     /**
      * Operation getTypeLabels
      *
-     *
-     * Parameters:
-     *   "type" string  Which entity type labels we are searching? (required)
+     * Filters:
      *   "term" string  Filter label by given word (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type Which entity type labels we are searching?
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTypeLabels(array $params = [])
+    public function getTypeLabels($type, array $filters = [])
     {
-        list($response) = $this->getTypeLabelsWithHttpInfo($params);
+        list($response) = $this->getTypeLabelsWithHttpInfo($type, $filters);
         return $response;
     }
 
     /**
      * Operation getTypeLabelsWithHttpInfo
      *
-     * Parameters:
-     *   "type" string  Which entity type labels we are searching? (required)
+     * Filters:
      *   "term" string  Filter label by given word (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type Which entity type labels we are searching?
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTypeLabelsWithHttpInfo(array $params = [])
+    public function getTypeLabelsWithHttpInfo($type, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTypeLabelsRequest($params);
+        $request = $this->getTypeLabelsRequest($type, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -222,20 +222,20 @@ class LabelsApi
      *
      * 
      *
-     * Parameters:
-     *   "type" string  Which entity type labels we are searching? (required)
+     * Filters:
      *   "term" string  Filter label by given word (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type Which entity type labels we are searching?
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTypeLabelsAsync(array $params = [])
+    public function getTypeLabelsAsync($type, array $filters = [])
     {
-        return $this->getTypeLabelsAsyncWithHttpInfo($params)
+        return $this->getTypeLabelsAsyncWithHttpInfo($type, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -246,24 +246,24 @@ class LabelsApi
      *
      * 
      *
-     * Parameters:
-     *   "type" string  Which entity type labels we are searching? (required)
+     * Filters:
      *   "term" string  Filter label by given word (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type Which entity type labels we are searching?
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTypeLabelsAsyncWithHttpInfo(array $params = [])
+    public function getTypeLabelsAsyncWithHttpInfo($type, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTypeLabelsRequest($params);
+        $request = $this->getTypeLabelsRequest($type, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -283,7 +283,7 @@ class LabelsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -303,22 +303,21 @@ class LabelsApi
     /**
      * Create request for operation 'getTypeLabels'
      *
-     * Parameters:
-     *   "type" string  Which entity type labels we are searching? (required)
+     * Filters:
      *   "term" string  Filter label by given word (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $type Which entity type labels we are searching?
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTypeLabelsRequest(array $params = [])
+    protected function getTypeLabelsRequest($type, array $filters = [])
     {
-        if (empty($params['type'])) {
-            throw new \InvalidArgumentException('Missing parameter "type" in LabelsApi::getTypeLabelsRequest().');
+        if (empty($type)) {
+            throw new \InvalidArgumentException('Missing parameter "$type" in LabelsApi::getTypeLabelsRequest().');
         }
-        if (!isset($params['term'])) {
-            $params['term'] = null;
+        if (!isset($filters['term'])) {
+            $filters['term'] = null;
         }
         
 
@@ -329,16 +328,20 @@ class LabelsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($type !== null) {
+            $type = ObjectSerializer::toQueryValue($type);
+        }
+        
         // query params
-        if ($params['term'] !== null) {
-            $queryParams['term'] = ObjectSerializer::toQueryValue($params['term']);
+        if ($filters['term'] !== null) {
+            $queryParams['term'] = ObjectSerializer::toQueryValue($filters['term']);
         }
 
         // path params
-        if ($params['type'] !== null) {
+        if ($type !== null) {
             $resourcePath = str_replace(
                 '{' . 'type' . '}',
-                ObjectSerializer::toPathValue($params['type']),
+                ObjectSerializer::toPathValue($type),
                 $resourcePath
             );
         }

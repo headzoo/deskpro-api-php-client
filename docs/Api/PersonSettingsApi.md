@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **getPersonSetting**
-> \DeskPRO\API\Model\Response getPersonSetting(array $params = [])
+> \DeskPRO\API\Model\Response getPersonSetting()
 
 
 
@@ -29,12 +29,10 @@ $api = new PersonSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getPersonSetting($params);
-    print_r($result);
+    $result = $api->getPersonSetting();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -42,7 +40,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -60,7 +63,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPersonSettingByName**
-> \DeskPRO\API\Model\Response getPersonSettingByName(array $params = [])
+> \DeskPRO\API\Model\Response getPersonSettingByName(string $name)
 
 
 
@@ -78,13 +81,11 @@ $api = new PersonSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"name" => "name_example" // string | the name of the setting
-];
+$name = "name_example"; // string | the name of the setting
 
 try {
-    $result = $api->getPersonSettingByName($params);
-    print_r($result);
+    $result = $api->getPersonSettingByName($name);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -93,9 +94,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **string**| the name of the setting |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -113,7 +119,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setPersonSetting**
-> \DeskPRO\API\Model\Response setPersonSetting(array $params = [])
+> \DeskPRO\API\Model\Response setPersonSetting(string $name, string $value)
 
 
 
@@ -131,14 +137,12 @@ $api = new PersonSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"name" => "name_example", // string | setting name
-"value" => "value_example" // string | setting value
-];
+$name = "name_example"; // string | setting name
+$value = "value_example"; // string | setting value
 
 try {
-    $result = $api->setPersonSetting($params);
-    print_r($result);
+    $result = $api->setPersonSetting($name, $value);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -146,6 +150,15 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **name** | **string**| setting name |
+ **value** | **string**| setting value |
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -168,7 +181,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updatePersonSetting**
-> \DeskPRO\API\Model\Response updatePersonSetting(array $params = [])
+> \DeskPRO\API\Model\Response updatePersonSetting(string $name, string $value)
 
 
 
@@ -186,14 +199,12 @@ $api = new PersonSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"name" => "name_example", // string | setting name
-"value" => "value_example" // string | setting value
-];
+$name = "name_example"; // string | setting name
+$value = "value_example"; // string | setting value
 
 try {
-    $result = $api->updatePersonSetting($params);
-    print_r($result);
+    $result = $api->updatePersonSetting($name, $value);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -201,6 +212,15 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **name** | **string**| setting name |
+ **value** | **string**| setting value |
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

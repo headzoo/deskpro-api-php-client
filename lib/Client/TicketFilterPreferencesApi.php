@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,39 +117,34 @@ class TicketFilterPreferencesApi
      * Operation deleteNewTicketFilterByParentIdPrefById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteNewTicketFilterByParentIdPrefById(array $params = [])
+    public function deleteNewTicketFilterByParentIdPrefById($id, $parent_id)
     {
-        list($response) = $this->deleteNewTicketFilterByParentIdPrefByIdWithHttpInfo($params);
+        list($response) = $this->deleteNewTicketFilterByParentIdPrefByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deleteNewTicketFilterByParentIdPrefByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteNewTicketFilterByParentIdPrefByIdWithHttpInfo(array $params = [])
+    public function deleteNewTicketFilterByParentIdPrefByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewTicketFilterByParentIdPrefByIdRequest($params);
+        $request = $this->deleteNewTicketFilterByParentIdPrefByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -222,20 +218,18 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewTicketFilterByParentIdPrefByIdAsync(array $params = [])
+    public function deleteNewTicketFilterByParentIdPrefByIdAsync($id, $parent_id)
     {
-        return $this->deleteNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo($params)
+        return $this->deleteNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -246,24 +240,22 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewTicketFilterByParentIdPrefByIdRequest($params);
+        $request = $this->deleteNewTicketFilterByParentIdPrefByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -283,7 +275,7 @@ class TicketFilterPreferencesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -303,22 +295,19 @@ class TicketFilterPreferencesApi
     /**
      * Create request for operation 'deleteNewTicketFilterByParentIdPrefById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteNewTicketFilterByParentIdPrefByIdRequest(array $params = [])
+    protected function deleteNewTicketFilterByParentIdPrefByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketFilterPreferencesApi::deleteNewTicketFilterByParentIdPrefByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketFilterPreferencesApi::deleteNewTicketFilterByParentIdPrefByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketFilterPreferencesApi::deleteNewTicketFilterByParentIdPrefByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketFilterPreferencesApi::deleteNewTicketFilterByParentIdPrefByIdRequest().');
         }
         
 
@@ -329,20 +318,27 @@ class TicketFilterPreferencesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -419,46 +415,45 @@ class TicketFilterPreferencesApi
     /**
      * Operation getNewTicketFilterByParentIdPref
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewTicketFilterByParentIdPref(array $params = [])
+    public function getNewTicketFilterByParentIdPref($parent_id, array $filters = [])
     {
-        list($response) = $this->getNewTicketFilterByParentIdPrefWithHttpInfo($params);
+        list($response) = $this->getNewTicketFilterByParentIdPrefWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getNewTicketFilterByParentIdPrefWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewTicketFilterByParentIdPrefWithHttpInfo(array $params = [])
+    public function getNewTicketFilterByParentIdPrefWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewTicketFilterByParentIdPrefRequest($params);
+        $request = $this->getNewTicketFilterByParentIdPrefRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -532,23 +527,23 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewTicketFilterByParentIdPrefAsync(array $params = [])
+    public function getNewTicketFilterByParentIdPrefAsync($parent_id, array $filters = [])
     {
-        return $this->getNewTicketFilterByParentIdPrefAsyncWithHttpInfo($params)
+        return $this->getNewTicketFilterByParentIdPrefAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -559,27 +554,27 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewTicketFilterByParentIdPrefAsyncWithHttpInfo(array $params = [])
+    public function getNewTicketFilterByParentIdPrefAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewTicketFilterByParentIdPrefRequest($params);
+        $request = $this->getNewTicketFilterByParentIdPrefRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -599,7 +594,7 @@ class TicketFilterPreferencesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -619,34 +614,33 @@ class TicketFilterPreferencesApi
     /**
      * Create request for operation 'getNewTicketFilterByParentIdPref'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewTicketFilterByParentIdPrefRequest(array $params = [])
+    protected function getNewTicketFilterByParentIdPrefRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -657,28 +651,32 @@ class TicketFilterPreferencesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -756,39 +754,34 @@ class TicketFilterPreferencesApi
      * Operation getNewTicketFilterByParentIdPrefById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewTicketFilterByParentIdPrefById(array $params = [])
+    public function getNewTicketFilterByParentIdPrefById($id, $parent_id)
     {
-        list($response) = $this->getNewTicketFilterByParentIdPrefByIdWithHttpInfo($params);
+        list($response) = $this->getNewTicketFilterByParentIdPrefByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getNewTicketFilterByParentIdPrefByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewTicketFilterByParentIdPrefByIdWithHttpInfo(array $params = [])
+    public function getNewTicketFilterByParentIdPrefByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewTicketFilterByParentIdPrefByIdRequest($params);
+        $request = $this->getNewTicketFilterByParentIdPrefByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -862,20 +855,18 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewTicketFilterByParentIdPrefByIdAsync(array $params = [])
+    public function getNewTicketFilterByParentIdPrefByIdAsync($id, $parent_id)
     {
-        return $this->getNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo($params)
+        return $this->getNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -886,24 +877,22 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo(array $params = [])
+    public function getNewTicketFilterByParentIdPrefByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewTicketFilterByParentIdPrefByIdRequest($params);
+        $request = $this->getNewTicketFilterByParentIdPrefByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -923,7 +912,7 @@ class TicketFilterPreferencesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -943,22 +932,19 @@ class TicketFilterPreferencesApi
     /**
      * Create request for operation 'getNewTicketFilterByParentIdPrefById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewTicketFilterByParentIdPrefByIdRequest(array $params = [])
+    protected function getNewTicketFilterByParentIdPrefByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefByIdRequest().');
         }
         
 
@@ -969,20 +955,27 @@ class TicketFilterPreferencesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -1060,37 +1053,32 @@ class TicketFilterPreferencesApi
      * Operation getNewTicketFilterByParentIdPrefCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewTicketFilterByParentIdPrefCount(array $params = [])
+    public function getNewTicketFilterByParentIdPrefCount($parent_id)
     {
-        list($response) = $this->getNewTicketFilterByParentIdPrefCountWithHttpInfo($params);
+        list($response) = $this->getNewTicketFilterByParentIdPrefCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getNewTicketFilterByParentIdPrefCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewTicketFilterByParentIdPrefCountWithHttpInfo(array $params = [])
+    public function getNewTicketFilterByParentIdPrefCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewTicketFilterByParentIdPrefCountRequest($params);
+        $request = $this->getNewTicketFilterByParentIdPrefCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1164,19 +1152,17 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewTicketFilterByParentIdPrefCountAsync(array $params = [])
+    public function getNewTicketFilterByParentIdPrefCountAsync($parent_id)
     {
-        return $this->getNewTicketFilterByParentIdPrefCountAsyncWithHttpInfo($params)
+        return $this->getNewTicketFilterByParentIdPrefCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1187,23 +1173,21 @@ class TicketFilterPreferencesApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewTicketFilterByParentIdPrefCountAsyncWithHttpInfo(array $params = [])
+    public function getNewTicketFilterByParentIdPrefCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewTicketFilterByParentIdPrefCountRequest($params);
+        $request = $this->getNewTicketFilterByParentIdPrefCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1223,7 +1207,7 @@ class TicketFilterPreferencesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1243,18 +1227,15 @@ class TicketFilterPreferencesApi
     /**
      * Create request for operation 'getNewTicketFilterByParentIdPrefCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewTicketFilterByParentIdPrefCountRequest(array $params = [])
+    protected function getNewTicketFilterByParentIdPrefCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketFilterPreferencesApi::getNewTicketFilterByParentIdPrefCountRequest().');
         }
         
 
@@ -1265,12 +1246,16 @@ class TicketFilterPreferencesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }

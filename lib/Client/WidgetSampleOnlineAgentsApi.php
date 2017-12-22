@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class WidgetSampleOnlineAgentsApi
      * Operation getWidgetLiveDemoSampleState
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getWidgetLiveDemoSampleState(array $params = [])
+    public function getWidgetLiveDemoSampleState()
     {
-        list($response) = $this->getWidgetLiveDemoSampleStateWithHttpInfo($params);
+        list($response) = $this->getWidgetLiveDemoSampleStateWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getWidgetLiveDemoSampleStateWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getWidgetLiveDemoSampleStateWithHttpInfo(array $params = [])
+    public function getWidgetLiveDemoSampleStateWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getWidgetLiveDemoSampleStateRequest($params);
+        $request = $this->getWidgetLiveDemoSampleStateRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class WidgetSampleOnlineAgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWidgetLiveDemoSampleStateAsync(array $params = [])
+    public function getWidgetLiveDemoSampleStateAsync()
     {
-        return $this->getWidgetLiveDemoSampleStateAsyncWithHttpInfo($params)
+        return $this->getWidgetLiveDemoSampleStateAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class WidgetSampleOnlineAgentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getWidgetLiveDemoSampleStateAsyncWithHttpInfo(array $params = [])
+    public function getWidgetLiveDemoSampleStateAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getWidgetLiveDemoSampleStateRequest($params);
+        $request = $this->getWidgetLiveDemoSampleStateRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class WidgetSampleOnlineAgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class WidgetSampleOnlineAgentsApi
     /**
      * Create request for operation 'getWidgetLiveDemoSampleState'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getWidgetLiveDemoSampleStateRequest(array $params = [])
+    protected function getWidgetLiveDemoSampleStateRequest()
     {
         
 
@@ -305,6 +294,7 @@ class WidgetSampleOnlineAgentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -380,39 +370,34 @@ class WidgetSampleOnlineAgentsApi
      * Operation setSettingBrandByBrandWidgetSendInstruction
      *
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *   "email" string  Email address (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
+     * @param string $email Email address
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setSettingBrandByBrandWidgetSendInstruction(array $params = [])
+    public function setSettingBrandByBrandWidgetSendInstruction($brand, $email)
     {
-        list($response) = $this->setSettingBrandByBrandWidgetSendInstructionWithHttpInfo($params);
+        list($response) = $this->setSettingBrandByBrandWidgetSendInstructionWithHttpInfo($brand, $email);
         return $response;
     }
 
     /**
      * Operation setSettingBrandByBrandWidgetSendInstructionWithHttpInfo
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *   "email" string  Email address (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
+     * @param string $email Email address
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setSettingBrandByBrandWidgetSendInstructionWithHttpInfo(array $params = [])
+    public function setSettingBrandByBrandWidgetSendInstructionWithHttpInfo($brand, $email)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setSettingBrandByBrandWidgetSendInstructionRequest($params);
+        $request = $this->setSettingBrandByBrandWidgetSendInstructionRequest($brand, $email);
 
         try {
             $options = $this->createHttpClientOption();
@@ -478,20 +463,18 @@ class WidgetSampleOnlineAgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *   "email" string  Email address (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
+     * @param string $email Email address
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setSettingBrandByBrandWidgetSendInstructionAsync(array $params = [])
+    public function setSettingBrandByBrandWidgetSendInstructionAsync($brand, $email)
     {
-        return $this->setSettingBrandByBrandWidgetSendInstructionAsyncWithHttpInfo($params)
+        return $this->setSettingBrandByBrandWidgetSendInstructionAsyncWithHttpInfo($brand, $email)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -502,24 +485,22 @@ class WidgetSampleOnlineAgentsApi
      *
      * 
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *   "email" string  Email address (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $brand 
+     * @param string $email Email address
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setSettingBrandByBrandWidgetSendInstructionAsyncWithHttpInfo(array $params = [])
+    public function setSettingBrandByBrandWidgetSendInstructionAsyncWithHttpInfo($brand, $email)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setSettingBrandByBrandWidgetSendInstructionRequest($params);
+        $request = $this->setSettingBrandByBrandWidgetSendInstructionRequest($brand, $email);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -539,7 +520,7 @@ class WidgetSampleOnlineAgentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -559,22 +540,19 @@ class WidgetSampleOnlineAgentsApi
     /**
      * Create request for operation 'setSettingBrandByBrandWidgetSendInstruction'
      *
-     * Parameters:
-     *   "brand" string   (required)
-     *   "email" string  Email address (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $brand 
+     * @param string $email Email address
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setSettingBrandByBrandWidgetSendInstructionRequest(array $params = [])
+    protected function setSettingBrandByBrandWidgetSendInstructionRequest($brand, $email)
     {
-        if (empty($params['brand'])) {
-            throw new \InvalidArgumentException('Missing parameter "brand" in WidgetSampleOnlineAgentsApi::setSettingBrandByBrandWidgetSendInstructionRequest().');
+        if (empty($brand)) {
+            throw new \InvalidArgumentException('Missing parameter "$brand" in WidgetSampleOnlineAgentsApi::setSettingBrandByBrandWidgetSendInstructionRequest().');
         }
-        if (empty($params['email'])) {
-            throw new \InvalidArgumentException('Missing parameter "email" in WidgetSampleOnlineAgentsApi::setSettingBrandByBrandWidgetSendInstructionRequest().');
+        if (empty($email)) {
+            throw new \InvalidArgumentException('Missing parameter "$email" in WidgetSampleOnlineAgentsApi::setSettingBrandByBrandWidgetSendInstructionRequest().');
         }
         
 
@@ -585,16 +563,23 @@ class WidgetSampleOnlineAgentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($brand !== null) {
+            $brand = ObjectSerializer::toQueryValue($brand);
+        }
+        if ($email !== null) {
+            $email = ObjectSerializer::toQueryValue($email);
+        }
+        
         // query params
-        if ($params['email'] !== null) {
-            $queryParams['email'] = ObjectSerializer::toQueryValue($params['email']);
+        if ($filters['email'] !== null) {
+            $queryParams['email'] = ObjectSerializer::toQueryValue($filters['email']);
         }
 
         // path params
-        if ($params['brand'] !== null) {
+        if ($brand !== null) {
             $resourcePath = str_replace(
                 '{' . 'brand' . '}',
-                ObjectSerializer::toPathValue($params['brand']),
+                ObjectSerializer::toPathValue($brand),
                 $resourcePath
             );
         }

@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 
 # **deleteFeedbackById**
-> \DeskPRO\API\Model\Response deleteFeedbackById(array $params = [])
+> \DeskPRO\API\Model\Response deleteFeedbackById(int $id)
 
 
 
@@ -37,13 +37,11 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteFeedbackById($params);
-    print_r($result);
+    $result = $api->deleteFeedbackById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -52,9 +50,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -72,7 +75,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteFeedbackCommentById**
-> \DeskPRO\API\Model\Response deleteFeedbackCommentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteFeedbackCommentById(int $id)
 
 
 
@@ -90,13 +93,11 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteFeedbackCommentById($params);
-    print_r($result);
+    $result = $api->deleteFeedbackCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -105,9 +106,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -125,7 +131,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedback**
-> \DeskPRO\API\Model\Response getFeedback(array $params = [])
+> \DeskPRO\API\Model\Response getFeedback(array $filters = [])
 
 
 
@@ -143,7 +149,7 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -165,8 +171,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getFeedback($params);
-    print_r($result);
+    $result = $api->getFeedback($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -174,6 +180,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -212,7 +225,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackById**
-> \DeskPRO\API\Model\Response getFeedbackById(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackById(int $id)
 
 
 
@@ -230,13 +243,11 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getFeedbackById($params);
-    print_r($result);
+    $result = $api->getFeedbackById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -245,9 +256,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -265,7 +281,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackCategories**
-> \DeskPRO\API\Model\Response getFeedbackCategories(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackCategories()
 
 
 
@@ -283,12 +299,10 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getFeedbackCategories($params);
-    print_r($result);
+    $result = $api->getFeedbackCategories();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -296,7 +310,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -314,7 +333,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackCommentById**
-> \DeskPRO\API\Model\Response getFeedbackCommentById(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackCommentById(int $id)
 
 
 
@@ -332,13 +351,11 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getFeedbackCommentById($params);
-    print_r($result);
+    $result = $api->getFeedbackCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -347,9 +364,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -367,7 +389,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackCommentCount**
-> \DeskPRO\API\Model\Response getFeedbackCommentCount(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackCommentCount()
 
 
 
@@ -385,12 +407,10 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getFeedbackCommentCount($params);
-    print_r($result);
+    $result = $api->getFeedbackCommentCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -398,7 +418,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -416,7 +441,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackComments**
-> \DeskPRO\API\Model\Response getFeedbackComments(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackComments(array $filters = [])
 
 
 
@@ -434,7 +459,7 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => "page_example", // string | current page
 "count" => "count_example", // string | per page comments quantity
 "limit" => 56, // int | Max number of resources to return
@@ -453,8 +478,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getFeedbackComments($params);
-    print_r($result);
+    $result = $api->getFeedbackComments($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -462,6 +487,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -497,7 +529,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackCount**
-> \DeskPRO\API\Model\Response getFeedbackCount(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackCount(array $filters = [])
 
 
 
@@ -515,7 +547,7 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "awaiting_validation" => true, // bool | select feedback awaiting validation only
 "status" => "status_example", // string | filter by status
 "hidden_status" => 56, // int | limit with hidden_status
@@ -533,8 +565,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getFeedbackCount($params);
-    print_r($result);
+    $result = $api->getFeedbackCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -542,6 +574,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -576,7 +615,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackTypeById**
-> \DeskPRO\API\Model\Response getFeedbackTypeById(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackTypeById(int $id)
 
 
 
@@ -594,13 +633,11 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getFeedbackTypeById($params);
-    print_r($result);
+    $result = $api->getFeedbackTypeById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -609,9 +646,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -629,7 +671,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackTypeCount**
-> \DeskPRO\API\Model\Response getFeedbackTypeCount(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackTypeCount()
 
 
 
@@ -647,12 +689,10 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getFeedbackTypeCount($params);
-    print_r($result);
+    $result = $api->getFeedbackTypeCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -660,7 +700,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -678,7 +723,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeedbackTypes**
-> \DeskPRO\API\Model\Response getFeedbackTypes(array $params = [])
+> \DeskPRO\API\Model\Response getFeedbackTypes(array $filters = [])
 
 
 
@@ -696,7 +741,7 @@ $api = new FeedbackApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -704,8 +749,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getFeedbackTypes($params);
-    print_r($result);
+    $result = $api->getFeedbackTypes($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -713,6 +758,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **getUserGroupById**
-> \DeskPRO\API\Model\Response getUserGroupById(array $params = [])
+> \DeskPRO\API\Model\Response getUserGroupById(int $id)
 
 
 
@@ -28,13 +28,11 @@ $api = new UsergroupsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getUserGroupById($params);
-    print_r($result);
+    $result = $api->getUserGroupById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -43,9 +41,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -63,7 +66,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserGroupCount**
-> \DeskPRO\API\Model\Response getUserGroupCount(array $params = [])
+> \DeskPRO\API\Model\Response getUserGroupCount()
 
 
 
@@ -81,12 +84,10 @@ $api = new UsergroupsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getUserGroupCount($params);
-    print_r($result);
+    $result = $api->getUserGroupCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -94,7 +95,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -112,7 +118,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserGroups**
-> \DeskPRO\API\Model\Response getUserGroups(array $params = [])
+> \DeskPRO\API\Model\Response getUserGroups(array $filters = [])
 
 
 
@@ -130,7 +136,7 @@ $api = new UsergroupsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -138,8 +144,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getUserGroups($params);
-    print_r($result);
+    $result = $api->getUserGroups($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -147,6 +153,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **getSettingAntiAbuseCaptcha**
-> \DeskPRO\API\Model\Response getSettingAntiAbuseCaptcha(array $params = [])
+> \DeskPRO\API\Model\Response getSettingAntiAbuseCaptcha()
 
 
 
@@ -27,12 +27,10 @@ $api = new AntiAbuseSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getSettingAntiAbuseCaptcha($params);
-    print_r($result);
+    $result = $api->getSettingAntiAbuseCaptcha();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -40,7 +38,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -58,7 +61,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingAntiAbusePortal**
-> \DeskPRO\API\Model\Response getSettingAntiAbusePortal(array $params = [])
+> \DeskPRO\API\Model\Response getSettingAntiAbusePortal()
 
 
 
@@ -76,12 +79,10 @@ $api = new AntiAbuseSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getSettingAntiAbusePortal($params);
-    print_r($result);
+    $result = $api->getSettingAntiAbusePortal();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -89,7 +90,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

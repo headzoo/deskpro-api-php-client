@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **deleteEmailAccountByIdCertificate**
-> \DeskPRO\API\Model\Response deleteEmailAccountByIdCertificate(array $params = [])
+> \DeskPRO\API\Model\Response deleteEmailAccountByIdCertificate(int $id)
 
 
 
@@ -28,13 +28,11 @@ $api = new EmailAccountsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the email account
-];
+$id = 56; // int | The id of the email account
 
 try {
-    $result = $api->deleteEmailAccountByIdCertificate($params);
-    print_r($result);
+    $result = $api->deleteEmailAccountByIdCertificate($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -43,9 +41,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the email account |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -63,7 +66,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteEmailAccountByIdKey**
-> \DeskPRO\API\Model\Response deleteEmailAccountByIdKey(array $params = [])
+> \DeskPRO\API\Model\Response deleteEmailAccountByIdKey(int $id)
 
 
 
@@ -81,13 +84,11 @@ $api = new EmailAccountsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the email account
-];
+$id = 56; // int | The id of the email account
 
 try {
-    $result = $api->deleteEmailAccountByIdKey($params);
-    print_r($result);
+    $result = $api->deleteEmailAccountByIdKey($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -96,9 +97,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the email account |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -116,7 +122,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setEmailAccountByIdEncryption**
-> \DeskPRO\API\Model\Response setEmailAccountByIdEncryption(array $params = [])
+> \DeskPRO\API\Model\Response setEmailAccountByIdEncryption(int $id)
 
 
 
@@ -134,13 +140,11 @@ $api = new EmailAccountsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the email account
-];
+$id = 56; // int | The id of the email account
 
 try {
-    $result = $api->setEmailAccountByIdEncryption($params);
-    print_r($result);
+    $result = $api->setEmailAccountByIdEncryption($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -149,9 +153,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the email account |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

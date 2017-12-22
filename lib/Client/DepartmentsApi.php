@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class DepartmentsApi
      * Operation deleteChatDepartmentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteChatDepartmentById(array $params = [])
+    public function deleteChatDepartmentById($id)
     {
-        list($response) = $this->deleteChatDepartmentByIdWithHttpInfo($params);
+        list($response) = $this->deleteChatDepartmentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteChatDepartmentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteChatDepartmentByIdWithHttpInfo(array $params = [])
+    public function deleteChatDepartmentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteChatDepartmentByIdRequest($params);
+        $request = $this->deleteChatDepartmentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteChatDepartmentByIdAsync(array $params = [])
+    public function deleteChatDepartmentByIdAsync($id)
     {
-        return $this->deleteChatDepartmentByIdAsyncWithHttpInfo($params)
+        return $this->deleteChatDepartmentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteChatDepartmentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteChatDepartmentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteChatDepartmentByIdRequest($params);
+        $request = $this->deleteChatDepartmentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class DepartmentsApi
     /**
      * Create request for operation 'deleteChatDepartmentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteChatDepartmentByIdRequest(array $params = [])
+    protected function deleteChatDepartmentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in DepartmentsApi::deleteChatDepartmentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in DepartmentsApi::deleteChatDepartmentByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class DepartmentsApi
      * Operation deleteTicketDepartmentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketDepartmentById(array $params = [])
+    public function deleteTicketDepartmentById($id)
     {
-        list($response) = $this->deleteTicketDepartmentByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketDepartmentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteTicketDepartmentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketDepartmentByIdWithHttpInfo(array $params = [])
+    public function deleteTicketDepartmentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketDepartmentByIdRequest($params);
+        $request = $this->deleteTicketDepartmentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketDepartmentByIdAsync(array $params = [])
+    public function deleteTicketDepartmentByIdAsync($id)
     {
-        return $this->deleteTicketDepartmentByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketDepartmentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketDepartmentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketDepartmentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketDepartmentByIdRequest($params);
+        $request = $this->deleteTicketDepartmentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class DepartmentsApi
     /**
      * Create request for operation 'deleteTicketDepartmentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketDepartmentByIdRequest(array $params = [])
+    protected function deleteTicketDepartmentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in DepartmentsApi::deleteTicketDepartmentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in DepartmentsApi::deleteTicketDepartmentByIdRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -692,37 +677,32 @@ class DepartmentsApi
      * Operation getChatDepartmentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getChatDepartmentById(array $params = [])
+    public function getChatDepartmentById($id)
     {
-        list($response) = $this->getChatDepartmentByIdWithHttpInfo($params);
+        list($response) = $this->getChatDepartmentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getChatDepartmentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getChatDepartmentByIdWithHttpInfo(array $params = [])
+    public function getChatDepartmentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentByIdRequest($params);
+        $request = $this->getChatDepartmentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -796,19 +776,17 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentByIdAsync(array $params = [])
+    public function getChatDepartmentByIdAsync($id)
     {
-        return $this->getChatDepartmentByIdAsyncWithHttpInfo($params)
+        return $this->getChatDepartmentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -819,23 +797,21 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentByIdAsyncWithHttpInfo(array $params = [])
+    public function getChatDepartmentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentByIdRequest($params);
+        $request = $this->getChatDepartmentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -855,7 +831,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -875,18 +851,15 @@ class DepartmentsApi
     /**
      * Create request for operation 'getChatDepartmentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getChatDepartmentByIdRequest(array $params = [])
+    protected function getChatDepartmentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in DepartmentsApi::getChatDepartmentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in DepartmentsApi::getChatDepartmentByIdRequest().');
         }
         
 
@@ -897,12 +870,16 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -980,37 +957,32 @@ class DepartmentsApi
      * Operation getChatDepartmentByIdAgent
      *
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getChatDepartmentByIdAgent(array $params = [])
+    public function getChatDepartmentByIdAgent($id)
     {
-        list($response) = $this->getChatDepartmentByIdAgentWithHttpInfo($params);
+        list($response) = $this->getChatDepartmentByIdAgentWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getChatDepartmentByIdAgentWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getChatDepartmentByIdAgentWithHttpInfo(array $params = [])
+    public function getChatDepartmentByIdAgentWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentByIdAgentRequest($params);
+        $request = $this->getChatDepartmentByIdAgentRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1084,19 +1056,17 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentByIdAgentAsync(array $params = [])
+    public function getChatDepartmentByIdAgentAsync($id)
     {
-        return $this->getChatDepartmentByIdAgentAsyncWithHttpInfo($params)
+        return $this->getChatDepartmentByIdAgentAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1107,23 +1077,21 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentByIdAgentAsyncWithHttpInfo(array $params = [])
+    public function getChatDepartmentByIdAgentAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentByIdAgentRequest($params);
+        $request = $this->getChatDepartmentByIdAgentRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1143,7 +1111,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1163,18 +1131,15 @@ class DepartmentsApi
     /**
      * Create request for operation 'getChatDepartmentByIdAgent'
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the department
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getChatDepartmentByIdAgentRequest(array $params = [])
+    protected function getChatDepartmentByIdAgentRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in DepartmentsApi::getChatDepartmentByIdAgentRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in DepartmentsApi::getChatDepartmentByIdAgentRequest().');
         }
         
 
@@ -1185,12 +1150,16 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1268,35 +1237,30 @@ class DepartmentsApi
      * Operation getChatDepartmentCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getChatDepartmentCount(array $params = [])
+    public function getChatDepartmentCount()
     {
-        list($response) = $this->getChatDepartmentCountWithHttpInfo($params);
+        list($response) = $this->getChatDepartmentCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getChatDepartmentCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getChatDepartmentCountWithHttpInfo(array $params = [])
+    public function getChatDepartmentCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentCountRequest($params);
+        $request = $this->getChatDepartmentCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1370,18 +1334,16 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentCountAsync(array $params = [])
+    public function getChatDepartmentCountAsync()
     {
-        return $this->getChatDepartmentCountAsyncWithHttpInfo($params)
+        return $this->getChatDepartmentCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1392,22 +1354,20 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentCountAsyncWithHttpInfo(array $params = [])
+    public function getChatDepartmentCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentCountRequest($params);
+        $request = $this->getChatDepartmentCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1427,7 +1387,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1447,14 +1407,11 @@ class DepartmentsApi
     /**
      * Create request for operation 'getChatDepartmentCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getChatDepartmentCountRequest(array $params = [])
+    protected function getChatDepartmentCountRequest()
     {
         
 
@@ -1465,6 +1422,7 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1539,44 +1497,43 @@ class DepartmentsApi
     /**
      * Operation getChatDepartments
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getChatDepartments(array $params = [])
+    public function getChatDepartments(array $filters = [])
     {
-        list($response) = $this->getChatDepartmentsWithHttpInfo($params);
+        list($response) = $this->getChatDepartmentsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getChatDepartmentsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getChatDepartmentsWithHttpInfo(array $params = [])
+    public function getChatDepartmentsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentsRequest($params);
+        $request = $this->getChatDepartmentsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1650,22 +1607,22 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentsAsync(array $params = [])
+    public function getChatDepartmentsAsync(array $filters = [])
     {
-        return $this->getChatDepartmentsAsyncWithHttpInfo($params)
+        return $this->getChatDepartmentsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1676,26 +1633,26 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChatDepartmentsAsyncWithHttpInfo(array $params = [])
+    public function getChatDepartmentsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getChatDepartmentsRequest($params);
+        $request = $this->getChatDepartmentsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1715,7 +1672,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1735,30 +1692,29 @@ class DepartmentsApi
     /**
      * Create request for operation 'getChatDepartments'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getChatDepartmentsRequest(array $params = [])
+    protected function getChatDepartmentsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1769,21 +1725,22 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -1860,37 +1817,32 @@ class DepartmentsApi
      * Operation getTicketDepartmentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketDepartmentById(array $params = [])
+    public function getTicketDepartmentById($id)
     {
-        list($response) = $this->getTicketDepartmentByIdWithHttpInfo($params);
+        list($response) = $this->getTicketDepartmentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketDepartmentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketDepartmentByIdWithHttpInfo(array $params = [])
+    public function getTicketDepartmentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentByIdRequest($params);
+        $request = $this->getTicketDepartmentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1964,19 +1916,17 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentByIdAsync(array $params = [])
+    public function getTicketDepartmentByIdAsync($id)
     {
-        return $this->getTicketDepartmentByIdAsyncWithHttpInfo($params)
+        return $this->getTicketDepartmentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1987,23 +1937,21 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketDepartmentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentByIdRequest($params);
+        $request = $this->getTicketDepartmentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2023,7 +1971,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2043,18 +1991,15 @@ class DepartmentsApi
     /**
      * Create request for operation 'getTicketDepartmentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketDepartmentByIdRequest(array $params = [])
+    protected function getTicketDepartmentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in DepartmentsApi::getTicketDepartmentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in DepartmentsApi::getTicketDepartmentByIdRequest().');
         }
         
 
@@ -2065,12 +2010,16 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2148,37 +2097,32 @@ class DepartmentsApi
      * Operation getTicketDepartmentByIdAgent
      *
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketDepartmentByIdAgent(array $params = [])
+    public function getTicketDepartmentByIdAgent($id)
     {
-        list($response) = $this->getTicketDepartmentByIdAgentWithHttpInfo($params);
+        list($response) = $this->getTicketDepartmentByIdAgentWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketDepartmentByIdAgentWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketDepartmentByIdAgentWithHttpInfo(array $params = [])
+    public function getTicketDepartmentByIdAgentWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentByIdAgentRequest($params);
+        $request = $this->getTicketDepartmentByIdAgentRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2252,19 +2196,17 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentByIdAgentAsync(array $params = [])
+    public function getTicketDepartmentByIdAgentAsync($id)
     {
-        return $this->getTicketDepartmentByIdAgentAsyncWithHttpInfo($params)
+        return $this->getTicketDepartmentByIdAgentAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2275,23 +2217,21 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the department
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentByIdAgentAsyncWithHttpInfo(array $params = [])
+    public function getTicketDepartmentByIdAgentAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentByIdAgentRequest($params);
+        $request = $this->getTicketDepartmentByIdAgentRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2311,7 +2251,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2331,18 +2271,15 @@ class DepartmentsApi
     /**
      * Create request for operation 'getTicketDepartmentByIdAgent'
      *
-     * Parameters:
-     *   "id" int  the id of the department (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the department
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketDepartmentByIdAgentRequest(array $params = [])
+    protected function getTicketDepartmentByIdAgentRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in DepartmentsApi::getTicketDepartmentByIdAgentRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in DepartmentsApi::getTicketDepartmentByIdAgentRequest().');
         }
         
 
@@ -2353,12 +2290,16 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2436,35 +2377,30 @@ class DepartmentsApi
      * Operation getTicketDepartmentCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketDepartmentCount(array $params = [])
+    public function getTicketDepartmentCount()
     {
-        list($response) = $this->getTicketDepartmentCountWithHttpInfo($params);
+        list($response) = $this->getTicketDepartmentCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketDepartmentCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketDepartmentCountWithHttpInfo(array $params = [])
+    public function getTicketDepartmentCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentCountRequest($params);
+        $request = $this->getTicketDepartmentCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2538,18 +2474,16 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentCountAsync(array $params = [])
+    public function getTicketDepartmentCountAsync()
     {
-        return $this->getTicketDepartmentCountAsyncWithHttpInfo($params)
+        return $this->getTicketDepartmentCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2560,22 +2494,20 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketDepartmentCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentCountRequest($params);
+        $request = $this->getTicketDepartmentCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2595,7 +2527,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2615,14 +2547,11 @@ class DepartmentsApi
     /**
      * Create request for operation 'getTicketDepartmentCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketDepartmentCountRequest(array $params = [])
+    protected function getTicketDepartmentCountRequest()
     {
         
 
@@ -2633,6 +2562,7 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2707,44 +2637,43 @@ class DepartmentsApi
     /**
      * Operation getTicketDepartments
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketDepartments(array $params = [])
+    public function getTicketDepartments(array $filters = [])
     {
-        list($response) = $this->getTicketDepartmentsWithHttpInfo($params);
+        list($response) = $this->getTicketDepartmentsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketDepartmentsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketDepartmentsWithHttpInfo(array $params = [])
+    public function getTicketDepartmentsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentsRequest($params);
+        $request = $this->getTicketDepartmentsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2818,22 +2747,22 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentsAsync(array $params = [])
+    public function getTicketDepartmentsAsync(array $filters = [])
     {
-        return $this->getTicketDepartmentsAsyncWithHttpInfo($params)
+        return $this->getTicketDepartmentsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2844,26 +2773,26 @@ class DepartmentsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketDepartmentsAsyncWithHttpInfo(array $params = [])
+    public function getTicketDepartmentsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketDepartmentsRequest($params);
+        $request = $this->getTicketDepartmentsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2883,7 +2812,7 @@ class DepartmentsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2903,30 +2832,29 @@ class DepartmentsApi
     /**
      * Create request for operation 'getTicketDepartments'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketDepartmentsRequest(array $params = [])
+    protected function getTicketDepartmentsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -2937,21 +2865,22 @@ class DepartmentsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 

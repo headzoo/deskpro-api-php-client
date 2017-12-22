@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 
 # **deleteOrganizationById**
-> \DeskPRO\API\Model\Response deleteOrganizationById(array $params = [])
+> \DeskPRO\API\Model\Response deleteOrganizationById(int $id)
 
 
 
@@ -42,13 +42,11 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteOrganizationById($params);
-    print_r($result);
+    $result = $api->deleteOrganizationById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -57,9 +55,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -77,7 +80,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteOrganizationByParentIdMemberByPerson**
-> \DeskPRO\API\Model\Response deleteOrganizationByParentIdMemberByPerson(array $params = [])
+> \DeskPRO\API\Model\Response deleteOrganizationByParentIdMemberByPerson(string $parent_id, string $person, array $filters = [])
 
 
 
@@ -95,15 +98,15 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
-"person" => "person_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$person = "person_example"; // string | 
+$filters = [
 "id" => "id_example" // string | 
 ];
 
 try {
-    $result = $api->deleteOrganizationByParentIdMemberByPerson($params);
-    print_r($result);
+    $result = $api->deleteOrganizationByParentIdMemberByPerson($parent_id, $person, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -112,10 +115,17 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
  **person** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **id** | **string**|  | [optional]
 
 ### Return type
@@ -134,7 +144,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteOrganizationByParentIdNoteById**
-> \DeskPRO\API\Model\Response deleteOrganizationByParentIdNoteById(array $params = [])
+> \DeskPRO\API\Model\Response deleteOrganizationByParentIdNoteById(int $id, string $parent_id)
 
 
 
@@ -152,14 +162,12 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->deleteOrganizationByParentIdNoteById($params);
-    print_r($result);
+    $result = $api->deleteOrganizationByParentIdNoteById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -168,10 +176,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -189,7 +202,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteOrganizationCustomFieldById**
-> \DeskPRO\API\Model\Response deleteOrganizationCustomFieldById(array $params = [])
+> \DeskPRO\API\Model\Response deleteOrganizationCustomFieldById(int $id)
 
 
 
@@ -207,13 +220,11 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteOrganizationCustomFieldById($params);
-    print_r($result);
+    $result = $api->deleteOrganizationCustomFieldById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -222,9 +233,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -242,7 +258,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationById**
-> \DeskPRO\API\Model\Response getOrganizationById(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationById(int $id)
 
 
 
@@ -260,13 +276,11 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getOrganizationById($params);
-    print_r($result);
+    $result = $api->getOrganizationById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -275,9 +289,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -295,7 +314,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByIdTicket**
-> \DeskPRO\API\Model\Response getOrganizationByIdTicket(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByIdTicket(string $id)
 
 
 
@@ -313,13 +332,11 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => "id_example" // string | 
-];
+$id = "id_example"; // string | 
 
 try {
-    $result = $api->getOrganizationByIdTicket($params);
-    print_r($result);
+    $result = $api->getOrganizationByIdTicket($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -328,9 +345,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -348,7 +370,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByParentIdContactData**
-> \DeskPRO\API\Model\Response getOrganizationByParentIdContactData(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByParentIdContactData(string $parent_id, array $filters = [])
 
 
 
@@ -366,8 +388,8 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -375,8 +397,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getOrganizationByParentIdContactData($params);
-    print_r($result);
+    $result = $api->getOrganizationByParentIdContactData($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -385,9 +407,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -409,7 +438,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByParentIdContactDataById**
-> \DeskPRO\API\Model\Response getOrganizationByParentIdContactDataById(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByParentIdContactDataById(int $id, string $parent_id)
 
 
 
@@ -427,14 +456,12 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getOrganizationByParentIdContactDataById($params);
-    print_r($result);
+    $result = $api->getOrganizationByParentIdContactDataById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -443,10 +470,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -464,7 +496,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByParentIdContactDataCount**
-> \DeskPRO\API\Model\Response getOrganizationByParentIdContactDataCount(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByParentIdContactDataCount(string $parent_id)
 
 
 
@@ -482,13 +514,11 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getOrganizationByParentIdContactDataCount($params);
-    print_r($result);
+    $result = $api->getOrganizationByParentIdContactDataCount($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -497,9 +527,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -517,7 +552,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByParentIdMember**
-> \DeskPRO\API\Model\Response getOrganizationByParentIdMember(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByParentIdMember(string $parent_id, array $filters = [])
 
 
 
@@ -535,8 +570,8 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -544,8 +579,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getOrganizationByParentIdMember($params);
-    print_r($result);
+    $result = $api->getOrganizationByParentIdMember($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -554,9 +589,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -578,7 +620,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByParentIdNote**
-> \DeskPRO\API\Model\Response getOrganizationByParentIdNote(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByParentIdNote(string $parent_id, array $filters = [])
 
 
 
@@ -596,8 +638,8 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -605,8 +647,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getOrganizationByParentIdNote($params);
-    print_r($result);
+    $result = $api->getOrganizationByParentIdNote($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -615,9 +657,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -639,7 +688,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByParentIdNoteById**
-> \DeskPRO\API\Model\Response getOrganizationByParentIdNoteById(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByParentIdNoteById(int $id, string $parent_id)
 
 
 
@@ -657,14 +706,12 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getOrganizationByParentIdNoteById($params);
-    print_r($result);
+    $result = $api->getOrganizationByParentIdNoteById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -673,10 +720,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -694,7 +746,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationByParentIdNoteCount**
-> \DeskPRO\API\Model\Response getOrganizationByParentIdNoteCount(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationByParentIdNoteCount(string $parent_id)
 
 
 
@@ -712,13 +764,11 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getOrganizationByParentIdNoteCount($params);
-    print_r($result);
+    $result = $api->getOrganizationByParentIdNoteCount($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -727,9 +777,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -747,7 +802,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationCount**
-> \DeskPRO\API\Model\Response getOrganizationCount(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationCount(array $filters = [])
 
 
 
@@ -765,7 +820,7 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "name" => "name_example", // string | name filter
 "period_created" => "period_created_example", // string | period created filter
 "user_group" => array("user_group_example"), // string[] | usergroups filter
@@ -774,8 +829,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getOrganizationCount($params);
-    print_r($result);
+    $result = $api->getOrganizationCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -783,6 +838,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -808,7 +870,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationCustomFieldById**
-> \DeskPRO\API\Model\Response getOrganizationCustomFieldById(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationCustomFieldById(int $id)
 
 
 
@@ -826,13 +888,11 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getOrganizationCustomFieldById($params);
-    print_r($result);
+    $result = $api->getOrganizationCustomFieldById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -841,9 +901,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -861,7 +926,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizationCustomFields**
-> \DeskPRO\API\Model\Response getOrganizationCustomFields(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizationCustomFields(array $filters = [])
 
 
 
@@ -879,7 +944,7 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -887,8 +952,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getOrganizationCustomFields($params);
-    print_r($result);
+    $result = $api->getOrganizationCustomFields($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -896,6 +961,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -920,7 +992,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOrganizations**
-> \DeskPRO\API\Model\Response getOrganizations(array $params = [])
+> \DeskPRO\API\Model\Response getOrganizations(array $filters = [])
 
 
 
@@ -938,7 +1010,7 @@ $api = new OrganizationsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -951,8 +1023,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getOrganizations($params);
-    print_r($result);
+    $result = $api->getOrganizations($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -960,6 +1032,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class LanguagesApi
      * Operation getLanguageAdminPhrase
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getLanguageAdminPhrase(array $params = [])
+    public function getLanguageAdminPhrase()
     {
-        list($response) = $this->getLanguageAdminPhraseWithHttpInfo($params);
+        list($response) = $this->getLanguageAdminPhraseWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getLanguageAdminPhraseWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getLanguageAdminPhraseWithHttpInfo(array $params = [])
+    public function getLanguageAdminPhraseWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageAdminPhraseRequest($params);
+        $request = $this->getLanguageAdminPhraseRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -218,18 +214,16 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageAdminPhraseAsync(array $params = [])
+    public function getLanguageAdminPhraseAsync()
     {
-        return $this->getLanguageAdminPhraseAsyncWithHttpInfo($params)
+        return $this->getLanguageAdminPhraseAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -240,22 +234,20 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageAdminPhraseAsyncWithHttpInfo(array $params = [])
+    public function getLanguageAdminPhraseAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageAdminPhraseRequest($params);
+        $request = $this->getLanguageAdminPhraseRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -275,7 +267,7 @@ class LanguagesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -295,14 +287,11 @@ class LanguagesApi
     /**
      * Create request for operation 'getLanguageAdminPhrase'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getLanguageAdminPhraseRequest(array $params = [])
+    protected function getLanguageAdminPhraseRequest()
     {
         
 
@@ -313,6 +302,7 @@ class LanguagesApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -388,35 +378,30 @@ class LanguagesApi
      * Operation getLanguageAgentPhrase
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getLanguageAgentPhrase(array $params = [])
+    public function getLanguageAgentPhrase()
     {
-        list($response) = $this->getLanguageAgentPhraseWithHttpInfo($params);
+        list($response) = $this->getLanguageAgentPhraseWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getLanguageAgentPhraseWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getLanguageAgentPhraseWithHttpInfo(array $params = [])
+    public function getLanguageAgentPhraseWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageAgentPhraseRequest($params);
+        $request = $this->getLanguageAgentPhraseRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -490,18 +475,16 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageAgentPhraseAsync(array $params = [])
+    public function getLanguageAgentPhraseAsync()
     {
-        return $this->getLanguageAgentPhraseAsyncWithHttpInfo($params)
+        return $this->getLanguageAgentPhraseAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -512,22 +495,20 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageAgentPhraseAsyncWithHttpInfo(array $params = [])
+    public function getLanguageAgentPhraseAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageAgentPhraseRequest($params);
+        $request = $this->getLanguageAgentPhraseRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -547,7 +528,7 @@ class LanguagesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -567,14 +548,11 @@ class LanguagesApi
     /**
      * Create request for operation 'getLanguageAgentPhrase'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getLanguageAgentPhraseRequest(array $params = [])
+    protected function getLanguageAgentPhraseRequest()
     {
         
 
@@ -585,6 +563,7 @@ class LanguagesApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -660,37 +639,32 @@ class LanguagesApi
      * Operation getLanguageById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getLanguageById(array $params = [])
+    public function getLanguageById($id)
     {
-        list($response) = $this->getLanguageByIdWithHttpInfo($params);
+        list($response) = $this->getLanguageByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getLanguageByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getLanguageByIdWithHttpInfo(array $params = [])
+    public function getLanguageByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageByIdRequest($params);
+        $request = $this->getLanguageByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -764,19 +738,17 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageByIdAsync(array $params = [])
+    public function getLanguageByIdAsync($id)
     {
-        return $this->getLanguageByIdAsyncWithHttpInfo($params)
+        return $this->getLanguageByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -787,23 +759,21 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageByIdAsyncWithHttpInfo(array $params = [])
+    public function getLanguageByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageByIdRequest($params);
+        $request = $this->getLanguageByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -823,7 +793,7 @@ class LanguagesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -843,18 +813,15 @@ class LanguagesApi
     /**
      * Create request for operation 'getLanguageById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getLanguageByIdRequest(array $params = [])
+    protected function getLanguageByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in LanguagesApi::getLanguageByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in LanguagesApi::getLanguageByIdRequest().');
         }
         
 
@@ -865,12 +832,16 @@ class LanguagesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -948,35 +919,30 @@ class LanguagesApi
      * Operation getLanguageCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getLanguageCount(array $params = [])
+    public function getLanguageCount()
     {
-        list($response) = $this->getLanguageCountWithHttpInfo($params);
+        list($response) = $this->getLanguageCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getLanguageCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getLanguageCountWithHttpInfo(array $params = [])
+    public function getLanguageCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageCountRequest($params);
+        $request = $this->getLanguageCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1050,18 +1016,16 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageCountAsync(array $params = [])
+    public function getLanguageCountAsync()
     {
-        return $this->getLanguageCountAsyncWithHttpInfo($params)
+        return $this->getLanguageCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1072,22 +1036,20 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguageCountAsyncWithHttpInfo(array $params = [])
+    public function getLanguageCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguageCountRequest($params);
+        $request = $this->getLanguageCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1107,7 +1069,7 @@ class LanguagesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1127,14 +1089,11 @@ class LanguagesApi
     /**
      * Create request for operation 'getLanguageCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getLanguageCountRequest(array $params = [])
+    protected function getLanguageCountRequest()
     {
         
 
@@ -1145,6 +1104,7 @@ class LanguagesApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1219,44 +1179,43 @@ class LanguagesApi
     /**
      * Operation getLanguages
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getLanguages(array $params = [])
+    public function getLanguages(array $filters = [])
     {
-        list($response) = $this->getLanguagesWithHttpInfo($params);
+        list($response) = $this->getLanguagesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getLanguagesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getLanguagesWithHttpInfo(array $params = [])
+    public function getLanguagesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguagesRequest($params);
+        $request = $this->getLanguagesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1330,22 +1289,22 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguagesAsync(array $params = [])
+    public function getLanguagesAsync(array $filters = [])
     {
-        return $this->getLanguagesAsyncWithHttpInfo($params)
+        return $this->getLanguagesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1356,26 +1315,26 @@ class LanguagesApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getLanguagesAsyncWithHttpInfo(array $params = [])
+    public function getLanguagesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getLanguagesRequest($params);
+        $request = $this->getLanguagesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1395,7 +1354,7 @@ class LanguagesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1415,30 +1374,29 @@ class LanguagesApi
     /**
      * Create request for operation 'getLanguages'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getLanguagesRequest(array $params = [])
+    protected function getLanguagesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1449,21 +1407,22 @@ class LanguagesApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 

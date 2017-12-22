@@ -32,7 +32,7 @@ Method | HTTP request | Description
 
 
 # **deleteAgentChatById**
-> \DeskPRO\API\Model\Response deleteAgentChatById(array $params = [])
+> \DeskPRO\API\Model\Response deleteAgentChatById(int $id)
 
 
 
@@ -50,13 +50,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteAgentChatById($params);
-    print_r($result);
+    $result = $api->deleteAgentChatById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -65,9 +63,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -85,7 +88,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteAgentChatByIdDelete**
-> \DeskPRO\API\Model\Response deleteAgentChatByIdDelete(array $params = [])
+> \DeskPRO\API\Model\Response deleteAgentChatByIdDelete(int $id)
 
 
 
@@ -103,13 +106,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | a chat id
-];
+$id = 56; // int | a chat id
 
 try {
-    $result = $api->deleteAgentChatByIdDelete($params);
-    print_r($result);
+    $result = $api->deleteAgentChatByIdDelete($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -118,9 +119,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| a chat id |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -138,7 +144,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteAgentChatByIdLeave**
-> \DeskPRO\API\Model\Response deleteAgentChatByIdLeave(array $params = [])
+> \DeskPRO\API\Model\Response deleteAgentChatByIdLeave(int $id)
 
 
 
@@ -156,13 +162,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | a chat id
-];
+$id = 56; // int | a chat id
 
 try {
-    $result = $api->deleteAgentChatByIdLeave($params);
-    print_r($result);
+    $result = $api->deleteAgentChatByIdLeave($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -171,9 +175,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| a chat id |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -191,7 +200,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteAgentChatByParentIdMessageById**
-> \DeskPRO\API\Model\Response deleteAgentChatByParentIdMessageById(array $params = [])
+> \DeskPRO\API\Model\Response deleteAgentChatByParentIdMessageById(int $id, string $parent_id)
 
 
 
@@ -209,14 +218,12 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->deleteAgentChatByParentIdMessageById($params);
-    print_r($result);
+    $result = $api->deleteAgentChatByParentIdMessageById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -225,10 +232,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -246,7 +258,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteUserChatById**
-> \DeskPRO\API\Model\Response deleteUserChatById(array $params = [])
+> \DeskPRO\API\Model\Response deleteUserChatById(int $id)
 
 
 
@@ -264,13 +276,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteUserChatById($params);
-    print_r($result);
+    $result = $api->deleteUserChatById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -279,9 +289,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -299,7 +314,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteUserChatCustomFieldById**
-> \DeskPRO\API\Model\Response deleteUserChatCustomFieldById(array $params = [])
+> \DeskPRO\API\Model\Response deleteUserChatCustomFieldById(int $id)
 
 
 
@@ -317,13 +332,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteUserChatCustomFieldById($params);
-    print_r($result);
+    $result = $api->deleteUserChatCustomFieldById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -332,9 +345,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -352,7 +370,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatById**
-> \DeskPRO\API\Model\Response getAgentChatById(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatById(int $id)
 
 
 
@@ -370,13 +388,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getAgentChatById($params);
-    print_r($result);
+    $result = $api->getAgentChatById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -385,9 +401,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -405,7 +426,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatByParentIdMessage**
-> \DeskPRO\API\Model\Response getAgentChatByParentIdMessage(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatByParentIdMessage(string $parent_id, array $filters = [])
 
 
 
@@ -423,8 +444,8 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -434,8 +455,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getAgentChatByParentIdMessage($params);
-    print_r($result);
+    $result = $api->getAgentChatByParentIdMessage($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -444,9 +465,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -470,7 +498,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatByParentIdMessageById**
-> \DeskPRO\API\Model\Response getAgentChatByParentIdMessageById(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatByParentIdMessageById(int $id, string $parent_id)
 
 
 
@@ -488,14 +516,12 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getAgentChatByParentIdMessageById($params);
-    print_r($result);
+    $result = $api->getAgentChatByParentIdMessageById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -504,10 +530,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -525,7 +556,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatByParentIdMessageByIdPage**
-> \DeskPRO\API\Model\Response getAgentChatByParentIdMessageByIdPage(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatByParentIdMessageByIdPage(string $parent_id, string $id)
 
 
 
@@ -543,14 +574,12 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
-"id" => "id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
+$id = "id_example"; // string | 
 
 try {
-    $result = $api->getAgentChatByParentIdMessageByIdPage($params);
-    print_r($result);
+    $result = $api->getAgentChatByParentIdMessageByIdPage($parent_id, $id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -559,10 +588,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
  **id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -580,7 +614,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatByParentIdMessageCount**
-> \DeskPRO\API\Model\Response getAgentChatByParentIdMessageCount(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatByParentIdMessageCount(string $parent_id)
 
 
 
@@ -598,13 +632,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getAgentChatByParentIdMessageCount($params);
-    print_r($result);
+    $result = $api->getAgentChatByParentIdMessageCount($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -613,9 +645,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -633,7 +670,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatCount**
-> \DeskPRO\API\Model\Response getAgentChatCount(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatCount()
 
 
 
@@ -651,12 +688,10 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentChatCount($params);
-    print_r($result);
+    $result = $api->getAgentChatCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -664,7 +699,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -682,7 +722,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatGroup**
-> \DeskPRO\API\Model\Response getAgentChatGroup(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatGroup()
 
 
 
@@ -700,12 +740,10 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentChatGroup($params);
-    print_r($result);
+    $result = $api->getAgentChatGroup();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -713,7 +751,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -731,7 +774,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChatMessageCount**
-> \DeskPRO\API\Model\Response getAgentChatMessageCount(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChatMessageCount()
 
 
 
@@ -749,12 +792,10 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getAgentChatMessageCount($params);
-    print_r($result);
+    $result = $api->getAgentChatMessageCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -762,7 +803,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -780,7 +826,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAgentChats**
-> \DeskPRO\API\Model\Response getAgentChats(array $params = [])
+> \DeskPRO\API\Model\Response getAgentChats(array $filters = [])
 
 
 
@@ -798,7 +844,7 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -806,8 +852,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getAgentChats($params);
-    print_r($result);
+    $result = $api->getAgentChats($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -815,6 +861,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -839,7 +892,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserChatByConversationIdMessage**
-> \DeskPRO\API\Model\Response getUserChatByConversationIdMessage(array $params = [])
+> \DeskPRO\API\Model\Response getUserChatByConversationIdMessage(string $conversation_id, array $filters = [])
 
 
 
@@ -857,8 +910,8 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"conversation_id" => "conversation_id_example", // string | 
+$conversation_id = "conversation_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -868,8 +921,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getUserChatByConversationIdMessage($params);
-    print_r($result);
+    $result = $api->getUserChatByConversationIdMessage($conversation_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -878,9 +931,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **conversation_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -904,7 +964,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserChatByConversationIdMessageCount**
-> \DeskPRO\API\Model\Response getUserChatByConversationIdMessageCount(array $params = [])
+> \DeskPRO\API\Model\Response getUserChatByConversationIdMessageCount(string $conversation_id, array $filters = [])
 
 
 
@@ -922,15 +982,15 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"conversation_id" => "conversation_id_example", // string | 
+$conversation_id = "conversation_id_example"; // string | 
+$filters = [
 "last_message_id" => 56, // int | 
 "agent_only" => 56 // int | 
 ];
 
 try {
-    $result = $api->getUserChatByConversationIdMessageCount($params);
-    print_r($result);
+    $result = $api->getUserChatByConversationIdMessageCount($conversation_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -939,9 +999,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **conversation_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **last_message_id** | **int**|  | [optional]
  **agent_only** | **int**|  | [optional]
 
@@ -961,7 +1028,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserChatById**
-> \DeskPRO\API\Model\Response getUserChatById(array $params = [])
+> \DeskPRO\API\Model\Response getUserChatById(int $id)
 
 
 
@@ -979,13 +1046,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getUserChatById($params);
-    print_r($result);
+    $result = $api->getUserChatById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -994,9 +1059,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1014,7 +1084,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserChatCount**
-> \DeskPRO\API\Model\Response getUserChatCount(array $params = [])
+> \DeskPRO\API\Model\Response getUserChatCount(array $filters = [])
 
 
 
@@ -1032,7 +1102,7 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "date_created" => "date_created_example", // string | 
 "date_period" => "date_period_example", // string | 
 "agent" => 56, // int | 
@@ -1042,8 +1112,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getUserChatCount($params);
-    print_r($result);
+    $result = $api->getUserChatCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1051,6 +1121,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1077,7 +1154,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserChatCustomFieldById**
-> \DeskPRO\API\Model\Response getUserChatCustomFieldById(array $params = [])
+> \DeskPRO\API\Model\Response getUserChatCustomFieldById(int $id)
 
 
 
@@ -1095,13 +1172,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getUserChatCustomFieldById($params);
-    print_r($result);
+    $result = $api->getUserChatCustomFieldById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1110,9 +1185,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1130,7 +1210,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserChatCustomFields**
-> \DeskPRO\API\Model\Response getUserChatCustomFields(array $params = [])
+> \DeskPRO\API\Model\Response getUserChatCustomFields(array $filters = [])
 
 
 
@@ -1148,7 +1228,7 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1156,8 +1236,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getUserChatCustomFields($params);
-    print_r($result);
+    $result = $api->getUserChatCustomFields($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1165,6 +1245,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1189,7 +1276,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUserChats**
-> \DeskPRO\API\Model\Response getUserChats(array $params = [])
+> \DeskPRO\API\Model\Response getUserChats(array $filters = [])
 
 
 
@@ -1207,7 +1294,7 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1220,8 +1307,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getUserChats($params);
-    print_r($result);
+    $result = $api->getUserChats($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1229,6 +1316,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1258,7 +1352,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateAgentChatByParentIdMessageMarkAll**
-> \DeskPRO\API\Model\Response updateAgentChatByParentIdMessageMarkAll(array $params = [])
+> \DeskPRO\API\Model\Response updateAgentChatByParentIdMessageMarkAll(string $parent_id)
 
 
 
@@ -1276,13 +1370,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->updateAgentChatByParentIdMessageMarkAll($params);
-    print_r($result);
+    $result = $api->updateAgentChatByParentIdMessageMarkAll($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1291,9 +1383,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1311,7 +1408,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateUserChatByIdAssignByAgentId**
-> \DeskPRO\API\Model\Response updateUserChatByIdAssignByAgentId(array $params = [])
+> \DeskPRO\API\Model\Response updateUserChatByIdAssignByAgentId(int $id, int $agent_id)
 
 
 
@@ -1329,14 +1426,12 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | 
-"agent_id" => 56 // int | 
-];
+$id = 56; // int | 
+$agent_id = 56; // int | 
 
 try {
-    $result = $api->updateUserChatByIdAssignByAgentId($params);
-    print_r($result);
+    $result = $api->updateUserChatByIdAssignByAgentId($id, $agent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1345,10 +1440,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  |
  **agent_id** | **int**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1366,7 +1466,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateUserChatByIdEnd**
-> \DeskPRO\API\Model\Response updateUserChatByIdEnd(array $params = [])
+> \DeskPRO\API\Model\Response updateUserChatByIdEnd(int $id)
 
 
 
@@ -1384,13 +1484,11 @@ $api = new ChatsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | 
-];
+$id = 56; // int | 
 
 try {
-    $result = $api->updateUserChatByIdEnd($params);
-    print_r($result);
+    $result = $api->updateUserChatByIdEnd($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1399,9 +1497,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

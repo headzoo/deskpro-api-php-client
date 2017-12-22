@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class BlobsApi
      * Operation deleteBlobByAuthId
      *
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteBlobByAuthId(array $params = [])
+    public function deleteBlobByAuthId($auth_id)
     {
-        list($response) = $this->deleteBlobByAuthIdWithHttpInfo($params);
+        list($response) = $this->deleteBlobByAuthIdWithHttpInfo($auth_id);
         return $response;
     }
 
     /**
      * Operation deleteBlobByAuthIdWithHttpInfo
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteBlobByAuthIdWithHttpInfo(array $params = [])
+    public function deleteBlobByAuthIdWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteBlobByAuthIdRequest($params);
+        $request = $this->deleteBlobByAuthIdRequest($auth_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteBlobByAuthIdAsync(array $params = [])
+    public function deleteBlobByAuthIdAsync($auth_id)
     {
-        return $this->deleteBlobByAuthIdAsyncWithHttpInfo($params)
+        return $this->deleteBlobByAuthIdAsyncWithHttpInfo($auth_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteBlobByAuthIdAsyncWithHttpInfo(array $params = [])
+    public function deleteBlobByAuthIdAsyncWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteBlobByAuthIdRequest($params);
+        $request = $this->deleteBlobByAuthIdRequest($auth_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class BlobsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class BlobsApi
     /**
      * Create request for operation 'deleteBlobByAuthId'
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $auth_id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteBlobByAuthIdRequest(array $params = [])
+    protected function deleteBlobByAuthIdRequest($auth_id)
     {
-        if (empty($params['auth_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "auth_id" in BlobsApi::deleteBlobByAuthIdRequest().');
+        if (empty($auth_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$auth_id" in BlobsApi::deleteBlobByAuthIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class BlobsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($auth_id !== null) {
+            $auth_id = ObjectSerializer::toQueryValue($auth_id);
+        }
+        
 
         // path params
-        if ($params['auth_id'] !== null) {
+        if ($auth_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'authId' . '}',
-                ObjectSerializer::toPathValue($params['auth_id']),
+                ObjectSerializer::toPathValue($auth_id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class BlobsApi
      * Operation getBlobByAuthId
      *
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getBlobByAuthId(array $params = [])
+    public function getBlobByAuthId($auth_id)
     {
-        list($response) = $this->getBlobByAuthIdWithHttpInfo($params);
+        list($response) = $this->getBlobByAuthIdWithHttpInfo($auth_id);
         return $response;
     }
 
     /**
      * Operation getBlobByAuthIdWithHttpInfo
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBlobByAuthIdWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdRequest($params);
+        $request = $this->getBlobByAuthIdRequest($auth_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdAsync(array $params = [])
+    public function getBlobByAuthIdAsync($auth_id)
     {
-        return $this->getBlobByAuthIdAsyncWithHttpInfo($params)
+        return $this->getBlobByAuthIdAsyncWithHttpInfo($auth_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdAsyncWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdAsyncWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdRequest($params);
+        $request = $this->getBlobByAuthIdRequest($auth_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class BlobsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class BlobsApi
     /**
      * Create request for operation 'getBlobByAuthId'
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $auth_id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getBlobByAuthIdRequest(array $params = [])
+    protected function getBlobByAuthIdRequest($auth_id)
     {
-        if (empty($params['auth_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "auth_id" in BlobsApi::getBlobByAuthIdRequest().');
+        if (empty($auth_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$auth_id" in BlobsApi::getBlobByAuthIdRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class BlobsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($auth_id !== null) {
+            $auth_id = ObjectSerializer::toQueryValue($auth_id);
+        }
+        
 
         // path params
-        if ($params['auth_id'] !== null) {
+        if ($auth_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'authId' . '}',
-                ObjectSerializer::toPathValue($params['auth_id']),
+                ObjectSerializer::toPathValue($auth_id),
                 $resourcePath
             );
         }
@@ -692,37 +677,32 @@ class BlobsApi
      * Operation getBlobByAuthIdArchive
      *
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getBlobByAuthIdArchive(array $params = [])
+    public function getBlobByAuthIdArchive($auth_id)
     {
-        list($response) = $this->getBlobByAuthIdArchiveWithHttpInfo($params);
+        list($response) = $this->getBlobByAuthIdArchiveWithHttpInfo($auth_id);
         return $response;
     }
 
     /**
      * Operation getBlobByAuthIdArchiveWithHttpInfo
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBlobByAuthIdArchiveWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdArchiveWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdArchiveRequest($params);
+        $request = $this->getBlobByAuthIdArchiveRequest($auth_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -788,19 +768,17 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdArchiveAsync(array $params = [])
+    public function getBlobByAuthIdArchiveAsync($auth_id)
     {
-        return $this->getBlobByAuthIdArchiveAsyncWithHttpInfo($params)
+        return $this->getBlobByAuthIdArchiveAsyncWithHttpInfo($auth_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -811,23 +789,21 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdArchiveAsyncWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdArchiveAsyncWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdArchiveRequest($params);
+        $request = $this->getBlobByAuthIdArchiveRequest($auth_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -847,7 +823,7 @@ class BlobsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -867,18 +843,15 @@ class BlobsApi
     /**
      * Create request for operation 'getBlobByAuthIdArchive'
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $auth_id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getBlobByAuthIdArchiveRequest(array $params = [])
+    protected function getBlobByAuthIdArchiveRequest($auth_id)
     {
-        if (empty($params['auth_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "auth_id" in BlobsApi::getBlobByAuthIdArchiveRequest().');
+        if (empty($auth_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$auth_id" in BlobsApi::getBlobByAuthIdArchiveRequest().');
         }
         
 
@@ -889,12 +862,16 @@ class BlobsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($auth_id !== null) {
+            $auth_id = ObjectSerializer::toQueryValue($auth_id);
+        }
+        
 
         // path params
-        if ($params['auth_id'] !== null) {
+        if ($auth_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'authId' . '}',
-                ObjectSerializer::toPathValue($params['auth_id']),
+                ObjectSerializer::toPathValue($auth_id),
                 $resourcePath
             );
         }
@@ -972,39 +949,34 @@ class BlobsApi
      * Operation getBlobByAuthIdDownloadByPath
      *
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *   "path" string  The path of the file (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
+     * @param string $path The path of the file
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getBlobByAuthIdDownloadByPath(array $params = [])
+    public function getBlobByAuthIdDownloadByPath($auth_id, $path)
     {
-        list($response) = $this->getBlobByAuthIdDownloadByPathWithHttpInfo($params);
+        list($response) = $this->getBlobByAuthIdDownloadByPathWithHttpInfo($auth_id, $path);
         return $response;
     }
 
     /**
      * Operation getBlobByAuthIdDownloadByPathWithHttpInfo
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *   "path" string  The path of the file (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
+     * @param string $path The path of the file
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBlobByAuthIdDownloadByPathWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdDownloadByPathWithHttpInfo($auth_id, $path)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdDownloadByPathRequest($params);
+        $request = $this->getBlobByAuthIdDownloadByPathRequest($auth_id, $path);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1070,20 +1042,18 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *   "path" string  The path of the file (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
+     * @param string $path The path of the file
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdDownloadByPathAsync(array $params = [])
+    public function getBlobByAuthIdDownloadByPathAsync($auth_id, $path)
     {
-        return $this->getBlobByAuthIdDownloadByPathAsyncWithHttpInfo($params)
+        return $this->getBlobByAuthIdDownloadByPathAsyncWithHttpInfo($auth_id, $path)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1094,24 +1064,22 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *   "path" string  The path of the file (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
+     * @param string $path The path of the file
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdDownloadByPathAsyncWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdDownloadByPathAsyncWithHttpInfo($auth_id, $path)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdDownloadByPathRequest($params);
+        $request = $this->getBlobByAuthIdDownloadByPathRequest($auth_id, $path);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1131,7 +1099,7 @@ class BlobsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1151,22 +1119,19 @@ class BlobsApi
     /**
      * Create request for operation 'getBlobByAuthIdDownloadByPath'
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *   "path" string  The path of the file (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $auth_id The id of the resource
+     * @param string $path The path of the file
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getBlobByAuthIdDownloadByPathRequest(array $params = [])
+    protected function getBlobByAuthIdDownloadByPathRequest($auth_id, $path)
     {
-        if (empty($params['auth_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "auth_id" in BlobsApi::getBlobByAuthIdDownloadByPathRequest().');
+        if (empty($auth_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$auth_id" in BlobsApi::getBlobByAuthIdDownloadByPathRequest().');
         }
-        if (empty($params['path'])) {
-            throw new \InvalidArgumentException('Missing parameter "path" in BlobsApi::getBlobByAuthIdDownloadByPathRequest().');
+        if (empty($path)) {
+            throw new \InvalidArgumentException('Missing parameter "$path" in BlobsApi::getBlobByAuthIdDownloadByPathRequest().');
         }
         
 
@@ -1177,20 +1142,27 @@ class BlobsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($auth_id !== null) {
+            $auth_id = ObjectSerializer::toQueryValue($auth_id);
+        }
+        if ($path !== null) {
+            $path = ObjectSerializer::toQueryValue($path);
+        }
+        
 
         // path params
-        if ($params['auth_id'] !== null) {
+        if ($auth_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'authId' . '}',
-                ObjectSerializer::toPathValue($params['auth_id']),
+                ObjectSerializer::toPathValue($auth_id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['path'] !== null) {
+        if ($path !== null) {
             $resourcePath = str_replace(
                 '{' . 'path' . '}',
-                ObjectSerializer::toPathValue($params['path']),
+                ObjectSerializer::toPathValue($path),
                 $resourcePath
             );
         }
@@ -1268,37 +1240,32 @@ class BlobsApi
      * Operation getBlobByAuthIdFile
      *
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getBlobByAuthIdFile(array $params = [])
+    public function getBlobByAuthIdFile($auth_id)
     {
-        list($response) = $this->getBlobByAuthIdFileWithHttpInfo($params);
+        list($response) = $this->getBlobByAuthIdFileWithHttpInfo($auth_id);
         return $response;
     }
 
     /**
      * Operation getBlobByAuthIdFileWithHttpInfo
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBlobByAuthIdFileWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdFileWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdFileRequest($params);
+        $request = $this->getBlobByAuthIdFileRequest($auth_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1364,19 +1331,17 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdFileAsync(array $params = [])
+    public function getBlobByAuthIdFileAsync($auth_id)
     {
-        return $this->getBlobByAuthIdFileAsyncWithHttpInfo($params)
+        return $this->getBlobByAuthIdFileAsyncWithHttpInfo($auth_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1387,23 +1352,21 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $auth_id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobByAuthIdFileAsyncWithHttpInfo(array $params = [])
+    public function getBlobByAuthIdFileAsyncWithHttpInfo($auth_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobByAuthIdFileRequest($params);
+        $request = $this->getBlobByAuthIdFileRequest($auth_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1423,7 +1386,7 @@ class BlobsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1443,18 +1406,15 @@ class BlobsApi
     /**
      * Create request for operation 'getBlobByAuthIdFile'
      *
-     * Parameters:
-     *   "auth_id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $auth_id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getBlobByAuthIdFileRequest(array $params = [])
+    protected function getBlobByAuthIdFileRequest($auth_id)
     {
-        if (empty($params['auth_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "auth_id" in BlobsApi::getBlobByAuthIdFileRequest().');
+        if (empty($auth_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$auth_id" in BlobsApi::getBlobByAuthIdFileRequest().');
         }
         
 
@@ -1465,12 +1425,16 @@ class BlobsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($auth_id !== null) {
+            $auth_id = ObjectSerializer::toQueryValue($auth_id);
+        }
+        
 
         // path params
-        if ($params['auth_id'] !== null) {
+        if ($auth_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'authId' . '}',
-                ObjectSerializer::toPathValue($params['auth_id']),
+                ObjectSerializer::toPathValue($auth_id),
                 $resourcePath
             );
         }
@@ -1547,44 +1511,43 @@ class BlobsApi
     /**
      * Operation getBlobs
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "auth_ids" string  Comma separated list of AuthIDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getBlobs(array $params = [])
+    public function getBlobs(array $filters = [])
     {
-        list($response) = $this->getBlobsWithHttpInfo($params);
+        list($response) = $this->getBlobsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getBlobsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "auth_ids" string  Comma separated list of AuthIDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getBlobsWithHttpInfo(array $params = [])
+    public function getBlobsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobsRequest($params);
+        $request = $this->getBlobsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1658,22 +1621,22 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "auth_ids" string  Comma separated list of AuthIDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobsAsync(array $params = [])
+    public function getBlobsAsync(array $filters = [])
     {
-        return $this->getBlobsAsyncWithHttpInfo($params)
+        return $this->getBlobsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1684,26 +1647,26 @@ class BlobsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "auth_ids" string  Comma separated list of AuthIDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getBlobsAsyncWithHttpInfo(array $params = [])
+    public function getBlobsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getBlobsRequest($params);
+        $request = $this->getBlobsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1723,7 +1686,7 @@ class BlobsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1743,30 +1706,29 @@ class BlobsApi
     /**
      * Create request for operation 'getBlobs'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "auth_ids" string  Comma separated list of AuthIDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getBlobsRequest(array $params = [])
+    protected function getBlobsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['auth_ids'])) {
-            $params['auth_ids'] = null;
+        if (!isset($filters['auth_ids'])) {
+            $filters['auth_ids'] = null;
         }
         
 
@@ -1777,21 +1739,22 @@ class BlobsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['auth_ids'] !== null) {
-            $queryParams['authIds'] = ObjectSerializer::toQueryValue($params['auth_ids']);
+        if ($filters['auth_ids'] !== null) {
+            $queryParams['authIds'] = ObjectSerializer::toQueryValue($filters['auth_ids']);
         }
 
 

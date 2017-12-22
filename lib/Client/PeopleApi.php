@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class PeopleApi
      * Operation deletePeopleById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deletePeopleById(array $params = [])
+    public function deletePeopleById($id)
     {
-        list($response) = $this->deletePeopleByIdWithHttpInfo($params);
+        list($response) = $this->deletePeopleByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deletePeopleByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deletePeopleByIdWithHttpInfo(array $params = [])
+    public function deletePeopleByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deletePeopleByIdRequest($params);
+        $request = $this->deletePeopleByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deletePeopleByIdAsync(array $params = [])
+    public function deletePeopleByIdAsync($id)
     {
-        return $this->deletePeopleByIdAsyncWithHttpInfo($params)
+        return $this->deletePeopleByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deletePeopleByIdAsyncWithHttpInfo(array $params = [])
+    public function deletePeopleByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deletePeopleByIdRequest($params);
+        $request = $this->deletePeopleByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class PeopleApi
     /**
      * Create request for operation 'deletePeopleById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deletePeopleByIdRequest(array $params = [])
+    protected function deletePeopleByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::deletePeopleByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::deletePeopleByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,39 +397,34 @@ class PeopleApi
      * Operation deletePeopleByParentIdNoteById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deletePeopleByParentIdNoteById(array $params = [])
+    public function deletePeopleByParentIdNoteById($id, $parent_id)
     {
-        list($response) = $this->deletePeopleByParentIdNoteByIdWithHttpInfo($params);
+        list($response) = $this->deletePeopleByParentIdNoteByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deletePeopleByParentIdNoteByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deletePeopleByParentIdNoteByIdWithHttpInfo(array $params = [])
+    public function deletePeopleByParentIdNoteByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deletePeopleByParentIdNoteByIdRequest($params);
+        $request = $this->deletePeopleByParentIdNoteByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -510,20 +498,18 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deletePeopleByParentIdNoteByIdAsync(array $params = [])
+    public function deletePeopleByParentIdNoteByIdAsync($id, $parent_id)
     {
-        return $this->deletePeopleByParentIdNoteByIdAsyncWithHttpInfo($params)
+        return $this->deletePeopleByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -534,24 +520,22 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deletePeopleByParentIdNoteByIdAsyncWithHttpInfo(array $params = [])
+    public function deletePeopleByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deletePeopleByParentIdNoteByIdRequest($params);
+        $request = $this->deletePeopleByParentIdNoteByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -571,7 +555,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -591,22 +575,19 @@ class PeopleApi
     /**
      * Create request for operation 'deletePeopleByParentIdNoteById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deletePeopleByParentIdNoteByIdRequest(array $params = [])
+    protected function deletePeopleByParentIdNoteByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::deletePeopleByParentIdNoteByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::deletePeopleByParentIdNoteByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in PeopleApi::deletePeopleByParentIdNoteByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in PeopleApi::deletePeopleByParentIdNoteByIdRequest().');
         }
         
 
@@ -617,20 +598,27 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -708,37 +696,32 @@ class PeopleApi
      * Operation deletePersonCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deletePersonCustomFieldById(array $params = [])
+    public function deletePersonCustomFieldById($id)
     {
-        list($response) = $this->deletePersonCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->deletePersonCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deletePersonCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deletePersonCustomFieldByIdWithHttpInfo(array $params = [])
+    public function deletePersonCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deletePersonCustomFieldByIdRequest($params);
+        $request = $this->deletePersonCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -812,19 +795,17 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deletePersonCustomFieldByIdAsync(array $params = [])
+    public function deletePersonCustomFieldByIdAsync($id)
     {
-        return $this->deletePersonCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->deletePersonCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -835,23 +816,21 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deletePersonCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function deletePersonCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deletePersonCustomFieldByIdRequest($params);
+        $request = $this->deletePersonCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -871,7 +850,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -891,18 +870,15 @@ class PeopleApi
     /**
      * Create request for operation 'deletePersonCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deletePersonCustomFieldByIdRequest(array $params = [])
+    protected function deletePersonCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::deletePersonCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::deletePersonCustomFieldByIdRequest().');
         }
         
 
@@ -913,12 +889,16 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -995,8 +975,7 @@ class PeopleApi
     /**
      * Operation getPeople
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -1013,22 +992,22 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeople(array $params = [])
+    public function getPeople(array $filters = [])
     {
-        list($response) = $this->getPeopleWithHttpInfo($params);
+        list($response) = $this->getPeopleWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getPeopleWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -1045,16 +1024,16 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleWithHttpInfo(array $params = [])
+    public function getPeopleWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleRequest($params);
+        $request = $this->getPeopleRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1128,7 +1107,7 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -1145,16 +1124,16 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleAsync(array $params = [])
+    public function getPeopleAsync(array $filters = [])
     {
-        return $this->getPeopleAsyncWithHttpInfo($params)
+        return $this->getPeopleAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1165,7 +1144,7 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -1182,20 +1161,20 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleAsyncWithHttpInfo(array $params = [])
+    public function getPeopleAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleRequest($params);
+        $request = $this->getPeopleRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1215,7 +1194,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1235,7 +1214,7 @@ class PeopleApi
     /**
      * Create request for operation 'getPeople'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -1252,57 +1231,56 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleRequest(array $params = [])
+    protected function getPeopleRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
-        if (!isset($params['order_dir'])) {
-            $params['order_dir'] = null;
+        if (!isset($filters['order_dir'])) {
+            $filters['order_dir'] = null;
         }
-        if (!isset($params['primary_email'])) {
-            $params['primary_email'] = null;
+        if (!isset($filters['primary_email'])) {
+            $filters['primary_email'] = null;
         }
-        if (!isset($params['organization'])) {
-            $params['organization'] = null;
+        if (!isset($filters['organization'])) {
+            $filters['organization'] = null;
         }
-        if (!isset($params['is_agent'])) {
-            $params['is_agent'] = null;
+        if (!isset($filters['is_agent'])) {
+            $filters['is_agent'] = null;
         }
-        if (!isset($params['is_deleted'])) {
-            $params['is_deleted'] = null;
+        if (!isset($filters['is_deleted'])) {
+            $filters['is_deleted'] = null;
         }
-        if (!isset($params['not_me'])) {
-            $params['not_me'] = null;
+        if (!isset($filters['not_me'])) {
+            $filters['not_me'] = null;
         }
-        if (!isset($params['agent_team'])) {
-            $params['agent_team'] = null;
+        if (!isset($filters['agent_team'])) {
+            $filters['agent_team'] = null;
         }
-        if (!isset($params['user_group'])) {
-            $params['user_group'] = null;
+        if (!isset($filters['user_group'])) {
+            $filters['user_group'] = null;
         }
-        if (!isset($params['label'])) {
-            $params['label'] = null;
+        if (!isset($filters['label'])) {
+            $filters['label'] = null;
         }
-        if (!isset($params['person_field_id'])) {
-            $params['person_field_id'] = null;
+        if (!isset($filters['person_field_id'])) {
+            $filters['person_field_id'] = null;
         }
         
 
@@ -1313,74 +1291,75 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
-        }
-        // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['order_dir'] !== null) {
-            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($params['order_dir']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
         // query params
-        if ($params['primary_email'] !== null) {
-            $queryParams['primary_email'] = ObjectSerializer::toQueryValue($params['primary_email']);
+        if ($filters['order_dir'] !== null) {
+            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($filters['order_dir']);
         }
         // query params
-        if ($params['organization'] !== null) {
-            $queryParams['organization'] = ObjectSerializer::toQueryValue($params['organization']);
+        if ($filters['primary_email'] !== null) {
+            $queryParams['primary_email'] = ObjectSerializer::toQueryValue($filters['primary_email']);
         }
         // query params
-        if ($params['is_agent'] !== null) {
-            $queryParams['is_agent'] = ObjectSerializer::toQueryValue($params['is_agent']);
+        if ($filters['organization'] !== null) {
+            $queryParams['organization'] = ObjectSerializer::toQueryValue($filters['organization']);
         }
         // query params
-        if ($params['is_deleted'] !== null) {
-            $queryParams['is_deleted'] = ObjectSerializer::toQueryValue($params['is_deleted']);
+        if ($filters['is_agent'] !== null) {
+            $queryParams['is_agent'] = ObjectSerializer::toQueryValue($filters['is_agent']);
         }
         // query params
-        if ($params['not_me'] !== null) {
-            $queryParams['not_me'] = ObjectSerializer::toQueryValue($params['not_me']);
+        if ($filters['is_deleted'] !== null) {
+            $queryParams['is_deleted'] = ObjectSerializer::toQueryValue($filters['is_deleted']);
         }
         // query params
-        if (is_array($params['agent_team'])) {
-            $params['agent_team'] = ObjectSerializer::serializeCollection($params['agent_team'], 'csv', true);
-        }
-        if ($params['agent_team'] !== null) {
-            $queryParams['agent_team'] = ObjectSerializer::toQueryValue($params['agent_team']);
+        if ($filters['not_me'] !== null) {
+            $queryParams['not_me'] = ObjectSerializer::toQueryValue($filters['not_me']);
         }
         // query params
-        if (is_array($params['user_group'])) {
-            $params['user_group'] = ObjectSerializer::serializeCollection($params['user_group'], 'csv', true);
+        if (is_array($filters['agent_team'])) {
+            $filters['agent_team'] = ObjectSerializer::serializeCollection($filters['agent_team'], 'csv', true);
         }
-        if ($params['user_group'] !== null) {
-            $queryParams['user_group'] = ObjectSerializer::toQueryValue($params['user_group']);
-        }
-        // query params
-        if (is_array($params['label'])) {
-            $params['label'] = ObjectSerializer::serializeCollection($params['label'], 'csv', true);
-        }
-        if ($params['label'] !== null) {
-            $queryParams['label'] = ObjectSerializer::toQueryValue($params['label']);
+        if ($filters['agent_team'] !== null) {
+            $queryParams['agent_team'] = ObjectSerializer::toQueryValue($filters['agent_team']);
         }
         // query params
-        if ($params['person_field_id'] !== null) {
-            $queryParams['person_field.{id}'] = ObjectSerializer::toQueryValue($params['person_field_id']);
+        if (is_array($filters['user_group'])) {
+            $filters['user_group'] = ObjectSerializer::serializeCollection($filters['user_group'], 'csv', true);
+        }
+        if ($filters['user_group'] !== null) {
+            $queryParams['user_group'] = ObjectSerializer::toQueryValue($filters['user_group']);
+        }
+        // query params
+        if (is_array($filters['label'])) {
+            $filters['label'] = ObjectSerializer::serializeCollection($filters['label'], 'csv', true);
+        }
+        if ($filters['label'] !== null) {
+            $queryParams['label'] = ObjectSerializer::toQueryValue($filters['label']);
+        }
+        // query params
+        if ($filters['person_field_id'] !== null) {
+            $queryParams['person_field.{id}'] = ObjectSerializer::toQueryValue($filters['person_field_id']);
         }
 
 
@@ -1457,37 +1436,32 @@ class PeopleApi
      * Operation getPeopleById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleById(array $params = [])
+    public function getPeopleById($id)
     {
-        list($response) = $this->getPeopleByIdWithHttpInfo($params);
+        list($response) = $this->getPeopleByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getPeopleByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByIdWithHttpInfo(array $params = [])
+    public function getPeopleByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByIdRequest($params);
+        $request = $this->getPeopleByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1561,19 +1535,17 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByIdAsync(array $params = [])
+    public function getPeopleByIdAsync($id)
     {
-        return $this->getPeopleByIdAsyncWithHttpInfo($params)
+        return $this->getPeopleByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1584,23 +1556,21 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByIdAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByIdRequest($params);
+        $request = $this->getPeopleByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1620,7 +1590,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1640,18 +1610,15 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByIdRequest(array $params = [])
+    protected function getPeopleByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::getPeopleByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::getPeopleByIdRequest().');
         }
         
 
@@ -1662,12 +1629,16 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1745,37 +1716,32 @@ class PeopleApi
      * Operation getPeopleByIdTicket
      *
      *
-     * Parameters:
-     *   "id" string  Person ID (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $id Person ID
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleByIdTicket(array $params = [])
+    public function getPeopleByIdTicket($id)
     {
-        list($response) = $this->getPeopleByIdTicketWithHttpInfo($params);
+        list($response) = $this->getPeopleByIdTicketWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getPeopleByIdTicketWithHttpInfo
      *
-     * Parameters:
-     *   "id" string  Person ID (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id Person ID
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByIdTicketWithHttpInfo(array $params = [])
+    public function getPeopleByIdTicketWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByIdTicketRequest($params);
+        $request = $this->getPeopleByIdTicketRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1841,19 +1807,17 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string  Person ID (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id Person ID
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByIdTicketAsync(array $params = [])
+    public function getPeopleByIdTicketAsync($id)
     {
-        return $this->getPeopleByIdTicketAsyncWithHttpInfo($params)
+        return $this->getPeopleByIdTicketAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1864,23 +1828,21 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string  Person ID (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id Person ID
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByIdTicketAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByIdTicketAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByIdTicketRequest($params);
+        $request = $this->getPeopleByIdTicketRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1900,7 +1862,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1920,18 +1882,15 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleByIdTicket'
      *
-     * Parameters:
-     *   "id" string  Person ID (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $id Person ID
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByIdTicketRequest(array $params = [])
+    protected function getPeopleByIdTicketRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::getPeopleByIdTicketRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::getPeopleByIdTicketRequest().');
         }
         
 
@@ -1942,12 +1901,16 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2024,46 +1987,45 @@ class PeopleApi
     /**
      * Operation getPeopleByParentIdContactData
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleByParentIdContactData(array $params = [])
+    public function getPeopleByParentIdContactData($parent_id, array $filters = [])
     {
-        list($response) = $this->getPeopleByParentIdContactDataWithHttpInfo($params);
+        list($response) = $this->getPeopleByParentIdContactDataWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getPeopleByParentIdContactDataWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByParentIdContactDataWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdContactDataWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdContactDataRequest($params);
+        $request = $this->getPeopleByParentIdContactDataRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2137,23 +2099,23 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdContactDataAsync(array $params = [])
+    public function getPeopleByParentIdContactDataAsync($parent_id, array $filters = [])
     {
-        return $this->getPeopleByParentIdContactDataAsyncWithHttpInfo($params)
+        return $this->getPeopleByParentIdContactDataAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2164,27 +2126,27 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdContactDataAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdContactDataAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdContactDataRequest($params);
+        $request = $this->getPeopleByParentIdContactDataRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2204,7 +2166,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2224,34 +2186,33 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleByParentIdContactData'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByParentIdContactDataRequest(array $params = [])
+    protected function getPeopleByParentIdContactDataRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in PeopleApi::getPeopleByParentIdContactDataRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in PeopleApi::getPeopleByParentIdContactDataRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -2262,28 +2223,32 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2361,39 +2326,34 @@ class PeopleApi
      * Operation getPeopleByParentIdContactDataById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleByParentIdContactDataById(array $params = [])
+    public function getPeopleByParentIdContactDataById($id, $parent_id)
     {
-        list($response) = $this->getPeopleByParentIdContactDataByIdWithHttpInfo($params);
+        list($response) = $this->getPeopleByParentIdContactDataByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getPeopleByParentIdContactDataByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByParentIdContactDataByIdWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdContactDataByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdContactDataByIdRequest($params);
+        $request = $this->getPeopleByParentIdContactDataByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2467,20 +2427,18 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdContactDataByIdAsync(array $params = [])
+    public function getPeopleByParentIdContactDataByIdAsync($id, $parent_id)
     {
-        return $this->getPeopleByParentIdContactDataByIdAsyncWithHttpInfo($params)
+        return $this->getPeopleByParentIdContactDataByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2491,24 +2449,22 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdContactDataByIdAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdContactDataByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdContactDataByIdRequest($params);
+        $request = $this->getPeopleByParentIdContactDataByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2528,7 +2484,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2548,22 +2504,19 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleByParentIdContactDataById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByParentIdContactDataByIdRequest(array $params = [])
+    protected function getPeopleByParentIdContactDataByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::getPeopleByParentIdContactDataByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::getPeopleByParentIdContactDataByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in PeopleApi::getPeopleByParentIdContactDataByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in PeopleApi::getPeopleByParentIdContactDataByIdRequest().');
         }
         
 
@@ -2574,20 +2527,27 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2665,37 +2625,32 @@ class PeopleApi
      * Operation getPeopleByParentIdContactDataCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleByParentIdContactDataCount(array $params = [])
+    public function getPeopleByParentIdContactDataCount($parent_id)
     {
-        list($response) = $this->getPeopleByParentIdContactDataCountWithHttpInfo($params);
+        list($response) = $this->getPeopleByParentIdContactDataCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getPeopleByParentIdContactDataCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByParentIdContactDataCountWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdContactDataCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdContactDataCountRequest($params);
+        $request = $this->getPeopleByParentIdContactDataCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2769,19 +2724,17 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdContactDataCountAsync(array $params = [])
+    public function getPeopleByParentIdContactDataCountAsync($parent_id)
     {
-        return $this->getPeopleByParentIdContactDataCountAsyncWithHttpInfo($params)
+        return $this->getPeopleByParentIdContactDataCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2792,23 +2745,21 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdContactDataCountAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdContactDataCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdContactDataCountRequest($params);
+        $request = $this->getPeopleByParentIdContactDataCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2828,7 +2779,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2848,18 +2799,15 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleByParentIdContactDataCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByParentIdContactDataCountRequest(array $params = [])
+    protected function getPeopleByParentIdContactDataCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in PeopleApi::getPeopleByParentIdContactDataCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in PeopleApi::getPeopleByParentIdContactDataCountRequest().');
         }
         
 
@@ -2870,12 +2818,16 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2952,46 +2904,45 @@ class PeopleApi
     /**
      * Operation getPeopleByParentIdNote
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleByParentIdNote(array $params = [])
+    public function getPeopleByParentIdNote($parent_id, array $filters = [])
     {
-        list($response) = $this->getPeopleByParentIdNoteWithHttpInfo($params);
+        list($response) = $this->getPeopleByParentIdNoteWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getPeopleByParentIdNoteWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByParentIdNoteWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdNoteWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdNoteRequest($params);
+        $request = $this->getPeopleByParentIdNoteRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3065,23 +3016,23 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdNoteAsync(array $params = [])
+    public function getPeopleByParentIdNoteAsync($parent_id, array $filters = [])
     {
-        return $this->getPeopleByParentIdNoteAsyncWithHttpInfo($params)
+        return $this->getPeopleByParentIdNoteAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3092,27 +3043,27 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdNoteAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdNoteAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdNoteRequest($params);
+        $request = $this->getPeopleByParentIdNoteRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3132,7 +3083,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3152,34 +3103,33 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleByParentIdNote'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByParentIdNoteRequest(array $params = [])
+    protected function getPeopleByParentIdNoteRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in PeopleApi::getPeopleByParentIdNoteRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in PeopleApi::getPeopleByParentIdNoteRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -3190,28 +3140,32 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -3289,39 +3243,34 @@ class PeopleApi
      * Operation getPeopleByParentIdNoteById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleByParentIdNoteById(array $params = [])
+    public function getPeopleByParentIdNoteById($id, $parent_id)
     {
-        list($response) = $this->getPeopleByParentIdNoteByIdWithHttpInfo($params);
+        list($response) = $this->getPeopleByParentIdNoteByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getPeopleByParentIdNoteByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByParentIdNoteByIdWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdNoteByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdNoteByIdRequest($params);
+        $request = $this->getPeopleByParentIdNoteByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3395,20 +3344,18 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdNoteByIdAsync(array $params = [])
+    public function getPeopleByParentIdNoteByIdAsync($id, $parent_id)
     {
-        return $this->getPeopleByParentIdNoteByIdAsyncWithHttpInfo($params)
+        return $this->getPeopleByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3419,24 +3366,22 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdNoteByIdAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdNoteByIdRequest($params);
+        $request = $this->getPeopleByParentIdNoteByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3456,7 +3401,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3476,22 +3421,19 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleByParentIdNoteById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByParentIdNoteByIdRequest(array $params = [])
+    protected function getPeopleByParentIdNoteByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::getPeopleByParentIdNoteByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::getPeopleByParentIdNoteByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in PeopleApi::getPeopleByParentIdNoteByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in PeopleApi::getPeopleByParentIdNoteByIdRequest().');
         }
         
 
@@ -3502,20 +3444,27 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -3593,37 +3542,32 @@ class PeopleApi
      * Operation getPeopleByParentIdNoteCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleByParentIdNoteCount(array $params = [])
+    public function getPeopleByParentIdNoteCount($parent_id)
     {
-        list($response) = $this->getPeopleByParentIdNoteCountWithHttpInfo($params);
+        list($response) = $this->getPeopleByParentIdNoteCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getPeopleByParentIdNoteCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleByParentIdNoteCountWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdNoteCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdNoteCountRequest($params);
+        $request = $this->getPeopleByParentIdNoteCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3697,19 +3641,17 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdNoteCountAsync(array $params = [])
+    public function getPeopleByParentIdNoteCountAsync($parent_id)
     {
-        return $this->getPeopleByParentIdNoteCountAsyncWithHttpInfo($params)
+        return $this->getPeopleByParentIdNoteCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3720,23 +3662,21 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleByParentIdNoteCountAsyncWithHttpInfo(array $params = [])
+    public function getPeopleByParentIdNoteCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleByParentIdNoteCountRequest($params);
+        $request = $this->getPeopleByParentIdNoteCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3756,7 +3696,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3776,18 +3716,15 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleByParentIdNoteCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleByParentIdNoteCountRequest(array $params = [])
+    protected function getPeopleByParentIdNoteCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in PeopleApi::getPeopleByParentIdNoteCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in PeopleApi::getPeopleByParentIdNoteCountRequest().');
         }
         
 
@@ -3798,12 +3735,16 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -3880,8 +3821,7 @@ class PeopleApi
     /**
      * Operation getPeopleCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "order_by" string  people list sort (optional)
      *   "order_dir" string  list sort order (optional)
      *   "primary_email" string  primary email filter (optional)
@@ -3894,22 +3834,22 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleCount(array $params = [])
+    public function getPeopleCount(array $filters = [])
     {
-        list($response) = $this->getPeopleCountWithHttpInfo($params);
+        list($response) = $this->getPeopleCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getPeopleCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  people list sort (optional)
      *   "order_dir" string  list sort order (optional)
      *   "primary_email" string  primary email filter (optional)
@@ -3922,16 +3862,16 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleCountWithHttpInfo(array $params = [])
+    public function getPeopleCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleCountRequest($params);
+        $request = $this->getPeopleCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4005,7 +3945,7 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  people list sort (optional)
      *   "order_dir" string  list sort order (optional)
      *   "primary_email" string  primary email filter (optional)
@@ -4018,16 +3958,16 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleCountAsync(array $params = [])
+    public function getPeopleCountAsync(array $filters = [])
     {
-        return $this->getPeopleCountAsyncWithHttpInfo($params)
+        return $this->getPeopleCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4038,7 +3978,7 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  people list sort (optional)
      *   "order_dir" string  list sort order (optional)
      *   "primary_email" string  primary email filter (optional)
@@ -4051,20 +3991,20 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleCountAsyncWithHttpInfo(array $params = [])
+    public function getPeopleCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleCountRequest($params);
+        $request = $this->getPeopleCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4084,7 +4024,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4104,7 +4044,7 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleCount'
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  people list sort (optional)
      *   "order_dir" string  list sort order (optional)
      *   "primary_email" string  primary email filter (optional)
@@ -4117,45 +4057,44 @@ class PeopleApi
      *   "label" string[]  labels filter option (optional)
      *   "person_field_id" string  *                  Custom person field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?person_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleCountRequest(array $params = [])
+    protected function getPeopleCountRequest(array $filters = [])
     {
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
-        if (!isset($params['order_dir'])) {
-            $params['order_dir'] = null;
+        if (!isset($filters['order_dir'])) {
+            $filters['order_dir'] = null;
         }
-        if (!isset($params['primary_email'])) {
-            $params['primary_email'] = null;
+        if (!isset($filters['primary_email'])) {
+            $filters['primary_email'] = null;
         }
-        if (!isset($params['organization'])) {
-            $params['organization'] = null;
+        if (!isset($filters['organization'])) {
+            $filters['organization'] = null;
         }
-        if (!isset($params['is_agent'])) {
-            $params['is_agent'] = null;
+        if (!isset($filters['is_agent'])) {
+            $filters['is_agent'] = null;
         }
-        if (!isset($params['is_deleted'])) {
-            $params['is_deleted'] = null;
+        if (!isset($filters['is_deleted'])) {
+            $filters['is_deleted'] = null;
         }
-        if (!isset($params['not_me'])) {
-            $params['not_me'] = null;
+        if (!isset($filters['not_me'])) {
+            $filters['not_me'] = null;
         }
-        if (!isset($params['agent_team'])) {
-            $params['agent_team'] = null;
+        if (!isset($filters['agent_team'])) {
+            $filters['agent_team'] = null;
         }
-        if (!isset($params['user_group'])) {
-            $params['user_group'] = null;
+        if (!isset($filters['user_group'])) {
+            $filters['user_group'] = null;
         }
-        if (!isset($params['label'])) {
-            $params['label'] = null;
+        if (!isset($filters['label'])) {
+            $filters['label'] = null;
         }
-        if (!isset($params['person_field_id'])) {
-            $params['person_field_id'] = null;
+        if (!isset($filters['person_field_id'])) {
+            $filters['person_field_id'] = null;
         }
         
 
@@ -4166,58 +4105,59 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
-        }
-        // query params
-        if ($params['order_dir'] !== null) {
-            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($params['order_dir']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
         // query params
-        if ($params['primary_email'] !== null) {
-            $queryParams['primary_email'] = ObjectSerializer::toQueryValue($params['primary_email']);
+        if ($filters['order_dir'] !== null) {
+            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($filters['order_dir']);
         }
         // query params
-        if ($params['organization'] !== null) {
-            $queryParams['organization'] = ObjectSerializer::toQueryValue($params['organization']);
+        if ($filters['primary_email'] !== null) {
+            $queryParams['primary_email'] = ObjectSerializer::toQueryValue($filters['primary_email']);
         }
         // query params
-        if ($params['is_agent'] !== null) {
-            $queryParams['is_agent'] = ObjectSerializer::toQueryValue($params['is_agent']);
+        if ($filters['organization'] !== null) {
+            $queryParams['organization'] = ObjectSerializer::toQueryValue($filters['organization']);
         }
         // query params
-        if ($params['is_deleted'] !== null) {
-            $queryParams['is_deleted'] = ObjectSerializer::toQueryValue($params['is_deleted']);
+        if ($filters['is_agent'] !== null) {
+            $queryParams['is_agent'] = ObjectSerializer::toQueryValue($filters['is_agent']);
         }
         // query params
-        if ($params['not_me'] !== null) {
-            $queryParams['not_me'] = ObjectSerializer::toQueryValue($params['not_me']);
+        if ($filters['is_deleted'] !== null) {
+            $queryParams['is_deleted'] = ObjectSerializer::toQueryValue($filters['is_deleted']);
         }
         // query params
-        if (is_array($params['agent_team'])) {
-            $params['agent_team'] = ObjectSerializer::serializeCollection($params['agent_team'], 'csv', true);
-        }
-        if ($params['agent_team'] !== null) {
-            $queryParams['agent_team'] = ObjectSerializer::toQueryValue($params['agent_team']);
+        if ($filters['not_me'] !== null) {
+            $queryParams['not_me'] = ObjectSerializer::toQueryValue($filters['not_me']);
         }
         // query params
-        if (is_array($params['user_group'])) {
-            $params['user_group'] = ObjectSerializer::serializeCollection($params['user_group'], 'csv', true);
+        if (is_array($filters['agent_team'])) {
+            $filters['agent_team'] = ObjectSerializer::serializeCollection($filters['agent_team'], 'csv', true);
         }
-        if ($params['user_group'] !== null) {
-            $queryParams['user_group'] = ObjectSerializer::toQueryValue($params['user_group']);
-        }
-        // query params
-        if (is_array($params['label'])) {
-            $params['label'] = ObjectSerializer::serializeCollection($params['label'], 'csv', true);
-        }
-        if ($params['label'] !== null) {
-            $queryParams['label'] = ObjectSerializer::toQueryValue($params['label']);
+        if ($filters['agent_team'] !== null) {
+            $queryParams['agent_team'] = ObjectSerializer::toQueryValue($filters['agent_team']);
         }
         // query params
-        if ($params['person_field_id'] !== null) {
-            $queryParams['person_field.{id}'] = ObjectSerializer::toQueryValue($params['person_field_id']);
+        if (is_array($filters['user_group'])) {
+            $filters['user_group'] = ObjectSerializer::serializeCollection($filters['user_group'], 'csv', true);
+        }
+        if ($filters['user_group'] !== null) {
+            $queryParams['user_group'] = ObjectSerializer::toQueryValue($filters['user_group']);
+        }
+        // query params
+        if (is_array($filters['label'])) {
+            $filters['label'] = ObjectSerializer::serializeCollection($filters['label'], 'csv', true);
+        }
+        if ($filters['label'] !== null) {
+            $queryParams['label'] = ObjectSerializer::toQueryValue($filters['label']);
+        }
+        // query params
+        if ($filters['person_field_id'] !== null) {
+            $queryParams['person_field.{id}'] = ObjectSerializer::toQueryValue($filters['person_field_id']);
         }
 
 
@@ -4294,35 +4234,30 @@ class PeopleApi
      * Operation getPeopleOnboardingNew
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleOnboardingNew(array $params = [])
+    public function getPeopleOnboardingNew()
     {
-        list($response) = $this->getPeopleOnboardingNewWithHttpInfo($params);
+        list($response) = $this->getPeopleOnboardingNewWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getPeopleOnboardingNewWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleOnboardingNewWithHttpInfo(array $params = [])
+    public function getPeopleOnboardingNewWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleOnboardingNewRequest($params);
+        $request = $this->getPeopleOnboardingNewRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -4396,18 +4331,16 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleOnboardingNewAsync(array $params = [])
+    public function getPeopleOnboardingNewAsync()
     {
-        return $this->getPeopleOnboardingNewAsyncWithHttpInfo($params)
+        return $this->getPeopleOnboardingNewAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4418,22 +4351,20 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleOnboardingNewAsyncWithHttpInfo(array $params = [])
+    public function getPeopleOnboardingNewAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleOnboardingNewRequest($params);
+        $request = $this->getPeopleOnboardingNewRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4453,7 +4384,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4473,14 +4404,11 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleOnboardingNew'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleOnboardingNewRequest(array $params = [])
+    protected function getPeopleOnboardingNewRequest()
     {
         
 
@@ -4491,6 +4419,7 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -4566,35 +4495,30 @@ class PeopleApi
      * Operation getPeopleOnboardingPending
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPeopleOnboardingPending(array $params = [])
+    public function getPeopleOnboardingPending()
     {
-        list($response) = $this->getPeopleOnboardingPendingWithHttpInfo($params);
+        list($response) = $this->getPeopleOnboardingPendingWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getPeopleOnboardingPendingWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPeopleOnboardingPendingWithHttpInfo(array $params = [])
+    public function getPeopleOnboardingPendingWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleOnboardingPendingRequest($params);
+        $request = $this->getPeopleOnboardingPendingRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -4668,18 +4592,16 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleOnboardingPendingAsync(array $params = [])
+    public function getPeopleOnboardingPendingAsync()
     {
-        return $this->getPeopleOnboardingPendingAsyncWithHttpInfo($params)
+        return $this->getPeopleOnboardingPendingAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4690,22 +4612,20 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPeopleOnboardingPendingAsyncWithHttpInfo(array $params = [])
+    public function getPeopleOnboardingPendingAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPeopleOnboardingPendingRequest($params);
+        $request = $this->getPeopleOnboardingPendingRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4725,7 +4645,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4745,14 +4665,11 @@ class PeopleApi
     /**
      * Create request for operation 'getPeopleOnboardingPending'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPeopleOnboardingPendingRequest(array $params = [])
+    protected function getPeopleOnboardingPendingRequest()
     {
         
 
@@ -4763,6 +4680,7 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -4838,37 +4756,32 @@ class PeopleApi
      * Operation getPersonCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPersonCustomFieldById(array $params = [])
+    public function getPersonCustomFieldById($id)
     {
-        list($response) = $this->getPersonCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->getPersonCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getPersonCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPersonCustomFieldByIdWithHttpInfo(array $params = [])
+    public function getPersonCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonCustomFieldByIdRequest($params);
+        $request = $this->getPersonCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4942,19 +4855,17 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonCustomFieldByIdAsync(array $params = [])
+    public function getPersonCustomFieldByIdAsync($id)
     {
-        return $this->getPersonCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->getPersonCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4965,23 +4876,21 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function getPersonCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonCustomFieldByIdRequest($params);
+        $request = $this->getPersonCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5001,7 +4910,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5021,18 +4930,15 @@ class PeopleApi
     /**
      * Create request for operation 'getPersonCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPersonCustomFieldByIdRequest(array $params = [])
+    protected function getPersonCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::getPersonCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::getPersonCustomFieldByIdRequest().');
         }
         
 
@@ -5043,12 +4949,16 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -5125,44 +5035,43 @@ class PeopleApi
     /**
      * Operation getPersonCustomFields
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPersonCustomFields(array $params = [])
+    public function getPersonCustomFields(array $filters = [])
     {
-        list($response) = $this->getPersonCustomFieldsWithHttpInfo($params);
+        list($response) = $this->getPersonCustomFieldsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getPersonCustomFieldsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPersonCustomFieldsWithHttpInfo(array $params = [])
+    public function getPersonCustomFieldsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonCustomFieldsRequest($params);
+        $request = $this->getPersonCustomFieldsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5236,22 +5145,22 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonCustomFieldsAsync(array $params = [])
+    public function getPersonCustomFieldsAsync(array $filters = [])
     {
-        return $this->getPersonCustomFieldsAsyncWithHttpInfo($params)
+        return $this->getPersonCustomFieldsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5262,26 +5171,26 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonCustomFieldsAsyncWithHttpInfo(array $params = [])
+    public function getPersonCustomFieldsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonCustomFieldsRequest($params);
+        $request = $this->getPersonCustomFieldsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5301,7 +5210,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5321,30 +5230,29 @@ class PeopleApi
     /**
      * Create request for operation 'getPersonCustomFields'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPersonCustomFieldsRequest(array $params = [])
+    protected function getPersonCustomFieldsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -5355,21 +5263,22 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -5446,39 +5355,34 @@ class PeopleApi
      * Operation updatePeopleByIdPermission
      *
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "agent" bool  set as agent (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param bool $agent set as agent
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updatePeopleByIdPermission(array $params = [])
+    public function updatePeopleByIdPermission($id, $agent)
     {
-        list($response) = $this->updatePeopleByIdPermissionWithHttpInfo($params);
+        list($response) = $this->updatePeopleByIdPermissionWithHttpInfo($id, $agent);
         return $response;
     }
 
     /**
      * Operation updatePeopleByIdPermissionWithHttpInfo
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "agent" bool  set as agent (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param bool $agent set as agent
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updatePeopleByIdPermissionWithHttpInfo(array $params = [])
+    public function updatePeopleByIdPermissionWithHttpInfo($id, $agent)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updatePeopleByIdPermissionRequest($params);
+        $request = $this->updatePeopleByIdPermissionRequest($id, $agent);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5544,20 +5448,18 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "agent" bool  set as agent (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param bool $agent set as agent
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updatePeopleByIdPermissionAsync(array $params = [])
+    public function updatePeopleByIdPermissionAsync($id, $agent)
     {
-        return $this->updatePeopleByIdPermissionAsyncWithHttpInfo($params)
+        return $this->updatePeopleByIdPermissionAsyncWithHttpInfo($id, $agent)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5568,24 +5470,22 @@ class PeopleApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "agent" bool  set as agent (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
+     * @param bool $agent set as agent
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updatePeopleByIdPermissionAsyncWithHttpInfo(array $params = [])
+    public function updatePeopleByIdPermissionAsyncWithHttpInfo($id, $agent)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updatePeopleByIdPermissionRequest($params);
+        $request = $this->updatePeopleByIdPermissionRequest($id, $agent);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5605,7 +5505,7 @@ class PeopleApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5625,22 +5525,19 @@ class PeopleApi
     /**
      * Create request for operation 'updatePeopleByIdPermission'
      *
-     * Parameters:
-     *   "id" string   (required)
-     *   "agent" bool  set as agent (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $id 
+     * @param bool $agent set as agent
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updatePeopleByIdPermissionRequest(array $params = [])
+    protected function updatePeopleByIdPermissionRequest($id, $agent)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in PeopleApi::updatePeopleByIdPermissionRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in PeopleApi::updatePeopleByIdPermissionRequest().');
         }
-        if (empty($params['agent'])) {
-            throw new \InvalidArgumentException('Missing parameter "agent" in PeopleApi::updatePeopleByIdPermissionRequest().');
+        if (empty($agent)) {
+            throw new \InvalidArgumentException('Missing parameter "$agent" in PeopleApi::updatePeopleByIdPermissionRequest().');
         }
         
 
@@ -5651,16 +5548,23 @@ class PeopleApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($agent !== null) {
+            $agent = ObjectSerializer::toQueryValue($agent);
+        }
+        
         // query params
-        if ($params['agent'] !== null) {
-            $queryParams['agent'] = ObjectSerializer::toQueryValue($params['agent']);
+        if ($filters['agent'] !== null) {
+            $queryParams['agent'] = ObjectSerializer::toQueryValue($filters['agent']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }

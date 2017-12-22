@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -115,42 +116,41 @@ class SearchApi
     /**
      * Operation getSearch
      *
-     *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *   "types" string  comma separated list of types (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSearch(array $params = [])
+    public function getSearch(array $filters = [])
     {
-        list($response) = $this->getSearchWithHttpInfo($params);
+        list($response) = $this->getSearchWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSearchWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *   "types" string  comma separated list of types (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSearchWithHttpInfo(array $params = [])
+    public function getSearchWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSearchRequest($params);
+        $request = $this->getSearchRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -216,21 +216,21 @@ class SearchApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *   "types" string  comma separated list of types (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSearchAsync(array $params = [])
+    public function getSearchAsync(array $filters = [])
     {
-        return $this->getSearchAsyncWithHttpInfo($params)
+        return $this->getSearchAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -241,25 +241,25 @@ class SearchApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *   "types" string  comma separated list of types (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSearchAsyncWithHttpInfo(array $params = [])
+    public function getSearchAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSearchRequest($params);
+        $request = $this->getSearchRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +279,7 @@ class SearchApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,26 +299,25 @@ class SearchApi
     /**
      * Create request for operation 'getSearch'
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *   "types" string  comma separated list of types (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSearchRequest(array $params = [])
+    protected function getSearchRequest(array $filters = [])
     {
-        if (!isset($params['q'])) {
-            $params['q'] = null;
+        if (!isset($filters['q'])) {
+            $filters['q'] = null;
         }
-        if (!isset($params['sort'])) {
-            $params['sort'] = null;
+        if (!isset($filters['sort'])) {
+            $filters['sort'] = null;
         }
-        if (!isset($params['types'])) {
-            $params['types'] = null;
+        if (!isset($filters['types'])) {
+            $filters['types'] = null;
         }
         
 
@@ -329,17 +328,18 @@ class SearchApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['q'] !== null) {
-            $queryParams['q'] = ObjectSerializer::toQueryValue($params['q']);
+        if ($filters['q'] !== null) {
+            $queryParams['q'] = ObjectSerializer::toQueryValue($filters['q']);
         }
         // query params
-        if ($params['sort'] !== null) {
-            $queryParams['sort'] = ObjectSerializer::toQueryValue($params['sort']);
+        if ($filters['sort'] !== null) {
+            $queryParams['sort'] = ObjectSerializer::toQueryValue($filters['sort']);
         }
         // query params
-        if ($params['types'] !== null) {
-            $queryParams['types'] = ObjectSerializer::toQueryValue($params['types']);
+        if ($filters['types'] !== null) {
+            $queryParams['types'] = ObjectSerializer::toQueryValue($filters['types']);
         }
 
 
@@ -415,42 +415,41 @@ class SearchApi
     /**
      * Operation getSearchByType
      *
-     *
-     * Parameters:
-     *   "type" string   (required)
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSearchByType(array $params = [])
+    public function getSearchByType($type, array $filters = [])
     {
-        list($response) = $this->getSearchByTypeWithHttpInfo($params);
+        list($response) = $this->getSearchByTypeWithHttpInfo($type, $filters);
         return $response;
     }
 
     /**
      * Operation getSearchByTypeWithHttpInfo
      *
-     * Parameters:
-     *   "type" string   (required)
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSearchByTypeWithHttpInfo(array $params = [])
+    public function getSearchByTypeWithHttpInfo($type, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSearchByTypeRequest($params);
+        $request = $this->getSearchByTypeRequest($type, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -516,21 +515,21 @@ class SearchApi
      *
      * 
      *
-     * Parameters:
-     *   "type" string   (required)
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSearchByTypeAsync(array $params = [])
+    public function getSearchByTypeAsync($type, array $filters = [])
     {
-        return $this->getSearchByTypeAsyncWithHttpInfo($params)
+        return $this->getSearchByTypeAsyncWithHttpInfo($type, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -541,25 +540,25 @@ class SearchApi
      *
      * 
      *
-     * Parameters:
-     *   "type" string   (required)
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $type 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSearchByTypeAsyncWithHttpInfo(array $params = [])
+    public function getSearchByTypeAsyncWithHttpInfo($type, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSearchByTypeRequest($params);
+        $request = $this->getSearchByTypeRequest($type, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -579,7 +578,7 @@ class SearchApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -599,26 +598,25 @@ class SearchApi
     /**
      * Create request for operation 'getSearchByType'
      *
-     * Parameters:
-     *   "type" string   (required)
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $type 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSearchByTypeRequest(array $params = [])
+    protected function getSearchByTypeRequest($type, array $filters = [])
     {
-        if (empty($params['type'])) {
-            throw new \InvalidArgumentException('Missing parameter "type" in SearchApi::getSearchByTypeRequest().');
+        if (empty($type)) {
+            throw new \InvalidArgumentException('Missing parameter "$type" in SearchApi::getSearchByTypeRequest().');
         }
-        if (!isset($params['q'])) {
-            $params['q'] = null;
+        if (!isset($filters['q'])) {
+            $filters['q'] = null;
         }
-        if (!isset($params['sort'])) {
-            $params['sort'] = null;
+        if (!isset($filters['sort'])) {
+            $filters['sort'] = null;
         }
         
 
@@ -629,20 +627,24 @@ class SearchApi
         $httpBody = '';
         $multipart = false;
 
+        if ($type !== null) {
+            $type = ObjectSerializer::toQueryValue($type);
+        }
+        
         // query params
-        if ($params['q'] !== null) {
-            $queryParams['q'] = ObjectSerializer::toQueryValue($params['q']);
+        if ($filters['q'] !== null) {
+            $queryParams['q'] = ObjectSerializer::toQueryValue($filters['q']);
         }
         // query params
-        if ($params['sort'] !== null) {
-            $queryParams['sort'] = ObjectSerializer::toQueryValue($params['sort']);
+        if ($filters['sort'] !== null) {
+            $queryParams['sort'] = ObjectSerializer::toQueryValue($filters['sort']);
         }
 
         // path params
-        if ($params['type'] !== null) {
+        if ($type !== null) {
             $resourcePath = str_replace(
                 '{' . 'type' . '}',
-                ObjectSerializer::toPathValue($params['type']),
+                ObjectSerializer::toPathValue($type),
                 $resourcePath
             );
         }
@@ -719,40 +721,39 @@ class SearchApi
     /**
      * Operation getSearchPeopleAndOrg
      *
-     *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSearchPeopleAndOrg(array $params = [])
+    public function getSearchPeopleAndOrg(array $filters = [])
     {
-        list($response) = $this->getSearchPeopleAndOrgWithHttpInfo($params);
+        list($response) = $this->getSearchPeopleAndOrgWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getSearchPeopleAndOrgWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSearchPeopleAndOrgWithHttpInfo(array $params = [])
+    public function getSearchPeopleAndOrgWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSearchPeopleAndOrgRequest($params);
+        $request = $this->getSearchPeopleAndOrgRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -818,20 +819,20 @@ class SearchApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSearchPeopleAndOrgAsync(array $params = [])
+    public function getSearchPeopleAndOrgAsync(array $filters = [])
     {
-        return $this->getSearchPeopleAndOrgAsyncWithHttpInfo($params)
+        return $this->getSearchPeopleAndOrgAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -842,24 +843,24 @@ class SearchApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSearchPeopleAndOrgAsyncWithHttpInfo(array $params = [])
+    public function getSearchPeopleAndOrgAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSearchPeopleAndOrgRequest($params);
+        $request = $this->getSearchPeopleAndOrgRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -879,7 +880,7 @@ class SearchApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -899,22 +900,21 @@ class SearchApi
     /**
      * Create request for operation 'getSearchPeopleAndOrg'
      *
-     * Parameters:
+     * Filters:
      *   "q" string  search term (optional)
      *   "sort" string  how to sort (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSearchPeopleAndOrgRequest(array $params = [])
+    protected function getSearchPeopleAndOrgRequest(array $filters = [])
     {
-        if (!isset($params['q'])) {
-            $params['q'] = null;
+        if (!isset($filters['q'])) {
+            $filters['q'] = null;
         }
-        if (!isset($params['sort'])) {
-            $params['sort'] = null;
+        if (!isset($filters['sort'])) {
+            $filters['sort'] = null;
         }
         
 
@@ -925,13 +925,14 @@ class SearchApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['q'] !== null) {
-            $queryParams['q'] = ObjectSerializer::toQueryValue($params['q']);
+        if ($filters['q'] !== null) {
+            $queryParams['q'] = ObjectSerializer::toQueryValue($filters['q']);
         }
         // query params
-        if ($params['sort'] !== null) {
-            $queryParams['sort'] = ObjectSerializer::toQueryValue($params['sort']);
+        if ($filters['sort'] !== null) {
+            $queryParams['sort'] = ObjectSerializer::toQueryValue($filters['sort']);
         }
 
 

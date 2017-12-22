@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **deleteBrandById**
-> \DeskPRO\API\Model\Response deleteBrandById(array $params = [])
+> \DeskPRO\API\Model\Response deleteBrandById(int $id)
 
 
 
@@ -28,13 +28,11 @@ $api = new BrandsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteBrandById($params);
-    print_r($result);
+    $result = $api->deleteBrandById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -43,9 +41,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -63,7 +66,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBrandById**
-> \DeskPRO\API\Model\Response getBrandById(array $params = [])
+> \DeskPRO\API\Model\Response getBrandById(int $id)
 
 
 
@@ -81,13 +84,11 @@ $api = new BrandsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource or default
-];
+$id = 56; // int | The id of the resource or default
 
 try {
-    $result = $api->getBrandById($params);
-    print_r($result);
+    $result = $api->getBrandById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -96,9 +97,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource or default |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -116,7 +122,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBrands**
-> \DeskPRO\API\Model\Response getBrands(array $params = [])
+> \DeskPRO\API\Model\Response getBrands(array $filters = [])
 
 
 
@@ -134,7 +140,7 @@ $api = new BrandsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -142,8 +148,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getBrands($params);
-    print_r($result);
+    $result = $api->getBrands($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -151,6 +157,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

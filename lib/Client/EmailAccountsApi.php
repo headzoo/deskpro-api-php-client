@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class EmailAccountsApi
      * Operation deleteEmailAccountByIdCertificate
      *
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteEmailAccountByIdCertificate(array $params = [])
+    public function deleteEmailAccountByIdCertificate($id)
     {
-        list($response) = $this->deleteEmailAccountByIdCertificateWithHttpInfo($params);
+        list($response) = $this->deleteEmailAccountByIdCertificateWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteEmailAccountByIdCertificateWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteEmailAccountByIdCertificateWithHttpInfo(array $params = [])
+    public function deleteEmailAccountByIdCertificateWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteEmailAccountByIdCertificateRequest($params);
+        $request = $this->deleteEmailAccountByIdCertificateRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class EmailAccountsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteEmailAccountByIdCertificateAsync(array $params = [])
+    public function deleteEmailAccountByIdCertificateAsync($id)
     {
-        return $this->deleteEmailAccountByIdCertificateAsyncWithHttpInfo($params)
+        return $this->deleteEmailAccountByIdCertificateAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class EmailAccountsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteEmailAccountByIdCertificateAsyncWithHttpInfo(array $params = [])
+    public function deleteEmailAccountByIdCertificateAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteEmailAccountByIdCertificateRequest($params);
+        $request = $this->deleteEmailAccountByIdCertificateRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class EmailAccountsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class EmailAccountsApi
     /**
      * Create request for operation 'deleteEmailAccountByIdCertificate'
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the email account
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteEmailAccountByIdCertificateRequest(array $params = [])
+    protected function deleteEmailAccountByIdCertificateRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in EmailAccountsApi::deleteEmailAccountByIdCertificateRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in EmailAccountsApi::deleteEmailAccountByIdCertificateRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class EmailAccountsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class EmailAccountsApi
      * Operation deleteEmailAccountByIdKey
      *
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteEmailAccountByIdKey(array $params = [])
+    public function deleteEmailAccountByIdKey($id)
     {
-        list($response) = $this->deleteEmailAccountByIdKeyWithHttpInfo($params);
+        list($response) = $this->deleteEmailAccountByIdKeyWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteEmailAccountByIdKeyWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteEmailAccountByIdKeyWithHttpInfo(array $params = [])
+    public function deleteEmailAccountByIdKeyWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteEmailAccountByIdKeyRequest($params);
+        $request = $this->deleteEmailAccountByIdKeyRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class EmailAccountsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteEmailAccountByIdKeyAsync(array $params = [])
+    public function deleteEmailAccountByIdKeyAsync($id)
     {
-        return $this->deleteEmailAccountByIdKeyAsyncWithHttpInfo($params)
+        return $this->deleteEmailAccountByIdKeyAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class EmailAccountsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteEmailAccountByIdKeyAsyncWithHttpInfo(array $params = [])
+    public function deleteEmailAccountByIdKeyAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteEmailAccountByIdKeyRequest($params);
+        $request = $this->deleteEmailAccountByIdKeyRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class EmailAccountsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class EmailAccountsApi
     /**
      * Create request for operation 'deleteEmailAccountByIdKey'
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the email account
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteEmailAccountByIdKeyRequest(array $params = [])
+    protected function deleteEmailAccountByIdKeyRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in EmailAccountsApi::deleteEmailAccountByIdKeyRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in EmailAccountsApi::deleteEmailAccountByIdKeyRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class EmailAccountsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -692,37 +677,32 @@ class EmailAccountsApi
      * Operation setEmailAccountByIdEncryption
      *
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setEmailAccountByIdEncryption(array $params = [])
+    public function setEmailAccountByIdEncryption($id)
     {
-        list($response) = $this->setEmailAccountByIdEncryptionWithHttpInfo($params);
+        list($response) = $this->setEmailAccountByIdEncryptionWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation setEmailAccountByIdEncryptionWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setEmailAccountByIdEncryptionWithHttpInfo(array $params = [])
+    public function setEmailAccountByIdEncryptionWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setEmailAccountByIdEncryptionRequest($params);
+        $request = $this->setEmailAccountByIdEncryptionRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -796,19 +776,17 @@ class EmailAccountsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setEmailAccountByIdEncryptionAsync(array $params = [])
+    public function setEmailAccountByIdEncryptionAsync($id)
     {
-        return $this->setEmailAccountByIdEncryptionAsyncWithHttpInfo($params)
+        return $this->setEmailAccountByIdEncryptionAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -819,23 +797,21 @@ class EmailAccountsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the email account
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setEmailAccountByIdEncryptionAsyncWithHttpInfo(array $params = [])
+    public function setEmailAccountByIdEncryptionAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setEmailAccountByIdEncryptionRequest($params);
+        $request = $this->setEmailAccountByIdEncryptionRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -855,7 +831,7 @@ class EmailAccountsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -875,18 +851,15 @@ class EmailAccountsApi
     /**
      * Create request for operation 'setEmailAccountByIdEncryption'
      *
-     * Parameters:
-     *   "id" int  The id of the email account (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the email account
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setEmailAccountByIdEncryptionRequest(array $params = [])
+    protected function setEmailAccountByIdEncryptionRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in EmailAccountsApi::setEmailAccountByIdEncryptionRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in EmailAccountsApi::setEmailAccountByIdEncryptionRequest().');
         }
         
 
@@ -897,12 +870,16 @@ class EmailAccountsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }

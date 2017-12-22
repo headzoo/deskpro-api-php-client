@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **getApiLogById**
-> \DeskPRO\API\Model\Response getApiLogById(array $params = [])
+> \DeskPRO\API\Model\Response getApiLogById(string $id, array $filters = [])
 
 
 
@@ -30,14 +30,14 @@ $api = new LogsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => "id_example", // string | 
+$id = "id_example"; // string | 
+$filters = [
 "page" => "page_example" // string | 
 ];
 
 try {
-    $result = $api->getApiLogById($params);
-    print_r($result);
+    $result = $api->getApiLogById($id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -46,9 +46,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **string**|  | [optional]
 
 ### Return type
@@ -67,7 +74,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiLogs**
-> \DeskPRO\API\Model\Response getApiLogs(array $params = [])
+> \DeskPRO\API\Model\Response getApiLogs()
 
 
 
@@ -85,12 +92,10 @@ $api = new LogsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getApiLogs($params);
-    print_r($result);
+    $result = $api->getApiLogs();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -98,7 +103,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -116,7 +126,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiLogsOptions**
-> \DeskPRO\API\Model\Response getApiLogsOptions(array $params = [])
+> \DeskPRO\API\Model\Response getApiLogsOptions()
 
 
 
@@ -134,12 +144,10 @@ $api = new LogsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getApiLogsOptions($params);
-    print_r($result);
+    $result = $api->getApiLogsOptions();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -147,7 +155,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -165,7 +178,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setApiLogByIdReplay**
-> \DeskPRO\API\Model\Response setApiLogByIdReplay(array $params = [])
+> \DeskPRO\API\Model\Response setApiLogByIdReplay(int $id, array $filters = [])
 
 
 
@@ -183,14 +196,14 @@ $api = new LogsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | id of entry to replay
+$id = 56; // int | id of entry to replay
+$filters = [
 "mode" => "mode_example" // string | how to replay
 ];
 
 try {
-    $result = $api->setApiLogByIdReplay($params);
-    print_r($result);
+    $result = $api->setApiLogByIdReplay($id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -199,9 +212,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| id of entry to replay |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **mode** | **string**| how to replay | [optional]
 
 ### Return type
@@ -220,7 +240,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateApiLogsOptions**
-> \DeskPRO\API\Model\Response updateApiLogsOptions(array $params = [])
+> \DeskPRO\API\Model\Response updateApiLogsOptions(int $request_length, int $response_length, array $filters = [])
 
 
 
@@ -238,16 +258,18 @@ $api = new LogsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"request_length" => 56, // int | 
-"response_length" => 56, // int | 
+$request_length = 56; // int | 
+$response_length = 56; // int | 
+$filters = [
 "enabled" => true, // bool | provide 1 if you want to enable logging
-"modes" => array("modes_example") // string[] | strings array, values are session, key, token
+"modes" => array("modes_example"), // string[] | strings array, values are session, key, token
+"request_length" => 56, // int | 
+"response_length" => 56 // int | 
 ];
 
 try {
-    $result = $api->updateApiLogsOptions($params);
-    print_r($result);
+    $result = $api->updateApiLogsOptions($request_length, $response_length, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -256,12 +278,21 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **request_length** | **int**|  |
  **response_length** | **int**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **enabled** | **bool**| provide 1 if you want to enable logging | [optional]
  **modes** | [**string[]**](../Model/string.md)| strings array, values are session, key, token | [optional]
+ **request_length** | **int**|  |
+ **response_length** | **int**|  |
 
 ### Return type
 

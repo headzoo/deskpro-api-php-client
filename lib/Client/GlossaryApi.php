@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class GlossaryApi
      * Operation deleteGlossaryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteGlossaryById(array $params = [])
+    public function deleteGlossaryById($id)
     {
-        list($response) = $this->deleteGlossaryByIdWithHttpInfo($params);
+        list($response) = $this->deleteGlossaryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteGlossaryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteGlossaryByIdWithHttpInfo(array $params = [])
+    public function deleteGlossaryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteGlossaryByIdRequest($params);
+        $request = $this->deleteGlossaryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteGlossaryByIdAsync(array $params = [])
+    public function deleteGlossaryByIdAsync($id)
     {
-        return $this->deleteGlossaryByIdAsyncWithHttpInfo($params)
+        return $this->deleteGlossaryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteGlossaryByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteGlossaryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteGlossaryByIdRequest($params);
+        $request = $this->deleteGlossaryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class GlossaryApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class GlossaryApi
     /**
      * Create request for operation 'deleteGlossaryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteGlossaryByIdRequest(array $params = [])
+    protected function deleteGlossaryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in GlossaryApi::deleteGlossaryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in GlossaryApi::deleteGlossaryByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class GlossaryApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -403,44 +396,43 @@ class GlossaryApi
     /**
      * Operation getGlossary
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGlossary(array $params = [])
+    public function getGlossary(array $filters = [])
     {
-        list($response) = $this->getGlossaryWithHttpInfo($params);
+        list($response) = $this->getGlossaryWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getGlossaryWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGlossaryWithHttpInfo(array $params = [])
+    public function getGlossaryWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryRequest($params);
+        $request = $this->getGlossaryRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -514,22 +506,22 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryAsync(array $params = [])
+    public function getGlossaryAsync(array $filters = [])
     {
-        return $this->getGlossaryAsyncWithHttpInfo($params)
+        return $this->getGlossaryAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -540,26 +532,26 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryAsyncWithHttpInfo(array $params = [])
+    public function getGlossaryAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryRequest($params);
+        $request = $this->getGlossaryRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -579,7 +571,7 @@ class GlossaryApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -599,30 +591,29 @@ class GlossaryApi
     /**
      * Create request for operation 'getGlossary'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGlossaryRequest(array $params = [])
+    protected function getGlossaryRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -633,21 +624,22 @@ class GlossaryApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -724,37 +716,32 @@ class GlossaryApi
      * Operation getGlossaryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGlossaryById(array $params = [])
+    public function getGlossaryById($id)
     {
-        list($response) = $this->getGlossaryByIdWithHttpInfo($params);
+        list($response) = $this->getGlossaryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getGlossaryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGlossaryByIdWithHttpInfo(array $params = [])
+    public function getGlossaryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryByIdRequest($params);
+        $request = $this->getGlossaryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -828,19 +815,17 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryByIdAsync(array $params = [])
+    public function getGlossaryByIdAsync($id)
     {
-        return $this->getGlossaryByIdAsyncWithHttpInfo($params)
+        return $this->getGlossaryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -851,23 +836,21 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryByIdAsyncWithHttpInfo(array $params = [])
+    public function getGlossaryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryByIdRequest($params);
+        $request = $this->getGlossaryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -887,7 +870,7 @@ class GlossaryApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -907,18 +890,15 @@ class GlossaryApi
     /**
      * Create request for operation 'getGlossaryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGlossaryByIdRequest(array $params = [])
+    protected function getGlossaryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in GlossaryApi::getGlossaryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in GlossaryApi::getGlossaryByIdRequest().');
         }
         
 
@@ -929,12 +909,16 @@ class GlossaryApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1012,35 +996,30 @@ class GlossaryApi
      * Operation getGlossaryCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGlossaryCount(array $params = [])
+    public function getGlossaryCount()
     {
-        list($response) = $this->getGlossaryCountWithHttpInfo($params);
+        list($response) = $this->getGlossaryCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getGlossaryCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGlossaryCountWithHttpInfo(array $params = [])
+    public function getGlossaryCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryCountRequest($params);
+        $request = $this->getGlossaryCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1114,18 +1093,16 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryCountAsync(array $params = [])
+    public function getGlossaryCountAsync()
     {
-        return $this->getGlossaryCountAsyncWithHttpInfo($params)
+        return $this->getGlossaryCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1136,22 +1113,20 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryCountAsyncWithHttpInfo(array $params = [])
+    public function getGlossaryCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryCountRequest($params);
+        $request = $this->getGlossaryCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1171,7 +1146,7 @@ class GlossaryApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1191,14 +1166,11 @@ class GlossaryApi
     /**
      * Create request for operation 'getGlossaryCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGlossaryCountRequest(array $params = [])
+    protected function getGlossaryCountRequest()
     {
         
 
@@ -1209,6 +1181,7 @@ class GlossaryApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1283,44 +1256,43 @@ class GlossaryApi
     /**
      * Operation getGlossaryWord
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGlossaryWord(array $params = [])
+    public function getGlossaryWord(array $filters = [])
     {
-        list($response) = $this->getGlossaryWordWithHttpInfo($params);
+        list($response) = $this->getGlossaryWordWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getGlossaryWordWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGlossaryWordWithHttpInfo(array $params = [])
+    public function getGlossaryWordWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryWordRequest($params);
+        $request = $this->getGlossaryWordRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1394,22 +1366,22 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryWordAsync(array $params = [])
+    public function getGlossaryWordAsync(array $filters = [])
     {
-        return $this->getGlossaryWordAsyncWithHttpInfo($params)
+        return $this->getGlossaryWordAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1420,26 +1392,26 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryWordAsyncWithHttpInfo(array $params = [])
+    public function getGlossaryWordAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryWordRequest($params);
+        $request = $this->getGlossaryWordRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1459,7 +1431,7 @@ class GlossaryApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1479,30 +1451,29 @@ class GlossaryApi
     /**
      * Create request for operation 'getGlossaryWord'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGlossaryWordRequest(array $params = [])
+    protected function getGlossaryWordRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1513,21 +1484,22 @@ class GlossaryApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -1604,37 +1576,32 @@ class GlossaryApi
      * Operation getGlossaryWordByWord
      *
      *
-     * Parameters:
-     *   "word" string  The word (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $word The word
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGlossaryWordByWord(array $params = [])
+    public function getGlossaryWordByWord($word)
     {
-        list($response) = $this->getGlossaryWordByWordWithHttpInfo($params);
+        list($response) = $this->getGlossaryWordByWordWithHttpInfo($word);
         return $response;
     }
 
     /**
      * Operation getGlossaryWordByWordWithHttpInfo
      *
-     * Parameters:
-     *   "word" string  The word (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $word The word
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGlossaryWordByWordWithHttpInfo(array $params = [])
+    public function getGlossaryWordByWordWithHttpInfo($word)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryWordByWordRequest($params);
+        $request = $this->getGlossaryWordByWordRequest($word);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1708,19 +1675,17 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
-     *   "word" string  The word (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $word The word
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryWordByWordAsync(array $params = [])
+    public function getGlossaryWordByWordAsync($word)
     {
-        return $this->getGlossaryWordByWordAsyncWithHttpInfo($params)
+        return $this->getGlossaryWordByWordAsyncWithHttpInfo($word)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1731,23 +1696,21 @@ class GlossaryApi
      *
      * 
      *
-     * Parameters:
-     *   "word" string  The word (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $word The word
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGlossaryWordByWordAsyncWithHttpInfo(array $params = [])
+    public function getGlossaryWordByWordAsyncWithHttpInfo($word)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGlossaryWordByWordRequest($params);
+        $request = $this->getGlossaryWordByWordRequest($word);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1767,7 +1730,7 @@ class GlossaryApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1787,18 +1750,15 @@ class GlossaryApi
     /**
      * Create request for operation 'getGlossaryWordByWord'
      *
-     * Parameters:
-     *   "word" string  The word (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $word The word
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGlossaryWordByWordRequest(array $params = [])
+    protected function getGlossaryWordByWordRequest($word)
     {
-        if (empty($params['word'])) {
-            throw new \InvalidArgumentException('Missing parameter "word" in GlossaryApi::getGlossaryWordByWordRequest().');
+        if (empty($word)) {
+            throw new \InvalidArgumentException('Missing parameter "$word" in GlossaryApi::getGlossaryWordByWordRequest().');
         }
         
 
@@ -1809,12 +1769,16 @@ class GlossaryApi
         $httpBody = '';
         $multipart = false;
 
+        if ($word !== null) {
+            $word = ObjectSerializer::toQueryValue($word);
+        }
+        
 
         // path params
-        if ($params['word'] !== null) {
+        if ($word !== null) {
             $resourcePath = str_replace(
                 '{' . 'word' . '}',
-                ObjectSerializer::toPathValue($params['word']),
+                ObjectSerializer::toPathValue($word),
                 $resourcePath
             );
         }

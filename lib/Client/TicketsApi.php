@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class TicketsApi
      * Operation deleteTicketById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketById(array $params = [])
+    public function deleteTicketById($id)
     {
-        list($response) = $this->deleteTicketByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteTicketByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketByIdWithHttpInfo(array $params = [])
+    public function deleteTicketByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByIdRequest($params);
+        $request = $this->deleteTicketByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByIdAsync(array $params = [])
+    public function deleteTicketByIdAsync($id)
     {
-        return $this->deleteTicketByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByIdRequest($params);
+        $request = $this->deleteTicketByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketByIdRequest(array $params = [])
+    protected function deleteTicketByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::deleteTicketByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::deleteTicketByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,39 +397,34 @@ class TicketsApi
      * Operation deleteTicketByParentIdCcById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketByParentIdCcById(array $params = [])
+    public function deleteTicketByParentIdCcById($id, $parent_id)
     {
-        list($response) = $this->deleteTicketByParentIdCcByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketByParentIdCcByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deleteTicketByParentIdCcByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketByParentIdCcByIdWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdCcByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdCcByIdRequest($params);
+        $request = $this->deleteTicketByParentIdCcByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -510,20 +498,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdCcByIdAsync(array $params = [])
+    public function deleteTicketByParentIdCcByIdAsync($id, $parent_id)
     {
-        return $this->deleteTicketByParentIdCcByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketByParentIdCcByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -534,24 +520,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdCcByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdCcByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdCcByIdRequest($params);
+        $request = $this->deleteTicketByParentIdCcByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -571,7 +555,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -591,22 +575,19 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketByParentIdCcById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketByParentIdCcByIdRequest(array $params = [])
+    protected function deleteTicketByParentIdCcByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::deleteTicketByParentIdCcByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::deleteTicketByParentIdCcByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::deleteTicketByParentIdCcByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::deleteTicketByParentIdCcByIdRequest().');
         }
         
 
@@ -617,20 +598,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -708,39 +696,34 @@ class TicketsApi
      * Operation deleteTicketByParentIdMessageById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketByParentIdMessageById(array $params = [])
+    public function deleteTicketByParentIdMessageById($id, $parent_id)
     {
-        list($response) = $this->deleteTicketByParentIdMessageByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketByParentIdMessageByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deleteTicketByParentIdMessageByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketByParentIdMessageByIdWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdMessageByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdMessageByIdRequest($params);
+        $request = $this->deleteTicketByParentIdMessageByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -814,20 +797,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdMessageByIdAsync(array $params = [])
+    public function deleteTicketByParentIdMessageByIdAsync($id, $parent_id)
     {
-        return $this->deleteTicketByParentIdMessageByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -838,24 +819,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdMessageByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdMessageByIdRequest($params);
+        $request = $this->deleteTicketByParentIdMessageByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -875,7 +854,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -895,22 +874,19 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketByParentIdMessageById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketByParentIdMessageByIdRequest(array $params = [])
+    protected function deleteTicketByParentIdMessageByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::deleteTicketByParentIdMessageByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::deleteTicketByParentIdMessageByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::deleteTicketByParentIdMessageByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::deleteTicketByParentIdMessageByIdRequest().');
         }
         
 
@@ -921,20 +897,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -1012,39 +995,34 @@ class TicketsApi
      * Operation deleteTicketByParentIdTicketSlaById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketByParentIdTicketSlaById(array $params = [])
+    public function deleteTicketByParentIdTicketSlaById($id, $parent_id)
     {
-        list($response) = $this->deleteTicketByParentIdTicketSlaByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketByParentIdTicketSlaByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deleteTicketByParentIdTicketSlaByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketByParentIdTicketSlaByIdWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdTicketSlaByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdTicketSlaByIdRequest($params);
+        $request = $this->deleteTicketByParentIdTicketSlaByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1118,20 +1096,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdTicketSlaByIdAsync(array $params = [])
+    public function deleteTicketByParentIdTicketSlaByIdAsync($id, $parent_id)
     {
-        return $this->deleteTicketByParentIdTicketSlaByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketByParentIdTicketSlaByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1142,24 +1118,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdTicketSlaByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdTicketSlaByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdTicketSlaByIdRequest($params);
+        $request = $this->deleteTicketByParentIdTicketSlaByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1179,7 +1153,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1199,22 +1173,19 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketByParentIdTicketSlaById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketByParentIdTicketSlaByIdRequest(array $params = [])
+    protected function deleteTicketByParentIdTicketSlaByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::deleteTicketByParentIdTicketSlaByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::deleteTicketByParentIdTicketSlaByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::deleteTicketByParentIdTicketSlaByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::deleteTicketByParentIdTicketSlaByIdRequest().');
         }
         
 
@@ -1225,20 +1196,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -1316,39 +1294,34 @@ class TicketsApi
      * Operation deleteTicketByParentIdTicketSlaBySlaBySlaId
      *
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketByParentIdTicketSlaBySlaBySlaId(array $params = [])
+    public function deleteTicketByParentIdTicketSlaBySlaBySlaId($parent_id, $sla_id)
     {
-        list($response) = $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo($parent_id, $sla_id);
         return $response;
     }
 
     /**
      * Operation deleteTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo($parent_id, $sla_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest($params);
+        $request = $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest($parent_id, $sla_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1414,20 +1387,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdTicketSlaBySlaBySlaIdAsync(array $params = [])
+    public function deleteTicketByParentIdTicketSlaBySlaBySlaIdAsync($parent_id, $sla_id)
     {
-        return $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo($parent_id, $sla_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1438,24 +1409,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo($parent_id, $sla_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest($params);
+        $request = $this->deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest($parent_id, $sla_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1475,7 +1444,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1495,22 +1464,19 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketByParentIdTicketSlaBySlaBySlaId'
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest(array $params = [])
+    protected function deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest($parent_id, $sla_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
         }
-        if (empty($params['sla_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "sla_id" in TicketsApi::deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
+        if (empty($sla_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$sla_id" in TicketsApi::deleteTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
         }
         
 
@@ -1521,20 +1487,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        if ($sla_id !== null) {
+            $sla_id = ObjectSerializer::toQueryValue($sla_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['sla_id'] !== null) {
+        if ($sla_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'slaId' . '}',
-                ObjectSerializer::toPathValue($params['sla_id']),
+                ObjectSerializer::toPathValue($sla_id),
                 $resourcePath
             );
         }
@@ -1612,39 +1585,34 @@ class TicketsApi
      * Operation deleteTicketByTicketFollowUpById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketByTicketFollowUpById(array $params = [])
+    public function deleteTicketByTicketFollowUpById($id, $ticket)
     {
-        list($response) = $this->deleteTicketByTicketFollowUpByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketByTicketFollowUpByIdWithHttpInfo($id, $ticket);
         return $response;
     }
 
     /**
      * Operation deleteTicketByTicketFollowUpByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketByTicketFollowUpByIdWithHttpInfo(array $params = [])
+    public function deleteTicketByTicketFollowUpByIdWithHttpInfo($id, $ticket)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByTicketFollowUpByIdRequest($params);
+        $request = $this->deleteTicketByTicketFollowUpByIdRequest($id, $ticket);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1718,20 +1686,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByTicketFollowUpByIdAsync(array $params = [])
+    public function deleteTicketByTicketFollowUpByIdAsync($id, $ticket)
     {
-        return $this->deleteTicketByTicketFollowUpByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketByTicketFollowUpByIdAsyncWithHttpInfo($id, $ticket)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1742,24 +1708,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByTicketFollowUpByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketByTicketFollowUpByIdAsyncWithHttpInfo($id, $ticket)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByTicketFollowUpByIdRequest($params);
+        $request = $this->deleteTicketByTicketFollowUpByIdRequest($id, $ticket);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1779,7 +1743,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1799,22 +1763,19 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketByTicketFollowUpById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $ticket 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketByTicketFollowUpByIdRequest(array $params = [])
+    protected function deleteTicketByTicketFollowUpByIdRequest($id, $ticket)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::deleteTicketByTicketFollowUpByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::deleteTicketByTicketFollowUpByIdRequest().');
         }
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::deleteTicketByTicketFollowUpByIdRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::deleteTicketByTicketFollowUpByIdRequest().');
         }
         
 
@@ -1825,20 +1786,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -1910,44 +1878,43 @@ class TicketsApi
     /**
      * Operation deleteTicketByTicketLink
      *
-     *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  base ticket (optional)
      *   "unlink_ticket_id" int  ticket to unlink (optional)
      *   "link_type" string  you have to specify relation type to unlink tickets properly (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketByTicketLink(array $params = [])
+    public function deleteTicketByTicketLink($ticket, array $filters = [])
     {
-        list($response) = $this->deleteTicketByTicketLinkWithHttpInfo($params);
+        list($response) = $this->deleteTicketByTicketLinkWithHttpInfo($ticket, $filters);
         return $response;
     }
 
     /**
      * Operation deleteTicketByTicketLinkWithHttpInfo
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  base ticket (optional)
      *   "unlink_ticket_id" int  ticket to unlink (optional)
      *   "link_type" string  you have to specify relation type to unlink tickets properly (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketByTicketLinkWithHttpInfo(array $params = [])
+    public function deleteTicketByTicketLinkWithHttpInfo($ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByTicketLinkRequest($params);
+        $request = $this->deleteTicketByTicketLinkRequest($ticket, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2029,22 +1996,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  base ticket (optional)
      *   "unlink_ticket_id" int  ticket to unlink (optional)
      *   "link_type" string  you have to specify relation type to unlink tickets properly (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByTicketLinkAsync(array $params = [])
+    public function deleteTicketByTicketLinkAsync($ticket, array $filters = [])
     {
-        return $this->deleteTicketByTicketLinkAsyncWithHttpInfo($params)
+        return $this->deleteTicketByTicketLinkAsyncWithHttpInfo($ticket, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2055,26 +2022,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  base ticket (optional)
      *   "unlink_ticket_id" int  ticket to unlink (optional)
      *   "link_type" string  you have to specify relation type to unlink tickets properly (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketByTicketLinkAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketByTicketLinkAsyncWithHttpInfo($ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketByTicketLinkRequest($params);
+        $request = $this->deleteTicketByTicketLinkRequest($ticket, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2094,7 +2061,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2114,30 +2081,29 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketByTicketLink'
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  base ticket (optional)
      *   "unlink_ticket_id" int  ticket to unlink (optional)
      *   "link_type" string  you have to specify relation type to unlink tickets properly (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketByTicketLinkRequest(array $params = [])
+    protected function deleteTicketByTicketLinkRequest($ticket, array $filters = [])
     {
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::deleteTicketByTicketLinkRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::deleteTicketByTicketLinkRequest().');
         }
-        if (!isset($params['ticket_id'])) {
-            $params['ticket_id'] = null;
+        if (!isset($filters['ticket_id'])) {
+            $filters['ticket_id'] = null;
         }
-        if (!isset($params['unlink_ticket_id'])) {
-            $params['unlink_ticket_id'] = null;
+        if (!isset($filters['unlink_ticket_id'])) {
+            $filters['unlink_ticket_id'] = null;
         }
-        if (!isset($params['link_type'])) {
-            $params['link_type'] = null;
+        if (!isset($filters['link_type'])) {
+            $filters['link_type'] = null;
         }
         
 
@@ -2148,24 +2114,28 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        
         // query params
-        if ($params['ticket_id'] !== null) {
-            $queryParams['ticketId'] = ObjectSerializer::toQueryValue($params['ticket_id']);
+        if ($filters['ticket_id'] !== null) {
+            $queryParams['ticketId'] = ObjectSerializer::toQueryValue($filters['ticket_id']);
         }
         // query params
-        if ($params['unlink_ticket_id'] !== null) {
-            $queryParams['unlinkTicketId'] = ObjectSerializer::toQueryValue($params['unlink_ticket_id']);
+        if ($filters['unlink_ticket_id'] !== null) {
+            $queryParams['unlinkTicketId'] = ObjectSerializer::toQueryValue($filters['unlink_ticket_id']);
         }
         // query params
-        if ($params['link_type'] !== null) {
-            $queryParams['link_type'] = ObjectSerializer::toQueryValue($params['link_type']);
+        if ($filters['link_type'] !== null) {
+            $queryParams['link_type'] = ObjectSerializer::toQueryValue($filters['link_type']);
         }
 
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -2243,37 +2213,32 @@ class TicketsApi
      * Operation deleteTicketCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketCustomFieldById(array $params = [])
+    public function deleteTicketCustomFieldById($id)
     {
-        list($response) = $this->deleteTicketCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteTicketCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketCustomFieldByIdWithHttpInfo(array $params = [])
+    public function deleteTicketCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketCustomFieldByIdRequest($params);
+        $request = $this->deleteTicketCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2347,19 +2312,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketCustomFieldByIdAsync(array $params = [])
+    public function deleteTicketCustomFieldByIdAsync($id)
     {
-        return $this->deleteTicketCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2370,23 +2333,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketCustomFieldByIdRequest($params);
+        $request = $this->deleteTicketCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2406,7 +2367,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2426,18 +2387,15 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketCustomFieldByIdRequest(array $params = [])
+    protected function deleteTicketCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::deleteTicketCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::deleteTicketCustomFieldByIdRequest().');
         }
         
 
@@ -2448,12 +2406,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2531,37 +2493,32 @@ class TicketsApi
      * Operation deleteTicketProblemById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTicketProblemById(array $params = [])
+    public function deleteTicketProblemById($id)
     {
-        list($response) = $this->deleteTicketProblemByIdWithHttpInfo($params);
+        list($response) = $this->deleteTicketProblemByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteTicketProblemByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTicketProblemByIdWithHttpInfo(array $params = [])
+    public function deleteTicketProblemByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketProblemByIdRequest($params);
+        $request = $this->deleteTicketProblemByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2635,19 +2592,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketProblemByIdAsync(array $params = [])
+    public function deleteTicketProblemByIdAsync($id)
     {
-        return $this->deleteTicketProblemByIdAsyncWithHttpInfo($params)
+        return $this->deleteTicketProblemByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2658,23 +2613,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTicketProblemByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTicketProblemByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTicketProblemByIdRequest($params);
+        $request = $this->deleteTicketProblemByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2694,7 +2647,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2714,18 +2667,15 @@ class TicketsApi
     /**
      * Create request for operation 'deleteTicketProblemById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTicketProblemByIdRequest(array $params = [])
+    protected function deleteTicketProblemByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::deleteTicketProblemByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::deleteTicketProblemByIdRequest().');
         }
         
 
@@ -2736,12 +2686,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2819,37 +2773,32 @@ class TicketsApi
      * Operation get20170401TicketLayoutByContext
      *
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function get20170401TicketLayoutByContext(array $params = [])
+    public function get20170401TicketLayoutByContext($context)
     {
-        list($response) = $this->get20170401TicketLayoutByContextWithHttpInfo($params);
+        list($response) = $this->get20170401TicketLayoutByContextWithHttpInfo($context);
         return $response;
     }
 
     /**
      * Operation get20170401TicketLayoutByContextWithHttpInfo
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function get20170401TicketLayoutByContextWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutByContextWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutByContextRequest($params);
+        $request = $this->get20170401TicketLayoutByContextRequest($context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2915,19 +2864,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutByContextAsync(array $params = [])
+    public function get20170401TicketLayoutByContextAsync($context)
     {
-        return $this->get20170401TicketLayoutByContextAsyncWithHttpInfo($params)
+        return $this->get20170401TicketLayoutByContextAsyncWithHttpInfo($context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2938,23 +2885,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutByContextAsyncWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutByContextAsyncWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutByContextRequest($params);
+        $request = $this->get20170401TicketLayoutByContextRequest($context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2974,7 +2919,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2994,18 +2939,15 @@ class TicketsApi
     /**
      * Create request for operation 'get20170401TicketLayoutByContext'
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context context for layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function get20170401TicketLayoutByContextRequest(array $params = [])
+    protected function get20170401TicketLayoutByContextRequest($context)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::get20170401TicketLayoutByContextRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::get20170401TicketLayoutByContextRequest().');
         }
         
 
@@ -3016,12 +2958,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -3099,39 +3045,34 @@ class TicketsApi
      * Operation get20170401TicketLayoutByContextByDepartment
      *
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function get20170401TicketLayoutByContextByDepartment(array $params = [])
+    public function get20170401TicketLayoutByContextByDepartment($department, $context)
     {
-        list($response) = $this->get20170401TicketLayoutByContextByDepartmentWithHttpInfo($params);
+        list($response) = $this->get20170401TicketLayoutByContextByDepartmentWithHttpInfo($department, $context);
         return $response;
     }
 
     /**
      * Operation get20170401TicketLayoutByContextByDepartmentWithHttpInfo
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function get20170401TicketLayoutByContextByDepartmentWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutByContextByDepartmentWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutByContextByDepartmentRequest($params);
+        $request = $this->get20170401TicketLayoutByContextByDepartmentRequest($department, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3205,20 +3146,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutByContextByDepartmentAsync(array $params = [])
+    public function get20170401TicketLayoutByContextByDepartmentAsync($department, $context)
     {
-        return $this->get20170401TicketLayoutByContextByDepartmentAsyncWithHttpInfo($params)
+        return $this->get20170401TicketLayoutByContextByDepartmentAsyncWithHttpInfo($department, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3229,24 +3168,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutByContextByDepartmentAsyncWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutByContextByDepartmentAsyncWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutByContextByDepartmentRequest($params);
+        $request = $this->get20170401TicketLayoutByContextByDepartmentRequest($department, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3266,7 +3203,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3286,22 +3223,19 @@ class TicketsApi
     /**
      * Create request for operation 'get20170401TicketLayoutByContextByDepartment'
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function get20170401TicketLayoutByContextByDepartmentRequest(array $params = [])
+    protected function get20170401TicketLayoutByContextByDepartmentRequest($department, $context)
     {
-        if (empty($params['department'])) {
-            throw new \InvalidArgumentException('Missing parameter "department" in TicketsApi::get20170401TicketLayoutByContextByDepartmentRequest().');
+        if (empty($department)) {
+            throw new \InvalidArgumentException('Missing parameter "$department" in TicketsApi::get20170401TicketLayoutByContextByDepartmentRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::get20170401TicketLayoutByContextByDepartmentRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::get20170401TicketLayoutByContextByDepartmentRequest().');
         }
         
 
@@ -3312,20 +3246,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($department !== null) {
+            $department = ObjectSerializer::toQueryValue($department);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['department'] !== null) {
+        if ($department !== null) {
             $resourcePath = str_replace(
                 '{' . 'department' . '}',
-                ObjectSerializer::toPathValue($params['department']),
+                ObjectSerializer::toPathValue($department),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -3403,39 +3344,34 @@ class TicketsApi
      * Operation get20170401TicketLayoutByContextDepartmentJ
      *
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function get20170401TicketLayoutByContextDepartmentJ(array $params = [])
+    public function get20170401TicketLayoutByContextDepartmentJ($department, $context)
     {
-        list($response) = $this->get20170401TicketLayoutByContextDepartmentJWithHttpInfo($params);
+        list($response) = $this->get20170401TicketLayoutByContextDepartmentJWithHttpInfo($department, $context);
         return $response;
     }
 
     /**
      * Operation get20170401TicketLayoutByContextDepartmentJWithHttpInfo
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function get20170401TicketLayoutByContextDepartmentJWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutByContextDepartmentJWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutByContextDepartmentJRequest($params);
+        $request = $this->get20170401TicketLayoutByContextDepartmentJRequest($department, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3509,20 +3445,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutByContextDepartmentJAsync(array $params = [])
+    public function get20170401TicketLayoutByContextDepartmentJAsync($department, $context)
     {
-        return $this->get20170401TicketLayoutByContextDepartmentJAsyncWithHttpInfo($params)
+        return $this->get20170401TicketLayoutByContextDepartmentJAsyncWithHttpInfo($department, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3533,24 +3467,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutByContextDepartmentJAsyncWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutByContextDepartmentJAsyncWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutByContextDepartmentJRequest($params);
+        $request = $this->get20170401TicketLayoutByContextDepartmentJRequest($department, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3570,7 +3502,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3590,22 +3522,19 @@ class TicketsApi
     /**
      * Create request for operation 'get20170401TicketLayoutByContextDepartmentJ'
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function get20170401TicketLayoutByContextDepartmentJRequest(array $params = [])
+    protected function get20170401TicketLayoutByContextDepartmentJRequest($department, $context)
     {
-        if (empty($params['department'])) {
-            throw new \InvalidArgumentException('Missing parameter "department" in TicketsApi::get20170401TicketLayoutByContextDepartmentJRequest().');
+        if (empty($department)) {
+            throw new \InvalidArgumentException('Missing parameter "$department" in TicketsApi::get20170401TicketLayoutByContextDepartmentJRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::get20170401TicketLayoutByContextDepartmentJRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::get20170401TicketLayoutByContextDepartmentJRequest().');
         }
         
 
@@ -3616,20 +3545,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($department !== null) {
+            $department = ObjectSerializer::toQueryValue($department);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['department'] !== null) {
+        if ($department !== null) {
             $resourcePath = str_replace(
                 '{' . 'department' . '}',
-                ObjectSerializer::toPathValue($params['department']),
+                ObjectSerializer::toPathValue($department),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -3707,37 +3643,32 @@ class TicketsApi
      * Operation get20170401TicketLayoutContextJ
      *
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function get20170401TicketLayoutContextJ(array $params = [])
+    public function get20170401TicketLayoutContextJ($context)
     {
-        list($response) = $this->get20170401TicketLayoutContextJWithHttpInfo($params);
+        list($response) = $this->get20170401TicketLayoutContextJWithHttpInfo($context);
         return $response;
     }
 
     /**
      * Operation get20170401TicketLayoutContextJWithHttpInfo
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function get20170401TicketLayoutContextJWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutContextJWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutContextJRequest($params);
+        $request = $this->get20170401TicketLayoutContextJRequest($context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3803,19 +3734,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutContextJAsync(array $params = [])
+    public function get20170401TicketLayoutContextJAsync($context)
     {
-        return $this->get20170401TicketLayoutContextJAsyncWithHttpInfo($params)
+        return $this->get20170401TicketLayoutContextJAsyncWithHttpInfo($context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3826,23 +3755,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function get20170401TicketLayoutContextJAsyncWithHttpInfo(array $params = [])
+    public function get20170401TicketLayoutContextJAsyncWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->get20170401TicketLayoutContextJRequest($params);
+        $request = $this->get20170401TicketLayoutContextJRequest($context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3862,7 +3789,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3882,18 +3809,15 @@ class TicketsApi
     /**
      * Create request for operation 'get20170401TicketLayoutContextJ'
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context context for layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function get20170401TicketLayoutContextJRequest(array $params = [])
+    protected function get20170401TicketLayoutContextJRequest($context)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::get20170401TicketLayoutContextJRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::get20170401TicketLayoutContextJRequest().');
         }
         
 
@@ -3904,12 +3828,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -3987,37 +3915,32 @@ class TicketsApi
      * Operation getTicketById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketById(array $params = [])
+    public function getTicketById($id)
     {
-        list($response) = $this->getTicketByIdWithHttpInfo($params);
+        list($response) = $this->getTicketByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByIdWithHttpInfo(array $params = [])
+    public function getTicketByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByIdRequest($params);
+        $request = $this->getTicketByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4091,19 +4014,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByIdAsync(array $params = [])
+    public function getTicketByIdAsync($id)
     {
-        return $this->getTicketByIdAsyncWithHttpInfo($params)
+        return $this->getTicketByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4114,23 +4035,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByIdRequest($params);
+        $request = $this->getTicketByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4150,7 +4069,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4170,18 +4089,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByIdRequest(array $params = [])
+    protected function getTicketByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketByIdRequest().');
         }
         
 
@@ -4192,12 +4108,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -4274,46 +4194,45 @@ class TicketsApi
     /**
      * Operation getTicketByParentIdAttachment
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdAttachment(array $params = [])
+    public function getTicketByParentIdAttachment($parent_id, array $filters = [])
     {
-        list($response) = $this->getTicketByParentIdAttachmentWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdAttachmentWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdAttachmentWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdAttachmentWithHttpInfo(array $params = [])
+    public function getTicketByParentIdAttachmentWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdAttachmentRequest($params);
+        $request = $this->getTicketByParentIdAttachmentRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4387,23 +4306,23 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdAttachmentAsync(array $params = [])
+    public function getTicketByParentIdAttachmentAsync($parent_id, array $filters = [])
     {
-        return $this->getTicketByParentIdAttachmentAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdAttachmentAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4414,27 +4333,27 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdAttachmentAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdAttachmentAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdAttachmentRequest($params);
+        $request = $this->getTicketByParentIdAttachmentRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4454,7 +4373,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4474,34 +4393,33 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdAttachment'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdAttachmentRequest(array $params = [])
+    protected function getTicketByParentIdAttachmentRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdAttachmentRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdAttachmentRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -4512,28 +4430,32 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -4610,46 +4532,45 @@ class TicketsApi
     /**
      * Operation getTicketByParentIdCc
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdCc(array $params = [])
+    public function getTicketByParentIdCc($parent_id, array $filters = [])
     {
-        list($response) = $this->getTicketByParentIdCcWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdCcWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdCcWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdCcWithHttpInfo(array $params = [])
+    public function getTicketByParentIdCcWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdCcRequest($params);
+        $request = $this->getTicketByParentIdCcRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4723,23 +4644,23 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdCcAsync(array $params = [])
+    public function getTicketByParentIdCcAsync($parent_id, array $filters = [])
     {
-        return $this->getTicketByParentIdCcAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdCcAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4750,27 +4671,27 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdCcAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdCcAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdCcRequest($params);
+        $request = $this->getTicketByParentIdCcRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4790,7 +4711,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4810,34 +4731,33 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdCc'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdCcRequest(array $params = [])
+    protected function getTicketByParentIdCcRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdCcRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdCcRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -4848,28 +4768,32 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -4947,39 +4871,34 @@ class TicketsApi
      * Operation getTicketByParentIdCcById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdCcById(array $params = [])
+    public function getTicketByParentIdCcById($id, $parent_id)
     {
-        list($response) = $this->getTicketByParentIdCcByIdWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdCcByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdCcByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdCcByIdWithHttpInfo(array $params = [])
+    public function getTicketByParentIdCcByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdCcByIdRequest($params);
+        $request = $this->getTicketByParentIdCcByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5053,20 +4972,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdCcByIdAsync(array $params = [])
+    public function getTicketByParentIdCcByIdAsync($id, $parent_id)
     {
-        return $this->getTicketByParentIdCcByIdAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdCcByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5077,24 +4994,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdCcByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdCcByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdCcByIdRequest($params);
+        $request = $this->getTicketByParentIdCcByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5114,7 +5029,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5134,22 +5049,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdCcById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdCcByIdRequest(array $params = [])
+    protected function getTicketByParentIdCcByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketByParentIdCcByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketByParentIdCcByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdCcByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdCcByIdRequest().');
         }
         
 
@@ -5160,20 +5072,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -5250,46 +5169,45 @@ class TicketsApi
     /**
      * Operation getTicketByParentIdLog
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdLog(array $params = [])
+    public function getTicketByParentIdLog($parent_id, array $filters = [])
     {
-        list($response) = $this->getTicketByParentIdLogWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdLogWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdLogWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdLogWithHttpInfo(array $params = [])
+    public function getTicketByParentIdLogWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdLogRequest($params);
+        $request = $this->getTicketByParentIdLogRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5363,23 +5281,23 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdLogAsync(array $params = [])
+    public function getTicketByParentIdLogAsync($parent_id, array $filters = [])
     {
-        return $this->getTicketByParentIdLogAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdLogAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5390,27 +5308,27 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdLogAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdLogAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdLogRequest($params);
+        $request = $this->getTicketByParentIdLogRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5430,7 +5348,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5450,34 +5368,33 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdLog'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdLogRequest(array $params = [])
+    protected function getTicketByParentIdLogRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdLogRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdLogRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -5488,28 +5405,32 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -5587,39 +5508,34 @@ class TicketsApi
      * Operation getTicketByParentIdLogById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdLogById(array $params = [])
+    public function getTicketByParentIdLogById($id, $parent_id)
     {
-        list($response) = $this->getTicketByParentIdLogByIdWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdLogByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdLogByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdLogByIdWithHttpInfo(array $params = [])
+    public function getTicketByParentIdLogByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdLogByIdRequest($params);
+        $request = $this->getTicketByParentIdLogByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5693,20 +5609,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdLogByIdAsync(array $params = [])
+    public function getTicketByParentIdLogByIdAsync($id, $parent_id)
     {
-        return $this->getTicketByParentIdLogByIdAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdLogByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5717,24 +5631,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdLogByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdLogByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdLogByIdRequest($params);
+        $request = $this->getTicketByParentIdLogByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5754,7 +5666,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5774,22 +5686,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdLogById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdLogByIdRequest(array $params = [])
+    protected function getTicketByParentIdLogByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketByParentIdLogByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketByParentIdLogByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdLogByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdLogByIdRequest().');
         }
         
 
@@ -5800,20 +5709,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -5891,37 +5807,32 @@ class TicketsApi
      * Operation getTicketByParentIdLogCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdLogCount(array $params = [])
+    public function getTicketByParentIdLogCount($parent_id)
     {
-        list($response) = $this->getTicketByParentIdLogCountWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdLogCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdLogCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdLogCountWithHttpInfo(array $params = [])
+    public function getTicketByParentIdLogCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdLogCountRequest($params);
+        $request = $this->getTicketByParentIdLogCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5995,19 +5906,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdLogCountAsync(array $params = [])
+    public function getTicketByParentIdLogCountAsync($parent_id)
     {
-        return $this->getTicketByParentIdLogCountAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdLogCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6018,23 +5927,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdLogCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdLogCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdLogCountRequest($params);
+        $request = $this->getTicketByParentIdLogCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6054,7 +5961,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6074,18 +5981,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdLogCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdLogCountRequest(array $params = [])
+    protected function getTicketByParentIdLogCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdLogCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdLogCountRequest().');
         }
         
 
@@ -6096,12 +6000,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -6178,46 +6086,45 @@ class TicketsApi
     /**
      * Operation getTicketByParentIdMessage
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdMessage(array $params = [])
+    public function getTicketByParentIdMessage($parent_id, array $filters = [])
     {
-        list($response) = $this->getTicketByParentIdMessageWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdMessageWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdMessageWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdMessageWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageRequest($params);
+        $request = $this->getTicketByParentIdMessageRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6291,23 +6198,23 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageAsync(array $params = [])
+    public function getTicketByParentIdMessageAsync($parent_id, array $filters = [])
     {
-        return $this->getTicketByParentIdMessageAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdMessageAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6318,27 +6225,27 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageRequest($params);
+        $request = $this->getTicketByParentIdMessageRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6358,7 +6265,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6378,34 +6285,33 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdMessage'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdMessageRequest(array $params = [])
+    protected function getTicketByParentIdMessageRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdMessageRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdMessageRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -6416,28 +6322,32 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -6515,39 +6425,34 @@ class TicketsApi
      * Operation getTicketByParentIdMessageById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdMessageById(array $params = [])
+    public function getTicketByParentIdMessageById($id, $parent_id)
     {
-        list($response) = $this->getTicketByParentIdMessageByIdWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdMessageByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdMessageByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdMessageByIdWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageByIdRequest($params);
+        $request = $this->getTicketByParentIdMessageByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6621,20 +6526,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageByIdAsync(array $params = [])
+    public function getTicketByParentIdMessageByIdAsync($id, $parent_id)
     {
-        return $this->getTicketByParentIdMessageByIdAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6645,24 +6548,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageByIdRequest($params);
+        $request = $this->getTicketByParentIdMessageByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6682,7 +6583,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6702,22 +6603,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdMessageById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdMessageByIdRequest(array $params = [])
+    protected function getTicketByParentIdMessageByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketByParentIdMessageByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketByParentIdMessageByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdMessageByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdMessageByIdRequest().');
         }
         
 
@@ -6728,20 +6626,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -6818,48 +6723,47 @@ class TicketsApi
     /**
      * Operation getTicketByParentIdMessageByIdAttachment
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdMessageByIdAttachment(array $params = [])
+    public function getTicketByParentIdMessageByIdAttachment($parent_id, $id, array $filters = [])
     {
-        list($response) = $this->getTicketByParentIdMessageByIdAttachmentWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdMessageByIdAttachmentWithHttpInfo($parent_id, $id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdMessageByIdAttachmentWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdMessageByIdAttachmentWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageByIdAttachmentWithHttpInfo($parent_id, $id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageByIdAttachmentRequest($params);
+        $request = $this->getTicketByParentIdMessageByIdAttachmentRequest($parent_id, $id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6933,24 +6837,24 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageByIdAttachmentAsync(array $params = [])
+    public function getTicketByParentIdMessageByIdAttachmentAsync($parent_id, $id, array $filters = [])
     {
-        return $this->getTicketByParentIdMessageByIdAttachmentAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdMessageByIdAttachmentAsyncWithHttpInfo($parent_id, $id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6961,28 +6865,28 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageByIdAttachmentAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageByIdAttachmentAsyncWithHttpInfo($parent_id, $id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageByIdAttachmentRequest($params);
+        $request = $this->getTicketByParentIdMessageByIdAttachmentRequest($parent_id, $id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7002,7 +6906,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7022,38 +6926,37 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdMessageByIdAttachment'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param string $id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdMessageByIdAttachmentRequest(array $params = [])
+    protected function getTicketByParentIdMessageByIdAttachmentRequest($parent_id, $id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdMessageByIdAttachmentRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdMessageByIdAttachmentRequest().');
         }
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketByParentIdMessageByIdAttachmentRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketByParentIdMessageByIdAttachmentRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -7064,36 +6967,43 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -7171,37 +7081,32 @@ class TicketsApi
      * Operation getTicketByParentIdMessageCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdMessageCount(array $params = [])
+    public function getTicketByParentIdMessageCount($parent_id)
     {
-        list($response) = $this->getTicketByParentIdMessageCountWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdMessageCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdMessageCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdMessageCountWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageCountRequest($params);
+        $request = $this->getTicketByParentIdMessageCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7275,19 +7180,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageCountAsync(array $params = [])
+    public function getTicketByParentIdMessageCountAsync($parent_id)
     {
-        return $this->getTicketByParentIdMessageCountAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdMessageCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7298,23 +7201,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdMessageCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdMessageCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdMessageCountRequest($params);
+        $request = $this->getTicketByParentIdMessageCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7334,7 +7235,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7354,18 +7255,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdMessageCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdMessageCountRequest(array $params = [])
+    protected function getTicketByParentIdMessageCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdMessageCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdMessageCountRequest().');
         }
         
 
@@ -7376,12 +7274,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -7458,46 +7360,45 @@ class TicketsApi
     /**
      * Operation getTicketByParentIdTicketSla
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdTicketSla(array $params = [])
+    public function getTicketByParentIdTicketSla($parent_id, array $filters = [])
     {
-        list($response) = $this->getTicketByParentIdTicketSlaWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdTicketSlaWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdTicketSlaWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdTicketSlaWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7571,23 +7472,23 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaAsync(array $params = [])
+    public function getTicketByParentIdTicketSlaAsync($parent_id, array $filters = [])
     {
-        return $this->getTicketByParentIdTicketSlaAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdTicketSlaAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7598,27 +7499,27 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7638,7 +7539,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7658,34 +7559,33 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdTicketSla'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdTicketSlaRequest(array $params = [])
+    protected function getTicketByParentIdTicketSlaRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdTicketSlaRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdTicketSlaRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -7696,28 +7596,32 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -7795,39 +7699,34 @@ class TicketsApi
      * Operation getTicketByParentIdTicketSlaById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdTicketSlaById(array $params = [])
+    public function getTicketByParentIdTicketSlaById($id, $parent_id)
     {
-        list($response) = $this->getTicketByParentIdTicketSlaByIdWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdTicketSlaByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdTicketSlaByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdTicketSlaByIdWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaByIdRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7901,20 +7800,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaByIdAsync(array $params = [])
+    public function getTicketByParentIdTicketSlaByIdAsync($id, $parent_id)
     {
-        return $this->getTicketByParentIdTicketSlaByIdAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdTicketSlaByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7925,24 +7822,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaByIdRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7962,7 +7857,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7982,22 +7877,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdTicketSlaById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdTicketSlaByIdRequest(array $params = [])
+    protected function getTicketByParentIdTicketSlaByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketByParentIdTicketSlaByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketByParentIdTicketSlaByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdTicketSlaByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdTicketSlaByIdRequest().');
         }
         
 
@@ -8008,20 +7900,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -8099,39 +7998,34 @@ class TicketsApi
      * Operation getTicketByParentIdTicketSlaBySlaBySlaId
      *
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdTicketSlaBySlaBySlaId(array $params = [])
+    public function getTicketByParentIdTicketSlaBySlaBySlaId($parent_id, $sla_id)
     {
-        list($response) = $this->getTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo($parent_id, $sla_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaBySlaBySlaIdWithHttpInfo($parent_id, $sla_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaBySlaBySlaIdRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaBySlaBySlaIdRequest($parent_id, $sla_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8197,20 +8091,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaBySlaBySlaIdAsync(array $params = [])
+    public function getTicketByParentIdTicketSlaBySlaBySlaIdAsync($parent_id, $sla_id)
     {
-        return $this->getTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo($parent_id, $sla_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -8221,24 +8113,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaBySlaBySlaIdAsyncWithHttpInfo($parent_id, $sla_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaBySlaBySlaIdRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaBySlaBySlaIdRequest($parent_id, $sla_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -8258,7 +8148,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -8278,22 +8168,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdTicketSlaBySlaBySlaId'
      *
-     * Parameters:
-     *   "parent_id" int  the id of parent ticket (required)
-     *   "sla_id" int  the id of parent SLA (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $parent_id the id of parent ticket
+     * @param int $sla_id the id of parent SLA
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdTicketSlaBySlaBySlaIdRequest(array $params = [])
+    protected function getTicketByParentIdTicketSlaBySlaBySlaIdRequest($parent_id, $sla_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
         }
-        if (empty($params['sla_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "sla_id" in TicketsApi::getTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
+        if (empty($sla_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$sla_id" in TicketsApi::getTicketByParentIdTicketSlaBySlaBySlaIdRequest().');
         }
         
 
@@ -8304,20 +8191,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        if ($sla_id !== null) {
+            $sla_id = ObjectSerializer::toQueryValue($sla_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['sla_id'] !== null) {
+        if ($sla_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'slaId' . '}',
-                ObjectSerializer::toPathValue($params['sla_id']),
+                ObjectSerializer::toPathValue($sla_id),
                 $resourcePath
             );
         }
@@ -8395,37 +8289,32 @@ class TicketsApi
      * Operation getTicketByParentIdTicketSlaCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByParentIdTicketSlaCount(array $params = [])
+    public function getTicketByParentIdTicketSlaCount($parent_id)
     {
-        list($response) = $this->getTicketByParentIdTicketSlaCountWithHttpInfo($params);
+        list($response) = $this->getTicketByParentIdTicketSlaCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getTicketByParentIdTicketSlaCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByParentIdTicketSlaCountWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaCountRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8499,19 +8388,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaCountAsync(array $params = [])
+    public function getTicketByParentIdTicketSlaCountAsync($parent_id)
     {
-        return $this->getTicketByParentIdTicketSlaCountAsyncWithHttpInfo($params)
+        return $this->getTicketByParentIdTicketSlaCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -8522,23 +8409,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByParentIdTicketSlaCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketByParentIdTicketSlaCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByParentIdTicketSlaCountRequest($params);
+        $request = $this->getTicketByParentIdTicketSlaCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -8558,7 +8443,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -8578,18 +8463,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByParentIdTicketSlaCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByParentIdTicketSlaCountRequest(array $params = [])
+    protected function getTicketByParentIdTicketSlaCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in TicketsApi::getTicketByParentIdTicketSlaCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in TicketsApi::getTicketByParentIdTicketSlaCountRequest().');
         }
         
 
@@ -8600,12 +8482,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -8682,46 +8568,45 @@ class TicketsApi
     /**
      * Operation getTicketByTicketFollowUp
      *
-     *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByTicketFollowUp(array $params = [])
+    public function getTicketByTicketFollowUp($ticket, array $filters = [])
     {
-        list($response) = $this->getTicketByTicketFollowUpWithHttpInfo($params);
+        list($response) = $this->getTicketByTicketFollowUpWithHttpInfo($ticket, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByTicketFollowUpWithHttpInfo
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByTicketFollowUpWithHttpInfo(array $params = [])
+    public function getTicketByTicketFollowUpWithHttpInfo($ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketFollowUpRequest($params);
+        $request = $this->getTicketByTicketFollowUpRequest($ticket, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8795,23 +8680,23 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketFollowUpAsync(array $params = [])
+    public function getTicketByTicketFollowUpAsync($ticket, array $filters = [])
     {
-        return $this->getTicketByTicketFollowUpAsyncWithHttpInfo($params)
+        return $this->getTicketByTicketFollowUpAsyncWithHttpInfo($ticket, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -8822,27 +8707,27 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketFollowUpAsyncWithHttpInfo(array $params = [])
+    public function getTicketByTicketFollowUpAsyncWithHttpInfo($ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketFollowUpRequest($params);
+        $request = $this->getTicketByTicketFollowUpRequest($ticket, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -8862,7 +8747,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -8882,34 +8767,33 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByTicketFollowUp'
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByTicketFollowUpRequest(array $params = [])
+    protected function getTicketByTicketFollowUpRequest($ticket, array $filters = [])
     {
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::getTicketByTicketFollowUpRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::getTicketByTicketFollowUpRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -8920,28 +8804,32 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -9014,39 +8902,34 @@ class TicketsApi
      * Operation getTicketByTicketFollowUpById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByTicketFollowUpById(array $params = [])
+    public function getTicketByTicketFollowUpById($id, $ticket)
     {
-        list($response) = $this->getTicketByTicketFollowUpByIdWithHttpInfo($params);
+        list($response) = $this->getTicketByTicketFollowUpByIdWithHttpInfo($id, $ticket);
         return $response;
     }
 
     /**
      * Operation getTicketByTicketFollowUpByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByTicketFollowUpByIdWithHttpInfo(array $params = [])
+    public function getTicketByTicketFollowUpByIdWithHttpInfo($id, $ticket)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketFollowUpByIdRequest($params);
+        $request = $this->getTicketByTicketFollowUpByIdRequest($id, $ticket);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9120,20 +9003,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketFollowUpByIdAsync(array $params = [])
+    public function getTicketByTicketFollowUpByIdAsync($id, $ticket)
     {
-        return $this->getTicketByTicketFollowUpByIdAsyncWithHttpInfo($params)
+        return $this->getTicketByTicketFollowUpByIdAsyncWithHttpInfo($id, $ticket)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -9144,24 +9025,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $ticket 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketFollowUpByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketByTicketFollowUpByIdAsyncWithHttpInfo($id, $ticket)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketFollowUpByIdRequest($params);
+        $request = $this->getTicketByTicketFollowUpByIdRequest($id, $ticket);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -9181,7 +9060,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -9201,22 +9080,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByTicketFollowUpById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $ticket 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByTicketFollowUpByIdRequest(array $params = [])
+    protected function getTicketByTicketFollowUpByIdRequest($id, $ticket)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketByTicketFollowUpByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketByTicketFollowUpByIdRequest().');
         }
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::getTicketByTicketFollowUpByIdRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::getTicketByTicketFollowUpByIdRequest().');
         }
         
 
@@ -9227,20 +9103,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -9313,37 +9196,32 @@ class TicketsApi
      * Operation getTicketByTicketFollowUpCount
      *
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByTicketFollowUpCount(array $params = [])
+    public function getTicketByTicketFollowUpCount($ticket)
     {
-        list($response) = $this->getTicketByTicketFollowUpCountWithHttpInfo($params);
+        list($response) = $this->getTicketByTicketFollowUpCountWithHttpInfo($ticket);
         return $response;
     }
 
     /**
      * Operation getTicketByTicketFollowUpCountWithHttpInfo
      *
-     * Parameters:
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByTicketFollowUpCountWithHttpInfo(array $params = [])
+    public function getTicketByTicketFollowUpCountWithHttpInfo($ticket)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketFollowUpCountRequest($params);
+        $request = $this->getTicketByTicketFollowUpCountRequest($ticket);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9417,19 +9295,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketFollowUpCountAsync(array $params = [])
+    public function getTicketByTicketFollowUpCountAsync($ticket)
     {
-        return $this->getTicketByTicketFollowUpCountAsyncWithHttpInfo($params)
+        return $this->getTicketByTicketFollowUpCountAsyncWithHttpInfo($ticket)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -9440,23 +9316,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketFollowUpCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketByTicketFollowUpCountAsyncWithHttpInfo($ticket)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketFollowUpCountRequest($params);
+        $request = $this->getTicketByTicketFollowUpCountRequest($ticket);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -9476,7 +9350,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -9496,18 +9370,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByTicketFollowUpCount'
      *
-     * Parameters:
-     *   "ticket" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $ticket 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByTicketFollowUpCountRequest(array $params = [])
+    protected function getTicketByTicketFollowUpCountRequest($ticket)
     {
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::getTicketByTicketFollowUpCountRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::getTicketByTicketFollowUpCountRequest().');
         }
         
 
@@ -9518,12 +9389,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        
 
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -9595,40 +9470,39 @@ class TicketsApi
     /**
      * Operation getTicketByTicketLink
      *
-     *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  ticket to find id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketByTicketLink(array $params = [])
+    public function getTicketByTicketLink($ticket, array $filters = [])
     {
-        list($response) = $this->getTicketByTicketLinkWithHttpInfo($params);
+        list($response) = $this->getTicketByTicketLinkWithHttpInfo($ticket, $filters);
         return $response;
     }
 
     /**
      * Operation getTicketByTicketLinkWithHttpInfo
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  ticket to find id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketByTicketLinkWithHttpInfo(array $params = [])
+    public function getTicketByTicketLinkWithHttpInfo($ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketLinkRequest($params);
+        $request = $this->getTicketByTicketLinkRequest($ticket, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9702,20 +9576,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  ticket to find id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketLinkAsync(array $params = [])
+    public function getTicketByTicketLinkAsync($ticket, array $filters = [])
     {
-        return $this->getTicketByTicketLinkAsyncWithHttpInfo($params)
+        return $this->getTicketByTicketLinkAsyncWithHttpInfo($ticket, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -9726,24 +9600,24 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  ticket to find id (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketByTicketLinkAsyncWithHttpInfo(array $params = [])
+    public function getTicketByTicketLinkAsyncWithHttpInfo($ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketByTicketLinkRequest($params);
+        $request = $this->getTicketByTicketLinkRequest($ticket, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -9763,7 +9637,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -9783,22 +9657,21 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketByTicketLink'
      *
-     * Parameters:
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  ticket to find id (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketByTicketLinkRequest(array $params = [])
+    protected function getTicketByTicketLinkRequest($ticket, array $filters = [])
     {
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::getTicketByTicketLinkRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::getTicketByTicketLinkRequest().');
         }
-        if (!isset($params['ticket_id'])) {
-            $params['ticket_id'] = null;
+        if (!isset($filters['ticket_id'])) {
+            $filters['ticket_id'] = null;
         }
         
 
@@ -9809,16 +9682,20 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        
         // query params
-        if ($params['ticket_id'] !== null) {
-            $queryParams['ticketId'] = ObjectSerializer::toQueryValue($params['ticket_id']);
+        if ($filters['ticket_id'] !== null) {
+            $queryParams['ticketId'] = ObjectSerializer::toQueryValue($filters['ticket_id']);
         }
 
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -9895,44 +9772,43 @@ class TicketsApi
     /**
      * Operation getTicketCategories
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketCategories(array $params = [])
+    public function getTicketCategories(array $filters = [])
     {
-        list($response) = $this->getTicketCategoriesWithHttpInfo($params);
+        list($response) = $this->getTicketCategoriesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketCategoriesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketCategoriesWithHttpInfo(array $params = [])
+    public function getTicketCategoriesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCategoriesRequest($params);
+        $request = $this->getTicketCategoriesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10006,22 +9882,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCategoriesAsync(array $params = [])
+    public function getTicketCategoriesAsync(array $filters = [])
     {
-        return $this->getTicketCategoriesAsyncWithHttpInfo($params)
+        return $this->getTicketCategoriesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -10032,26 +9908,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCategoriesAsyncWithHttpInfo(array $params = [])
+    public function getTicketCategoriesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCategoriesRequest($params);
+        $request = $this->getTicketCategoriesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -10071,7 +9947,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -10091,30 +9967,29 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketCategories'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketCategoriesRequest(array $params = [])
+    protected function getTicketCategoriesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -10125,21 +10000,22 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -10216,37 +10092,32 @@ class TicketsApi
      * Operation getTicketCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketCategoryById(array $params = [])
+    public function getTicketCategoryById($id)
     {
-        list($response) = $this->getTicketCategoryByIdWithHttpInfo($params);
+        list($response) = $this->getTicketCategoryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketCategoryByIdWithHttpInfo(array $params = [])
+    public function getTicketCategoryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCategoryByIdRequest($params);
+        $request = $this->getTicketCategoryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10320,19 +10191,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCategoryByIdAsync(array $params = [])
+    public function getTicketCategoryByIdAsync($id)
     {
-        return $this->getTicketCategoryByIdAsyncWithHttpInfo($params)
+        return $this->getTicketCategoryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -10343,23 +10212,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketCategoryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCategoryByIdRequest($params);
+        $request = $this->getTicketCategoryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -10379,7 +10246,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -10399,18 +10266,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketCategoryByIdRequest(array $params = [])
+    protected function getTicketCategoryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketCategoryByIdRequest().');
         }
         
 
@@ -10421,12 +10285,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -10504,35 +10372,30 @@ class TicketsApi
      * Operation getTicketCategoryCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketCategoryCount(array $params = [])
+    public function getTicketCategoryCount()
     {
-        list($response) = $this->getTicketCategoryCountWithHttpInfo($params);
+        list($response) = $this->getTicketCategoryCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketCategoryCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketCategoryCountWithHttpInfo(array $params = [])
+    public function getTicketCategoryCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCategoryCountRequest($params);
+        $request = $this->getTicketCategoryCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -10606,18 +10469,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCategoryCountAsync(array $params = [])
+    public function getTicketCategoryCountAsync()
     {
-        return $this->getTicketCategoryCountAsyncWithHttpInfo($params)
+        return $this->getTicketCategoryCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -10628,22 +10489,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCategoryCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketCategoryCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCategoryCountRequest($params);
+        $request = $this->getTicketCategoryCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -10663,7 +10522,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -10683,14 +10542,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketCategoryCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketCategoryCountRequest(array $params = [])
+    protected function getTicketCategoryCountRequest()
     {
         
 
@@ -10701,6 +10557,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -10776,35 +10633,30 @@ class TicketsApi
      * Operation getTicketCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketCount(array $params = [])
+    public function getTicketCount()
     {
-        list($response) = $this->getTicketCountWithHttpInfo($params);
+        list($response) = $this->getTicketCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketCountWithHttpInfo(array $params = [])
+    public function getTicketCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCountRequest($params);
+        $request = $this->getTicketCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -10878,18 +10730,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCountAsync(array $params = [])
+    public function getTicketCountAsync()
     {
-        return $this->getTicketCountAsyncWithHttpInfo($params)
+        return $this->getTicketCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -10900,22 +10750,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCountRequest($params);
+        $request = $this->getTicketCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -10935,7 +10783,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -10955,14 +10803,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketCountRequest(array $params = [])
+    protected function getTicketCountRequest()
     {
         
 
@@ -10973,6 +10818,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -11048,37 +10894,32 @@ class TicketsApi
      * Operation getTicketCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketCustomFieldById(array $params = [])
+    public function getTicketCustomFieldById($id)
     {
-        list($response) = $this->getTicketCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->getTicketCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketCustomFieldByIdWithHttpInfo(array $params = [])
+    public function getTicketCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCustomFieldByIdRequest($params);
+        $request = $this->getTicketCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11152,19 +10993,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCustomFieldByIdAsync(array $params = [])
+    public function getTicketCustomFieldByIdAsync($id)
     {
-        return $this->getTicketCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->getTicketCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -11175,23 +11014,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCustomFieldByIdRequest($params);
+        $request = $this->getTicketCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -11211,7 +11048,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -11231,18 +11068,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketCustomFieldByIdRequest(array $params = [])
+    protected function getTicketCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketCustomFieldByIdRequest().');
         }
         
 
@@ -11253,12 +11087,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -11335,44 +11173,43 @@ class TicketsApi
     /**
      * Operation getTicketCustomFields
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketCustomFields(array $params = [])
+    public function getTicketCustomFields(array $filters = [])
     {
-        list($response) = $this->getTicketCustomFieldsWithHttpInfo($params);
+        list($response) = $this->getTicketCustomFieldsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketCustomFieldsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketCustomFieldsWithHttpInfo(array $params = [])
+    public function getTicketCustomFieldsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCustomFieldsRequest($params);
+        $request = $this->getTicketCustomFieldsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11446,22 +11283,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCustomFieldsAsync(array $params = [])
+    public function getTicketCustomFieldsAsync(array $filters = [])
     {
-        return $this->getTicketCustomFieldsAsyncWithHttpInfo($params)
+        return $this->getTicketCustomFieldsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -11472,26 +11309,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketCustomFieldsAsyncWithHttpInfo(array $params = [])
+    public function getTicketCustomFieldsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketCustomFieldsRequest($params);
+        $request = $this->getTicketCustomFieldsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -11511,7 +11348,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -11531,30 +11368,29 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketCustomFields'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketCustomFieldsRequest(array $params = [])
+    protected function getTicketCustomFieldsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -11565,21 +11401,22 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -11656,37 +11493,32 @@ class TicketsApi
      * Operation getTicketLabelByLabelTicket
      *
      *
-     * Parameters:
-     *   "label" string  label to filter tickets (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $label label to filter tickets
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketLabelByLabelTicket(array $params = [])
+    public function getTicketLabelByLabelTicket($label)
     {
-        list($response) = $this->getTicketLabelByLabelTicketWithHttpInfo($params);
+        list($response) = $this->getTicketLabelByLabelTicketWithHttpInfo($label);
         return $response;
     }
 
     /**
      * Operation getTicketLabelByLabelTicketWithHttpInfo
      *
-     * Parameters:
-     *   "label" string  label to filter tickets (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $label label to filter tickets
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketLabelByLabelTicketWithHttpInfo(array $params = [])
+    public function getTicketLabelByLabelTicketWithHttpInfo($label)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLabelByLabelTicketRequest($params);
+        $request = $this->getTicketLabelByLabelTicketRequest($label);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11752,19 +11584,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "label" string  label to filter tickets (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $label label to filter tickets
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLabelByLabelTicketAsync(array $params = [])
+    public function getTicketLabelByLabelTicketAsync($label)
     {
-        return $this->getTicketLabelByLabelTicketAsyncWithHttpInfo($params)
+        return $this->getTicketLabelByLabelTicketAsyncWithHttpInfo($label)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -11775,23 +11605,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "label" string  label to filter tickets (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $label label to filter tickets
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLabelByLabelTicketAsyncWithHttpInfo(array $params = [])
+    public function getTicketLabelByLabelTicketAsyncWithHttpInfo($label)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLabelByLabelTicketRequest($params);
+        $request = $this->getTicketLabelByLabelTicketRequest($label);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -11811,7 +11639,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -11831,18 +11659,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketLabelByLabelTicket'
      *
-     * Parameters:
-     *   "label" string  label to filter tickets (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $label label to filter tickets
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketLabelByLabelTicketRequest(array $params = [])
+    protected function getTicketLabelByLabelTicketRequest($label)
     {
-        if (empty($params['label'])) {
-            throw new \InvalidArgumentException('Missing parameter "label" in TicketsApi::getTicketLabelByLabelTicketRequest().');
+        if (empty($label)) {
+            throw new \InvalidArgumentException('Missing parameter "$label" in TicketsApi::getTicketLabelByLabelTicketRequest().');
         }
         
 
@@ -11853,12 +11678,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($label !== null) {
+            $label = ObjectSerializer::toQueryValue($label);
+        }
+        
 
         // path params
-        if ($params['label'] !== null) {
+        if ($label !== null) {
             $resourcePath = str_replace(
                 '{' . 'label' . '}',
-                ObjectSerializer::toPathValue($params['label']),
+                ObjectSerializer::toPathValue($label),
                 $resourcePath
             );
         }
@@ -11936,37 +11765,32 @@ class TicketsApi
      * Operation getTicketLayoutByContext
      *
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketLayoutByContext(array $params = [])
+    public function getTicketLayoutByContext($context)
     {
-        list($response) = $this->getTicketLayoutByContextWithHttpInfo($params);
+        list($response) = $this->getTicketLayoutByContextWithHttpInfo($context);
         return $response;
     }
 
     /**
      * Operation getTicketLayoutByContextWithHttpInfo
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketLayoutByContextWithHttpInfo(array $params = [])
+    public function getTicketLayoutByContextWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutByContextRequest($params);
+        $request = $this->getTicketLayoutByContextRequest($context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12032,19 +11856,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutByContextAsync(array $params = [])
+    public function getTicketLayoutByContextAsync($context)
     {
-        return $this->getTicketLayoutByContextAsyncWithHttpInfo($params)
+        return $this->getTicketLayoutByContextAsyncWithHttpInfo($context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -12055,23 +11877,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutByContextAsyncWithHttpInfo(array $params = [])
+    public function getTicketLayoutByContextAsyncWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutByContextRequest($params);
+        $request = $this->getTicketLayoutByContextRequest($context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -12091,7 +11911,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -12111,18 +11931,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketLayoutByContext'
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context context for layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketLayoutByContextRequest(array $params = [])
+    protected function getTicketLayoutByContextRequest($context)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::getTicketLayoutByContextRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::getTicketLayoutByContextRequest().');
         }
         
 
@@ -12133,12 +11950,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -12216,39 +12037,34 @@ class TicketsApi
      * Operation getTicketLayoutByContextByDepartment
      *
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketLayoutByContextByDepartment(array $params = [])
+    public function getTicketLayoutByContextByDepartment($department, $context)
     {
-        list($response) = $this->getTicketLayoutByContextByDepartmentWithHttpInfo($params);
+        list($response) = $this->getTicketLayoutByContextByDepartmentWithHttpInfo($department, $context);
         return $response;
     }
 
     /**
      * Operation getTicketLayoutByContextByDepartmentWithHttpInfo
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketLayoutByContextByDepartmentWithHttpInfo(array $params = [])
+    public function getTicketLayoutByContextByDepartmentWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutByContextByDepartmentRequest($params);
+        $request = $this->getTicketLayoutByContextByDepartmentRequest($department, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12322,20 +12138,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutByContextByDepartmentAsync(array $params = [])
+    public function getTicketLayoutByContextByDepartmentAsync($department, $context)
     {
-        return $this->getTicketLayoutByContextByDepartmentAsyncWithHttpInfo($params)
+        return $this->getTicketLayoutByContextByDepartmentAsyncWithHttpInfo($department, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -12346,24 +12160,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutByContextByDepartmentAsyncWithHttpInfo(array $params = [])
+    public function getTicketLayoutByContextByDepartmentAsyncWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutByContextByDepartmentRequest($params);
+        $request = $this->getTicketLayoutByContextByDepartmentRequest($department, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -12383,7 +12195,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -12403,22 +12215,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketLayoutByContextByDepartment'
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketLayoutByContextByDepartmentRequest(array $params = [])
+    protected function getTicketLayoutByContextByDepartmentRequest($department, $context)
     {
-        if (empty($params['department'])) {
-            throw new \InvalidArgumentException('Missing parameter "department" in TicketsApi::getTicketLayoutByContextByDepartmentRequest().');
+        if (empty($department)) {
+            throw new \InvalidArgumentException('Missing parameter "$department" in TicketsApi::getTicketLayoutByContextByDepartmentRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::getTicketLayoutByContextByDepartmentRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::getTicketLayoutByContextByDepartmentRequest().');
         }
         
 
@@ -12429,20 +12238,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($department !== null) {
+            $department = ObjectSerializer::toQueryValue($department);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['department'] !== null) {
+        if ($department !== null) {
             $resourcePath = str_replace(
                 '{' . 'department' . '}',
-                ObjectSerializer::toPathValue($params['department']),
+                ObjectSerializer::toPathValue($department),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -12520,39 +12336,34 @@ class TicketsApi
      * Operation getTicketLayoutByContextDepartmentJ
      *
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketLayoutByContextDepartmentJ(array $params = [])
+    public function getTicketLayoutByContextDepartmentJ($department, $context)
     {
-        list($response) = $this->getTicketLayoutByContextDepartmentJWithHttpInfo($params);
+        list($response) = $this->getTicketLayoutByContextDepartmentJWithHttpInfo($department, $context);
         return $response;
     }
 
     /**
      * Operation getTicketLayoutByContextDepartmentJWithHttpInfo
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketLayoutByContextDepartmentJWithHttpInfo(array $params = [])
+    public function getTicketLayoutByContextDepartmentJWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutByContextDepartmentJRequest($params);
+        $request = $this->getTicketLayoutByContextDepartmentJRequest($department, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12626,20 +12437,18 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutByContextDepartmentJAsync(array $params = [])
+    public function getTicketLayoutByContextDepartmentJAsync($department, $context)
     {
-        return $this->getTicketLayoutByContextDepartmentJAsyncWithHttpInfo($params)
+        return $this->getTicketLayoutByContextDepartmentJAsyncWithHttpInfo($department, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -12650,24 +12459,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutByContextDepartmentJAsyncWithHttpInfo(array $params = [])
+    public function getTicketLayoutByContextDepartmentJAsyncWithHttpInfo($department, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutByContextDepartmentJRequest($params);
+        $request = $this->getTicketLayoutByContextDepartmentJRequest($department, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -12687,7 +12494,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -12707,22 +12514,19 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketLayoutByContextDepartmentJ'
      *
-     * Parameters:
-     *   "department" int  department id for which you want to get layout (required)
-     *   "context" string  context of layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $department department id for which you want to get layout
+     * @param string $context context of layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketLayoutByContextDepartmentJRequest(array $params = [])
+    protected function getTicketLayoutByContextDepartmentJRequest($department, $context)
     {
-        if (empty($params['department'])) {
-            throw new \InvalidArgumentException('Missing parameter "department" in TicketsApi::getTicketLayoutByContextDepartmentJRequest().');
+        if (empty($department)) {
+            throw new \InvalidArgumentException('Missing parameter "$department" in TicketsApi::getTicketLayoutByContextDepartmentJRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::getTicketLayoutByContextDepartmentJRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::getTicketLayoutByContextDepartmentJRequest().');
         }
         
 
@@ -12733,20 +12537,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($department !== null) {
+            $department = ObjectSerializer::toQueryValue($department);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['department'] !== null) {
+        if ($department !== null) {
             $resourcePath = str_replace(
                 '{' . 'department' . '}',
-                ObjectSerializer::toPathValue($params['department']),
+                ObjectSerializer::toPathValue($department),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -12824,37 +12635,32 @@ class TicketsApi
      * Operation getTicketLayoutContextJ
      *
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketLayoutContextJ(array $params = [])
+    public function getTicketLayoutContextJ($context)
     {
-        list($response) = $this->getTicketLayoutContextJWithHttpInfo($params);
+        list($response) = $this->getTicketLayoutContextJWithHttpInfo($context);
         return $response;
     }
 
     /**
      * Operation getTicketLayoutContextJWithHttpInfo
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketLayoutContextJWithHttpInfo(array $params = [])
+    public function getTicketLayoutContextJWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutContextJRequest($params);
+        $request = $this->getTicketLayoutContextJRequest($context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12920,19 +12726,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutContextJAsync(array $params = [])
+    public function getTicketLayoutContextJAsync($context)
     {
-        return $this->getTicketLayoutContextJAsyncWithHttpInfo($params)
+        return $this->getTicketLayoutContextJAsyncWithHttpInfo($context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -12943,23 +12747,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context context for layout
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketLayoutContextJAsyncWithHttpInfo(array $params = [])
+    public function getTicketLayoutContextJAsyncWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketLayoutContextJRequest($params);
+        $request = $this->getTicketLayoutContextJRequest($context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -12979,7 +12781,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -12999,18 +12801,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketLayoutContextJ'
      *
-     * Parameters:
-     *   "context" string  context for layout (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context context for layout
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketLayoutContextJRequest(array $params = [])
+    protected function getTicketLayoutContextJRequest($context)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TicketsApi::getTicketLayoutContextJRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TicketsApi::getTicketLayoutContextJRequest().');
         }
         
 
@@ -13021,12 +12820,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -13104,37 +12907,32 @@ class TicketsApi
      * Operation getTicketMacroById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketMacroById(array $params = [])
+    public function getTicketMacroById($id)
     {
-        list($response) = $this->getTicketMacroByIdWithHttpInfo($params);
+        list($response) = $this->getTicketMacroByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketMacroByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketMacroByIdWithHttpInfo(array $params = [])
+    public function getTicketMacroByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketMacroByIdRequest($params);
+        $request = $this->getTicketMacroByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -13208,19 +13006,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketMacroByIdAsync(array $params = [])
+    public function getTicketMacroByIdAsync($id)
     {
-        return $this->getTicketMacroByIdAsyncWithHttpInfo($params)
+        return $this->getTicketMacroByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -13231,23 +13027,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketMacroByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketMacroByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketMacroByIdRequest($params);
+        $request = $this->getTicketMacroByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -13267,7 +13061,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -13287,18 +13081,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketMacroById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketMacroByIdRequest(array $params = [])
+    protected function getTicketMacroByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketMacroByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketMacroByIdRequest().');
         }
         
 
@@ -13309,12 +13100,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -13391,44 +13186,43 @@ class TicketsApi
     /**
      * Operation getTicketMacros
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketMacros(array $params = [])
+    public function getTicketMacros(array $filters = [])
     {
-        list($response) = $this->getTicketMacrosWithHttpInfo($params);
+        list($response) = $this->getTicketMacrosWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketMacrosWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketMacrosWithHttpInfo(array $params = [])
+    public function getTicketMacrosWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketMacrosRequest($params);
+        $request = $this->getTicketMacrosRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -13502,22 +13296,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketMacrosAsync(array $params = [])
+    public function getTicketMacrosAsync(array $filters = [])
     {
-        return $this->getTicketMacrosAsyncWithHttpInfo($params)
+        return $this->getTicketMacrosAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -13528,26 +13322,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketMacrosAsyncWithHttpInfo(array $params = [])
+    public function getTicketMacrosAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketMacrosRequest($params);
+        $request = $this->getTicketMacrosRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -13567,7 +13361,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -13587,30 +13381,29 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketMacros'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketMacrosRequest(array $params = [])
+    protected function getTicketMacrosRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -13621,21 +13414,22 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -13711,44 +13505,43 @@ class TicketsApi
     /**
      * Operation getTicketPriorities
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketPriorities(array $params = [])
+    public function getTicketPriorities(array $filters = [])
     {
-        list($response) = $this->getTicketPrioritiesWithHttpInfo($params);
+        list($response) = $this->getTicketPrioritiesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketPrioritiesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketPrioritiesWithHttpInfo(array $params = [])
+    public function getTicketPrioritiesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketPrioritiesRequest($params);
+        $request = $this->getTicketPrioritiesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -13822,22 +13615,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketPrioritiesAsync(array $params = [])
+    public function getTicketPrioritiesAsync(array $filters = [])
     {
-        return $this->getTicketPrioritiesAsyncWithHttpInfo($params)
+        return $this->getTicketPrioritiesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -13848,26 +13641,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketPrioritiesAsyncWithHttpInfo(array $params = [])
+    public function getTicketPrioritiesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketPrioritiesRequest($params);
+        $request = $this->getTicketPrioritiesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -13887,7 +13680,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -13907,30 +13700,29 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketPriorities'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketPrioritiesRequest(array $params = [])
+    protected function getTicketPrioritiesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -13941,21 +13733,22 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -14032,37 +13825,32 @@ class TicketsApi
      * Operation getTicketPriorityById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketPriorityById(array $params = [])
+    public function getTicketPriorityById($id)
     {
-        list($response) = $this->getTicketPriorityByIdWithHttpInfo($params);
+        list($response) = $this->getTicketPriorityByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketPriorityByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketPriorityByIdWithHttpInfo(array $params = [])
+    public function getTicketPriorityByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketPriorityByIdRequest($params);
+        $request = $this->getTicketPriorityByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -14136,19 +13924,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketPriorityByIdAsync(array $params = [])
+    public function getTicketPriorityByIdAsync($id)
     {
-        return $this->getTicketPriorityByIdAsyncWithHttpInfo($params)
+        return $this->getTicketPriorityByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -14159,23 +13945,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketPriorityByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketPriorityByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketPriorityByIdRequest($params);
+        $request = $this->getTicketPriorityByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -14195,7 +13979,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -14215,18 +13999,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketPriorityById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketPriorityByIdRequest(array $params = [])
+    protected function getTicketPriorityByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketPriorityByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketPriorityByIdRequest().');
         }
         
 
@@ -14237,12 +14018,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -14320,35 +14105,30 @@ class TicketsApi
      * Operation getTicketPriorityCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketPriorityCount(array $params = [])
+    public function getTicketPriorityCount()
     {
-        list($response) = $this->getTicketPriorityCountWithHttpInfo($params);
+        list($response) = $this->getTicketPriorityCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketPriorityCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketPriorityCountWithHttpInfo(array $params = [])
+    public function getTicketPriorityCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketPriorityCountRequest($params);
+        $request = $this->getTicketPriorityCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -14422,18 +14202,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketPriorityCountAsync(array $params = [])
+    public function getTicketPriorityCountAsync()
     {
-        return $this->getTicketPriorityCountAsyncWithHttpInfo($params)
+        return $this->getTicketPriorityCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -14444,22 +14222,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketPriorityCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketPriorityCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketPriorityCountRequest($params);
+        $request = $this->getTicketPriorityCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -14479,7 +14255,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -14499,14 +14275,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketPriorityCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketPriorityCountRequest(array $params = [])
+    protected function getTicketPriorityCountRequest()
     {
         
 
@@ -14517,6 +14290,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -14592,37 +14366,32 @@ class TicketsApi
      * Operation getTicketProblemById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketProblemById(array $params = [])
+    public function getTicketProblemById($id)
     {
-        list($response) = $this->getTicketProblemByIdWithHttpInfo($params);
+        list($response) = $this->getTicketProblemByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketProblemByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketProblemByIdWithHttpInfo(array $params = [])
+    public function getTicketProblemByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemByIdRequest($params);
+        $request = $this->getTicketProblemByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -14696,19 +14465,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemByIdAsync(array $params = [])
+    public function getTicketProblemByIdAsync($id)
     {
-        return $this->getTicketProblemByIdAsyncWithHttpInfo($params)
+        return $this->getTicketProblemByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -14719,23 +14486,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketProblemByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemByIdRequest($params);
+        $request = $this->getTicketProblemByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -14755,7 +14520,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -14775,18 +14540,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketProblemById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketProblemByIdRequest(array $params = [])
+    protected function getTicketProblemByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketProblemByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketProblemByIdRequest().');
         }
         
 
@@ -14797,12 +14559,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -14880,37 +14646,32 @@ class TicketsApi
      * Operation getTicketProblemByIdTicket
      *
      *
-     * Parameters:
-     *   "id" int  problem id (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id problem id
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketProblemByIdTicket(array $params = [])
+    public function getTicketProblemByIdTicket($id)
     {
-        list($response) = $this->getTicketProblemByIdTicketWithHttpInfo($params);
+        list($response) = $this->getTicketProblemByIdTicketWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketProblemByIdTicketWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  problem id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id problem id
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketProblemByIdTicketWithHttpInfo(array $params = [])
+    public function getTicketProblemByIdTicketWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemByIdTicketRequest($params);
+        $request = $this->getTicketProblemByIdTicketRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -14976,19 +14737,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  problem id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id problem id
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemByIdTicketAsync(array $params = [])
+    public function getTicketProblemByIdTicketAsync($id)
     {
-        return $this->getTicketProblemByIdTicketAsyncWithHttpInfo($params)
+        return $this->getTicketProblemByIdTicketAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -14999,23 +14758,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  problem id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id problem id
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemByIdTicketAsyncWithHttpInfo(array $params = [])
+    public function getTicketProblemByIdTicketAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemByIdTicketRequest($params);
+        $request = $this->getTicketProblemByIdTicketRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -15035,7 +14792,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -15055,18 +14812,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketProblemByIdTicket'
      *
-     * Parameters:
-     *   "id" int  problem id (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id problem id
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketProblemByIdTicketRequest(array $params = [])
+    protected function getTicketProblemByIdTicketRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketProblemByIdTicketRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketProblemByIdTicketRequest().');
         }
         
 
@@ -15077,12 +14831,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -15160,35 +14918,30 @@ class TicketsApi
      * Operation getTicketProblemCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketProblemCount(array $params = [])
+    public function getTicketProblemCount()
     {
-        list($response) = $this->getTicketProblemCountWithHttpInfo($params);
+        list($response) = $this->getTicketProblemCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketProblemCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketProblemCountWithHttpInfo(array $params = [])
+    public function getTicketProblemCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemCountRequest($params);
+        $request = $this->getTicketProblemCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -15262,18 +15015,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemCountAsync(array $params = [])
+    public function getTicketProblemCountAsync()
     {
-        return $this->getTicketProblemCountAsyncWithHttpInfo($params)
+        return $this->getTicketProblemCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -15284,22 +15035,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketProblemCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemCountRequest($params);
+        $request = $this->getTicketProblemCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -15319,7 +15068,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -15339,14 +15088,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketProblemCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketProblemCountRequest(array $params = [])
+    protected function getTicketProblemCountRequest()
     {
         
 
@@ -15357,6 +15103,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -15431,44 +15178,43 @@ class TicketsApi
     /**
      * Operation getTicketProblems
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketProblems(array $params = [])
+    public function getTicketProblems(array $filters = [])
     {
-        list($response) = $this->getTicketProblemsWithHttpInfo($params);
+        list($response) = $this->getTicketProblemsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketProblemsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketProblemsWithHttpInfo(array $params = [])
+    public function getTicketProblemsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemsRequest($params);
+        $request = $this->getTicketProblemsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -15542,22 +15288,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemsAsync(array $params = [])
+    public function getTicketProblemsAsync(array $filters = [])
     {
-        return $this->getTicketProblemsAsyncWithHttpInfo($params)
+        return $this->getTicketProblemsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -15568,26 +15314,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProblemsAsyncWithHttpInfo(array $params = [])
+    public function getTicketProblemsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProblemsRequest($params);
+        $request = $this->getTicketProblemsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -15607,7 +15353,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -15627,30 +15373,29 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketProblems'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketProblemsRequest(array $params = [])
+    protected function getTicketProblemsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -15661,21 +15406,22 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -15752,37 +15498,32 @@ class TicketsApi
      * Operation getTicketProductById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketProductById(array $params = [])
+    public function getTicketProductById($id)
     {
-        list($response) = $this->getTicketProductByIdWithHttpInfo($params);
+        list($response) = $this->getTicketProductByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketProductByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketProductByIdWithHttpInfo(array $params = [])
+    public function getTicketProductByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProductByIdRequest($params);
+        $request = $this->getTicketProductByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -15856,19 +15597,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProductByIdAsync(array $params = [])
+    public function getTicketProductByIdAsync($id)
     {
-        return $this->getTicketProductByIdAsyncWithHttpInfo($params)
+        return $this->getTicketProductByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -15879,23 +15618,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProductByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketProductByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProductByIdRequest($params);
+        $request = $this->getTicketProductByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -15915,7 +15652,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -15935,18 +15672,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketProductById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketProductByIdRequest(array $params = [])
+    protected function getTicketProductByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketProductByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketProductByIdRequest().');
         }
         
 
@@ -15957,12 +15691,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -16040,35 +15778,30 @@ class TicketsApi
      * Operation getTicketProductCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketProductCount(array $params = [])
+    public function getTicketProductCount()
     {
-        list($response) = $this->getTicketProductCountWithHttpInfo($params);
+        list($response) = $this->getTicketProductCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketProductCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketProductCountWithHttpInfo(array $params = [])
+    public function getTicketProductCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProductCountRequest($params);
+        $request = $this->getTicketProductCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -16142,18 +15875,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProductCountAsync(array $params = [])
+    public function getTicketProductCountAsync()
     {
-        return $this->getTicketProductCountAsyncWithHttpInfo($params)
+        return $this->getTicketProductCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -16164,22 +15895,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProductCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketProductCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProductCountRequest($params);
+        $request = $this->getTicketProductCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -16199,7 +15928,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -16219,14 +15948,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketProductCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketProductCountRequest(array $params = [])
+    protected function getTicketProductCountRequest()
     {
         
 
@@ -16237,6 +15963,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -16311,44 +16038,43 @@ class TicketsApi
     /**
      * Operation getTicketProducts
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketProducts(array $params = [])
+    public function getTicketProducts(array $filters = [])
     {
-        list($response) = $this->getTicketProductsWithHttpInfo($params);
+        list($response) = $this->getTicketProductsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketProductsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketProductsWithHttpInfo(array $params = [])
+    public function getTicketProductsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProductsRequest($params);
+        $request = $this->getTicketProductsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -16422,22 +16148,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProductsAsync(array $params = [])
+    public function getTicketProductsAsync(array $filters = [])
     {
-        return $this->getTicketProductsAsyncWithHttpInfo($params)
+        return $this->getTicketProductsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -16448,26 +16174,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketProductsAsyncWithHttpInfo(array $params = [])
+    public function getTicketProductsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketProductsRequest($params);
+        $request = $this->getTicketProductsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -16487,7 +16213,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -16507,30 +16233,29 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketProducts'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketProductsRequest(array $params = [])
+    protected function getTicketProductsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -16541,21 +16266,22 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -16632,37 +16358,32 @@ class TicketsApi
      * Operation getTicketStarByStarTicket
      *
      *
-     * Parameters:
-     *   "star" int  the id of star to filter by (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $star the id of star to filter by
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketStarByStarTicket(array $params = [])
+    public function getTicketStarByStarTicket($star)
     {
-        list($response) = $this->getTicketStarByStarTicketWithHttpInfo($params);
+        list($response) = $this->getTicketStarByStarTicketWithHttpInfo($star);
         return $response;
     }
 
     /**
      * Operation getTicketStarByStarTicketWithHttpInfo
      *
-     * Parameters:
-     *   "star" int  the id of star to filter by (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $star the id of star to filter by
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketStarByStarTicketWithHttpInfo(array $params = [])
+    public function getTicketStarByStarTicketWithHttpInfo($star)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStarByStarTicketRequest($params);
+        $request = $this->getTicketStarByStarTicketRequest($star);
 
         try {
             $options = $this->createHttpClientOption();
@@ -16728,19 +16449,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "star" int  the id of star to filter by (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $star the id of star to filter by
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStarByStarTicketAsync(array $params = [])
+    public function getTicketStarByStarTicketAsync($star)
     {
-        return $this->getTicketStarByStarTicketAsyncWithHttpInfo($params)
+        return $this->getTicketStarByStarTicketAsyncWithHttpInfo($star)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -16751,23 +16470,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "star" int  the id of star to filter by (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $star the id of star to filter by
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStarByStarTicketAsyncWithHttpInfo(array $params = [])
+    public function getTicketStarByStarTicketAsyncWithHttpInfo($star)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStarByStarTicketRequest($params);
+        $request = $this->getTicketStarByStarTicketRequest($star);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -16787,7 +16504,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -16807,18 +16524,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketStarByStarTicket'
      *
-     * Parameters:
-     *   "star" int  the id of star to filter by (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $star the id of star to filter by
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketStarByStarTicketRequest(array $params = [])
+    protected function getTicketStarByStarTicketRequest($star)
     {
-        if (empty($params['star'])) {
-            throw new \InvalidArgumentException('Missing parameter "star" in TicketsApi::getTicketStarByStarTicketRequest().');
+        if (empty($star)) {
+            throw new \InvalidArgumentException('Missing parameter "$star" in TicketsApi::getTicketStarByStarTicketRequest().');
         }
         
 
@@ -16829,12 +16543,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($star !== null) {
+            $star = ObjectSerializer::toQueryValue($star);
+        }
+        
 
         // path params
-        if ($params['star'] !== null) {
+        if ($star !== null) {
             $resourcePath = str_replace(
                 '{' . 'star' . '}',
-                ObjectSerializer::toPathValue($params['star']),
+                ObjectSerializer::toPathValue($star),
                 $resourcePath
             );
         }
@@ -16912,35 +16630,30 @@ class TicketsApi
      * Operation getTicketStarCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketStarCount(array $params = [])
+    public function getTicketStarCount()
     {
-        list($response) = $this->getTicketStarCountWithHttpInfo($params);
+        list($response) = $this->getTicketStarCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketStarCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketStarCountWithHttpInfo(array $params = [])
+    public function getTicketStarCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStarCountRequest($params);
+        $request = $this->getTicketStarCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -17006,18 +16719,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStarCountAsync(array $params = [])
+    public function getTicketStarCountAsync()
     {
-        return $this->getTicketStarCountAsyncWithHttpInfo($params)
+        return $this->getTicketStarCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -17028,22 +16739,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStarCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketStarCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStarCountRequest($params);
+        $request = $this->getTicketStarCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -17063,7 +16772,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -17083,14 +16792,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketStarCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketStarCountRequest(array $params = [])
+    protected function getTicketStarCountRequest()
     {
         
 
@@ -17101,6 +16807,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -17176,35 +16883,30 @@ class TicketsApi
      * Operation getTicketStars
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketStars(array $params = [])
+    public function getTicketStars()
     {
-        list($response) = $this->getTicketStarsWithHttpInfo($params);
+        list($response) = $this->getTicketStarsWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketStarsWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketStarsWithHttpInfo(array $params = [])
+    public function getTicketStarsWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStarsRequest($params);
+        $request = $this->getTicketStarsRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -17270,18 +16972,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStarsAsync(array $params = [])
+    public function getTicketStarsAsync()
     {
-        return $this->getTicketStarsAsyncWithHttpInfo($params)
+        return $this->getTicketStarsAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -17292,22 +16992,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStarsAsyncWithHttpInfo(array $params = [])
+    public function getTicketStarsAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStarsRequest($params);
+        $request = $this->getTicketStarsRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -17327,7 +17025,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -17347,14 +17045,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketStars'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketStarsRequest(array $params = [])
+    protected function getTicketStarsRequest()
     {
         
 
@@ -17365,6 +17060,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -17440,37 +17136,32 @@ class TicketsApi
      * Operation getTicketStatuseByStatuTicket
      *
      *
-     * Parameters:
-     *   "status" string  provide a status to filter (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $status provide a status to filter
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketStatuseByStatuTicket(array $params = [])
+    public function getTicketStatuseByStatuTicket($status)
     {
-        list($response) = $this->getTicketStatuseByStatuTicketWithHttpInfo($params);
+        list($response) = $this->getTicketStatuseByStatuTicketWithHttpInfo($status);
         return $response;
     }
 
     /**
      * Operation getTicketStatuseByStatuTicketWithHttpInfo
      *
-     * Parameters:
-     *   "status" string  provide a status to filter (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $status provide a status to filter
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketStatuseByStatuTicketWithHttpInfo(array $params = [])
+    public function getTicketStatuseByStatuTicketWithHttpInfo($status)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStatuseByStatuTicketRequest($params);
+        $request = $this->getTicketStatuseByStatuTicketRequest($status);
 
         try {
             $options = $this->createHttpClientOption();
@@ -17536,19 +17227,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "status" string  provide a status to filter (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $status provide a status to filter
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStatuseByStatuTicketAsync(array $params = [])
+    public function getTicketStatuseByStatuTicketAsync($status)
     {
-        return $this->getTicketStatuseByStatuTicketAsyncWithHttpInfo($params)
+        return $this->getTicketStatuseByStatuTicketAsyncWithHttpInfo($status)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -17559,23 +17248,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "status" string  provide a status to filter (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $status provide a status to filter
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStatuseByStatuTicketAsyncWithHttpInfo(array $params = [])
+    public function getTicketStatuseByStatuTicketAsyncWithHttpInfo($status)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStatuseByStatuTicketRequest($params);
+        $request = $this->getTicketStatuseByStatuTicketRequest($status);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -17595,7 +17282,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -17615,18 +17302,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketStatuseByStatuTicket'
      *
-     * Parameters:
-     *   "status" string  provide a status to filter (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $status provide a status to filter
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketStatuseByStatuTicketRequest(array $params = [])
+    protected function getTicketStatuseByStatuTicketRequest($status)
     {
-        if (empty($params['status'])) {
-            throw new \InvalidArgumentException('Missing parameter "status" in TicketsApi::getTicketStatuseByStatuTicketRequest().');
+        if (empty($status)) {
+            throw new \InvalidArgumentException('Missing parameter "$status" in TicketsApi::getTicketStatuseByStatuTicketRequest().');
         }
         
 
@@ -17637,12 +17321,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($status !== null) {
+            $status = ObjectSerializer::toQueryValue($status);
+        }
+        
 
         // path params
-        if ($params['status'] !== null) {
+        if ($status !== null) {
             $resourcePath = str_replace(
                 '{' . 'status' . '}',
-                ObjectSerializer::toPathValue($params['status']),
+                ObjectSerializer::toPathValue($status),
                 $resourcePath
             );
         }
@@ -17720,35 +17408,30 @@ class TicketsApi
      * Operation getTicketStatuses
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketStatuses(array $params = [])
+    public function getTicketStatuses()
     {
-        list($response) = $this->getTicketStatusesWithHttpInfo($params);
+        list($response) = $this->getTicketStatusesWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketStatusesWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketStatusesWithHttpInfo(array $params = [])
+    public function getTicketStatusesWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStatusesRequest($params);
+        $request = $this->getTicketStatusesRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -17814,18 +17497,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStatusesAsync(array $params = [])
+    public function getTicketStatusesAsync()
     {
-        return $this->getTicketStatusesAsyncWithHttpInfo($params)
+        return $this->getTicketStatusesAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -17836,22 +17517,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketStatusesAsyncWithHttpInfo(array $params = [])
+    public function getTicketStatusesAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketStatusesRequest($params);
+        $request = $this->getTicketStatusesRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -17871,7 +17550,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -17891,14 +17570,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketStatuses'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketStatusesRequest(array $params = [])
+    protected function getTicketStatusesRequest()
     {
         
 
@@ -17909,6 +17585,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -17984,37 +17661,32 @@ class TicketsApi
      * Operation getTicketWorkflowById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketWorkflowById(array $params = [])
+    public function getTicketWorkflowById($id)
     {
-        list($response) = $this->getTicketWorkflowByIdWithHttpInfo($params);
+        list($response) = $this->getTicketWorkflowByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTicketWorkflowByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketWorkflowByIdWithHttpInfo(array $params = [])
+    public function getTicketWorkflowByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketWorkflowByIdRequest($params);
+        $request = $this->getTicketWorkflowByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -18088,19 +17760,17 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketWorkflowByIdAsync(array $params = [])
+    public function getTicketWorkflowByIdAsync($id)
     {
-        return $this->getTicketWorkflowByIdAsyncWithHttpInfo($params)
+        return $this->getTicketWorkflowByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -18111,23 +17781,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketWorkflowByIdAsyncWithHttpInfo(array $params = [])
+    public function getTicketWorkflowByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketWorkflowByIdRequest($params);
+        $request = $this->getTicketWorkflowByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -18147,7 +17815,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -18167,18 +17835,15 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketWorkflowById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketWorkflowByIdRequest(array $params = [])
+    protected function getTicketWorkflowByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::getTicketWorkflowByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::getTicketWorkflowByIdRequest().');
         }
         
 
@@ -18189,12 +17854,16 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -18272,35 +17941,30 @@ class TicketsApi
      * Operation getTicketWorkflowCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketWorkflowCount(array $params = [])
+    public function getTicketWorkflowCount()
     {
-        list($response) = $this->getTicketWorkflowCountWithHttpInfo($params);
+        list($response) = $this->getTicketWorkflowCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketWorkflowCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketWorkflowCountWithHttpInfo(array $params = [])
+    public function getTicketWorkflowCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketWorkflowCountRequest($params);
+        $request = $this->getTicketWorkflowCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -18374,18 +18038,16 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketWorkflowCountAsync(array $params = [])
+    public function getTicketWorkflowCountAsync()
     {
-        return $this->getTicketWorkflowCountAsyncWithHttpInfo($params)
+        return $this->getTicketWorkflowCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -18396,22 +18058,20 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketWorkflowCountAsyncWithHttpInfo(array $params = [])
+    public function getTicketWorkflowCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketWorkflowCountRequest($params);
+        $request = $this->getTicketWorkflowCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -18431,7 +18091,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -18451,14 +18111,11 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketWorkflowCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketWorkflowCountRequest(array $params = [])
+    protected function getTicketWorkflowCountRequest()
     {
         
 
@@ -18469,6 +18126,7 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -18543,44 +18201,43 @@ class TicketsApi
     /**
      * Operation getTicketWorkflows
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketWorkflows(array $params = [])
+    public function getTicketWorkflows(array $filters = [])
     {
-        list($response) = $this->getTicketWorkflowsWithHttpInfo($params);
+        list($response) = $this->getTicketWorkflowsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketWorkflowsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketWorkflowsWithHttpInfo(array $params = [])
+    public function getTicketWorkflowsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketWorkflowsRequest($params);
+        $request = $this->getTicketWorkflowsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -18654,22 +18311,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketWorkflowsAsync(array $params = [])
+    public function getTicketWorkflowsAsync(array $filters = [])
     {
-        return $this->getTicketWorkflowsAsyncWithHttpInfo($params)
+        return $this->getTicketWorkflowsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -18680,26 +18337,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketWorkflowsAsyncWithHttpInfo(array $params = [])
+    public function getTicketWorkflowsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketWorkflowsRequest($params);
+        $request = $this->getTicketWorkflowsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -18719,7 +18376,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -18739,30 +18396,29 @@ class TicketsApi
     /**
      * Create request for operation 'getTicketWorkflows'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketWorkflowsRequest(array $params = [])
+    protected function getTicketWorkflowsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -18773,21 +18429,22 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -18863,8 +18520,7 @@ class TicketsApi
     /**
      * Operation getTickets
      *
-     *
-     * Parameters:
+     * Filters:
      *   "order_by" string  tickets list sort (optional)
      *   "ids" string  ticket list to fetch, comma separated list (optional)
      *   "order_dir" string  tickets list sort order (optional)
@@ -18885,22 +18541,22 @@ class TicketsApi
      *   "sla_status" int  sla status filter (optional)
      *   "ticket_field_id" string  *                  Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                  ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTickets(array $params = [])
+    public function getTickets(array $filters = [])
     {
-        list($response) = $this->getTicketsWithHttpInfo($params);
+        list($response) = $this->getTicketsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTicketsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  tickets list sort (optional)
      *   "ids" string  ticket list to fetch, comma separated list (optional)
      *   "order_dir" string  tickets list sort order (optional)
@@ -18921,16 +18577,16 @@ class TicketsApi
      *   "sla_status" int  sla status filter (optional)
      *   "ticket_field_id" string  *                  Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                  ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketsWithHttpInfo(array $params = [])
+    public function getTicketsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketsRequest($params);
+        $request = $this->getTicketsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -19004,7 +18660,7 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  tickets list sort (optional)
      *   "ids" string  ticket list to fetch, comma separated list (optional)
      *   "order_dir" string  tickets list sort order (optional)
@@ -19025,16 +18681,16 @@ class TicketsApi
      *   "sla_status" int  sla status filter (optional)
      *   "ticket_field_id" string  *                  Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                  ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketsAsync(array $params = [])
+    public function getTicketsAsync(array $filters = [])
     {
-        return $this->getTicketsAsyncWithHttpInfo($params)
+        return $this->getTicketsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -19045,7 +18701,7 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  tickets list sort (optional)
      *   "ids" string  ticket list to fetch, comma separated list (optional)
      *   "order_dir" string  tickets list sort order (optional)
@@ -19066,20 +18722,20 @@ class TicketsApi
      *   "sla_status" int  sla status filter (optional)
      *   "ticket_field_id" string  *                  Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                  ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketsAsyncWithHttpInfo(array $params = [])
+    public function getTicketsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketsRequest($params);
+        $request = $this->getTicketsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -19099,7 +18755,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -19119,7 +18775,7 @@ class TicketsApi
     /**
      * Create request for operation 'getTickets'
      *
-     * Parameters:
+     * Filters:
      *   "order_by" string  tickets list sort (optional)
      *   "ids" string  ticket list to fetch, comma separated list (optional)
      *   "order_dir" string  tickets list sort order (optional)
@@ -19140,69 +18796,68 @@ class TicketsApi
      *   "sla_status" int  sla status filter (optional)
      *   "ticket_field_id" string  *                  Custom ticket field filter. To filter by a custom field with ID&#x3D;1 you need to add      *                  ?ticket_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketsRequest(array $params = [])
+    protected function getTicketsRequest(array $filters = [])
     {
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['order_dir'])) {
-            $params['order_dir'] = null;
+        if (!isset($filters['order_dir'])) {
+            $filters['order_dir'] = null;
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['filter'])) {
-            $params['filter'] = null;
+        if (!isset($filters['filter'])) {
+            $filters['filter'] = null;
         }
-        if (!isset($params['labels'])) {
-            $params['labels'] = null;
+        if (!isset($filters['labels'])) {
+            $filters['labels'] = null;
         }
-        if (!isset($params['star'])) {
-            $params['star'] = null;
+        if (!isset($filters['star'])) {
+            $filters['star'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['not_status'])) {
-            $params['not_status'] = null;
+        if (!isset($filters['not_status'])) {
+            $filters['not_status'] = null;
         }
-        if (!isset($params['agent'])) {
-            $params['agent'] = null;
+        if (!isset($filters['agent'])) {
+            $filters['agent'] = null;
         }
-        if (!isset($params['person'])) {
-            $params['person'] = null;
+        if (!isset($filters['person'])) {
+            $filters['person'] = null;
         }
-        if (!isset($params['language'])) {
-            $params['language'] = null;
+        if (!isset($filters['language'])) {
+            $filters['language'] = null;
         }
-        if (!isset($params['organization'])) {
-            $params['organization'] = null;
+        if (!isset($filters['organization'])) {
+            $filters['organization'] = null;
         }
-        if (!isset($params['problem'])) {
-            $params['problem'] = null;
+        if (!isset($filters['problem'])) {
+            $filters['problem'] = null;
         }
-        if (!isset($params['department'])) {
-            $params['department'] = null;
+        if (!isset($filters['department'])) {
+            $filters['department'] = null;
         }
-        if (!isset($params['sla'])) {
-            $params['sla'] = null;
+        if (!isset($filters['sla'])) {
+            $filters['sla'] = null;
         }
-        if (!isset($params['sla_status'])) {
-            $params['sla_status'] = null;
+        if (!isset($filters['sla_status'])) {
+            $filters['sla_status'] = null;
         }
-        if (!isset($params['ticket_field_id'])) {
-            $params['ticket_field_id'] = null;
+        if (!isset($filters['ticket_field_id'])) {
+            $filters['ticket_field_id'] = null;
         }
         
 
@@ -19213,84 +18868,85 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['order_dir'] !== null) {
-            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($params['order_dir']);
+        if ($filters['order_dir'] !== null) {
+            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($filters['order_dir']);
         }
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['filter'] !== null) {
-            $queryParams['filter'] = ObjectSerializer::toQueryValue($params['filter']);
+        if ($filters['filter'] !== null) {
+            $queryParams['filter'] = ObjectSerializer::toQueryValue($filters['filter']);
         }
         // query params
-        if (is_array($params['labels'])) {
-            $params['labels'] = ObjectSerializer::serializeCollection($params['labels'], 'csv', true);
+        if (is_array($filters['labels'])) {
+            $filters['labels'] = ObjectSerializer::serializeCollection($filters['labels'], 'csv', true);
         }
-        if ($params['labels'] !== null) {
-            $queryParams['labels'] = ObjectSerializer::toQueryValue($params['labels']);
-        }
-        // query params
-        if ($params['star'] !== null) {
-            $queryParams['star'] = ObjectSerializer::toQueryValue($params['star']);
+        if ($filters['labels'] !== null) {
+            $queryParams['labels'] = ObjectSerializer::toQueryValue($filters['labels']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['star'] !== null) {
+            $queryParams['star'] = ObjectSerializer::toQueryValue($filters['star']);
         }
         // query params
-        if ($params['not_status'] !== null) {
-            $queryParams['not_status'] = ObjectSerializer::toQueryValue($params['not_status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['agent'] !== null) {
-            $queryParams['agent'] = ObjectSerializer::toQueryValue($params['agent']);
+        if ($filters['not_status'] !== null) {
+            $queryParams['not_status'] = ObjectSerializer::toQueryValue($filters['not_status']);
         }
         // query params
-        if ($params['person'] !== null) {
-            $queryParams['person'] = ObjectSerializer::toQueryValue($params['person']);
+        if ($filters['agent'] !== null) {
+            $queryParams['agent'] = ObjectSerializer::toQueryValue($filters['agent']);
         }
         // query params
-        if ($params['language'] !== null) {
-            $queryParams['language'] = ObjectSerializer::toQueryValue($params['language']);
+        if ($filters['person'] !== null) {
+            $queryParams['person'] = ObjectSerializer::toQueryValue($filters['person']);
         }
         // query params
-        if ($params['organization'] !== null) {
-            $queryParams['organization'] = ObjectSerializer::toQueryValue($params['organization']);
+        if ($filters['language'] !== null) {
+            $queryParams['language'] = ObjectSerializer::toQueryValue($filters['language']);
         }
         // query params
-        if ($params['problem'] !== null) {
-            $queryParams['problem'] = ObjectSerializer::toQueryValue($params['problem']);
+        if ($filters['organization'] !== null) {
+            $queryParams['organization'] = ObjectSerializer::toQueryValue($filters['organization']);
         }
         // query params
-        if ($params['department'] !== null) {
-            $queryParams['department'] = ObjectSerializer::toQueryValue($params['department']);
+        if ($filters['problem'] !== null) {
+            $queryParams['problem'] = ObjectSerializer::toQueryValue($filters['problem']);
         }
         // query params
-        if ($params['sla'] !== null) {
-            $queryParams['sla'] = ObjectSerializer::toQueryValue($params['sla']);
+        if ($filters['department'] !== null) {
+            $queryParams['department'] = ObjectSerializer::toQueryValue($filters['department']);
         }
         // query params
-        if ($params['sla_status'] !== null) {
-            $queryParams['sla_status'] = ObjectSerializer::toQueryValue($params['sla_status']);
+        if ($filters['sla'] !== null) {
+            $queryParams['sla'] = ObjectSerializer::toQueryValue($filters['sla']);
         }
         // query params
-        if ($params['ticket_field_id'] !== null) {
-            $queryParams['ticket_field.{id}'] = ObjectSerializer::toQueryValue($params['ticket_field_id']);
+        if ($filters['sla_status'] !== null) {
+            $queryParams['sla_status'] = ObjectSerializer::toQueryValue($filters['sla_status']);
+        }
+        // query params
+        if ($filters['ticket_field_id'] !== null) {
+            $queryParams['ticket_field.{id}'] = ObjectSerializer::toQueryValue($filters['ticket_field_id']);
         }
 
 
@@ -19366,42 +19022,41 @@ class TicketsApi
     /**
      * Operation setTicketMacroByIdApplyByTicket
      *
-     *
-     * Parameters:
-     *   "id" int  the macro identity (required)
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  the ticket identity (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the macro identity
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setTicketMacroByIdApplyByTicket(array $params = [])
+    public function setTicketMacroByIdApplyByTicket($id, $ticket, array $filters = [])
     {
-        list($response) = $this->setTicketMacroByIdApplyByTicketWithHttpInfo($params);
+        list($response) = $this->setTicketMacroByIdApplyByTicketWithHttpInfo($id, $ticket, $filters);
         return $response;
     }
 
     /**
      * Operation setTicketMacroByIdApplyByTicketWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the macro identity (required)
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  the ticket identity (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the macro identity
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setTicketMacroByIdApplyByTicketWithHttpInfo(array $params = [])
+    public function setTicketMacroByIdApplyByTicketWithHttpInfo($id, $ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setTicketMacroByIdApplyByTicketRequest($params);
+        $request = $this->setTicketMacroByIdApplyByTicketRequest($id, $ticket, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -19483,21 +19138,21 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the macro identity (required)
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  the ticket identity (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the macro identity
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setTicketMacroByIdApplyByTicketAsync(array $params = [])
+    public function setTicketMacroByIdApplyByTicketAsync($id, $ticket, array $filters = [])
     {
-        return $this->setTicketMacroByIdApplyByTicketAsyncWithHttpInfo($params)
+        return $this->setTicketMacroByIdApplyByTicketAsyncWithHttpInfo($id, $ticket, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -19508,25 +19163,25 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the macro identity (required)
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  the ticket identity (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the macro identity
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setTicketMacroByIdApplyByTicketAsyncWithHttpInfo(array $params = [])
+    public function setTicketMacroByIdApplyByTicketAsyncWithHttpInfo($id, $ticket, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setTicketMacroByIdApplyByTicketRequest($params);
+        $request = $this->setTicketMacroByIdApplyByTicketRequest($id, $ticket, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -19546,7 +19201,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -19566,26 +19221,25 @@ class TicketsApi
     /**
      * Create request for operation 'setTicketMacroByIdApplyByTicket'
      *
-     * Parameters:
-     *   "id" int  the macro identity (required)
-     *   "ticket" string   (required)
+     * Filters:
      *   "ticket_id" int  the ticket identity (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the macro identity
+     * @param string $ticket 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setTicketMacroByIdApplyByTicketRequest(array $params = [])
+    protected function setTicketMacroByIdApplyByTicketRequest($id, $ticket, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TicketsApi::setTicketMacroByIdApplyByTicketRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TicketsApi::setTicketMacroByIdApplyByTicketRequest().');
         }
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::setTicketMacroByIdApplyByTicketRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::setTicketMacroByIdApplyByTicketRequest().');
         }
-        if (!isset($params['ticket_id'])) {
-            $params['ticket_id'] = null;
+        if (!isset($filters['ticket_id'])) {
+            $filters['ticket_id'] = null;
         }
         
 
@@ -19596,24 +19250,31 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        
         // query params
-        if ($params['ticket_id'] !== null) {
-            $queryParams['ticketId'] = ObjectSerializer::toQueryValue($params['ticket_id']);
+        if ($filters['ticket_id'] !== null) {
+            $queryParams['ticketId'] = ObjectSerializer::toQueryValue($filters['ticket_id']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -19690,42 +19351,43 @@ class TicketsApi
     /**
      * Operation updateTicketByTicketActionLock
      *
-     *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateTicketByTicketActionLock(array $params = [])
+    public function updateTicketByTicketActionLock($ticket, $force, array $filters = [])
     {
-        list($response) = $this->updateTicketByTicketActionLockWithHttpInfo($params);
+        list($response) = $this->updateTicketByTicketActionLockWithHttpInfo($ticket, $force, $filters);
         return $response;
     }
 
     /**
      * Operation updateTicketByTicketActionLockWithHttpInfo
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateTicketByTicketActionLockWithHttpInfo(array $params = [])
+    public function updateTicketByTicketActionLockWithHttpInfo($ticket, $force, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateTicketByTicketActionLockRequest($params);
+        $request = $this->updateTicketByTicketActionLockRequest($ticket, $force, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -19799,21 +19461,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateTicketByTicketActionLockAsync(array $params = [])
+    public function updateTicketByTicketActionLockAsync($ticket, $force, array $filters = [])
     {
-        return $this->updateTicketByTicketActionLockAsyncWithHttpInfo($params)
+        return $this->updateTicketByTicketActionLockAsyncWithHttpInfo($ticket, $force, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -19824,25 +19487,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateTicketByTicketActionLockAsyncWithHttpInfo(array $params = [])
+    public function updateTicketByTicketActionLockAsyncWithHttpInfo($ticket, $force, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateTicketByTicketActionLockRequest($params);
+        $request = $this->updateTicketByTicketActionLockRequest($ticket, $force, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -19862,7 +19526,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -19882,26 +19546,26 @@ class TicketsApi
     /**
      * Create request for operation 'updateTicketByTicketActionLock'
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateTicketByTicketActionLockRequest(array $params = [])
+    protected function updateTicketByTicketActionLockRequest($ticket, $force, array $filters = [])
     {
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::updateTicketByTicketActionLockRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::updateTicketByTicketActionLockRequest().');
         }
-        if (empty($params['force'])) {
-            throw new \InvalidArgumentException('Missing parameter "force" in TicketsApi::updateTicketByTicketActionLockRequest().');
+        if (empty($force)) {
+            throw new \InvalidArgumentException('Missing parameter "$force" in TicketsApi::updateTicketByTicketActionLockRequest().');
         }
-        if (!isset($params['id'])) {
-            $params['id'] = null;
+        if (!isset($filters['id'])) {
+            $filters['id'] = null;
         }
         
 
@@ -19912,20 +19576,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        if ($force !== null) {
+            $force = ObjectSerializer::toQueryValue($force);
+        }
+        
         // query params
-        if ($params['id'] !== null) {
-            $queryParams['id'] = ObjectSerializer::toQueryValue($params['id']);
+        if ($filters['id'] !== null) {
+            $queryParams['id'] = ObjectSerializer::toQueryValue($filters['id']);
         }
         // query params
-        if ($params['force'] !== null) {
-            $queryParams['force'] = ObjectSerializer::toQueryValue($params['force']);
+        if ($filters['force'] !== null) {
+            $queryParams['force'] = ObjectSerializer::toQueryValue($filters['force']);
         }
 
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }
@@ -20002,42 +19673,43 @@ class TicketsApi
     /**
      * Operation updateTicketByTicketActionUnlock
      *
-     *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateTicketByTicketActionUnlock(array $params = [])
+    public function updateTicketByTicketActionUnlock($ticket, $force, array $filters = [])
     {
-        list($response) = $this->updateTicketByTicketActionUnlockWithHttpInfo($params);
+        list($response) = $this->updateTicketByTicketActionUnlockWithHttpInfo($ticket, $force, $filters);
         return $response;
     }
 
     /**
      * Operation updateTicketByTicketActionUnlockWithHttpInfo
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateTicketByTicketActionUnlockWithHttpInfo(array $params = [])
+    public function updateTicketByTicketActionUnlockWithHttpInfo($ticket, $force, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateTicketByTicketActionUnlockRequest($params);
+        $request = $this->updateTicketByTicketActionUnlockRequest($ticket, $force, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -20111,21 +19783,22 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateTicketByTicketActionUnlockAsync(array $params = [])
+    public function updateTicketByTicketActionUnlockAsync($ticket, $force, array $filters = [])
     {
-        return $this->updateTicketByTicketActionUnlockAsyncWithHttpInfo($params)
+        return $this->updateTicketByTicketActionUnlockAsyncWithHttpInfo($ticket, $force, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -20136,25 +19809,26 @@ class TicketsApi
      *
      * 
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateTicketByTicketActionUnlockAsyncWithHttpInfo(array $params = [])
+    public function updateTicketByTicketActionUnlockAsyncWithHttpInfo($ticket, $force, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateTicketByTicketActionUnlockRequest($params);
+        $request = $this->updateTicketByTicketActionUnlockRequest($ticket, $force, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -20174,7 +19848,7 @@ class TicketsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -20194,26 +19868,26 @@ class TicketsApi
     /**
      * Create request for operation 'updateTicketByTicketActionUnlock'
      *
-     * Parameters:
-     *   "ticket" string   (required)
-     *   "force" bool  force apply (required)
+     * Filters:
      *   "id" int  The id of the resource (optional)
+     *   "force" bool  force apply (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $ticket 
+     * @param bool $force force apply
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateTicketByTicketActionUnlockRequest(array $params = [])
+    protected function updateTicketByTicketActionUnlockRequest($ticket, $force, array $filters = [])
     {
-        if (empty($params['ticket'])) {
-            throw new \InvalidArgumentException('Missing parameter "ticket" in TicketsApi::updateTicketByTicketActionUnlockRequest().');
+        if (empty($ticket)) {
+            throw new \InvalidArgumentException('Missing parameter "$ticket" in TicketsApi::updateTicketByTicketActionUnlockRequest().');
         }
-        if (empty($params['force'])) {
-            throw new \InvalidArgumentException('Missing parameter "force" in TicketsApi::updateTicketByTicketActionUnlockRequest().');
+        if (empty($force)) {
+            throw new \InvalidArgumentException('Missing parameter "$force" in TicketsApi::updateTicketByTicketActionUnlockRequest().');
         }
-        if (!isset($params['id'])) {
-            $params['id'] = null;
+        if (!isset($filters['id'])) {
+            $filters['id'] = null;
         }
         
 
@@ -20224,20 +19898,27 @@ class TicketsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($ticket !== null) {
+            $ticket = ObjectSerializer::toQueryValue($ticket);
+        }
+        if ($force !== null) {
+            $force = ObjectSerializer::toQueryValue($force);
+        }
+        
         // query params
-        if ($params['id'] !== null) {
-            $queryParams['id'] = ObjectSerializer::toQueryValue($params['id']);
+        if ($filters['id'] !== null) {
+            $queryParams['id'] = ObjectSerializer::toQueryValue($filters['id']);
         }
         // query params
-        if ($params['force'] !== null) {
-            $queryParams['force'] = ObjectSerializer::toQueryValue($params['force']);
+        if ($filters['force'] !== null) {
+            $queryParams['force'] = ObjectSerializer::toQueryValue($filters['force']);
         }
 
         // path params
-        if ($params['ticket'] !== null) {
+        if ($ticket !== null) {
             $resourcePath = str_replace(
                 '{' . 'ticket' . '}',
-                ObjectSerializer::toPathValue($params['ticket']),
+                ObjectSerializer::toPathValue($ticket),
                 $resourcePath
             );
         }

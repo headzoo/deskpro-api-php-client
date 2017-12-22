@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **getApiTagById**
-> \DeskPRO\API\Model\Response getApiTagById(array $params = [])
+> \DeskPRO\API\Model\Response getApiTagById(int $id)
 
 
 
@@ -28,13 +28,11 @@ $api = new TagsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of key
-];
+$id = 56; // int | The id of key
 
 try {
-    $result = $api->getApiTagById($params);
-    print_r($result);
+    $result = $api->getApiTagById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -43,9 +41,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of key |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -63,7 +66,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApiTagByIdFlatten**
-> \DeskPRO\API\Model\Response getApiTagByIdFlatten(array $params = [])
+> \DeskPRO\API\Model\Response getApiTagByIdFlatten(int $id)
 
 
 
@@ -81,13 +84,11 @@ $api = new TagsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of key
-];
+$id = 56; // int | The id of key
 
 try {
-    $result = $api->getApiTagByIdFlatten($params);
-    print_r($result);
+    $result = $api->getApiTagByIdFlatten($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -96,9 +97,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of key |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -116,7 +122,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateApiTagById**
-> \DeskPRO\API\Model\Response updateApiTagById(array $params = [])
+> \DeskPRO\API\Model\Response updateApiTagById(int $id, array $filters = [])
 
 
 
@@ -134,15 +140,15 @@ $api = new TagsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of key
+$id = 56; // int | The id of key
+$filters = [
 "action" => "action_example", // string | Tag name
 "value" => true // bool | Allow|deny
 ];
 
 try {
-    $result = $api->updateApiTagById($params);
-    print_r($result);
+    $result = $api->updateApiTagById($id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -151,9 +157,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of key |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **action** | **string**| Tag name | [optional]
  **value** | **bool**| Allow|deny | [optional]
 

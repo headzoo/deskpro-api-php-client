@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **getSettingBrandByBrandPortalDownload**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalDownload(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalDownload(string $brand)
 
 
 
@@ -31,13 +31,11 @@ $api = new PortalSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandPortalDownload($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandPortalDownload($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -46,9 +44,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -66,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandPortalFeedback**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalFeedback(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalFeedback(string $brand)
 
 
 
@@ -84,13 +87,11 @@ $api = new PortalSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandPortalFeedback($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandPortalFeedback($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -99,9 +100,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -119,7 +125,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandPortalGeneral**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalGeneral(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalGeneral(string $brand)
 
 
 
@@ -137,13 +143,11 @@ $api = new PortalSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandPortalGeneral($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandPortalGeneral($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -152,9 +156,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -172,7 +181,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandPortalGuide**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalGuide(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalGuide(string $brand)
 
 
 
@@ -190,13 +199,11 @@ $api = new PortalSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandPortalGuide($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandPortalGuide($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -205,9 +212,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -225,7 +237,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandPortalKb**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalKb(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalKb(string $brand)
 
 
 
@@ -243,13 +255,11 @@ $api = new PortalSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandPortalKb($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandPortalKb($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -258,9 +268,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -278,7 +293,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSettingBrandByBrandPortalNews**
-> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalNews(array $params = [])
+> \DeskPRO\API\Model\Response getSettingBrandByBrandPortalNews(string $brand)
 
 
 
@@ -296,13 +311,11 @@ $api = new PortalSettingsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"brand" => "brand_example" // string | 
-];
+$brand = "brand_example"; // string | 
 
 try {
-    $result = $api->getSettingBrandByBrandPortalNews($params);
-    print_r($result);
+    $result = $api->getSettingBrandByBrandPortalNews($brand);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -311,9 +324,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **brand** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

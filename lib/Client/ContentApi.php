@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class ContentApi
      * Operation deleteArticleById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteArticleById(array $params = [])
+    public function deleteArticleById($id)
     {
-        list($response) = $this->deleteArticleByIdWithHttpInfo($params);
+        list($response) = $this->deleteArticleByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteArticleByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteArticleByIdWithHttpInfo(array $params = [])
+    public function deleteArticleByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticleByIdRequest($params);
+        $request = $this->deleteArticleByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticleByIdAsync(array $params = [])
+    public function deleteArticleByIdAsync($id)
     {
-        return $this->deleteArticleByIdAsyncWithHttpInfo($params)
+        return $this->deleteArticleByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticleByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteArticleByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticleByIdRequest($params);
+        $request = $this->deleteArticleByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteArticleById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteArticleByIdRequest(array $params = [])
+    protected function deleteArticleByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteArticleByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteArticleByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class ContentApi
      * Operation deleteArticleCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteArticleCategoryById(array $params = [])
+    public function deleteArticleCategoryById($id)
     {
-        list($response) = $this->deleteArticleCategoryByIdWithHttpInfo($params);
+        list($response) = $this->deleteArticleCategoryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteArticleCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteArticleCategoryByIdWithHttpInfo(array $params = [])
+    public function deleteArticleCategoryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticleCategoryByIdRequest($params);
+        $request = $this->deleteArticleCategoryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticleCategoryByIdAsync(array $params = [])
+    public function deleteArticleCategoryByIdAsync($id)
     {
-        return $this->deleteArticleCategoryByIdAsyncWithHttpInfo($params)
+        return $this->deleteArticleCategoryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticleCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteArticleCategoryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticleCategoryByIdRequest($params);
+        $request = $this->deleteArticleCategoryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteArticleCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteArticleCategoryByIdRequest(array $params = [])
+    protected function deleteArticleCategoryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteArticleCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteArticleCategoryByIdRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -692,37 +677,32 @@ class ContentApi
      * Operation deleteArticleCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteArticleCommentById(array $params = [])
+    public function deleteArticleCommentById($id)
     {
-        list($response) = $this->deleteArticleCommentByIdWithHttpInfo($params);
+        list($response) = $this->deleteArticleCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteArticleCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteArticleCommentByIdWithHttpInfo(array $params = [])
+    public function deleteArticleCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticleCommentByIdRequest($params);
+        $request = $this->deleteArticleCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -796,19 +776,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticleCommentByIdAsync(array $params = [])
+    public function deleteArticleCommentByIdAsync($id)
     {
-        return $this->deleteArticleCommentByIdAsyncWithHttpInfo($params)
+        return $this->deleteArticleCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -819,23 +797,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticleCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteArticleCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticleCommentByIdRequest($params);
+        $request = $this->deleteArticleCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -855,7 +831,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -875,18 +851,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteArticleCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteArticleCommentByIdRequest(array $params = [])
+    protected function deleteArticleCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteArticleCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteArticleCommentByIdRequest().');
         }
         
 
@@ -897,12 +870,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -980,37 +957,32 @@ class ContentApi
      * Operation deleteArticlePendingCreateById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteArticlePendingCreateById(array $params = [])
+    public function deleteArticlePendingCreateById($id)
     {
-        list($response) = $this->deleteArticlePendingCreateByIdWithHttpInfo($params);
+        list($response) = $this->deleteArticlePendingCreateByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteArticlePendingCreateByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteArticlePendingCreateByIdWithHttpInfo(array $params = [])
+    public function deleteArticlePendingCreateByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticlePendingCreateByIdRequest($params);
+        $request = $this->deleteArticlePendingCreateByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1084,19 +1056,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticlePendingCreateByIdAsync(array $params = [])
+    public function deleteArticlePendingCreateByIdAsync($id)
     {
-        return $this->deleteArticlePendingCreateByIdAsyncWithHttpInfo($params)
+        return $this->deleteArticlePendingCreateByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1107,23 +1077,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteArticlePendingCreateByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteArticlePendingCreateByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteArticlePendingCreateByIdRequest($params);
+        $request = $this->deleteArticlePendingCreateByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1143,7 +1111,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1163,18 +1131,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteArticlePendingCreateById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteArticlePendingCreateByIdRequest(array $params = [])
+    protected function deleteArticlePendingCreateByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteArticlePendingCreateByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteArticlePendingCreateByIdRequest().');
         }
         
 
@@ -1185,12 +1150,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1268,37 +1237,32 @@ class ContentApi
      * Operation deleteDownloadById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteDownloadById(array $params = [])
+    public function deleteDownloadById($id)
     {
-        list($response) = $this->deleteDownloadByIdWithHttpInfo($params);
+        list($response) = $this->deleteDownloadByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteDownloadByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteDownloadByIdWithHttpInfo(array $params = [])
+    public function deleteDownloadByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteDownloadByIdRequest($params);
+        $request = $this->deleteDownloadByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1372,19 +1336,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteDownloadByIdAsync(array $params = [])
+    public function deleteDownloadByIdAsync($id)
     {
-        return $this->deleteDownloadByIdAsyncWithHttpInfo($params)
+        return $this->deleteDownloadByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1395,23 +1357,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteDownloadByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteDownloadByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteDownloadByIdRequest($params);
+        $request = $this->deleteDownloadByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1431,7 +1391,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1451,18 +1411,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteDownloadById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteDownloadByIdRequest(array $params = [])
+    protected function deleteDownloadByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteDownloadByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteDownloadByIdRequest().');
         }
         
 
@@ -1473,12 +1430,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1556,37 +1517,32 @@ class ContentApi
      * Operation deleteDownloadCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteDownloadCategoryById(array $params = [])
+    public function deleteDownloadCategoryById($id)
     {
-        list($response) = $this->deleteDownloadCategoryByIdWithHttpInfo($params);
+        list($response) = $this->deleteDownloadCategoryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteDownloadCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteDownloadCategoryByIdWithHttpInfo(array $params = [])
+    public function deleteDownloadCategoryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteDownloadCategoryByIdRequest($params);
+        $request = $this->deleteDownloadCategoryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1660,19 +1616,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteDownloadCategoryByIdAsync(array $params = [])
+    public function deleteDownloadCategoryByIdAsync($id)
     {
-        return $this->deleteDownloadCategoryByIdAsyncWithHttpInfo($params)
+        return $this->deleteDownloadCategoryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1683,23 +1637,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteDownloadCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteDownloadCategoryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteDownloadCategoryByIdRequest($params);
+        $request = $this->deleteDownloadCategoryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1719,7 +1671,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1739,18 +1691,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteDownloadCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteDownloadCategoryByIdRequest(array $params = [])
+    protected function deleteDownloadCategoryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteDownloadCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteDownloadCategoryByIdRequest().');
         }
         
 
@@ -1761,12 +1710,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1844,37 +1797,32 @@ class ContentApi
      * Operation deleteDownloadCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteDownloadCommentById(array $params = [])
+    public function deleteDownloadCommentById($id)
     {
-        list($response) = $this->deleteDownloadCommentByIdWithHttpInfo($params);
+        list($response) = $this->deleteDownloadCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteDownloadCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteDownloadCommentByIdWithHttpInfo(array $params = [])
+    public function deleteDownloadCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteDownloadCommentByIdRequest($params);
+        $request = $this->deleteDownloadCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1948,19 +1896,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteDownloadCommentByIdAsync(array $params = [])
+    public function deleteDownloadCommentByIdAsync($id)
     {
-        return $this->deleteDownloadCommentByIdAsyncWithHttpInfo($params)
+        return $this->deleteDownloadCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1971,23 +1917,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteDownloadCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteDownloadCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteDownloadCommentByIdRequest($params);
+        $request = $this->deleteDownloadCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2007,7 +1951,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2027,18 +1971,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteDownloadCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteDownloadCommentByIdRequest(array $params = [])
+    protected function deleteDownloadCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteDownloadCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteDownloadCommentByIdRequest().');
         }
         
 
@@ -2049,12 +1990,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2132,37 +2077,32 @@ class ContentApi
      * Operation deleteGuideById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteGuideById(array $params = [])
+    public function deleteGuideById($id)
     {
-        list($response) = $this->deleteGuideByIdWithHttpInfo($params);
+        list($response) = $this->deleteGuideByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteGuideByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteGuideByIdWithHttpInfo(array $params = [])
+    public function deleteGuideByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteGuideByIdRequest($params);
+        $request = $this->deleteGuideByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2236,19 +2176,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteGuideByIdAsync(array $params = [])
+    public function deleteGuideByIdAsync($id)
     {
-        return $this->deleteGuideByIdAsyncWithHttpInfo($params)
+        return $this->deleteGuideByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2259,23 +2197,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteGuideByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteGuideByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteGuideByIdRequest($params);
+        $request = $this->deleteGuideByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2295,7 +2231,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2315,18 +2251,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteGuideById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteGuideByIdRequest(array $params = [])
+    protected function deleteGuideByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteGuideByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteGuideByIdRequest().');
         }
         
 
@@ -2337,12 +2270,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2420,37 +2357,32 @@ class ContentApi
      * Operation deleteNewsById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteNewsById(array $params = [])
+    public function deleteNewsById($id)
     {
-        list($response) = $this->deleteNewsByIdWithHttpInfo($params);
+        list($response) = $this->deleteNewsByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteNewsByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteNewsByIdWithHttpInfo(array $params = [])
+    public function deleteNewsByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewsByIdRequest($params);
+        $request = $this->deleteNewsByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2524,19 +2456,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewsByIdAsync(array $params = [])
+    public function deleteNewsByIdAsync($id)
     {
-        return $this->deleteNewsByIdAsyncWithHttpInfo($params)
+        return $this->deleteNewsByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2547,23 +2477,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewsByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteNewsByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewsByIdRequest($params);
+        $request = $this->deleteNewsByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2583,7 +2511,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2603,18 +2531,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteNewsById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteNewsByIdRequest(array $params = [])
+    protected function deleteNewsByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteNewsByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteNewsByIdRequest().');
         }
         
 
@@ -2625,12 +2550,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2708,37 +2637,32 @@ class ContentApi
      * Operation deleteNewsCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteNewsCategoryById(array $params = [])
+    public function deleteNewsCategoryById($id)
     {
-        list($response) = $this->deleteNewsCategoryByIdWithHttpInfo($params);
+        list($response) = $this->deleteNewsCategoryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteNewsCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteNewsCategoryByIdWithHttpInfo(array $params = [])
+    public function deleteNewsCategoryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewsCategoryByIdRequest($params);
+        $request = $this->deleteNewsCategoryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2812,19 +2736,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewsCategoryByIdAsync(array $params = [])
+    public function deleteNewsCategoryByIdAsync($id)
     {
-        return $this->deleteNewsCategoryByIdAsyncWithHttpInfo($params)
+        return $this->deleteNewsCategoryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2835,23 +2757,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewsCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteNewsCategoryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewsCategoryByIdRequest($params);
+        $request = $this->deleteNewsCategoryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2871,7 +2791,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2891,18 +2811,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteNewsCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteNewsCategoryByIdRequest(array $params = [])
+    protected function deleteNewsCategoryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteNewsCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteNewsCategoryByIdRequest().');
         }
         
 
@@ -2913,12 +2830,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2996,37 +2917,32 @@ class ContentApi
      * Operation deleteNewsCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteNewsCommentById(array $params = [])
+    public function deleteNewsCommentById($id)
     {
-        list($response) = $this->deleteNewsCommentByIdWithHttpInfo($params);
+        list($response) = $this->deleteNewsCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteNewsCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteNewsCommentByIdWithHttpInfo(array $params = [])
+    public function deleteNewsCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewsCommentByIdRequest($params);
+        $request = $this->deleteNewsCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3100,19 +3016,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewsCommentByIdAsync(array $params = [])
+    public function deleteNewsCommentByIdAsync($id)
     {
-        return $this->deleteNewsCommentByIdAsyncWithHttpInfo($params)
+        return $this->deleteNewsCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3123,23 +3037,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteNewsCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteNewsCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteNewsCommentByIdRequest($params);
+        $request = $this->deleteNewsCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3159,7 +3071,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3179,18 +3091,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteNewsCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteNewsCommentByIdRequest(array $params = [])
+    protected function deleteNewsCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteNewsCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteNewsCommentByIdRequest().');
         }
         
 
@@ -3201,12 +3110,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -3284,37 +3197,32 @@ class ContentApi
      * Operation deleteTopicById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteTopicById(array $params = [])
+    public function deleteTopicById($id)
     {
-        list($response) = $this->deleteTopicByIdWithHttpInfo($params);
+        list($response) = $this->deleteTopicByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteTopicByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTopicByIdWithHttpInfo(array $params = [])
+    public function deleteTopicByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTopicByIdRequest($params);
+        $request = $this->deleteTopicByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3388,19 +3296,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTopicByIdAsync(array $params = [])
+    public function deleteTopicByIdAsync($id)
     {
-        return $this->deleteTopicByIdAsyncWithHttpInfo($params)
+        return $this->deleteTopicByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3411,23 +3317,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTopicByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteTopicByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteTopicByIdRequest($params);
+        $request = $this->deleteTopicByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3447,7 +3351,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3467,18 +3371,15 @@ class ContentApi
     /**
      * Create request for operation 'deleteTopicById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteTopicByIdRequest(array $params = [])
+    protected function deleteTopicByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::deleteTopicByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::deleteTopicByIdRequest().');
         }
         
 
@@ -3489,12 +3390,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -3572,37 +3477,32 @@ class ContentApi
      * Operation getArticleById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleById(array $params = [])
+    public function getArticleById($id)
     {
-        list($response) = $this->getArticleByIdWithHttpInfo($params);
+        list($response) = $this->getArticleByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getArticleByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleByIdWithHttpInfo(array $params = [])
+    public function getArticleByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleByIdRequest($params);
+        $request = $this->getArticleByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3676,19 +3576,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleByIdAsync(array $params = [])
+    public function getArticleByIdAsync($id)
     {
-        return $this->getArticleByIdAsyncWithHttpInfo($params)
+        return $this->getArticleByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3699,23 +3597,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleByIdAsyncWithHttpInfo(array $params = [])
+    public function getArticleByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleByIdRequest($params);
+        $request = $this->getArticleByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3735,7 +3631,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3755,18 +3651,15 @@ class ContentApi
     /**
      * Create request for operation 'getArticleById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleByIdRequest(array $params = [])
+    protected function getArticleByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getArticleByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getArticleByIdRequest().');
         }
         
 
@@ -3777,12 +3670,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -3859,44 +3756,43 @@ class ContentApi
     /**
      * Operation getArticleCategories
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleCategories(array $params = [])
+    public function getArticleCategories(array $filters = [])
     {
-        list($response) = $this->getArticleCategoriesWithHttpInfo($params);
+        list($response) = $this->getArticleCategoriesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getArticleCategoriesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleCategoriesWithHttpInfo(array $params = [])
+    public function getArticleCategoriesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCategoriesRequest($params);
+        $request = $this->getArticleCategoriesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3970,22 +3866,22 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCategoriesAsync(array $params = [])
+    public function getArticleCategoriesAsync(array $filters = [])
     {
-        return $this->getArticleCategoriesAsyncWithHttpInfo($params)
+        return $this->getArticleCategoriesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3996,26 +3892,26 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCategoriesAsyncWithHttpInfo(array $params = [])
+    public function getArticleCategoriesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCategoriesRequest($params);
+        $request = $this->getArticleCategoriesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4035,7 +3931,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4055,30 +3951,29 @@ class ContentApi
     /**
      * Create request for operation 'getArticleCategories'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleCategoriesRequest(array $params = [])
+    protected function getArticleCategoriesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -4089,21 +3984,22 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -4180,37 +4076,32 @@ class ContentApi
      * Operation getArticleCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleCategoryById(array $params = [])
+    public function getArticleCategoryById($id)
     {
-        list($response) = $this->getArticleCategoryByIdWithHttpInfo($params);
+        list($response) = $this->getArticleCategoryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getArticleCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleCategoryByIdWithHttpInfo(array $params = [])
+    public function getArticleCategoryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCategoryByIdRequest($params);
+        $request = $this->getArticleCategoryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4284,19 +4175,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCategoryByIdAsync(array $params = [])
+    public function getArticleCategoryByIdAsync($id)
     {
-        return $this->getArticleCategoryByIdAsyncWithHttpInfo($params)
+        return $this->getArticleCategoryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4307,23 +4196,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function getArticleCategoryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCategoryByIdRequest($params);
+        $request = $this->getArticleCategoryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4343,7 +4230,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4363,18 +4250,15 @@ class ContentApi
     /**
      * Create request for operation 'getArticleCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleCategoryByIdRequest(array $params = [])
+    protected function getArticleCategoryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getArticleCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getArticleCategoryByIdRequest().');
         }
         
 
@@ -4385,12 +4269,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -4468,35 +4356,30 @@ class ContentApi
      * Operation getArticleCategoryCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleCategoryCount(array $params = [])
+    public function getArticleCategoryCount()
     {
-        list($response) = $this->getArticleCategoryCountWithHttpInfo($params);
+        list($response) = $this->getArticleCategoryCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getArticleCategoryCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleCategoryCountWithHttpInfo(array $params = [])
+    public function getArticleCategoryCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCategoryCountRequest($params);
+        $request = $this->getArticleCategoryCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -4570,18 +4453,16 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCategoryCountAsync(array $params = [])
+    public function getArticleCategoryCountAsync()
     {
-        return $this->getArticleCategoryCountAsyncWithHttpInfo($params)
+        return $this->getArticleCategoryCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4592,22 +4473,20 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCategoryCountAsyncWithHttpInfo(array $params = [])
+    public function getArticleCategoryCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCategoryCountRequest($params);
+        $request = $this->getArticleCategoryCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4627,7 +4506,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4647,14 +4526,11 @@ class ContentApi
     /**
      * Create request for operation 'getArticleCategoryCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleCategoryCountRequest(array $params = [])
+    protected function getArticleCategoryCountRequest()
     {
         
 
@@ -4665,6 +4541,7 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -4740,37 +4617,32 @@ class ContentApi
      * Operation getArticleCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleCommentById(array $params = [])
+    public function getArticleCommentById($id)
     {
-        list($response) = $this->getArticleCommentByIdWithHttpInfo($params);
+        list($response) = $this->getArticleCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getArticleCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleCommentByIdWithHttpInfo(array $params = [])
+    public function getArticleCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCommentByIdRequest($params);
+        $request = $this->getArticleCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4844,19 +4716,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCommentByIdAsync(array $params = [])
+    public function getArticleCommentByIdAsync($id)
     {
-        return $this->getArticleCommentByIdAsyncWithHttpInfo($params)
+        return $this->getArticleCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4867,23 +4737,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function getArticleCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCommentByIdRequest($params);
+        $request = $this->getArticleCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4903,7 +4771,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4923,18 +4791,15 @@ class ContentApi
     /**
      * Create request for operation 'getArticleCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleCommentByIdRequest(array $params = [])
+    protected function getArticleCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getArticleCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getArticleCommentByIdRequest().');
         }
         
 
@@ -4945,12 +4810,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -5027,8 +4896,7 @@ class ContentApi
     /**
      * Operation getArticleCommentCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -5037,22 +4905,22 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleCommentCount(array $params = [])
+    public function getArticleCommentCount(array $filters = [])
     {
-        list($response) = $this->getArticleCommentCountWithHttpInfo($params);
+        list($response) = $this->getArticleCommentCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getArticleCommentCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -5061,16 +4929,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleCommentCountWithHttpInfo(array $params = [])
+    public function getArticleCommentCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCommentCountRequest($params);
+        $request = $this->getArticleCommentCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5144,7 +5012,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -5153,16 +5021,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCommentCountAsync(array $params = [])
+    public function getArticleCommentCountAsync(array $filters = [])
     {
-        return $this->getArticleCommentCountAsyncWithHttpInfo($params)
+        return $this->getArticleCommentCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5173,7 +5041,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -5182,20 +5050,20 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCommentCountAsyncWithHttpInfo(array $params = [])
+    public function getArticleCommentCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCommentCountRequest($params);
+        $request = $this->getArticleCommentCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5215,7 +5083,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5235,7 +5103,7 @@ class ContentApi
     /**
      * Create request for operation 'getArticleCommentCount'
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -5244,33 +5112,32 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleCommentCountRequest(array $params = [])
+    protected function getArticleCommentCountRequest(array $filters = [])
     {
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['is_reviewed'])) {
-            $params['is_reviewed'] = null;
+        if (!isset($filters['is_reviewed'])) {
+            $filters['is_reviewed'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['article'])) {
-            $params['article'] = null;
+        if (!isset($filters['article'])) {
+            $filters['article'] = null;
         }
-        if (!isset($params['download'])) {
-            $params['download'] = null;
+        if (!isset($filters['download'])) {
+            $filters['download'] = null;
         }
-        if (!isset($params['news'])) {
-            $params['news'] = null;
+        if (!isset($filters['news'])) {
+            $filters['news'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -5281,33 +5148,34 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['is_reviewed'] !== null) {
-            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($params['is_reviewed']);
+        if ($filters['is_reviewed'] !== null) {
+            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($filters['is_reviewed']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['article'] !== null) {
-            $queryParams['article'] = ObjectSerializer::toQueryValue($params['article']);
+        if ($filters['article'] !== null) {
+            $queryParams['article'] = ObjectSerializer::toQueryValue($filters['article']);
         }
         // query params
-        if ($params['download'] !== null) {
-            $queryParams['download'] = ObjectSerializer::toQueryValue($params['download']);
+        if ($filters['download'] !== null) {
+            $queryParams['download'] = ObjectSerializer::toQueryValue($filters['download']);
         }
         // query params
-        if ($params['news'] !== null) {
-            $queryParams['news'] = ObjectSerializer::toQueryValue($params['news']);
+        if ($filters['news'] !== null) {
+            $queryParams['news'] = ObjectSerializer::toQueryValue($filters['news']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
 
@@ -5383,8 +5251,7 @@ class ContentApi
     /**
      * Operation getArticleComments
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5397,22 +5264,22 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleComments(array $params = [])
+    public function getArticleComments(array $filters = [])
     {
-        list($response) = $this->getArticleCommentsWithHttpInfo($params);
+        list($response) = $this->getArticleCommentsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getArticleCommentsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5425,16 +5292,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleCommentsWithHttpInfo(array $params = [])
+    public function getArticleCommentsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCommentsRequest($params);
+        $request = $this->getArticleCommentsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5508,7 +5375,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5521,16 +5388,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCommentsAsync(array $params = [])
+    public function getArticleCommentsAsync(array $filters = [])
     {
-        return $this->getArticleCommentsAsyncWithHttpInfo($params)
+        return $this->getArticleCommentsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5541,7 +5408,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5554,20 +5421,20 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCommentsAsyncWithHttpInfo(array $params = [])
+    public function getArticleCommentsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCommentsRequest($params);
+        $request = $this->getArticleCommentsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5587,7 +5454,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5607,7 +5474,7 @@ class ContentApi
     /**
      * Create request for operation 'getArticleComments'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5620,45 +5487,44 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleCommentsRequest(array $params = [])
+    protected function getArticleCommentsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['is_reviewed'])) {
-            $params['is_reviewed'] = null;
+        if (!isset($filters['is_reviewed'])) {
+            $filters['is_reviewed'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['article'])) {
-            $params['article'] = null;
+        if (!isset($filters['article'])) {
+            $filters['article'] = null;
         }
-        if (!isset($params['download'])) {
-            $params['download'] = null;
+        if (!isset($filters['download'])) {
+            $filters['download'] = null;
         }
-        if (!isset($params['news'])) {
-            $params['news'] = null;
+        if (!isset($filters['news'])) {
+            $filters['news'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
         
 
@@ -5669,49 +5535,50 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['is_reviewed'] !== null) {
-            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($params['is_reviewed']);
+        if ($filters['is_reviewed'] !== null) {
+            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($filters['is_reviewed']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['article'] !== null) {
-            $queryParams['article'] = ObjectSerializer::toQueryValue($params['article']);
+        if ($filters['article'] !== null) {
+            $queryParams['article'] = ObjectSerializer::toQueryValue($filters['article']);
         }
         // query params
-        if ($params['download'] !== null) {
-            $queryParams['download'] = ObjectSerializer::toQueryValue($params['download']);
+        if ($filters['download'] !== null) {
+            $queryParams['download'] = ObjectSerializer::toQueryValue($filters['download']);
         }
         // query params
-        if ($params['news'] !== null) {
-            $queryParams['news'] = ObjectSerializer::toQueryValue($params['news']);
+        if ($filters['news'] !== null) {
+            $queryParams['news'] = ObjectSerializer::toQueryValue($filters['news']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
 
 
@@ -5787,8 +5654,7 @@ class ContentApi
     /**
      * Operation getArticleCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -5799,22 +5665,22 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticleCount(array $params = [])
+    public function getArticleCount(array $filters = [])
     {
-        list($response) = $this->getArticleCountWithHttpInfo($params);
+        list($response) = $this->getArticleCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getArticleCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -5825,16 +5691,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticleCountWithHttpInfo(array $params = [])
+    public function getArticleCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCountRequest($params);
+        $request = $this->getArticleCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5908,7 +5774,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -5919,16 +5785,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCountAsync(array $params = [])
+    public function getArticleCountAsync(array $filters = [])
     {
-        return $this->getArticleCountAsyncWithHttpInfo($params)
+        return $this->getArticleCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5939,7 +5805,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -5950,20 +5816,20 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticleCountAsyncWithHttpInfo(array $params = [])
+    public function getArticleCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticleCountRequest($params);
+        $request = $this->getArticleCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5983,7 +5849,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6003,7 +5869,7 @@ class ContentApi
     /**
      * Create request for operation 'getArticleCount'
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -6014,39 +5880,38 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticleCountRequest(array $params = [])
+    protected function getArticleCountRequest(array $filters = [])
     {
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
         
 
@@ -6057,41 +5922,42 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
 
 
@@ -6168,37 +6034,32 @@ class ContentApi
      * Operation getArticlePendingCreateById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticlePendingCreateById(array $params = [])
+    public function getArticlePendingCreateById($id)
     {
-        list($response) = $this->getArticlePendingCreateByIdWithHttpInfo($params);
+        list($response) = $this->getArticlePendingCreateByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getArticlePendingCreateByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticlePendingCreateByIdWithHttpInfo(array $params = [])
+    public function getArticlePendingCreateByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlePendingCreateByIdRequest($params);
+        $request = $this->getArticlePendingCreateByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6272,19 +6133,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlePendingCreateByIdAsync(array $params = [])
+    public function getArticlePendingCreateByIdAsync($id)
     {
-        return $this->getArticlePendingCreateByIdAsyncWithHttpInfo($params)
+        return $this->getArticlePendingCreateByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6295,23 +6154,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlePendingCreateByIdAsyncWithHttpInfo(array $params = [])
+    public function getArticlePendingCreateByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlePendingCreateByIdRequest($params);
+        $request = $this->getArticlePendingCreateByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6331,7 +6188,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6351,18 +6208,15 @@ class ContentApi
     /**
      * Create request for operation 'getArticlePendingCreateById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticlePendingCreateByIdRequest(array $params = [])
+    protected function getArticlePendingCreateByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getArticlePendingCreateByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getArticlePendingCreateByIdRequest().');
         }
         
 
@@ -6373,12 +6227,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -6455,38 +6313,37 @@ class ContentApi
     /**
      * Operation getArticlePendingCreateCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "assigned_person" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticlePendingCreateCount(array $params = [])
+    public function getArticlePendingCreateCount(array $filters = [])
     {
-        list($response) = $this->getArticlePendingCreateCountWithHttpInfo($params);
+        list($response) = $this->getArticlePendingCreateCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getArticlePendingCreateCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "assigned_person" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticlePendingCreateCountWithHttpInfo(array $params = [])
+    public function getArticlePendingCreateCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlePendingCreateCountRequest($params);
+        $request = $this->getArticlePendingCreateCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6560,19 +6417,19 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "assigned_person" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlePendingCreateCountAsync(array $params = [])
+    public function getArticlePendingCreateCountAsync(array $filters = [])
     {
-        return $this->getArticlePendingCreateCountAsyncWithHttpInfo($params)
+        return $this->getArticlePendingCreateCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6583,23 +6440,23 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "assigned_person" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlePendingCreateCountAsyncWithHttpInfo(array $params = [])
+    public function getArticlePendingCreateCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlePendingCreateCountRequest($params);
+        $request = $this->getArticlePendingCreateCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6619,7 +6476,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6639,18 +6496,17 @@ class ContentApi
     /**
      * Create request for operation 'getArticlePendingCreateCount'
      *
-     * Parameters:
+     * Filters:
      *   "assigned_person" string   (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticlePendingCreateCountRequest(array $params = [])
+    protected function getArticlePendingCreateCountRequest(array $filters = [])
     {
-        if (!isset($params['assigned_person'])) {
-            $params['assigned_person'] = null;
+        if (!isset($filters['assigned_person'])) {
+            $filters['assigned_person'] = null;
         }
         
 
@@ -6661,9 +6517,10 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['assigned_person'] !== null) {
-            $queryParams['assigned_person'] = ObjectSerializer::toQueryValue($params['assigned_person']);
+        if ($filters['assigned_person'] !== null) {
+            $queryParams['assigned_person'] = ObjectSerializer::toQueryValue($filters['assigned_person']);
         }
 
 
@@ -6739,8 +6596,7 @@ class ContentApi
     /**
      * Operation getArticlePendingCreates
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6749,22 +6605,22 @@ class ContentApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticlePendingCreates(array $params = [])
+    public function getArticlePendingCreates(array $filters = [])
     {
-        list($response) = $this->getArticlePendingCreatesWithHttpInfo($params);
+        list($response) = $this->getArticlePendingCreatesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getArticlePendingCreatesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6773,16 +6629,16 @@ class ContentApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticlePendingCreatesWithHttpInfo(array $params = [])
+    public function getArticlePendingCreatesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlePendingCreatesRequest($params);
+        $request = $this->getArticlePendingCreatesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6856,7 +6712,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6865,16 +6721,16 @@ class ContentApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlePendingCreatesAsync(array $params = [])
+    public function getArticlePendingCreatesAsync(array $filters = [])
     {
-        return $this->getArticlePendingCreatesAsyncWithHttpInfo($params)
+        return $this->getArticlePendingCreatesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6885,7 +6741,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6894,20 +6750,20 @@ class ContentApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlePendingCreatesAsyncWithHttpInfo(array $params = [])
+    public function getArticlePendingCreatesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlePendingCreatesRequest($params);
+        $request = $this->getArticlePendingCreatesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6927,7 +6783,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6947,7 +6803,7 @@ class ContentApi
     /**
      * Create request for operation 'getArticlePendingCreates'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6956,33 +6812,32 @@ class ContentApi
      *   "order_by" string  how to order result (optional)
      *   "order_dir" string  order direction (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticlePendingCreatesRequest(array $params = [])
+    protected function getArticlePendingCreatesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['assigned_person'])) {
-            $params['assigned_person'] = null;
+        if (!isset($filters['assigned_person'])) {
+            $filters['assigned_person'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
-        if (!isset($params['order_dir'])) {
-            $params['order_dir'] = null;
+        if (!isset($filters['order_dir'])) {
+            $filters['order_dir'] = null;
         }
         
 
@@ -6993,33 +6848,34 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['assigned_person'] !== null) {
-            $queryParams['assigned_person'] = ObjectSerializer::toQueryValue($params['assigned_person']);
+        if ($filters['assigned_person'] !== null) {
+            $queryParams['assigned_person'] = ObjectSerializer::toQueryValue($filters['assigned_person']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
         // query params
-        if ($params['order_dir'] !== null) {
-            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($params['order_dir']);
+        if ($filters['order_dir'] !== null) {
+            $queryParams['order_dir'] = ObjectSerializer::toQueryValue($filters['order_dir']);
         }
 
 
@@ -7095,8 +6951,7 @@ class ContentApi
     /**
      * Operation getArticles
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -7112,22 +6967,22 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getArticles(array $params = [])
+    public function getArticles(array $filters = [])
     {
-        list($response) = $this->getArticlesWithHttpInfo($params);
+        list($response) = $this->getArticlesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getArticlesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -7143,16 +6998,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getArticlesWithHttpInfo(array $params = [])
+    public function getArticlesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlesRequest($params);
+        $request = $this->getArticlesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7226,7 +7081,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -7242,16 +7097,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlesAsync(array $params = [])
+    public function getArticlesAsync(array $filters = [])
     {
-        return $this->getArticlesAsyncWithHttpInfo($params)
+        return $this->getArticlesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7262,7 +7117,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -7278,20 +7133,20 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getArticlesAsyncWithHttpInfo(array $params = [])
+    public function getArticlesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getArticlesRequest($params);
+        $request = $this->getArticlesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7311,7 +7166,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7331,7 +7186,7 @@ class ContentApi
     /**
      * Create request for operation 'getArticles'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -7347,54 +7202,53 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getArticlesRequest(array $params = [])
+    protected function getArticlesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
         
 
@@ -7405,61 +7259,62 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
 
 
@@ -7536,35 +7391,30 @@ class ContentApi
      * Operation getContentCategories
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContentCategories(array $params = [])
+    public function getContentCategories()
     {
-        list($response) = $this->getContentCategoriesWithHttpInfo($params);
+        list($response) = $this->getContentCategoriesWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getContentCategoriesWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContentCategoriesWithHttpInfo(array $params = [])
+    public function getContentCategoriesWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContentCategoriesRequest($params);
+        $request = $this->getContentCategoriesRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -7630,18 +7480,16 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContentCategoriesAsync(array $params = [])
+    public function getContentCategoriesAsync()
     {
-        return $this->getContentCategoriesAsyncWithHttpInfo($params)
+        return $this->getContentCategoriesAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7652,22 +7500,20 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContentCategoriesAsyncWithHttpInfo(array $params = [])
+    public function getContentCategoriesAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContentCategoriesRequest($params);
+        $request = $this->getContentCategoriesRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7687,7 +7533,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7707,14 +7553,11 @@ class ContentApi
     /**
      * Create request for operation 'getContentCategories'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContentCategoriesRequest(array $params = [])
+    protected function getContentCategoriesRequest()
     {
         
 
@@ -7725,6 +7568,7 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -7800,37 +7644,32 @@ class ContentApi
      * Operation getDownloadById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadById(array $params = [])
+    public function getDownloadById($id)
     {
-        list($response) = $this->getDownloadByIdWithHttpInfo($params);
+        list($response) = $this->getDownloadByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getDownloadByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadByIdWithHttpInfo(array $params = [])
+    public function getDownloadByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadByIdRequest($params);
+        $request = $this->getDownloadByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7904,19 +7743,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadByIdAsync(array $params = [])
+    public function getDownloadByIdAsync($id)
     {
-        return $this->getDownloadByIdAsyncWithHttpInfo($params)
+        return $this->getDownloadByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7927,23 +7764,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadByIdAsyncWithHttpInfo(array $params = [])
+    public function getDownloadByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadByIdRequest($params);
+        $request = $this->getDownloadByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7963,7 +7798,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7983,18 +7818,15 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadByIdRequest(array $params = [])
+    protected function getDownloadByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getDownloadByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getDownloadByIdRequest().');
         }
         
 
@@ -8005,12 +7837,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -8087,44 +7923,43 @@ class ContentApi
     /**
      * Operation getDownloadCategories
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadCategories(array $params = [])
+    public function getDownloadCategories(array $filters = [])
     {
-        list($response) = $this->getDownloadCategoriesWithHttpInfo($params);
+        list($response) = $this->getDownloadCategoriesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getDownloadCategoriesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadCategoriesWithHttpInfo(array $params = [])
+    public function getDownloadCategoriesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCategoriesRequest($params);
+        $request = $this->getDownloadCategoriesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8198,22 +8033,22 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCategoriesAsync(array $params = [])
+    public function getDownloadCategoriesAsync(array $filters = [])
     {
-        return $this->getDownloadCategoriesAsyncWithHttpInfo($params)
+        return $this->getDownloadCategoriesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -8224,26 +8059,26 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCategoriesAsyncWithHttpInfo(array $params = [])
+    public function getDownloadCategoriesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCategoriesRequest($params);
+        $request = $this->getDownloadCategoriesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -8263,7 +8098,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -8283,30 +8118,29 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadCategories'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadCategoriesRequest(array $params = [])
+    protected function getDownloadCategoriesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -8317,21 +8151,22 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -8408,37 +8243,32 @@ class ContentApi
      * Operation getDownloadCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadCategoryById(array $params = [])
+    public function getDownloadCategoryById($id)
     {
-        list($response) = $this->getDownloadCategoryByIdWithHttpInfo($params);
+        list($response) = $this->getDownloadCategoryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getDownloadCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadCategoryByIdWithHttpInfo(array $params = [])
+    public function getDownloadCategoryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCategoryByIdRequest($params);
+        $request = $this->getDownloadCategoryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8512,19 +8342,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCategoryByIdAsync(array $params = [])
+    public function getDownloadCategoryByIdAsync($id)
     {
-        return $this->getDownloadCategoryByIdAsyncWithHttpInfo($params)
+        return $this->getDownloadCategoryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -8535,23 +8363,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function getDownloadCategoryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCategoryByIdRequest($params);
+        $request = $this->getDownloadCategoryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -8571,7 +8397,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -8591,18 +8417,15 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadCategoryByIdRequest(array $params = [])
+    protected function getDownloadCategoryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getDownloadCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getDownloadCategoryByIdRequest().');
         }
         
 
@@ -8613,12 +8436,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -8696,35 +8523,30 @@ class ContentApi
      * Operation getDownloadCategoryCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadCategoryCount(array $params = [])
+    public function getDownloadCategoryCount()
     {
-        list($response) = $this->getDownloadCategoryCountWithHttpInfo($params);
+        list($response) = $this->getDownloadCategoryCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getDownloadCategoryCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadCategoryCountWithHttpInfo(array $params = [])
+    public function getDownloadCategoryCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCategoryCountRequest($params);
+        $request = $this->getDownloadCategoryCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -8798,18 +8620,16 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCategoryCountAsync(array $params = [])
+    public function getDownloadCategoryCountAsync()
     {
-        return $this->getDownloadCategoryCountAsyncWithHttpInfo($params)
+        return $this->getDownloadCategoryCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -8820,22 +8640,20 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCategoryCountAsyncWithHttpInfo(array $params = [])
+    public function getDownloadCategoryCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCategoryCountRequest($params);
+        $request = $this->getDownloadCategoryCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -8855,7 +8673,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -8875,14 +8693,11 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadCategoryCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadCategoryCountRequest(array $params = [])
+    protected function getDownloadCategoryCountRequest()
     {
         
 
@@ -8893,6 +8708,7 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -8968,37 +8784,32 @@ class ContentApi
      * Operation getDownloadCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadCommentById(array $params = [])
+    public function getDownloadCommentById($id)
     {
-        list($response) = $this->getDownloadCommentByIdWithHttpInfo($params);
+        list($response) = $this->getDownloadCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getDownloadCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadCommentByIdWithHttpInfo(array $params = [])
+    public function getDownloadCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCommentByIdRequest($params);
+        $request = $this->getDownloadCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9072,19 +8883,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCommentByIdAsync(array $params = [])
+    public function getDownloadCommentByIdAsync($id)
     {
-        return $this->getDownloadCommentByIdAsyncWithHttpInfo($params)
+        return $this->getDownloadCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -9095,23 +8904,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function getDownloadCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCommentByIdRequest($params);
+        $request = $this->getDownloadCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -9131,7 +8938,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -9151,18 +8958,15 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadCommentByIdRequest(array $params = [])
+    protected function getDownloadCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getDownloadCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getDownloadCommentByIdRequest().');
         }
         
 
@@ -9173,12 +8977,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -9255,8 +9063,7 @@ class ContentApi
     /**
      * Operation getDownloadCommentCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -9265,22 +9072,22 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadCommentCount(array $params = [])
+    public function getDownloadCommentCount(array $filters = [])
     {
-        list($response) = $this->getDownloadCommentCountWithHttpInfo($params);
+        list($response) = $this->getDownloadCommentCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getDownloadCommentCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -9289,16 +9096,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadCommentCountWithHttpInfo(array $params = [])
+    public function getDownloadCommentCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCommentCountRequest($params);
+        $request = $this->getDownloadCommentCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9372,7 +9179,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -9381,16 +9188,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCommentCountAsync(array $params = [])
+    public function getDownloadCommentCountAsync(array $filters = [])
     {
-        return $this->getDownloadCommentCountAsyncWithHttpInfo($params)
+        return $this->getDownloadCommentCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -9401,7 +9208,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -9410,20 +9217,20 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCommentCountAsyncWithHttpInfo(array $params = [])
+    public function getDownloadCommentCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCommentCountRequest($params);
+        $request = $this->getDownloadCommentCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -9443,7 +9250,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -9463,7 +9270,7 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadCommentCount'
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -9472,33 +9279,32 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadCommentCountRequest(array $params = [])
+    protected function getDownloadCommentCountRequest(array $filters = [])
     {
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['is_reviewed'])) {
-            $params['is_reviewed'] = null;
+        if (!isset($filters['is_reviewed'])) {
+            $filters['is_reviewed'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['article'])) {
-            $params['article'] = null;
+        if (!isset($filters['article'])) {
+            $filters['article'] = null;
         }
-        if (!isset($params['download'])) {
-            $params['download'] = null;
+        if (!isset($filters['download'])) {
+            $filters['download'] = null;
         }
-        if (!isset($params['news'])) {
-            $params['news'] = null;
+        if (!isset($filters['news'])) {
+            $filters['news'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -9509,33 +9315,34 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['is_reviewed'] !== null) {
-            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($params['is_reviewed']);
+        if ($filters['is_reviewed'] !== null) {
+            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($filters['is_reviewed']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['article'] !== null) {
-            $queryParams['article'] = ObjectSerializer::toQueryValue($params['article']);
+        if ($filters['article'] !== null) {
+            $queryParams['article'] = ObjectSerializer::toQueryValue($filters['article']);
         }
         // query params
-        if ($params['download'] !== null) {
-            $queryParams['download'] = ObjectSerializer::toQueryValue($params['download']);
+        if ($filters['download'] !== null) {
+            $queryParams['download'] = ObjectSerializer::toQueryValue($filters['download']);
         }
         // query params
-        if ($params['news'] !== null) {
-            $queryParams['news'] = ObjectSerializer::toQueryValue($params['news']);
+        if ($filters['news'] !== null) {
+            $queryParams['news'] = ObjectSerializer::toQueryValue($filters['news']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
 
@@ -9611,8 +9418,7 @@ class ContentApi
     /**
      * Operation getDownloadComments
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -9625,22 +9431,22 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadComments(array $params = [])
+    public function getDownloadComments(array $filters = [])
     {
-        list($response) = $this->getDownloadCommentsWithHttpInfo($params);
+        list($response) = $this->getDownloadCommentsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getDownloadCommentsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -9653,16 +9459,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadCommentsWithHttpInfo(array $params = [])
+    public function getDownloadCommentsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCommentsRequest($params);
+        $request = $this->getDownloadCommentsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9736,7 +9542,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -9749,16 +9555,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCommentsAsync(array $params = [])
+    public function getDownloadCommentsAsync(array $filters = [])
     {
-        return $this->getDownloadCommentsAsyncWithHttpInfo($params)
+        return $this->getDownloadCommentsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -9769,7 +9575,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -9782,20 +9588,20 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCommentsAsyncWithHttpInfo(array $params = [])
+    public function getDownloadCommentsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCommentsRequest($params);
+        $request = $this->getDownloadCommentsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -9815,7 +9621,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -9835,7 +9641,7 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadComments'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -9848,45 +9654,44 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadCommentsRequest(array $params = [])
+    protected function getDownloadCommentsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['is_reviewed'])) {
-            $params['is_reviewed'] = null;
+        if (!isset($filters['is_reviewed'])) {
+            $filters['is_reviewed'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['article'])) {
-            $params['article'] = null;
+        if (!isset($filters['article'])) {
+            $filters['article'] = null;
         }
-        if (!isset($params['download'])) {
-            $params['download'] = null;
+        if (!isset($filters['download'])) {
+            $filters['download'] = null;
         }
-        if (!isset($params['news'])) {
-            $params['news'] = null;
+        if (!isset($filters['news'])) {
+            $filters['news'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
         
 
@@ -9897,49 +9702,50 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['is_reviewed'] !== null) {
-            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($params['is_reviewed']);
+        if ($filters['is_reviewed'] !== null) {
+            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($filters['is_reviewed']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['article'] !== null) {
-            $queryParams['article'] = ObjectSerializer::toQueryValue($params['article']);
+        if ($filters['article'] !== null) {
+            $queryParams['article'] = ObjectSerializer::toQueryValue($filters['article']);
         }
         // query params
-        if ($params['download'] !== null) {
-            $queryParams['download'] = ObjectSerializer::toQueryValue($params['download']);
+        if ($filters['download'] !== null) {
+            $queryParams['download'] = ObjectSerializer::toQueryValue($filters['download']);
         }
         // query params
-        if ($params['news'] !== null) {
-            $queryParams['news'] = ObjectSerializer::toQueryValue($params['news']);
+        if ($filters['news'] !== null) {
+            $queryParams['news'] = ObjectSerializer::toQueryValue($filters['news']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
 
 
@@ -10015,8 +9821,7 @@ class ContentApi
     /**
      * Operation getDownloadCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -10027,22 +9832,22 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloadCount(array $params = [])
+    public function getDownloadCount(array $filters = [])
     {
-        list($response) = $this->getDownloadCountWithHttpInfo($params);
+        list($response) = $this->getDownloadCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getDownloadCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -10053,16 +9858,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadCountWithHttpInfo(array $params = [])
+    public function getDownloadCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCountRequest($params);
+        $request = $this->getDownloadCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10136,7 +9941,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -10147,16 +9952,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCountAsync(array $params = [])
+    public function getDownloadCountAsync(array $filters = [])
     {
-        return $this->getDownloadCountAsyncWithHttpInfo($params)
+        return $this->getDownloadCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -10167,7 +9972,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -10178,20 +9983,20 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadCountAsyncWithHttpInfo(array $params = [])
+    public function getDownloadCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadCountRequest($params);
+        $request = $this->getDownloadCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -10211,7 +10016,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -10231,7 +10036,7 @@ class ContentApi
     /**
      * Create request for operation 'getDownloadCount'
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -10242,39 +10047,38 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadCountRequest(array $params = [])
+    protected function getDownloadCountRequest(array $filters = [])
     {
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
         
 
@@ -10285,41 +10089,42 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
 
 
@@ -10395,8 +10200,7 @@ class ContentApi
     /**
      * Operation getDownloads
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -10412,22 +10216,22 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getDownloads(array $params = [])
+    public function getDownloads(array $filters = [])
     {
-        list($response) = $this->getDownloadsWithHttpInfo($params);
+        list($response) = $this->getDownloadsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getDownloadsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -10443,16 +10247,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getDownloadsWithHttpInfo(array $params = [])
+    public function getDownloadsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadsRequest($params);
+        $request = $this->getDownloadsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10526,7 +10330,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -10542,16 +10346,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadsAsync(array $params = [])
+    public function getDownloadsAsync(array $filters = [])
     {
-        return $this->getDownloadsAsyncWithHttpInfo($params)
+        return $this->getDownloadsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -10562,7 +10366,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -10578,20 +10382,20 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getDownloadsAsyncWithHttpInfo(array $params = [])
+    public function getDownloadsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getDownloadsRequest($params);
+        $request = $this->getDownloadsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -10611,7 +10415,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -10631,7 +10435,7 @@ class ContentApi
     /**
      * Create request for operation 'getDownloads'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -10647,54 +10451,53 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getDownloadsRequest(array $params = [])
+    protected function getDownloadsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
         
 
@@ -10705,61 +10508,62 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
 
 
@@ -10836,37 +10640,32 @@ class ContentApi
      * Operation getGuideByGuideIdExport
      *
      *
-     * Parameters:
-     *   "guide_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGuideByGuideIdExport(array $params = [])
+    public function getGuideByGuideIdExport($guide_id)
     {
-        list($response) = $this->getGuideByGuideIdExportWithHttpInfo($params);
+        list($response) = $this->getGuideByGuideIdExportWithHttpInfo($guide_id);
         return $response;
     }
 
     /**
      * Operation getGuideByGuideIdExportWithHttpInfo
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGuideByGuideIdExportWithHttpInfo(array $params = [])
+    public function getGuideByGuideIdExportWithHttpInfo($guide_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideByGuideIdExportRequest($params);
+        $request = $this->getGuideByGuideIdExportRequest($guide_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10940,19 +10739,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideByGuideIdExportAsync(array $params = [])
+    public function getGuideByGuideIdExportAsync($guide_id)
     {
-        return $this->getGuideByGuideIdExportAsyncWithHttpInfo($params)
+        return $this->getGuideByGuideIdExportAsyncWithHttpInfo($guide_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -10963,23 +10760,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideByGuideIdExportAsyncWithHttpInfo(array $params = [])
+    public function getGuideByGuideIdExportAsyncWithHttpInfo($guide_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideByGuideIdExportRequest($params);
+        $request = $this->getGuideByGuideIdExportRequest($guide_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -10999,7 +10794,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -11019,18 +10814,15 @@ class ContentApi
     /**
      * Create request for operation 'getGuideByGuideIdExport'
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $guide_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGuideByGuideIdExportRequest(array $params = [])
+    protected function getGuideByGuideIdExportRequest($guide_id)
     {
-        if (empty($params['guide_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "guide_id" in ContentApi::getGuideByGuideIdExportRequest().');
+        if (empty($guide_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$guide_id" in ContentApi::getGuideByGuideIdExportRequest().');
         }
         
 
@@ -11041,12 +10833,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($guide_id !== null) {
+            $guide_id = ObjectSerializer::toQueryValue($guide_id);
+        }
+        
 
         // path params
-        if ($params['guide_id'] !== null) {
+        if ($guide_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'guideId' . '}',
-                ObjectSerializer::toPathValue($params['guide_id']),
+                ObjectSerializer::toPathValue($guide_id),
                 $resourcePath
             );
         }
@@ -11124,37 +10920,32 @@ class ContentApi
      * Operation getGuideByGuideIdTree
      *
      *
-     * Parameters:
-     *   "guide_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGuideByGuideIdTree(array $params = [])
+    public function getGuideByGuideIdTree($guide_id)
     {
-        list($response) = $this->getGuideByGuideIdTreeWithHttpInfo($params);
+        list($response) = $this->getGuideByGuideIdTreeWithHttpInfo($guide_id);
         return $response;
     }
 
     /**
      * Operation getGuideByGuideIdTreeWithHttpInfo
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGuideByGuideIdTreeWithHttpInfo(array $params = [])
+    public function getGuideByGuideIdTreeWithHttpInfo($guide_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideByGuideIdTreeRequest($params);
+        $request = $this->getGuideByGuideIdTreeRequest($guide_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11228,19 +11019,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideByGuideIdTreeAsync(array $params = [])
+    public function getGuideByGuideIdTreeAsync($guide_id)
     {
-        return $this->getGuideByGuideIdTreeAsyncWithHttpInfo($params)
+        return $this->getGuideByGuideIdTreeAsyncWithHttpInfo($guide_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -11251,23 +11040,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideByGuideIdTreeAsyncWithHttpInfo(array $params = [])
+    public function getGuideByGuideIdTreeAsyncWithHttpInfo($guide_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideByGuideIdTreeRequest($params);
+        $request = $this->getGuideByGuideIdTreeRequest($guide_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -11287,7 +11074,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -11307,18 +11094,15 @@ class ContentApi
     /**
      * Create request for operation 'getGuideByGuideIdTree'
      *
-     * Parameters:
-     *   "guide_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $guide_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGuideByGuideIdTreeRequest(array $params = [])
+    protected function getGuideByGuideIdTreeRequest($guide_id)
     {
-        if (empty($params['guide_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "guide_id" in ContentApi::getGuideByGuideIdTreeRequest().');
+        if (empty($guide_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$guide_id" in ContentApi::getGuideByGuideIdTreeRequest().');
         }
         
 
@@ -11329,12 +11113,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($guide_id !== null) {
+            $guide_id = ObjectSerializer::toQueryValue($guide_id);
+        }
+        
 
         // path params
-        if ($params['guide_id'] !== null) {
+        if ($guide_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'guideId' . '}',
-                ObjectSerializer::toPathValue($params['guide_id']),
+                ObjectSerializer::toPathValue($guide_id),
                 $resourcePath
             );
         }
@@ -11412,37 +11200,32 @@ class ContentApi
      * Operation getGuideById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGuideById(array $params = [])
+    public function getGuideById($id)
     {
-        list($response) = $this->getGuideByIdWithHttpInfo($params);
+        list($response) = $this->getGuideByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getGuideByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGuideByIdWithHttpInfo(array $params = [])
+    public function getGuideByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideByIdRequest($params);
+        $request = $this->getGuideByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11516,19 +11299,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideByIdAsync(array $params = [])
+    public function getGuideByIdAsync($id)
     {
-        return $this->getGuideByIdAsyncWithHttpInfo($params)
+        return $this->getGuideByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -11539,23 +11320,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideByIdAsyncWithHttpInfo(array $params = [])
+    public function getGuideByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideByIdRequest($params);
+        $request = $this->getGuideByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -11575,7 +11354,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -11595,18 +11374,15 @@ class ContentApi
     /**
      * Create request for operation 'getGuideById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGuideByIdRequest(array $params = [])
+    protected function getGuideByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getGuideByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getGuideByIdRequest().');
         }
         
 
@@ -11617,12 +11393,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -11700,35 +11480,30 @@ class ContentApi
      * Operation getGuideCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGuideCount(array $params = [])
+    public function getGuideCount()
     {
-        list($response) = $this->getGuideCountWithHttpInfo($params);
+        list($response) = $this->getGuideCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getGuideCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGuideCountWithHttpInfo(array $params = [])
+    public function getGuideCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideCountRequest($params);
+        $request = $this->getGuideCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -11802,18 +11577,16 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideCountAsync(array $params = [])
+    public function getGuideCountAsync()
     {
-        return $this->getGuideCountAsyncWithHttpInfo($params)
+        return $this->getGuideCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -11824,22 +11597,20 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuideCountAsyncWithHttpInfo(array $params = [])
+    public function getGuideCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuideCountRequest($params);
+        $request = $this->getGuideCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -11859,7 +11630,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -11879,14 +11650,11 @@ class ContentApi
     /**
      * Create request for operation 'getGuideCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGuideCountRequest(array $params = [])
+    protected function getGuideCountRequest()
     {
         
 
@@ -11897,6 +11665,7 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -11971,44 +11740,43 @@ class ContentApi
     /**
      * Operation getGuides
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getGuides(array $params = [])
+    public function getGuides(array $filters = [])
     {
-        list($response) = $this->getGuidesWithHttpInfo($params);
+        list($response) = $this->getGuidesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getGuidesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getGuidesWithHttpInfo(array $params = [])
+    public function getGuidesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuidesRequest($params);
+        $request = $this->getGuidesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12082,22 +11850,22 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuidesAsync(array $params = [])
+    public function getGuidesAsync(array $filters = [])
     {
-        return $this->getGuidesAsyncWithHttpInfo($params)
+        return $this->getGuidesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -12108,26 +11876,26 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getGuidesAsyncWithHttpInfo(array $params = [])
+    public function getGuidesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getGuidesRequest($params);
+        $request = $this->getGuidesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -12147,7 +11915,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -12167,30 +11935,29 @@ class ContentApi
     /**
      * Create request for operation 'getGuides'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getGuidesRequest(array $params = [])
+    protected function getGuidesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -12201,21 +11968,22 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -12291,8 +12059,7 @@ class ContentApi
     /**
      * Operation getNews
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -12308,22 +12075,22 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNews(array $params = [])
+    public function getNews(array $filters = [])
     {
-        list($response) = $this->getNewsWithHttpInfo($params);
+        list($response) = $this->getNewsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getNewsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -12339,16 +12106,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsWithHttpInfo(array $params = [])
+    public function getNewsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsRequest($params);
+        $request = $this->getNewsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12422,7 +12189,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -12438,16 +12205,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsAsync(array $params = [])
+    public function getNewsAsync(array $filters = [])
     {
-        return $this->getNewsAsyncWithHttpInfo($params)
+        return $this->getNewsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -12458,7 +12225,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -12474,20 +12241,20 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsAsyncWithHttpInfo(array $params = [])
+    public function getNewsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsRequest($params);
+        $request = $this->getNewsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -12507,7 +12274,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -12527,7 +12294,7 @@ class ContentApi
     /**
      * Create request for operation 'getNews'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -12543,54 +12310,53 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsRequest(array $params = [])
+    protected function getNewsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
         
 
@@ -12601,61 +12367,62 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
 
 
@@ -12732,37 +12499,32 @@ class ContentApi
      * Operation getNewsById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsById(array $params = [])
+    public function getNewsById($id)
     {
-        list($response) = $this->getNewsByIdWithHttpInfo($params);
+        list($response) = $this->getNewsByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getNewsByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsByIdWithHttpInfo(array $params = [])
+    public function getNewsByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsByIdRequest($params);
+        $request = $this->getNewsByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12836,19 +12598,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsByIdAsync(array $params = [])
+    public function getNewsByIdAsync($id)
     {
-        return $this->getNewsByIdAsyncWithHttpInfo($params)
+        return $this->getNewsByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -12859,23 +12619,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsByIdAsyncWithHttpInfo(array $params = [])
+    public function getNewsByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsByIdRequest($params);
+        $request = $this->getNewsByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -12895,7 +12653,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -12915,18 +12673,15 @@ class ContentApi
     /**
      * Create request for operation 'getNewsById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsByIdRequest(array $params = [])
+    protected function getNewsByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getNewsByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getNewsByIdRequest().');
         }
         
 
@@ -12937,12 +12692,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -13019,44 +12778,43 @@ class ContentApi
     /**
      * Operation getNewsCategories
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsCategories(array $params = [])
+    public function getNewsCategories(array $filters = [])
     {
-        list($response) = $this->getNewsCategoriesWithHttpInfo($params);
+        list($response) = $this->getNewsCategoriesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getNewsCategoriesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsCategoriesWithHttpInfo(array $params = [])
+    public function getNewsCategoriesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCategoriesRequest($params);
+        $request = $this->getNewsCategoriesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -13130,22 +12888,22 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCategoriesAsync(array $params = [])
+    public function getNewsCategoriesAsync(array $filters = [])
     {
-        return $this->getNewsCategoriesAsyncWithHttpInfo($params)
+        return $this->getNewsCategoriesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -13156,26 +12914,26 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCategoriesAsyncWithHttpInfo(array $params = [])
+    public function getNewsCategoriesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCategoriesRequest($params);
+        $request = $this->getNewsCategoriesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -13195,7 +12953,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -13215,30 +12973,29 @@ class ContentApi
     /**
      * Create request for operation 'getNewsCategories'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsCategoriesRequest(array $params = [])
+    protected function getNewsCategoriesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -13249,21 +13006,22 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -13340,37 +13098,32 @@ class ContentApi
      * Operation getNewsCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsCategoryById(array $params = [])
+    public function getNewsCategoryById($id)
     {
-        list($response) = $this->getNewsCategoryByIdWithHttpInfo($params);
+        list($response) = $this->getNewsCategoryByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getNewsCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsCategoryByIdWithHttpInfo(array $params = [])
+    public function getNewsCategoryByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCategoryByIdRequest($params);
+        $request = $this->getNewsCategoryByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -13444,19 +13197,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCategoryByIdAsync(array $params = [])
+    public function getNewsCategoryByIdAsync($id)
     {
-        return $this->getNewsCategoryByIdAsyncWithHttpInfo($params)
+        return $this->getNewsCategoryByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -13467,23 +13218,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function getNewsCategoryByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCategoryByIdRequest($params);
+        $request = $this->getNewsCategoryByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -13503,7 +13252,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -13523,18 +13272,15 @@ class ContentApi
     /**
      * Create request for operation 'getNewsCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsCategoryByIdRequest(array $params = [])
+    protected function getNewsCategoryByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getNewsCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getNewsCategoryByIdRequest().');
         }
         
 
@@ -13545,12 +13291,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -13628,35 +13378,30 @@ class ContentApi
      * Operation getNewsCategoryCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsCategoryCount(array $params = [])
+    public function getNewsCategoryCount()
     {
-        list($response) = $this->getNewsCategoryCountWithHttpInfo($params);
+        list($response) = $this->getNewsCategoryCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getNewsCategoryCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsCategoryCountWithHttpInfo(array $params = [])
+    public function getNewsCategoryCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCategoryCountRequest($params);
+        $request = $this->getNewsCategoryCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -13730,18 +13475,16 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCategoryCountAsync(array $params = [])
+    public function getNewsCategoryCountAsync()
     {
-        return $this->getNewsCategoryCountAsyncWithHttpInfo($params)
+        return $this->getNewsCategoryCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -13752,22 +13495,20 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCategoryCountAsyncWithHttpInfo(array $params = [])
+    public function getNewsCategoryCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCategoryCountRequest($params);
+        $request = $this->getNewsCategoryCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -13787,7 +13528,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -13807,14 +13548,11 @@ class ContentApi
     /**
      * Create request for operation 'getNewsCategoryCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsCategoryCountRequest(array $params = [])
+    protected function getNewsCategoryCountRequest()
     {
         
 
@@ -13825,6 +13563,7 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -13900,37 +13639,32 @@ class ContentApi
      * Operation getNewsCommentById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsCommentById(array $params = [])
+    public function getNewsCommentById($id)
     {
-        list($response) = $this->getNewsCommentByIdWithHttpInfo($params);
+        list($response) = $this->getNewsCommentByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getNewsCommentByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsCommentByIdWithHttpInfo(array $params = [])
+    public function getNewsCommentByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCommentByIdRequest($params);
+        $request = $this->getNewsCommentByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -14004,19 +13738,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCommentByIdAsync(array $params = [])
+    public function getNewsCommentByIdAsync($id)
     {
-        return $this->getNewsCommentByIdAsyncWithHttpInfo($params)
+        return $this->getNewsCommentByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -14027,23 +13759,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCommentByIdAsyncWithHttpInfo(array $params = [])
+    public function getNewsCommentByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCommentByIdRequest($params);
+        $request = $this->getNewsCommentByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -14063,7 +13793,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -14083,18 +13813,15 @@ class ContentApi
     /**
      * Create request for operation 'getNewsCommentById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsCommentByIdRequest(array $params = [])
+    protected function getNewsCommentByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getNewsCommentByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getNewsCommentByIdRequest().');
         }
         
 
@@ -14105,12 +13832,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -14187,8 +13918,7 @@ class ContentApi
     /**
      * Operation getNewsCommentCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -14197,22 +13927,22 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsCommentCount(array $params = [])
+    public function getNewsCommentCount(array $filters = [])
     {
-        list($response) = $this->getNewsCommentCountWithHttpInfo($params);
+        list($response) = $this->getNewsCommentCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getNewsCommentCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -14221,16 +13951,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsCommentCountWithHttpInfo(array $params = [])
+    public function getNewsCommentCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCommentCountRequest($params);
+        $request = $this->getNewsCommentCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -14304,7 +14034,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -14313,16 +14043,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCommentCountAsync(array $params = [])
+    public function getNewsCommentCountAsync(array $filters = [])
     {
-        return $this->getNewsCommentCountAsyncWithHttpInfo($params)
+        return $this->getNewsCommentCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -14333,7 +14063,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -14342,20 +14072,20 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCommentCountAsyncWithHttpInfo(array $params = [])
+    public function getNewsCommentCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCommentCountRequest($params);
+        $request = $this->getNewsCommentCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -14375,7 +14105,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -14395,7 +14125,7 @@ class ContentApi
     /**
      * Create request for operation 'getNewsCommentCount'
      *
-     * Parameters:
+     * Filters:
      *   "status" string  filter by status (optional)
      *   "is_reviewed" int  filter by reviewed status (optional)
      *   "period_created" string  filter by period (optional)
@@ -14404,33 +14134,32 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "group_by" string  how to groups comments (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsCommentCountRequest(array $params = [])
+    protected function getNewsCommentCountRequest(array $filters = [])
     {
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['is_reviewed'])) {
-            $params['is_reviewed'] = null;
+        if (!isset($filters['is_reviewed'])) {
+            $filters['is_reviewed'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['article'])) {
-            $params['article'] = null;
+        if (!isset($filters['article'])) {
+            $filters['article'] = null;
         }
-        if (!isset($params['download'])) {
-            $params['download'] = null;
+        if (!isset($filters['download'])) {
+            $filters['download'] = null;
         }
-        if (!isset($params['news'])) {
-            $params['news'] = null;
+        if (!isset($filters['news'])) {
+            $filters['news'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -14441,33 +14170,34 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['is_reviewed'] !== null) {
-            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($params['is_reviewed']);
+        if ($filters['is_reviewed'] !== null) {
+            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($filters['is_reviewed']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['article'] !== null) {
-            $queryParams['article'] = ObjectSerializer::toQueryValue($params['article']);
+        if ($filters['article'] !== null) {
+            $queryParams['article'] = ObjectSerializer::toQueryValue($filters['article']);
         }
         // query params
-        if ($params['download'] !== null) {
-            $queryParams['download'] = ObjectSerializer::toQueryValue($params['download']);
+        if ($filters['download'] !== null) {
+            $queryParams['download'] = ObjectSerializer::toQueryValue($filters['download']);
         }
         // query params
-        if ($params['news'] !== null) {
-            $queryParams['news'] = ObjectSerializer::toQueryValue($params['news']);
+        if ($filters['news'] !== null) {
+            $queryParams['news'] = ObjectSerializer::toQueryValue($filters['news']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
 
@@ -14543,8 +14273,7 @@ class ContentApi
     /**
      * Operation getNewsComments
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -14557,22 +14286,22 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsComments(array $params = [])
+    public function getNewsComments(array $filters = [])
     {
-        list($response) = $this->getNewsCommentsWithHttpInfo($params);
+        list($response) = $this->getNewsCommentsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getNewsCommentsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -14585,16 +14314,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsCommentsWithHttpInfo(array $params = [])
+    public function getNewsCommentsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCommentsRequest($params);
+        $request = $this->getNewsCommentsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -14668,7 +14397,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -14681,16 +14410,16 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCommentsAsync(array $params = [])
+    public function getNewsCommentsAsync(array $filters = [])
     {
-        return $this->getNewsCommentsAsyncWithHttpInfo($params)
+        return $this->getNewsCommentsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -14701,7 +14430,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -14714,20 +14443,20 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCommentsAsyncWithHttpInfo(array $params = [])
+    public function getNewsCommentsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCommentsRequest($params);
+        $request = $this->getNewsCommentsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -14747,7 +14476,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -14767,7 +14496,7 @@ class ContentApi
     /**
      * Create request for operation 'getNewsComments'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -14780,45 +14509,44 @@ class ContentApi
      *   "news" int  select comments for news with given id (optional)
      *   "order_by" string  how to order comments (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsCommentsRequest(array $params = [])
+    protected function getNewsCommentsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['is_reviewed'])) {
-            $params['is_reviewed'] = null;
+        if (!isset($filters['is_reviewed'])) {
+            $filters['is_reviewed'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['article'])) {
-            $params['article'] = null;
+        if (!isset($filters['article'])) {
+            $filters['article'] = null;
         }
-        if (!isset($params['download'])) {
-            $params['download'] = null;
+        if (!isset($filters['download'])) {
+            $filters['download'] = null;
         }
-        if (!isset($params['news'])) {
-            $params['news'] = null;
+        if (!isset($filters['news'])) {
+            $filters['news'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
         
 
@@ -14829,49 +14557,50 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['is_reviewed'] !== null) {
-            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($params['is_reviewed']);
+        if ($filters['is_reviewed'] !== null) {
+            $queryParams['is_reviewed'] = ObjectSerializer::toQueryValue($filters['is_reviewed']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['article'] !== null) {
-            $queryParams['article'] = ObjectSerializer::toQueryValue($params['article']);
+        if ($filters['article'] !== null) {
+            $queryParams['article'] = ObjectSerializer::toQueryValue($filters['article']);
         }
         // query params
-        if ($params['download'] !== null) {
-            $queryParams['download'] = ObjectSerializer::toQueryValue($params['download']);
+        if ($filters['download'] !== null) {
+            $queryParams['download'] = ObjectSerializer::toQueryValue($filters['download']);
         }
         // query params
-        if ($params['news'] !== null) {
-            $queryParams['news'] = ObjectSerializer::toQueryValue($params['news']);
+        if ($filters['news'] !== null) {
+            $queryParams['news'] = ObjectSerializer::toQueryValue($filters['news']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
 
 
@@ -14947,8 +14676,7 @@ class ContentApi
     /**
      * Operation getNewsCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -14959,22 +14687,22 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getNewsCount(array $params = [])
+    public function getNewsCount(array $filters = [])
     {
-        list($response) = $this->getNewsCountWithHttpInfo($params);
+        list($response) = $this->getNewsCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getNewsCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -14985,16 +14713,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getNewsCountWithHttpInfo(array $params = [])
+    public function getNewsCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCountRequest($params);
+        $request = $this->getNewsCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -15068,7 +14796,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15079,16 +14807,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCountAsync(array $params = [])
+    public function getNewsCountAsync(array $filters = [])
     {
-        return $this->getNewsCountAsyncWithHttpInfo($params)
+        return $this->getNewsCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -15099,7 +14827,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15110,20 +14838,20 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getNewsCountAsyncWithHttpInfo(array $params = [])
+    public function getNewsCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getNewsCountRequest($params);
+        $request = $this->getNewsCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -15143,7 +14871,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -15163,7 +14891,7 @@ class ContentApi
     /**
      * Create request for operation 'getNewsCount'
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "category" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15174,39 +14902,38 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getNewsCountRequest(array $params = [])
+    protected function getNewsCountRequest(array $filters = [])
     {
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['category'])) {
-            $params['category'] = null;
+        if (!isset($filters['category'])) {
+            $filters['category'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
         
 
@@ -15217,41 +14944,42 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['category'] !== null) {
-            $queryParams['category'] = ObjectSerializer::toQueryValue($params['category']);
+        if ($filters['category'] !== null) {
+            $queryParams['category'] = ObjectSerializer::toQueryValue($filters['category']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
 
 
@@ -15328,37 +15056,32 @@ class ContentApi
      * Operation getTopicById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTopicById(array $params = [])
+    public function getTopicById($id)
     {
-        list($response) = $this->getTopicByIdWithHttpInfo($params);
+        list($response) = $this->getTopicByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getTopicByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTopicByIdWithHttpInfo(array $params = [])
+    public function getTopicByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTopicByIdRequest($params);
+        $request = $this->getTopicByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -15432,19 +15155,17 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTopicByIdAsync(array $params = [])
+    public function getTopicByIdAsync($id)
     {
-        return $this->getTopicByIdAsyncWithHttpInfo($params)
+        return $this->getTopicByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -15455,23 +15176,21 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTopicByIdAsyncWithHttpInfo(array $params = [])
+    public function getTopicByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTopicByIdRequest($params);
+        $request = $this->getTopicByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -15491,7 +15210,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -15511,18 +15230,15 @@ class ContentApi
     /**
      * Create request for operation 'getTopicById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTopicByIdRequest(array $params = [])
+    protected function getTopicByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ContentApi::getTopicByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ContentApi::getTopicByIdRequest().');
         }
         
 
@@ -15533,12 +15249,16 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -15615,8 +15335,7 @@ class ContentApi
     /**
      * Operation getTopicCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "guide" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15627,22 +15346,22 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTopicCount(array $params = [])
+    public function getTopicCount(array $filters = [])
     {
-        list($response) = $this->getTopicCountWithHttpInfo($params);
+        list($response) = $this->getTopicCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTopicCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "guide" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15653,16 +15372,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTopicCountWithHttpInfo(array $params = [])
+    public function getTopicCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTopicCountRequest($params);
+        $request = $this->getTopicCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -15736,7 +15455,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "guide" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15747,16 +15466,16 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTopicCountAsync(array $params = [])
+    public function getTopicCountAsync(array $filters = [])
     {
-        return $this->getTopicCountAsyncWithHttpInfo($params)
+        return $this->getTopicCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -15767,7 +15486,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "guide" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15778,20 +15497,20 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTopicCountAsyncWithHttpInfo(array $params = [])
+    public function getTopicCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTopicCountRequest($params);
+        $request = $this->getTopicCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -15811,7 +15530,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -15831,7 +15550,7 @@ class ContentApi
     /**
      * Create request for operation 'getTopicCount'
      *
-     * Parameters:
+     * Filters:
      *   "author" string  filter by author, provide an id or &#39;me&#39; for current user (optional)
      *   "guide" int  filter category, could be an array or just digit (optional)
      *   "group_by" string  how to group counters (optional)
@@ -15842,39 +15561,38 @@ class ContentApi
      *   "period_published" int  filter by py period when content was published (optional)
      *   "period_updated" int  filter by py period when content was updated (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTopicCountRequest(array $params = [])
+    protected function getTopicCountRequest(array $filters = [])
     {
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['guide'])) {
-            $params['guide'] = null;
+        if (!isset($filters['guide'])) {
+            $filters['guide'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
         
 
@@ -15885,41 +15603,42 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['guide'] !== null) {
-            $queryParams['guide'] = ObjectSerializer::toQueryValue($params['guide']);
+        if ($filters['guide'] !== null) {
+            $queryParams['guide'] = ObjectSerializer::toQueryValue($filters['guide']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
 
 
@@ -15995,8 +15714,7 @@ class ContentApi
     /**
      * Operation getTopics
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -16012,22 +15730,22 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTopics(array $params = [])
+    public function getTopics(array $filters = [])
     {
-        list($response) = $this->getTopicsWithHttpInfo($params);
+        list($response) = $this->getTopicsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getTopicsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -16043,16 +15761,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTopicsWithHttpInfo(array $params = [])
+    public function getTopicsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTopicsRequest($params);
+        $request = $this->getTopicsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -16126,7 +15844,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -16142,16 +15860,16 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTopicsAsync(array $params = [])
+    public function getTopicsAsync(array $filters = [])
     {
-        return $this->getTopicsAsyncWithHttpInfo($params)
+        return $this->getTopicsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -16162,7 +15880,7 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -16178,20 +15896,20 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTopicsAsyncWithHttpInfo(array $params = [])
+    public function getTopicsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTopicsRequest($params);
+        $request = $this->getTopicsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -16211,7 +15929,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -16231,7 +15949,7 @@ class ContentApi
     /**
      * Create request for operation 'getTopics'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -16247,54 +15965,53 @@ class ContentApi
      *   "period_updated" int  filter by py period when content was updated (optional)
      *   "order_by" int  how to order (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTopicsRequest(array $params = [])
+    protected function getTopicsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['author'])) {
-            $params['author'] = null;
+        if (!isset($filters['author'])) {
+            $filters['author'] = null;
         }
-        if (!isset($params['guide'])) {
-            $params['guide'] = null;
+        if (!isset($filters['guide'])) {
+            $filters['guide'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
-        if (!isset($params['status'])) {
-            $params['status'] = null;
+        if (!isset($filters['status'])) {
+            $filters['status'] = null;
         }
-        if (!isset($params['hidden_status'])) {
-            $params['hidden_status'] = null;
+        if (!isset($filters['hidden_status'])) {
+            $filters['hidden_status'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['period_last_comment'])) {
-            $params['period_last_comment'] = null;
+        if (!isset($filters['period_last_comment'])) {
+            $filters['period_last_comment'] = null;
         }
-        if (!isset($params['period_published'])) {
-            $params['period_published'] = null;
+        if (!isset($filters['period_published'])) {
+            $filters['period_published'] = null;
         }
-        if (!isset($params['period_updated'])) {
-            $params['period_updated'] = null;
+        if (!isset($filters['period_updated'])) {
+            $filters['period_updated'] = null;
         }
-        if (!isset($params['order_by'])) {
-            $params['order_by'] = null;
+        if (!isset($filters['order_by'])) {
+            $filters['order_by'] = null;
         }
         
 
@@ -16305,61 +16022,62 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['author'] !== null) {
-            $queryParams['author'] = ObjectSerializer::toQueryValue($params['author']);
+        if ($filters['author'] !== null) {
+            $queryParams['author'] = ObjectSerializer::toQueryValue($filters['author']);
         }
         // query params
-        if ($params['guide'] !== null) {
-            $queryParams['guide'] = ObjectSerializer::toQueryValue($params['guide']);
+        if ($filters['guide'] !== null) {
+            $queryParams['guide'] = ObjectSerializer::toQueryValue($filters['guide']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
         // query params
-        if ($params['status'] !== null) {
-            $queryParams['status'] = ObjectSerializer::toQueryValue($params['status']);
+        if ($filters['status'] !== null) {
+            $queryParams['status'] = ObjectSerializer::toQueryValue($filters['status']);
         }
         // query params
-        if ($params['hidden_status'] !== null) {
-            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($params['hidden_status']);
+        if ($filters['hidden_status'] !== null) {
+            $queryParams['hidden_status'] = ObjectSerializer::toQueryValue($filters['hidden_status']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if ($params['period_last_comment'] !== null) {
-            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($params['period_last_comment']);
+        if ($filters['period_last_comment'] !== null) {
+            $queryParams['period_last_comment'] = ObjectSerializer::toQueryValue($filters['period_last_comment']);
         }
         // query params
-        if ($params['period_published'] !== null) {
-            $queryParams['period_published'] = ObjectSerializer::toQueryValue($params['period_published']);
+        if ($filters['period_published'] !== null) {
+            $queryParams['period_published'] = ObjectSerializer::toQueryValue($filters['period_published']);
         }
         // query params
-        if ($params['period_updated'] !== null) {
-            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($params['period_updated']);
+        if ($filters['period_updated'] !== null) {
+            $queryParams['period_updated'] = ObjectSerializer::toQueryValue($filters['period_updated']);
         }
         // query params
-        if ($params['order_by'] !== null) {
-            $queryParams['order_by'] = ObjectSerializer::toQueryValue($params['order_by']);
+        if ($filters['order_by'] !== null) {
+            $queryParams['order_by'] = ObjectSerializer::toQueryValue($filters['order_by']);
         }
 
 
@@ -16436,39 +16154,34 @@ class ContentApi
      * Operation updateGuideByGuideIdTree
      *
      *
-     * Parameters:
-     *   "guide_id" string   (required)
-     *   "tree" string[]   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
+     * @param string[] $tree 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateGuideByGuideIdTree(array $params = [])
+    public function updateGuideByGuideIdTree($guide_id, $tree)
     {
-        list($response) = $this->updateGuideByGuideIdTreeWithHttpInfo($params);
+        list($response) = $this->updateGuideByGuideIdTreeWithHttpInfo($guide_id, $tree);
         return $response;
     }
 
     /**
      * Operation updateGuideByGuideIdTreeWithHttpInfo
      *
-     * Parameters:
-     *   "guide_id" string   (required)
-     *   "tree" string[]   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
+     * @param string[] $tree 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateGuideByGuideIdTreeWithHttpInfo(array $params = [])
+    public function updateGuideByGuideIdTreeWithHttpInfo($guide_id, $tree)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateGuideByGuideIdTreeRequest($params);
+        $request = $this->updateGuideByGuideIdTreeRequest($guide_id, $tree);
 
         try {
             $options = $this->createHttpClientOption();
@@ -16542,20 +16255,18 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "guide_id" string   (required)
-     *   "tree" string[]   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
+     * @param string[] $tree 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateGuideByGuideIdTreeAsync(array $params = [])
+    public function updateGuideByGuideIdTreeAsync($guide_id, $tree)
     {
-        return $this->updateGuideByGuideIdTreeAsyncWithHttpInfo($params)
+        return $this->updateGuideByGuideIdTreeAsyncWithHttpInfo($guide_id, $tree)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -16566,24 +16277,22 @@ class ContentApi
      *
      * 
      *
-     * Parameters:
-     *   "guide_id" string   (required)
-     *   "tree" string[]   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $guide_id 
+     * @param string[] $tree 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateGuideByGuideIdTreeAsyncWithHttpInfo(array $params = [])
+    public function updateGuideByGuideIdTreeAsyncWithHttpInfo($guide_id, $tree)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateGuideByGuideIdTreeRequest($params);
+        $request = $this->updateGuideByGuideIdTreeRequest($guide_id, $tree);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -16603,7 +16312,7 @@ class ContentApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -16623,22 +16332,19 @@ class ContentApi
     /**
      * Create request for operation 'updateGuideByGuideIdTree'
      *
-     * Parameters:
-     *   "guide_id" string   (required)
-     *   "tree" string[]   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $guide_id 
+     * @param string[] $tree 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateGuideByGuideIdTreeRequest(array $params = [])
+    protected function updateGuideByGuideIdTreeRequest($guide_id, $tree)
     {
-        if (empty($params['guide_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "guide_id" in ContentApi::updateGuideByGuideIdTreeRequest().');
+        if (empty($guide_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$guide_id" in ContentApi::updateGuideByGuideIdTreeRequest().');
         }
-        if (empty($params['tree'])) {
-            throw new \InvalidArgumentException('Missing parameter "tree" in ContentApi::updateGuideByGuideIdTreeRequest().');
+        if (empty($tree)) {
+            throw new \InvalidArgumentException('Missing parameter "$tree" in ContentApi::updateGuideByGuideIdTreeRequest().');
         }
         
 
@@ -16649,19 +16355,29 @@ class ContentApi
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        if (is_array($params['tree'])) {
-            $params['tree'] = ObjectSerializer::serializeCollection($params['tree'], 'csv', true);
+        if ($guide_id !== null) {
+            $guide_id = ObjectSerializer::toQueryValue($guide_id);
         }
-        if ($params['tree'] !== null) {
-            $queryParams['tree'] = ObjectSerializer::toQueryValue($params['tree']);
+        if (is_array($tree)) {
+            $tree = ObjectSerializer::serializeCollection($tree, 'csv', true);
+        }
+        if ($tree !== null) {
+            $tree = ObjectSerializer::toQueryValue($tree);
+        }
+        
+        // query params
+        if (is_array($filters['tree'])) {
+            $filters['tree'] = ObjectSerializer::serializeCollection($filters['tree'], 'csv', true);
+        }
+        if ($filters['tree'] !== null) {
+            $queryParams['tree'] = ObjectSerializer::toQueryValue($filters['tree']);
         }
 
         // path params
-        if ($params['guide_id'] !== null) {
+        if ($guide_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'guideId' . '}',
-                ObjectSerializer::toPathValue($params['guide_id']),
+                ObjectSerializer::toPathValue($guide_id),
                 $resourcePath
             );
         }

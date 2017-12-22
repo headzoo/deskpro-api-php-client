@@ -59,7 +59,7 @@ Method | HTTP request | Description
 
 
 # **deleteArticleById**
-> \DeskPRO\API\Model\Response deleteArticleById(array $params = [])
+> \DeskPRO\API\Model\Response deleteArticleById(int $id)
 
 
 
@@ -77,13 +77,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteArticleById($params);
-    print_r($result);
+    $result = $api->deleteArticleById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -92,9 +90,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -112,7 +115,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteArticleCategoryById**
-> \DeskPRO\API\Model\Response deleteArticleCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response deleteArticleCategoryById(int $id)
 
 
 
@@ -130,13 +133,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteArticleCategoryById($params);
-    print_r($result);
+    $result = $api->deleteArticleCategoryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -145,9 +146,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -165,7 +171,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteArticleCommentById**
-> \DeskPRO\API\Model\Response deleteArticleCommentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteArticleCommentById(int $id)
 
 
 
@@ -183,13 +189,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteArticleCommentById($params);
-    print_r($result);
+    $result = $api->deleteArticleCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -198,9 +202,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -218,7 +227,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteArticlePendingCreateById**
-> \DeskPRO\API\Model\Response deleteArticlePendingCreateById(array $params = [])
+> \DeskPRO\API\Model\Response deleteArticlePendingCreateById(int $id)
 
 
 
@@ -236,13 +245,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteArticlePendingCreateById($params);
-    print_r($result);
+    $result = $api->deleteArticlePendingCreateById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -251,9 +258,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -271,7 +283,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteDownloadById**
-> \DeskPRO\API\Model\Response deleteDownloadById(array $params = [])
+> \DeskPRO\API\Model\Response deleteDownloadById(int $id)
 
 
 
@@ -289,13 +301,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteDownloadById($params);
-    print_r($result);
+    $result = $api->deleteDownloadById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -304,9 +314,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -324,7 +339,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteDownloadCategoryById**
-> \DeskPRO\API\Model\Response deleteDownloadCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response deleteDownloadCategoryById(int $id)
 
 
 
@@ -342,13 +357,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteDownloadCategoryById($params);
-    print_r($result);
+    $result = $api->deleteDownloadCategoryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -357,9 +370,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -377,7 +395,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteDownloadCommentById**
-> \DeskPRO\API\Model\Response deleteDownloadCommentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteDownloadCommentById(int $id)
 
 
 
@@ -395,13 +413,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteDownloadCommentById($params);
-    print_r($result);
+    $result = $api->deleteDownloadCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -410,9 +426,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -430,7 +451,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteGuideById**
-> \DeskPRO\API\Model\Response deleteGuideById(array $params = [])
+> \DeskPRO\API\Model\Response deleteGuideById(int $id)
 
 
 
@@ -448,13 +469,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteGuideById($params);
-    print_r($result);
+    $result = $api->deleteGuideById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -463,9 +482,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -483,7 +507,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteNewsById**
-> \DeskPRO\API\Model\Response deleteNewsById(array $params = [])
+> \DeskPRO\API\Model\Response deleteNewsById(int $id)
 
 
 
@@ -501,13 +525,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteNewsById($params);
-    print_r($result);
+    $result = $api->deleteNewsById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -516,9 +538,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -536,7 +563,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteNewsCategoryById**
-> \DeskPRO\API\Model\Response deleteNewsCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response deleteNewsCategoryById(int $id)
 
 
 
@@ -554,13 +581,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteNewsCategoryById($params);
-    print_r($result);
+    $result = $api->deleteNewsCategoryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -569,9 +594,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -589,7 +619,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteNewsCommentById**
-> \DeskPRO\API\Model\Response deleteNewsCommentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteNewsCommentById(int $id)
 
 
 
@@ -607,13 +637,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteNewsCommentById($params);
-    print_r($result);
+    $result = $api->deleteNewsCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -622,9 +650,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -642,7 +675,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteTopicById**
-> \DeskPRO\API\Model\Response deleteTopicById(array $params = [])
+> \DeskPRO\API\Model\Response deleteTopicById(int $id)
 
 
 
@@ -660,13 +693,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteTopicById($params);
-    print_r($result);
+    $result = $api->deleteTopicById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -675,9 +706,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -695,7 +731,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleById**
-> \DeskPRO\API\Model\Response getArticleById(array $params = [])
+> \DeskPRO\API\Model\Response getArticleById(int $id)
 
 
 
@@ -713,13 +749,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getArticleById($params);
-    print_r($result);
+    $result = $api->getArticleById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -728,9 +762,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -748,7 +787,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleCategories**
-> \DeskPRO\API\Model\Response getArticleCategories(array $params = [])
+> \DeskPRO\API\Model\Response getArticleCategories(array $filters = [])
 
 
 
@@ -766,7 +805,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -774,8 +813,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getArticleCategories($params);
-    print_r($result);
+    $result = $api->getArticleCategories($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -783,6 +822,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -807,7 +853,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleCategoryById**
-> \DeskPRO\API\Model\Response getArticleCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response getArticleCategoryById(int $id)
 
 
 
@@ -825,13 +871,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getArticleCategoryById($params);
-    print_r($result);
+    $result = $api->getArticleCategoryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -840,9 +884,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -860,7 +909,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleCategoryCount**
-> \DeskPRO\API\Model\Response getArticleCategoryCount(array $params = [])
+> \DeskPRO\API\Model\Response getArticleCategoryCount()
 
 
 
@@ -878,12 +927,10 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getArticleCategoryCount($params);
-    print_r($result);
+    $result = $api->getArticleCategoryCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -891,7 +938,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -909,7 +961,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleCommentById**
-> \DeskPRO\API\Model\Response getArticleCommentById(array $params = [])
+> \DeskPRO\API\Model\Response getArticleCommentById(int $id)
 
 
 
@@ -927,13 +979,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getArticleCommentById($params);
-    print_r($result);
+    $result = $api->getArticleCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -942,9 +992,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -962,7 +1017,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleCommentCount**
-> \DeskPRO\API\Model\Response getArticleCommentCount(array $params = [])
+> \DeskPRO\API\Model\Response getArticleCommentCount(array $filters = [])
 
 
 
@@ -980,7 +1035,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "status" => "status_example", // string | filter by status
 "is_reviewed" => 56, // int | filter by reviewed status
 "period_created" => "period_created_example", // string | filter by period
@@ -991,8 +1046,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getArticleCommentCount($params);
-    print_r($result);
+    $result = $api->getArticleCommentCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1000,6 +1055,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1027,7 +1089,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleComments**
-> \DeskPRO\API\Model\Response getArticleComments(array $params = [])
+> \DeskPRO\API\Model\Response getArticleComments(array $filters = [])
 
 
 
@@ -1045,7 +1107,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1060,8 +1122,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getArticleComments($params);
-    print_r($result);
+    $result = $api->getArticleComments($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1069,6 +1131,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1100,7 +1169,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticleCount**
-> \DeskPRO\API\Model\Response getArticleCount(array $params = [])
+> \DeskPRO\API\Model\Response getArticleCount(array $filters = [])
 
 
 
@@ -1118,7 +1187,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "author" => "author_example", // string | filter by author, provide an id or 'me' for current user
 "category" => 56, // int | filter category, could be an array or just digit
 "group_by" => "group_by_example", // string | how to group counters
@@ -1131,8 +1200,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getArticleCount($params);
-    print_r($result);
+    $result = $api->getArticleCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1140,6 +1209,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1169,7 +1245,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticlePendingCreateById**
-> \DeskPRO\API\Model\Response getArticlePendingCreateById(array $params = [])
+> \DeskPRO\API\Model\Response getArticlePendingCreateById(int $id)
 
 
 
@@ -1187,13 +1263,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getArticlePendingCreateById($params);
-    print_r($result);
+    $result = $api->getArticlePendingCreateById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1202,9 +1276,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1222,7 +1301,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticlePendingCreateCount**
-> \DeskPRO\API\Model\Response getArticlePendingCreateCount(array $params = [])
+> \DeskPRO\API\Model\Response getArticlePendingCreateCount(array $filters = [])
 
 
 
@@ -1240,13 +1319,13 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "assigned_person" => "assigned_person_example" // string | 
 ];
 
 try {
-    $result = $api->getArticlePendingCreateCount($params);
-    print_r($result);
+    $result = $api->getArticlePendingCreateCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1254,6 +1333,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1275,7 +1361,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticlePendingCreates**
-> \DeskPRO\API\Model\Response getArticlePendingCreates(array $params = [])
+> \DeskPRO\API\Model\Response getArticlePendingCreates(array $filters = [])
 
 
 
@@ -1293,7 +1379,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1304,8 +1390,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getArticlePendingCreates($params);
-    print_r($result);
+    $result = $api->getArticlePendingCreates($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1313,6 +1399,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1340,7 +1433,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getArticles**
-> \DeskPRO\API\Model\Response getArticles(array $params = [])
+> \DeskPRO\API\Model\Response getArticles(array $filters = [])
 
 
 
@@ -1358,7 +1451,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1376,8 +1469,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getArticles($params);
-    print_r($result);
+    $result = $api->getArticles($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1385,6 +1478,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1419,7 +1519,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContentCategories**
-> \DeskPRO\API\Model\Response getContentCategories(array $params = [])
+> \DeskPRO\API\Model\Response getContentCategories()
 
 
 
@@ -1437,12 +1537,10 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getContentCategories($params);
-    print_r($result);
+    $result = $api->getContentCategories();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1450,7 +1548,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1468,7 +1571,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadById**
-> \DeskPRO\API\Model\Response getDownloadById(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadById(int $id)
 
 
 
@@ -1486,13 +1589,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getDownloadById($params);
-    print_r($result);
+    $result = $api->getDownloadById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1501,9 +1602,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1521,7 +1627,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadCategories**
-> \DeskPRO\API\Model\Response getDownloadCategories(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadCategories(array $filters = [])
 
 
 
@@ -1539,7 +1645,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1547,8 +1653,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getDownloadCategories($params);
-    print_r($result);
+    $result = $api->getDownloadCategories($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1556,6 +1662,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1580,7 +1693,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadCategoryById**
-> \DeskPRO\API\Model\Response getDownloadCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadCategoryById(int $id)
 
 
 
@@ -1598,13 +1711,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getDownloadCategoryById($params);
-    print_r($result);
+    $result = $api->getDownloadCategoryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1613,9 +1724,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1633,7 +1749,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadCategoryCount**
-> \DeskPRO\API\Model\Response getDownloadCategoryCount(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadCategoryCount()
 
 
 
@@ -1651,12 +1767,10 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getDownloadCategoryCount($params);
-    print_r($result);
+    $result = $api->getDownloadCategoryCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1664,7 +1778,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1682,7 +1801,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadCommentById**
-> \DeskPRO\API\Model\Response getDownloadCommentById(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadCommentById(int $id)
 
 
 
@@ -1700,13 +1819,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getDownloadCommentById($params);
-    print_r($result);
+    $result = $api->getDownloadCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1715,9 +1832,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -1735,7 +1857,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadCommentCount**
-> \DeskPRO\API\Model\Response getDownloadCommentCount(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadCommentCount(array $filters = [])
 
 
 
@@ -1753,7 +1875,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "status" => "status_example", // string | filter by status
 "is_reviewed" => 56, // int | filter by reviewed status
 "period_created" => "period_created_example", // string | filter by period
@@ -1764,8 +1886,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getDownloadCommentCount($params);
-    print_r($result);
+    $result = $api->getDownloadCommentCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1773,6 +1895,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1800,7 +1929,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadComments**
-> \DeskPRO\API\Model\Response getDownloadComments(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadComments(array $filters = [])
 
 
 
@@ -1818,7 +1947,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1833,8 +1962,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getDownloadComments($params);
-    print_r($result);
+    $result = $api->getDownloadComments($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1842,6 +1971,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1873,7 +2009,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloadCount**
-> \DeskPRO\API\Model\Response getDownloadCount(array $params = [])
+> \DeskPRO\API\Model\Response getDownloadCount(array $filters = [])
 
 
 
@@ -1891,7 +2027,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "author" => "author_example", // string | filter by author, provide an id or 'me' for current user
 "category" => 56, // int | filter category, could be an array or just digit
 "group_by" => "group_by_example", // string | how to group counters
@@ -1904,8 +2040,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getDownloadCount($params);
-    print_r($result);
+    $result = $api->getDownloadCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1913,6 +2049,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -1942,7 +2085,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getDownloads**
-> \DeskPRO\API\Model\Response getDownloads(array $params = [])
+> \DeskPRO\API\Model\Response getDownloads(array $filters = [])
 
 
 
@@ -1960,7 +2103,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -1978,8 +2121,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getDownloads($params);
-    print_r($result);
+    $result = $api->getDownloads($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1987,6 +2130,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2021,7 +2171,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGuideByGuideIdExport**
-> \DeskPRO\API\Model\Response getGuideByGuideIdExport(array $params = [])
+> \DeskPRO\API\Model\Response getGuideByGuideIdExport(string $guide_id)
 
 
 
@@ -2039,13 +2189,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"guide_id" => "guide_id_example" // string | 
-];
+$guide_id = "guide_id_example"; // string | 
 
 try {
-    $result = $api->getGuideByGuideIdExport($params);
-    print_r($result);
+    $result = $api->getGuideByGuideIdExport($guide_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2054,9 +2202,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guide_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2074,7 +2227,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGuideByGuideIdTree**
-> \DeskPRO\API\Model\Response getGuideByGuideIdTree(array $params = [])
+> \DeskPRO\API\Model\Response getGuideByGuideIdTree(string $guide_id)
 
 
 
@@ -2092,13 +2245,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"guide_id" => "guide_id_example" // string | 
-];
+$guide_id = "guide_id_example"; // string | 
 
 try {
-    $result = $api->getGuideByGuideIdTree($params);
-    print_r($result);
+    $result = $api->getGuideByGuideIdTree($guide_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2107,9 +2258,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guide_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2127,7 +2283,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGuideById**
-> \DeskPRO\API\Model\Response getGuideById(array $params = [])
+> \DeskPRO\API\Model\Response getGuideById(int $id)
 
 
 
@@ -2145,13 +2301,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getGuideById($params);
-    print_r($result);
+    $result = $api->getGuideById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2160,9 +2314,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2180,7 +2339,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGuideCount**
-> \DeskPRO\API\Model\Response getGuideCount(array $params = [])
+> \DeskPRO\API\Model\Response getGuideCount()
 
 
 
@@ -2198,12 +2357,10 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getGuideCount($params);
-    print_r($result);
+    $result = $api->getGuideCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2211,7 +2368,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2229,7 +2391,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getGuides**
-> \DeskPRO\API\Model\Response getGuides(array $params = [])
+> \DeskPRO\API\Model\Response getGuides(array $filters = [])
 
 
 
@@ -2247,7 +2409,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -2255,8 +2417,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getGuides($params);
-    print_r($result);
+    $result = $api->getGuides($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2264,6 +2426,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2288,7 +2457,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNews**
-> \DeskPRO\API\Model\Response getNews(array $params = [])
+> \DeskPRO\API\Model\Response getNews(array $filters = [])
 
 
 
@@ -2306,7 +2475,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -2324,8 +2493,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNews($params);
-    print_r($result);
+    $result = $api->getNews($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2333,6 +2502,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2367,7 +2543,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsById**
-> \DeskPRO\API\Model\Response getNewsById(array $params = [])
+> \DeskPRO\API\Model\Response getNewsById(int $id)
 
 
 
@@ -2385,13 +2561,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getNewsById($params);
-    print_r($result);
+    $result = $api->getNewsById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2400,9 +2574,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2420,7 +2599,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsCategories**
-> \DeskPRO\API\Model\Response getNewsCategories(array $params = [])
+> \DeskPRO\API\Model\Response getNewsCategories(array $filters = [])
 
 
 
@@ -2438,7 +2617,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -2446,8 +2625,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNewsCategories($params);
-    print_r($result);
+    $result = $api->getNewsCategories($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2455,6 +2634,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2479,7 +2665,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsCategoryById**
-> \DeskPRO\API\Model\Response getNewsCategoryById(array $params = [])
+> \DeskPRO\API\Model\Response getNewsCategoryById(int $id)
 
 
 
@@ -2497,13 +2683,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getNewsCategoryById($params);
-    print_r($result);
+    $result = $api->getNewsCategoryById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2512,9 +2696,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2532,7 +2721,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsCategoryCount**
-> \DeskPRO\API\Model\Response getNewsCategoryCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewsCategoryCount()
 
 
 
@@ -2550,12 +2739,10 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getNewsCategoryCount($params);
-    print_r($result);
+    $result = $api->getNewsCategoryCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2563,7 +2750,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2581,7 +2773,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsCommentById**
-> \DeskPRO\API\Model\Response getNewsCommentById(array $params = [])
+> \DeskPRO\API\Model\Response getNewsCommentById(int $id)
 
 
 
@@ -2599,13 +2791,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getNewsCommentById($params);
-    print_r($result);
+    $result = $api->getNewsCommentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2614,9 +2804,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2634,7 +2829,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsCommentCount**
-> \DeskPRO\API\Model\Response getNewsCommentCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewsCommentCount(array $filters = [])
 
 
 
@@ -2652,7 +2847,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "status" => "status_example", // string | filter by status
 "is_reviewed" => 56, // int | filter by reviewed status
 "period_created" => "period_created_example", // string | filter by period
@@ -2663,8 +2858,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNewsCommentCount($params);
-    print_r($result);
+    $result = $api->getNewsCommentCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2672,6 +2867,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2699,7 +2901,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsComments**
-> \DeskPRO\API\Model\Response getNewsComments(array $params = [])
+> \DeskPRO\API\Model\Response getNewsComments(array $filters = [])
 
 
 
@@ -2717,7 +2919,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -2732,8 +2934,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNewsComments($params);
-    print_r($result);
+    $result = $api->getNewsComments($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2741,6 +2943,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2772,7 +2981,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewsCount**
-> \DeskPRO\API\Model\Response getNewsCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewsCount(array $filters = [])
 
 
 
@@ -2790,7 +2999,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "author" => "author_example", // string | filter by author, provide an id or 'me' for current user
 "category" => 56, // int | filter category, could be an array or just digit
 "group_by" => "group_by_example", // string | how to group counters
@@ -2803,8 +3012,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNewsCount($params);
-    print_r($result);
+    $result = $api->getNewsCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2812,6 +3021,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2841,7 +3057,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTopicById**
-> \DeskPRO\API\Model\Response getTopicById(array $params = [])
+> \DeskPRO\API\Model\Response getTopicById(int $id)
 
 
 
@@ -2859,13 +3075,11 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getTopicById($params);
-    print_r($result);
+    $result = $api->getTopicById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2874,9 +3088,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -2894,7 +3113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTopicCount**
-> \DeskPRO\API\Model\Response getTopicCount(array $params = [])
+> \DeskPRO\API\Model\Response getTopicCount(array $filters = [])
 
 
 
@@ -2912,7 +3131,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "author" => "author_example", // string | filter by author, provide an id or 'me' for current user
 "guide" => 56, // int | filter category, could be an array or just digit
 "group_by" => "group_by_example", // string | how to group counters
@@ -2925,8 +3144,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getTopicCount($params);
-    print_r($result);
+    $result = $api->getTopicCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -2934,6 +3153,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -2963,7 +3189,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTopics**
-> \DeskPRO\API\Model\Response getTopics(array $params = [])
+> \DeskPRO\API\Model\Response getTopics(array $filters = [])
 
 
 
@@ -2981,7 +3207,7 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -2999,8 +3225,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getTopics($params);
-    print_r($result);
+    $result = $api->getTopics($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -3008,6 +3234,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -3042,7 +3275,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateGuideByGuideIdTree**
-> \DeskPRO\API\Model\Response updateGuideByGuideIdTree(array $params = [])
+> \DeskPRO\API\Model\Response updateGuideByGuideIdTree(string $guide_id, string[] $tree)
 
 
 
@@ -3060,14 +3293,12 @@ $api = new ContentApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"guide_id" => "guide_id_example", // string | 
-"tree" => array("tree_example") // string[] | 
-];
+$guide_id = "guide_id_example"; // string | 
+$tree = array("tree_example"); // string[] | 
 
 try {
-    $result = $api->updateGuideByGuideIdTree($params);
-    print_r($result);
+    $result = $api->updateGuideByGuideIdTree($guide_id, $tree);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -3076,9 +3307,17 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guide_id** | **string**|  |
+ **tree** | [**string[]**](../Model/string.md)|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **tree** | [**string[]**](../Model/string.md)|  |
 
 ### Return type

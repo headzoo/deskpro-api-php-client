@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **deleteBlobByAuthId**
-> \DeskPRO\API\Model\Response deleteBlobByAuthId(array $params = [])
+> \DeskPRO\API\Model\Response deleteBlobByAuthId(int $auth_id)
 
 
 
@@ -31,13 +31,11 @@ $api = new BlobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"auth_id" => 56 // int | The id of the resource
-];
+$auth_id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteBlobByAuthId($params);
-    print_r($result);
+    $result = $api->deleteBlobByAuthId($auth_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -46,9 +44,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **auth_id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -66,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBlobByAuthId**
-> \DeskPRO\API\Model\Response getBlobByAuthId(array $params = [])
+> \DeskPRO\API\Model\Response getBlobByAuthId(int $auth_id)
 
 
 
@@ -84,13 +87,11 @@ $api = new BlobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"auth_id" => 56 // int | The id of the resource
-];
+$auth_id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getBlobByAuthId($params);
-    print_r($result);
+    $result = $api->getBlobByAuthId($auth_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -99,9 +100,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **auth_id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -119,7 +125,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBlobByAuthIdArchive**
-> \DeskPRO\API\Model\Response getBlobByAuthIdArchive(array $params = [])
+> \DeskPRO\API\Model\Response getBlobByAuthIdArchive(int $auth_id)
 
 
 
@@ -137,13 +143,11 @@ $api = new BlobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"auth_id" => 56 // int | The id of the resource
-];
+$auth_id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getBlobByAuthIdArchive($params);
-    print_r($result);
+    $result = $api->getBlobByAuthIdArchive($auth_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -152,9 +156,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **auth_id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -172,7 +181,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBlobByAuthIdDownloadByPath**
-> \DeskPRO\API\Model\Response getBlobByAuthIdDownloadByPath(array $params = [])
+> \DeskPRO\API\Model\Response getBlobByAuthIdDownloadByPath(int $auth_id, string $path)
 
 
 
@@ -190,14 +199,12 @@ $api = new BlobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"auth_id" => 56, // int | The id of the resource
-"path" => "path_example" // string | The path of the file
-];
+$auth_id = 56; // int | The id of the resource
+$path = "path_example"; // string | The path of the file
 
 try {
-    $result = $api->getBlobByAuthIdDownloadByPath($params);
-    print_r($result);
+    $result = $api->getBlobByAuthIdDownloadByPath($auth_id, $path);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -206,10 +213,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **auth_id** | **int**| The id of the resource |
  **path** | **string**| The path of the file |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -227,7 +239,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBlobByAuthIdFile**
-> \DeskPRO\API\Model\Response getBlobByAuthIdFile(array $params = [])
+> \DeskPRO\API\Model\Response getBlobByAuthIdFile(int $auth_id)
 
 
 
@@ -245,13 +257,11 @@ $api = new BlobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"auth_id" => 56 // int | The id of the resource
-];
+$auth_id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getBlobByAuthIdFile($params);
-    print_r($result);
+    $result = $api->getBlobByAuthIdFile($auth_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -260,9 +270,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **auth_id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -280,7 +295,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getBlobs**
-> \DeskPRO\API\Model\Response getBlobs(array $params = [])
+> \DeskPRO\API\Model\Response getBlobs(array $filters = [])
 
 
 
@@ -298,7 +313,7 @@ $api = new BlobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -306,8 +321,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getBlobs($params);
-    print_r($result);
+    $result = $api->getBlobs($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -315,6 +330,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

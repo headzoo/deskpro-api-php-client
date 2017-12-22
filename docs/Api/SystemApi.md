@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **deleteSystemIncident**
-> \DeskPRO\API\Model\Response deleteSystemIncident(array $params = [])
+> \DeskPRO\API\Model\Response deleteSystemIncident()
 
 
 
@@ -31,12 +31,10 @@ $api = new SystemApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->deleteSystemIncident($params);
-    print_r($result);
+    $result = $api->deleteSystemIncident();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -44,7 +42,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -62,7 +65,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteSystemIncidentById**
-> \DeskPRO\API\Model\Response deleteSystemIncidentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteSystemIncidentById(int $id)
 
 
 
@@ -80,13 +83,11 @@ $api = new SystemApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteSystemIncidentById($params);
-    print_r($result);
+    $result = $api->deleteSystemIncidentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -95,9 +96,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -115,7 +121,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSystemEventById**
-> \DeskPRO\API\Model\Response getSystemEventById(array $params = [])
+> \DeskPRO\API\Model\Response getSystemEventById(int $id)
 
 
 
@@ -133,13 +139,11 @@ $api = new SystemApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getSystemEventById($params);
-    print_r($result);
+    $result = $api->getSystemEventById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -148,9 +152,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -168,7 +177,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSystemIncident**
-> \DeskPRO\API\Model\Response getSystemIncident(array $params = [])
+> \DeskPRO\API\Model\Response getSystemIncident(array $filters = [])
 
 
 
@@ -186,7 +195,7 @@ $api = new SystemApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -194,8 +203,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getSystemIncident($params);
-    print_r($result);
+    $result = $api->getSystemIncident($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -203,6 +212,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -227,7 +243,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSystemIncidentById**
-> \DeskPRO\API\Model\Response getSystemIncidentById(array $params = [])
+> \DeskPRO\API\Model\Response getSystemIncidentById(int $id)
 
 
 
@@ -245,13 +261,11 @@ $api = new SystemApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getSystemIncidentById($params);
-    print_r($result);
+    $result = $api->getSystemIncidentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -260,9 +274,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -280,7 +299,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSystemIncidentCount**
-> \DeskPRO\API\Model\Response getSystemIncidentCount(array $params = [])
+> \DeskPRO\API\Model\Response getSystemIncidentCount()
 
 
 
@@ -298,12 +317,10 @@ $api = new SystemApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getSystemIncidentCount($params);
-    print_r($result);
+    $result = $api->getSystemIncidentCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -311,7 +328,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

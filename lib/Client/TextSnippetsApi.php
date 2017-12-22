@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,39 +117,34 @@ class TextSnippetsApi
      * Operation deleteContextSnippetById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteContextSnippetById(array $params = [])
+    public function deleteContextSnippetById($id, $context)
     {
-        list($response) = $this->deleteContextSnippetByIdWithHttpInfo($params);
+        list($response) = $this->deleteContextSnippetByIdWithHttpInfo($id, $context);
         return $response;
     }
 
     /**
      * Operation deleteContextSnippetByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteContextSnippetByIdWithHttpInfo(array $params = [])
+    public function deleteContextSnippetByIdWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteContextSnippetByIdRequest($params);
+        $request = $this->deleteContextSnippetByIdRequest($id, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -222,20 +218,18 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteContextSnippetByIdAsync(array $params = [])
+    public function deleteContextSnippetByIdAsync($id, $context)
     {
-        return $this->deleteContextSnippetByIdAsyncWithHttpInfo($params)
+        return $this->deleteContextSnippetByIdAsyncWithHttpInfo($id, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -246,24 +240,22 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteContextSnippetByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteContextSnippetByIdAsyncWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteContextSnippetByIdRequest($params);
+        $request = $this->deleteContextSnippetByIdRequest($id, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -283,7 +275,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -303,22 +295,19 @@ class TextSnippetsApi
     /**
      * Create request for operation 'deleteContextSnippetById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteContextSnippetByIdRequest(array $params = [])
+    protected function deleteContextSnippetByIdRequest($id, $context)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TextSnippetsApi::deleteContextSnippetByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TextSnippetsApi::deleteContextSnippetByIdRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::deleteContextSnippetByIdRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::deleteContextSnippetByIdRequest().');
         }
         
 
@@ -329,20 +318,27 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -420,39 +416,34 @@ class TextSnippetsApi
      * Operation deleteContextSnippetCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteContextSnippetCategoryById(array $params = [])
+    public function deleteContextSnippetCategoryById($id, $context)
     {
-        list($response) = $this->deleteContextSnippetCategoryByIdWithHttpInfo($params);
+        list($response) = $this->deleteContextSnippetCategoryByIdWithHttpInfo($id, $context);
         return $response;
     }
 
     /**
      * Operation deleteContextSnippetCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteContextSnippetCategoryByIdWithHttpInfo(array $params = [])
+    public function deleteContextSnippetCategoryByIdWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteContextSnippetCategoryByIdRequest($params);
+        $request = $this->deleteContextSnippetCategoryByIdRequest($id, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -526,20 +517,18 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteContextSnippetCategoryByIdAsync(array $params = [])
+    public function deleteContextSnippetCategoryByIdAsync($id, $context)
     {
-        return $this->deleteContextSnippetCategoryByIdAsyncWithHttpInfo($params)
+        return $this->deleteContextSnippetCategoryByIdAsyncWithHttpInfo($id, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -550,24 +539,22 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteContextSnippetCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteContextSnippetCategoryByIdAsyncWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteContextSnippetCategoryByIdRequest($params);
+        $request = $this->deleteContextSnippetCategoryByIdRequest($id, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -587,7 +574,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -607,22 +594,19 @@ class TextSnippetsApi
     /**
      * Create request for operation 'deleteContextSnippetCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteContextSnippetCategoryByIdRequest(array $params = [])
+    protected function deleteContextSnippetCategoryByIdRequest($id, $context)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TextSnippetsApi::deleteContextSnippetCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TextSnippetsApi::deleteContextSnippetCategoryByIdRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::deleteContextSnippetCategoryByIdRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::deleteContextSnippetCategoryByIdRequest().');
         }
         
 
@@ -633,20 +617,27 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -724,39 +715,34 @@ class TextSnippetsApi
      * Operation getContextSnippetById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippetById(array $params = [])
+    public function getContextSnippetById($id, $context)
     {
-        list($response) = $this->getContextSnippetByIdWithHttpInfo($params);
+        list($response) = $this->getContextSnippetByIdWithHttpInfo($id, $context);
         return $response;
     }
 
     /**
      * Operation getContextSnippetByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetByIdWithHttpInfo(array $params = [])
+    public function getContextSnippetByIdWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetByIdRequest($params);
+        $request = $this->getContextSnippetByIdRequest($id, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -830,20 +816,18 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetByIdAsync(array $params = [])
+    public function getContextSnippetByIdAsync($id, $context)
     {
-        return $this->getContextSnippetByIdAsyncWithHttpInfo($params)
+        return $this->getContextSnippetByIdAsyncWithHttpInfo($id, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -854,24 +838,22 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetByIdAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetByIdAsyncWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetByIdRequest($params);
+        $request = $this->getContextSnippetByIdRequest($id, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -891,7 +873,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -911,22 +893,19 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippetById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetByIdRequest(array $params = [])
+    protected function getContextSnippetByIdRequest($id, $context)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TextSnippetsApi::getContextSnippetByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TextSnippetsApi::getContextSnippetByIdRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetByIdRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetByIdRequest().');
         }
         
 
@@ -937,20 +916,27 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -1027,42 +1013,41 @@ class TextSnippetsApi
     /**
      * Operation getContextSnippetByIdContent
      *
-     *
-     * Parameters:
-     *   "id" int  the id of the snippet (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the snippet
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippetByIdContent(array $params = [])
+    public function getContextSnippetByIdContent($id, $context, array $filters = [])
     {
-        list($response) = $this->getContextSnippetByIdContentWithHttpInfo($params);
+        list($response) = $this->getContextSnippetByIdContentWithHttpInfo($id, $context, $filters);
         return $response;
     }
 
     /**
      * Operation getContextSnippetByIdContentWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the snippet (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the snippet
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetByIdContentWithHttpInfo(array $params = [])
+    public function getContextSnippetByIdContentWithHttpInfo($id, $context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetByIdContentRequest($params);
+        $request = $this->getContextSnippetByIdContentRequest($id, $context, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1136,21 +1121,21 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the snippet (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the snippet
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetByIdContentAsync(array $params = [])
+    public function getContextSnippetByIdContentAsync($id, $context, array $filters = [])
     {
-        return $this->getContextSnippetByIdContentAsyncWithHttpInfo($params)
+        return $this->getContextSnippetByIdContentAsyncWithHttpInfo($id, $context, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1161,25 +1146,25 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the snippet (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the snippet
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetByIdContentAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetByIdContentAsyncWithHttpInfo($id, $context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetByIdContentRequest($params);
+        $request = $this->getContextSnippetByIdContentRequest($id, $context, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1199,7 +1184,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1219,26 +1204,25 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippetByIdContent'
      *
-     * Parameters:
-     *   "id" int  the id of the snippet (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the snippet
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetByIdContentRequest(array $params = [])
+    protected function getContextSnippetByIdContentRequest($id, $context, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TextSnippetsApi::getContextSnippetByIdContentRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TextSnippetsApi::getContextSnippetByIdContentRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetByIdContentRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetByIdContentRequest().');
         }
-        if (!isset($params['snippet'])) {
-            $params['snippet'] = null;
+        if (!isset($filters['snippet'])) {
+            $filters['snippet'] = null;
         }
         
 
@@ -1249,24 +1233,31 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
         // query params
-        if ($params['snippet'] !== null) {
-            $queryParams['snippet'] = ObjectSerializer::toQueryValue($params['snippet']);
+        if ($filters['snippet'] !== null) {
+            $queryParams['snippet'] = ObjectSerializer::toQueryValue($filters['snippet']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -1343,46 +1334,45 @@ class TextSnippetsApi
     /**
      * Operation getContextSnippetCategories
      *
-     *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippetCategories(array $params = [])
+    public function getContextSnippetCategories($context, array $filters = [])
     {
-        list($response) = $this->getContextSnippetCategoriesWithHttpInfo($params);
+        list($response) = $this->getContextSnippetCategoriesWithHttpInfo($context, $filters);
         return $response;
     }
 
     /**
      * Operation getContextSnippetCategoriesWithHttpInfo
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetCategoriesWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoriesWithHttpInfo($context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoriesRequest($params);
+        $request = $this->getContextSnippetCategoriesRequest($context, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1456,23 +1446,23 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoriesAsync(array $params = [])
+    public function getContextSnippetCategoriesAsync($context, array $filters = [])
     {
-        return $this->getContextSnippetCategoriesAsyncWithHttpInfo($params)
+        return $this->getContextSnippetCategoriesAsyncWithHttpInfo($context, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1483,27 +1473,27 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoriesAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoriesAsyncWithHttpInfo($context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoriesRequest($params);
+        $request = $this->getContextSnippetCategoriesRequest($context, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1523,7 +1513,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1543,34 +1533,33 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippetCategories'
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetCategoriesRequest(array $params = [])
+    protected function getContextSnippetCategoriesRequest($context, array $filters = [])
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetCategoriesRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetCategoriesRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1581,28 +1570,32 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -1680,39 +1673,34 @@ class TextSnippetsApi
      * Operation getContextSnippetCategoryById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippetCategoryById(array $params = [])
+    public function getContextSnippetCategoryById($id, $context)
     {
-        list($response) = $this->getContextSnippetCategoryByIdWithHttpInfo($params);
+        list($response) = $this->getContextSnippetCategoryByIdWithHttpInfo($id, $context);
         return $response;
     }
 
     /**
      * Operation getContextSnippetCategoryByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetCategoryByIdWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoryByIdWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoryByIdRequest($params);
+        $request = $this->getContextSnippetCategoryByIdRequest($id, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1786,20 +1774,18 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoryByIdAsync(array $params = [])
+    public function getContextSnippetCategoryByIdAsync($id, $context)
     {
-        return $this->getContextSnippetCategoryByIdAsyncWithHttpInfo($params)
+        return $this->getContextSnippetCategoryByIdAsyncWithHttpInfo($id, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1810,24 +1796,22 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoryByIdAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoryByIdAsyncWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoryByIdRequest($params);
+        $request = $this->getContextSnippetCategoryByIdRequest($id, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1847,7 +1831,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1867,22 +1851,19 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippetCategoryById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetCategoryByIdRequest(array $params = [])
+    protected function getContextSnippetCategoryByIdRequest($id, $context)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TextSnippetsApi::getContextSnippetCategoryByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TextSnippetsApi::getContextSnippetCategoryByIdRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetCategoryByIdRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetCategoryByIdRequest().');
         }
         
 
@@ -1893,20 +1874,27 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -1983,42 +1971,41 @@ class TextSnippetsApi
     /**
      * Operation getContextSnippetCategoryByIdSnippet
      *
-     *
-     * Parameters:
-     *   "id" int  the id of the category (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the category
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippetCategoryByIdSnippet(array $params = [])
+    public function getContextSnippetCategoryByIdSnippet($id, $context, array $filters = [])
     {
-        list($response) = $this->getContextSnippetCategoryByIdSnippetWithHttpInfo($params);
+        list($response) = $this->getContextSnippetCategoryByIdSnippetWithHttpInfo($id, $context, $filters);
         return $response;
     }
 
     /**
      * Operation getContextSnippetCategoryByIdSnippetWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of the category (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the category
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetCategoryByIdSnippetWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoryByIdSnippetWithHttpInfo($id, $context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoryByIdSnippetRequest($params);
+        $request = $this->getContextSnippetCategoryByIdSnippetRequest($id, $context, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2092,21 +2079,21 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the category (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the category
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoryByIdSnippetAsync(array $params = [])
+    public function getContextSnippetCategoryByIdSnippetAsync($id, $context, array $filters = [])
     {
-        return $this->getContextSnippetCategoryByIdSnippetAsyncWithHttpInfo($params)
+        return $this->getContextSnippetCategoryByIdSnippetAsyncWithHttpInfo($id, $context, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2117,25 +2104,25 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of the category (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of the category
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoryByIdSnippetAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoryByIdSnippetAsyncWithHttpInfo($id, $context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoryByIdSnippetRequest($params);
+        $request = $this->getContextSnippetCategoryByIdSnippetRequest($id, $context, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2155,7 +2142,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2175,26 +2162,25 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippetCategoryByIdSnippet'
      *
-     * Parameters:
-     *   "id" int  the id of the category (required)
-     *   "context" string   (required)
+     * Filters:
      *   "snippet" string  the context of the category (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of the category
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetCategoryByIdSnippetRequest(array $params = [])
+    protected function getContextSnippetCategoryByIdSnippetRequest($id, $context, array $filters = [])
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in TextSnippetsApi::getContextSnippetCategoryByIdSnippetRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in TextSnippetsApi::getContextSnippetCategoryByIdSnippetRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetCategoryByIdSnippetRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetCategoryByIdSnippetRequest().');
         }
-        if (!isset($params['snippet'])) {
-            $params['snippet'] = null;
+        if (!isset($filters['snippet'])) {
+            $filters['snippet'] = null;
         }
         
 
@@ -2205,24 +2191,31 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
         // query params
-        if ($params['snippet'] !== null) {
-            $queryParams['snippet'] = ObjectSerializer::toQueryValue($params['snippet']);
+        if ($filters['snippet'] !== null) {
+            $queryParams['snippet'] = ObjectSerializer::toQueryValue($filters['snippet']);
         }
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -2300,37 +2293,32 @@ class TextSnippetsApi
      * Operation getContextSnippetCategoryCount
      *
      *
-     * Parameters:
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippetCategoryCount(array $params = [])
+    public function getContextSnippetCategoryCount($context)
     {
-        list($response) = $this->getContextSnippetCategoryCountWithHttpInfo($params);
+        list($response) = $this->getContextSnippetCategoryCountWithHttpInfo($context);
         return $response;
     }
 
     /**
      * Operation getContextSnippetCategoryCountWithHttpInfo
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetCategoryCountWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoryCountWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoryCountRequest($params);
+        $request = $this->getContextSnippetCategoryCountRequest($context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2404,19 +2392,17 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoryCountAsync(array $params = [])
+    public function getContextSnippetCategoryCountAsync($context)
     {
-        return $this->getContextSnippetCategoryCountAsyncWithHttpInfo($params)
+        return $this->getContextSnippetCategoryCountAsyncWithHttpInfo($context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2427,23 +2413,21 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCategoryCountAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetCategoryCountAsyncWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCategoryCountRequest($params);
+        $request = $this->getContextSnippetCategoryCountRequest($context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2463,7 +2447,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2483,18 +2467,15 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippetCategoryCount'
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetCategoryCountRequest(array $params = [])
+    protected function getContextSnippetCategoryCountRequest($context)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetCategoryCountRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetCategoryCountRequest().');
         }
         
 
@@ -2505,12 +2486,16 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -2588,37 +2573,32 @@ class TextSnippetsApi
      * Operation getContextSnippetCount
      *
      *
-     * Parameters:
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippetCount(array $params = [])
+    public function getContextSnippetCount($context)
     {
-        list($response) = $this->getContextSnippetCountWithHttpInfo($params);
+        list($response) = $this->getContextSnippetCountWithHttpInfo($context);
         return $response;
     }
 
     /**
      * Operation getContextSnippetCountWithHttpInfo
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetCountWithHttpInfo(array $params = [])
+    public function getContextSnippetCountWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCountRequest($params);
+        $request = $this->getContextSnippetCountRequest($context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2692,19 +2672,17 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCountAsync(array $params = [])
+    public function getContextSnippetCountAsync($context)
     {
-        return $this->getContextSnippetCountAsyncWithHttpInfo($params)
+        return $this->getContextSnippetCountAsyncWithHttpInfo($context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2715,23 +2693,21 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetCountAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetCountAsyncWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetCountRequest($params);
+        $request = $this->getContextSnippetCountRequest($context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2751,7 +2727,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2771,18 +2747,15 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippetCount'
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetCountRequest(array $params = [])
+    protected function getContextSnippetCountRequest($context)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetCountRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetCountRequest().');
         }
         
 
@@ -2793,12 +2766,16 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -2875,46 +2852,45 @@ class TextSnippetsApi
     /**
      * Operation getContextSnippets
      *
-     *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getContextSnippets(array $params = [])
+    public function getContextSnippets($context, array $filters = [])
     {
-        list($response) = $this->getContextSnippetsWithHttpInfo($params);
+        list($response) = $this->getContextSnippetsWithHttpInfo($context, $filters);
         return $response;
     }
 
     /**
      * Operation getContextSnippetsWithHttpInfo
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getContextSnippetsWithHttpInfo(array $params = [])
+    public function getContextSnippetsWithHttpInfo($context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetsRequest($params);
+        $request = $this->getContextSnippetsRequest($context, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2988,23 +2964,23 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetsAsync(array $params = [])
+    public function getContextSnippetsAsync($context, array $filters = [])
     {
-        return $this->getContextSnippetsAsyncWithHttpInfo($params)
+        return $this->getContextSnippetsAsyncWithHttpInfo($context, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3015,27 +2991,27 @@ class TextSnippetsApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getContextSnippetsAsyncWithHttpInfo(array $params = [])
+    public function getContextSnippetsAsyncWithHttpInfo($context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getContextSnippetsRequest($params);
+        $request = $this->getContextSnippetsRequest($context, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3055,7 +3031,7 @@ class TextSnippetsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3075,34 +3051,33 @@ class TextSnippetsApi
     /**
      * Create request for operation 'getContextSnippets'
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getContextSnippetsRequest(array $params = [])
+    protected function getContextSnippetsRequest($context, array $filters = [])
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in TextSnippetsApi::getContextSnippetsRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in TextSnippetsApi::getContextSnippetsRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -3113,28 +3088,32 @@ class TextSnippetsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }

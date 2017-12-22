@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -115,46 +116,45 @@ class UsersourcesApi
     /**
      * Operation getUserSourceByContext
      *
-     *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserSourceByContext(array $params = [])
+    public function getUserSourceByContext($context, array $filters = [])
     {
-        list($response) = $this->getUserSourceByContextWithHttpInfo($params);
+        list($response) = $this->getUserSourceByContextWithHttpInfo($context, $filters);
         return $response;
     }
 
     /**
      * Operation getUserSourceByContextWithHttpInfo
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserSourceByContextWithHttpInfo(array $params = [])
+    public function getUserSourceByContextWithHttpInfo($context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserSourceByContextRequest($params);
+        $request = $this->getUserSourceByContextRequest($context, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -228,23 +228,23 @@ class UsersourcesApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserSourceByContextAsync(array $params = [])
+    public function getUserSourceByContextAsync($context, array $filters = [])
     {
-        return $this->getUserSourceByContextAsyncWithHttpInfo($params)
+        return $this->getUserSourceByContextAsyncWithHttpInfo($context, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -255,27 +255,27 @@ class UsersourcesApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserSourceByContextAsyncWithHttpInfo(array $params = [])
+    public function getUserSourceByContextAsyncWithHttpInfo($context, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserSourceByContextRequest($params);
+        $request = $this->getUserSourceByContextRequest($context, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -295,7 +295,7 @@ class UsersourcesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -315,34 +315,33 @@ class UsersourcesApi
     /**
      * Create request for operation 'getUserSourceByContext'
      *
-     * Parameters:
-     *   "context" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserSourceByContextRequest(array $params = [])
+    protected function getUserSourceByContextRequest($context, array $filters = [])
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in UsersourcesApi::getUserSourceByContextRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in UsersourcesApi::getUserSourceByContextRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -353,28 +352,32 @@ class UsersourcesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -452,39 +455,34 @@ class UsersourcesApi
      * Operation getUserSourceByContextById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserSourceByContextById(array $params = [])
+    public function getUserSourceByContextById($id, $context)
     {
-        list($response) = $this->getUserSourceByContextByIdWithHttpInfo($params);
+        list($response) = $this->getUserSourceByContextByIdWithHttpInfo($id, $context);
         return $response;
     }
 
     /**
      * Operation getUserSourceByContextByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserSourceByContextByIdWithHttpInfo(array $params = [])
+    public function getUserSourceByContextByIdWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserSourceByContextByIdRequest($params);
+        $request = $this->getUserSourceByContextByIdRequest($id, $context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -558,20 +556,18 @@ class UsersourcesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserSourceByContextByIdAsync(array $params = [])
+    public function getUserSourceByContextByIdAsync($id, $context)
     {
-        return $this->getUserSourceByContextByIdAsyncWithHttpInfo($params)
+        return $this->getUserSourceByContextByIdAsyncWithHttpInfo($id, $context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -582,24 +578,22 @@ class UsersourcesApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserSourceByContextByIdAsyncWithHttpInfo(array $params = [])
+    public function getUserSourceByContextByIdAsyncWithHttpInfo($id, $context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserSourceByContextByIdRequest($params);
+        $request = $this->getUserSourceByContextByIdRequest($id, $context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -619,7 +613,7 @@ class UsersourcesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -639,22 +633,19 @@ class UsersourcesApi
     /**
      * Create request for operation 'getUserSourceByContextById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserSourceByContextByIdRequest(array $params = [])
+    protected function getUserSourceByContextByIdRequest($id, $context)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in UsersourcesApi::getUserSourceByContextByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in UsersourcesApi::getUserSourceByContextByIdRequest().');
         }
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in UsersourcesApi::getUserSourceByContextByIdRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in UsersourcesApi::getUserSourceByContextByIdRequest().');
         }
         
 
@@ -665,20 +656,27 @@ class UsersourcesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }
@@ -756,37 +754,32 @@ class UsersourcesApi
      * Operation getUserSourceByContextCount
      *
      *
-     * Parameters:
-     *   "context" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserSourceByContextCount(array $params = [])
+    public function getUserSourceByContextCount($context)
     {
-        list($response) = $this->getUserSourceByContextCountWithHttpInfo($params);
+        list($response) = $this->getUserSourceByContextCountWithHttpInfo($context);
         return $response;
     }
 
     /**
      * Operation getUserSourceByContextCountWithHttpInfo
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserSourceByContextCountWithHttpInfo(array $params = [])
+    public function getUserSourceByContextCountWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserSourceByContextCountRequest($params);
+        $request = $this->getUserSourceByContextCountRequest($context);
 
         try {
             $options = $this->createHttpClientOption();
@@ -860,19 +853,17 @@ class UsersourcesApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserSourceByContextCountAsync(array $params = [])
+    public function getUserSourceByContextCountAsync($context)
     {
-        return $this->getUserSourceByContextCountAsyncWithHttpInfo($params)
+        return $this->getUserSourceByContextCountAsyncWithHttpInfo($context)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -883,23 +874,21 @@ class UsersourcesApi
      *
      * 
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $context 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserSourceByContextCountAsyncWithHttpInfo(array $params = [])
+    public function getUserSourceByContextCountAsyncWithHttpInfo($context)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserSourceByContextCountRequest($params);
+        $request = $this->getUserSourceByContextCountRequest($context);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -919,7 +908,7 @@ class UsersourcesApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -939,18 +928,15 @@ class UsersourcesApi
     /**
      * Create request for operation 'getUserSourceByContextCount'
      *
-     * Parameters:
-     *   "context" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $context 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserSourceByContextCountRequest(array $params = [])
+    protected function getUserSourceByContextCountRequest($context)
     {
-        if (empty($params['context'])) {
-            throw new \InvalidArgumentException('Missing parameter "context" in UsersourcesApi::getUserSourceByContextCountRequest().');
+        if (empty($context)) {
+            throw new \InvalidArgumentException('Missing parameter "$context" in UsersourcesApi::getUserSourceByContextCountRequest().');
         }
         
 
@@ -961,12 +947,16 @@ class UsersourcesApi
         $httpBody = '';
         $multipart = false;
 
+        if ($context !== null) {
+            $context = ObjectSerializer::toQueryValue($context);
+        }
+        
 
         // path params
-        if ($params['context'] !== null) {
+        if ($context !== null) {
             $resourcePath = str_replace(
                 '{' . 'context' . '}',
-                ObjectSerializer::toPathValue($params['context']),
+                ObjectSerializer::toPathValue($context),
                 $resourcePath
             );
         }

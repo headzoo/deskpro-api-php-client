@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **deleteChatDepartmentById**
-> \DeskPRO\API\Model\Response deleteChatDepartmentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteChatDepartmentById(int $id)
 
 
 
@@ -35,13 +35,11 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteChatDepartmentById($params);
-    print_r($result);
+    $result = $api->deleteChatDepartmentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -50,9 +48,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -70,7 +73,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteTicketDepartmentById**
-> \DeskPRO\API\Model\Response deleteTicketDepartmentById(array $params = [])
+> \DeskPRO\API\Model\Response deleteTicketDepartmentById(int $id)
 
 
 
@@ -88,13 +91,11 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteTicketDepartmentById($params);
-    print_r($result);
+    $result = $api->deleteTicketDepartmentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -103,9 +104,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -123,7 +129,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getChatDepartmentById**
-> \DeskPRO\API\Model\Response getChatDepartmentById(array $params = [])
+> \DeskPRO\API\Model\Response getChatDepartmentById(int $id)
 
 
 
@@ -141,13 +147,11 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getChatDepartmentById($params);
-    print_r($result);
+    $result = $api->getChatDepartmentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -156,9 +160,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -176,7 +185,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getChatDepartmentByIdAgent**
-> \DeskPRO\API\Model\Response getChatDepartmentByIdAgent(array $params = [])
+> \DeskPRO\API\Model\Response getChatDepartmentByIdAgent(int $id)
 
 
 
@@ -194,13 +203,11 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | the id of the department
-];
+$id = 56; // int | the id of the department
 
 try {
-    $result = $api->getChatDepartmentByIdAgent($params);
-    print_r($result);
+    $result = $api->getChatDepartmentByIdAgent($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -209,9 +216,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| the id of the department |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -229,7 +241,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getChatDepartmentCount**
-> \DeskPRO\API\Model\Response getChatDepartmentCount(array $params = [])
+> \DeskPRO\API\Model\Response getChatDepartmentCount()
 
 
 
@@ -247,12 +259,10 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getChatDepartmentCount($params);
-    print_r($result);
+    $result = $api->getChatDepartmentCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -260,7 +270,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -278,7 +293,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getChatDepartments**
-> \DeskPRO\API\Model\Response getChatDepartments(array $params = [])
+> \DeskPRO\API\Model\Response getChatDepartments(array $filters = [])
 
 
 
@@ -296,7 +311,7 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -304,8 +319,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getChatDepartments($params);
-    print_r($result);
+    $result = $api->getChatDepartments($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -313,6 +328,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -337,7 +359,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTicketDepartmentById**
-> \DeskPRO\API\Model\Response getTicketDepartmentById(array $params = [])
+> \DeskPRO\API\Model\Response getTicketDepartmentById(int $id)
 
 
 
@@ -355,13 +377,11 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getTicketDepartmentById($params);
-    print_r($result);
+    $result = $api->getTicketDepartmentById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -370,9 +390,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -390,7 +415,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTicketDepartmentByIdAgent**
-> \DeskPRO\API\Model\Response getTicketDepartmentByIdAgent(array $params = [])
+> \DeskPRO\API\Model\Response getTicketDepartmentByIdAgent(int $id)
 
 
 
@@ -408,13 +433,11 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | the id of the department
-];
+$id = 56; // int | the id of the department
 
 try {
-    $result = $api->getTicketDepartmentByIdAgent($params);
-    print_r($result);
+    $result = $api->getTicketDepartmentByIdAgent($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -423,9 +446,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| the id of the department |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -443,7 +471,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTicketDepartmentCount**
-> \DeskPRO\API\Model\Response getTicketDepartmentCount(array $params = [])
+> \DeskPRO\API\Model\Response getTicketDepartmentCount()
 
 
 
@@ -461,12 +489,10 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getTicketDepartmentCount($params);
-    print_r($result);
+    $result = $api->getTicketDepartmentCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -474,7 +500,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -492,7 +523,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getTicketDepartments**
-> \DeskPRO\API\Model\Response getTicketDepartments(array $params = [])
+> \DeskPRO\API\Model\Response getTicketDepartments(array $filters = [])
 
 
 
@@ -510,7 +541,7 @@ $api = new DepartmentsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -518,8 +549,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getTicketDepartments($params);
-    print_r($result);
+    $result = $api->getTicketDepartments($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -527,6 +558,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

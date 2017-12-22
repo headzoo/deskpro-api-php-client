@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 # **deleteMeNotificationById**
-> \DeskPRO\API\Model\Response deleteMeNotificationById(array $params = [])
+> \DeskPRO\API\Model\Response deleteMeNotificationById(int $id)
 
 
 
@@ -35,13 +35,11 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deleteMeNotificationById($params);
-    print_r($result);
+    $result = $api->deleteMeNotificationById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -50,9 +48,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -70,7 +73,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getMeNotification**
-> \DeskPRO\API\Model\Response getMeNotification(array $params = [])
+> \DeskPRO\API\Model\Response getMeNotification(array $filters = [])
 
 
 
@@ -88,7 +91,7 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -96,8 +99,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getMeNotification($params);
-    print_r($result);
+    $result = $api->getMeNotification($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -105,6 +108,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -129,7 +139,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getMeNotificationById**
-> \DeskPRO\API\Model\Response getMeNotificationById(array $params = [])
+> \DeskPRO\API\Model\Response getMeNotificationById(int $id)
 
 
 
@@ -147,13 +157,11 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getMeNotificationById($params);
-    print_r($result);
+    $result = $api->getMeNotificationById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -162,9 +170,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -182,7 +195,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getMeNotificationCount**
-> \DeskPRO\API\Model\Response getMeNotificationCount(array $params = [])
+> \DeskPRO\API\Model\Response getMeNotificationCount()
 
 
 
@@ -200,12 +213,10 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getMeNotificationCount($params);
-    print_r($result);
+    $result = $api->getMeNotificationCount();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -213,7 +224,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -231,7 +247,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNotifySetupActionAlert**
-> \DeskPRO\API\Model\Response getNotifySetupActionAlert(array $params = [])
+> \DeskPRO\API\Model\Response getNotifySetupActionAlert()
 
 
 
@@ -249,12 +265,10 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getNotifySetupActionAlert($params);
-    print_r($result);
+    $result = $api->getNotifySetupActionAlert();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -262,7 +276,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -280,7 +299,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNotifySetupActionAlertClient**
-> \DeskPRO\API\Model\Response getNotifySetupActionAlertClient(array $params = [])
+> \DeskPRO\API\Model\Response getNotifySetupActionAlertClient(int $user_id, string $channel_name, string $socket_id)
 
 
 
@@ -298,15 +317,13 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"user_id" => 56, // int | 
-"channel_name" => "channel_name_example", // string | 
-"socket_id" => "socket_id_example" // string | 
-];
+$user_id = 56; // int | 
+$channel_name = "channel_name_example"; // string | 
+$socket_id = "socket_id_example"; // string | 
 
 try {
-    $result = $api->getNotifySetupActionAlertClient($params);
-    print_r($result);
+    $result = $api->getNotifySetupActionAlertClient($user_id, $channel_name, $socket_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -314,6 +331,16 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_id** | **int**|  |
+ **channel_name** | **string**|  |
+ **socket_id** | **string**|  |
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -337,7 +364,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setMeNotificationDismi**
-> \DeskPRO\API\Model\Response setMeNotificationDismi(array $params = [])
+> \DeskPRO\API\Model\Response setMeNotificationDismi(string[] $alert_ids)
 
 
 
@@ -355,13 +382,11 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"alert_ids" => array("alert_ids_example") // string[] | 
-];
+$alert_ids = array("alert_ids_example"); // string[] | 
 
 try {
-    $result = $api->setMeNotificationDismi($params);
-    print_r($result);
+    $result = $api->setMeNotificationDismi($alert_ids);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -369,6 +394,14 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alert_ids** | [**string[]**](../Model/string.md)|  |
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -390,7 +423,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setMeNotificationDismiAll**
-> \DeskPRO\API\Model\Response setMeNotificationDismiAll(array $params = [])
+> \DeskPRO\API\Model\Response setMeNotificationDismiAll()
 
 
 
@@ -408,12 +441,10 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->setMeNotificationDismiAll($params);
-    print_r($result);
+    $result = $api->setMeNotificationDismiAll();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -421,7 +452,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -439,7 +475,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setPusherAuth**
-> \DeskPRO\API\Model\Response setPusherAuth(array $params = [])
+> \DeskPRO\API\Model\Response setPusherAuth(int $user_id, string $channel_name, string $socket_id)
 
 
 
@@ -457,15 +493,13 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"user_id" => 56, // int | 
-"channel_name" => "channel_name_example", // string | 
-"socket_id" => "socket_id_example" // string | 
-];
+$user_id = 56; // int | 
+$channel_name = "channel_name_example"; // string | 
+$socket_id = "socket_id_example"; // string | 
 
 try {
-    $result = $api->setPusherAuth($params);
-    print_r($result);
+    $result = $api->setPusherAuth($user_id, $channel_name, $socket_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -473,6 +507,16 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user_id** | **int**|  |
+ **channel_name** | **string**|  |
+ **socket_id** | **string**|  |
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -496,7 +540,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateNotifySetupActionAlertClient**
-> \DeskPRO\API\Model\Response updateNotifySetupActionAlertClient(array $params = [])
+> \DeskPRO\API\Model\Response updateNotifySetupActionAlertClient(string $id, string $key, string $secret, string $host, string $port, string $mode)
 
 
 
@@ -514,18 +558,16 @@ $api = new NotificationsAndAlertsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => "id_example", // string | 
-"key" => "key_example", // string | 
-"secret" => "secret_example", // string | 
-"host" => "host_example", // string | 
-"port" => "port_example", // string | 
-"mode" => "mode_example" // string | 
-];
+$id = "id_example"; // string | 
+$key = "key_example"; // string | 
+$secret = "secret_example"; // string | 
+$host = "host_example"; // string | 
+$port = "port_example"; // string | 
+$mode = "mode_example"; // string | 
 
 try {
-    $result = $api->updateNotifySetupActionAlertClient($params);
-    print_r($result);
+    $result = $api->updateNotifySetupActionAlertClient($id, $key, $secret, $host, $port, $mode);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -533,6 +575,19 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **string**|  |
+ **key** | **string**|  |
+ **secret** | **string**|  |
+ **host** | **string**|  |
+ **port** | **string**|  |
+ **mode** | **string**|  |
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

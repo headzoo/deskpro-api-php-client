@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class ChatsApi
      * Operation deleteAgentChatById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAgentChatById(array $params = [])
+    public function deleteAgentChatById($id)
     {
-        list($response) = $this->deleteAgentChatByIdWithHttpInfo($params);
+        list($response) = $this->deleteAgentChatByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteAgentChatByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentChatByIdWithHttpInfo(array $params = [])
+    public function deleteAgentChatByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByIdRequest($params);
+        $request = $this->deleteAgentChatByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByIdAsync(array $params = [])
+    public function deleteAgentChatByIdAsync($id)
     {
-        return $this->deleteAgentChatByIdAsyncWithHttpInfo($params)
+        return $this->deleteAgentChatByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteAgentChatByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByIdRequest($params);
+        $request = $this->deleteAgentChatByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class ChatsApi
     /**
      * Create request for operation 'deleteAgentChatById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAgentChatByIdRequest(array $params = [])
+    protected function deleteAgentChatByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::deleteAgentChatByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::deleteAgentChatByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -404,37 +397,32 @@ class ChatsApi
      * Operation deleteAgentChatByIdDelete
      *
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAgentChatByIdDelete(array $params = [])
+    public function deleteAgentChatByIdDelete($id)
     {
-        list($response) = $this->deleteAgentChatByIdDeleteWithHttpInfo($params);
+        list($response) = $this->deleteAgentChatByIdDeleteWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteAgentChatByIdDeleteWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentChatByIdDeleteWithHttpInfo(array $params = [])
+    public function deleteAgentChatByIdDeleteWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByIdDeleteRequest($params);
+        $request = $this->deleteAgentChatByIdDeleteRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -508,19 +496,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByIdDeleteAsync(array $params = [])
+    public function deleteAgentChatByIdDeleteAsync($id)
     {
-        return $this->deleteAgentChatByIdDeleteAsyncWithHttpInfo($params)
+        return $this->deleteAgentChatByIdDeleteAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -531,23 +517,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByIdDeleteAsyncWithHttpInfo(array $params = [])
+    public function deleteAgentChatByIdDeleteAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByIdDeleteRequest($params);
+        $request = $this->deleteAgentChatByIdDeleteRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +551,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,18 +571,15 @@ class ChatsApi
     /**
      * Create request for operation 'deleteAgentChatByIdDelete'
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id a chat id
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAgentChatByIdDeleteRequest(array $params = [])
+    protected function deleteAgentChatByIdDeleteRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::deleteAgentChatByIdDeleteRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::deleteAgentChatByIdDeleteRequest().');
         }
         
 
@@ -609,12 +590,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -692,37 +677,32 @@ class ChatsApi
      * Operation deleteAgentChatByIdLeave
      *
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAgentChatByIdLeave(array $params = [])
+    public function deleteAgentChatByIdLeave($id)
     {
-        list($response) = $this->deleteAgentChatByIdLeaveWithHttpInfo($params);
+        list($response) = $this->deleteAgentChatByIdLeaveWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteAgentChatByIdLeaveWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentChatByIdLeaveWithHttpInfo(array $params = [])
+    public function deleteAgentChatByIdLeaveWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByIdLeaveRequest($params);
+        $request = $this->deleteAgentChatByIdLeaveRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -796,19 +776,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByIdLeaveAsync(array $params = [])
+    public function deleteAgentChatByIdLeaveAsync($id)
     {
-        return $this->deleteAgentChatByIdLeaveAsyncWithHttpInfo($params)
+        return $this->deleteAgentChatByIdLeaveAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -819,23 +797,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id a chat id
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByIdLeaveAsyncWithHttpInfo(array $params = [])
+    public function deleteAgentChatByIdLeaveAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByIdLeaveRequest($params);
+        $request = $this->deleteAgentChatByIdLeaveRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -855,7 +831,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -875,18 +851,15 @@ class ChatsApi
     /**
      * Create request for operation 'deleteAgentChatByIdLeave'
      *
-     * Parameters:
-     *   "id" int  a chat id (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id a chat id
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAgentChatByIdLeaveRequest(array $params = [])
+    protected function deleteAgentChatByIdLeaveRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::deleteAgentChatByIdLeaveRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::deleteAgentChatByIdLeaveRequest().');
         }
         
 
@@ -897,12 +870,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -980,39 +957,34 @@ class ChatsApi
      * Operation deleteAgentChatByParentIdMessageById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAgentChatByParentIdMessageById(array $params = [])
+    public function deleteAgentChatByParentIdMessageById($id, $parent_id)
     {
-        list($response) = $this->deleteAgentChatByParentIdMessageByIdWithHttpInfo($params);
+        list($response) = $this->deleteAgentChatByParentIdMessageByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deleteAgentChatByParentIdMessageByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentChatByParentIdMessageByIdWithHttpInfo(array $params = [])
+    public function deleteAgentChatByParentIdMessageByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByParentIdMessageByIdRequest($params);
+        $request = $this->deleteAgentChatByParentIdMessageByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1086,20 +1058,18 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByParentIdMessageByIdAsync(array $params = [])
+    public function deleteAgentChatByParentIdMessageByIdAsync($id, $parent_id)
     {
-        return $this->deleteAgentChatByParentIdMessageByIdAsyncWithHttpInfo($params)
+        return $this->deleteAgentChatByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1110,24 +1080,22 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentChatByParentIdMessageByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteAgentChatByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAgentChatByParentIdMessageByIdRequest($params);
+        $request = $this->deleteAgentChatByParentIdMessageByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1147,7 +1115,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1167,22 +1135,19 @@ class ChatsApi
     /**
      * Create request for operation 'deleteAgentChatByParentIdMessageById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAgentChatByParentIdMessageByIdRequest(array $params = [])
+    protected function deleteAgentChatByParentIdMessageByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::deleteAgentChatByParentIdMessageByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::deleteAgentChatByParentIdMessageByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in ChatsApi::deleteAgentChatByParentIdMessageByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in ChatsApi::deleteAgentChatByParentIdMessageByIdRequest().');
         }
         
 
@@ -1193,20 +1158,27 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -1284,37 +1256,32 @@ class ChatsApi
      * Operation deleteUserChatById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteUserChatById(array $params = [])
+    public function deleteUserChatById($id)
     {
-        list($response) = $this->deleteUserChatByIdWithHttpInfo($params);
+        list($response) = $this->deleteUserChatByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteUserChatByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteUserChatByIdWithHttpInfo(array $params = [])
+    public function deleteUserChatByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteUserChatByIdRequest($params);
+        $request = $this->deleteUserChatByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1388,19 +1355,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteUserChatByIdAsync(array $params = [])
+    public function deleteUserChatByIdAsync($id)
     {
-        return $this->deleteUserChatByIdAsyncWithHttpInfo($params)
+        return $this->deleteUserChatByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1411,23 +1376,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteUserChatByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteUserChatByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteUserChatByIdRequest($params);
+        $request = $this->deleteUserChatByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1447,7 +1410,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1467,18 +1430,15 @@ class ChatsApi
     /**
      * Create request for operation 'deleteUserChatById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteUserChatByIdRequest(array $params = [])
+    protected function deleteUserChatByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::deleteUserChatByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::deleteUserChatByIdRequest().');
         }
         
 
@@ -1489,12 +1449,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1572,37 +1536,32 @@ class ChatsApi
      * Operation deleteUserChatCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteUserChatCustomFieldById(array $params = [])
+    public function deleteUserChatCustomFieldById($id)
     {
-        list($response) = $this->deleteUserChatCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->deleteUserChatCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteUserChatCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteUserChatCustomFieldByIdWithHttpInfo(array $params = [])
+    public function deleteUserChatCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteUserChatCustomFieldByIdRequest($params);
+        $request = $this->deleteUserChatCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1676,19 +1635,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteUserChatCustomFieldByIdAsync(array $params = [])
+    public function deleteUserChatCustomFieldByIdAsync($id)
     {
-        return $this->deleteUserChatCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->deleteUserChatCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1699,23 +1656,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteUserChatCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteUserChatCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteUserChatCustomFieldByIdRequest($params);
+        $request = $this->deleteUserChatCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1735,7 +1690,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1755,18 +1710,15 @@ class ChatsApi
     /**
      * Create request for operation 'deleteUserChatCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteUserChatCustomFieldByIdRequest(array $params = [])
+    protected function deleteUserChatCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::deleteUserChatCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::deleteUserChatCustomFieldByIdRequest().');
         }
         
 
@@ -1777,12 +1729,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1860,37 +1816,32 @@ class ChatsApi
      * Operation getAgentChatById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatById(array $params = [])
+    public function getAgentChatById($id)
     {
-        list($response) = $this->getAgentChatByIdWithHttpInfo($params);
+        list($response) = $this->getAgentChatByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getAgentChatByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatByIdWithHttpInfo(array $params = [])
+    public function getAgentChatByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByIdRequest($params);
+        $request = $this->getAgentChatByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1964,19 +1915,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByIdAsync(array $params = [])
+    public function getAgentChatByIdAsync($id)
     {
-        return $this->getAgentChatByIdAsyncWithHttpInfo($params)
+        return $this->getAgentChatByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1987,23 +1936,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByIdAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByIdRequest($params);
+        $request = $this->getAgentChatByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2023,7 +1970,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2043,18 +1990,15 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatByIdRequest(array $params = [])
+    protected function getAgentChatByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::getAgentChatByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::getAgentChatByIdRequest().');
         }
         
 
@@ -2065,12 +2009,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -2147,9 +2095,7 @@ class ChatsApi
     /**
      * Operation getAgentChatByParentIdMessage
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2157,23 +2103,23 @@ class ChatsApi
      *   "search" string   (optional)
      *   "order" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatByParentIdMessage(array $params = [])
+    public function getAgentChatByParentIdMessage($parent_id, array $filters = [])
     {
-        list($response) = $this->getAgentChatByParentIdMessageWithHttpInfo($params);
+        list($response) = $this->getAgentChatByParentIdMessageWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getAgentChatByParentIdMessageWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2181,16 +2127,17 @@ class ChatsApi
      *   "search" string   (optional)
      *   "order" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatByParentIdMessageWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageRequest($params);
+        $request = $this->getAgentChatByParentIdMessageRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2264,8 +2211,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2273,16 +2219,17 @@ class ChatsApi
      *   "search" string   (optional)
      *   "order" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageAsync(array $params = [])
+    public function getAgentChatByParentIdMessageAsync($parent_id, array $filters = [])
     {
-        return $this->getAgentChatByParentIdMessageAsyncWithHttpInfo($params)
+        return $this->getAgentChatByParentIdMessageAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2293,8 +2240,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2302,20 +2248,21 @@ class ChatsApi
      *   "search" string   (optional)
      *   "order" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageRequest($params);
+        $request = $this->getAgentChatByParentIdMessageRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2335,7 +2282,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2355,8 +2302,7 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatByParentIdMessage'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -2364,33 +2310,33 @@ class ChatsApi
      *   "search" string   (optional)
      *   "order" string   (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatByParentIdMessageRequest(array $params = [])
+    protected function getAgentChatByParentIdMessageRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in ChatsApi::getAgentChatByParentIdMessageRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in ChatsApi::getAgentChatByParentIdMessageRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['search'])) {
-            $params['search'] = null;
+        if (!isset($filters['search'])) {
+            $filters['search'] = null;
         }
-        if (!isset($params['order'])) {
-            $params['order'] = null;
+        if (!isset($filters['order'])) {
+            $filters['order'] = null;
         }
         
 
@@ -2401,36 +2347,40 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['search'] !== null) {
-            $queryParams['search'] = ObjectSerializer::toQueryValue($params['search']);
+        if ($filters['search'] !== null) {
+            $queryParams['search'] = ObjectSerializer::toQueryValue($filters['search']);
         }
         // query params
-        if ($params['order'] !== null) {
-            $queryParams['order'] = ObjectSerializer::toQueryValue($params['order']);
+        if ($filters['order'] !== null) {
+            $queryParams['order'] = ObjectSerializer::toQueryValue($filters['order']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2508,39 +2458,34 @@ class ChatsApi
      * Operation getAgentChatByParentIdMessageById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatByParentIdMessageById(array $params = [])
+    public function getAgentChatByParentIdMessageById($id, $parent_id)
     {
-        list($response) = $this->getAgentChatByParentIdMessageByIdWithHttpInfo($params);
+        list($response) = $this->getAgentChatByParentIdMessageByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getAgentChatByParentIdMessageByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatByParentIdMessageByIdWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageByIdRequest($params);
+        $request = $this->getAgentChatByParentIdMessageByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2614,20 +2559,18 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageByIdAsync(array $params = [])
+    public function getAgentChatByParentIdMessageByIdAsync($id, $parent_id)
     {
-        return $this->getAgentChatByParentIdMessageByIdAsyncWithHttpInfo($params)
+        return $this->getAgentChatByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2638,24 +2581,22 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageByIdAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageByIdRequest($params);
+        $request = $this->getAgentChatByParentIdMessageByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2675,7 +2616,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2695,22 +2636,19 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatByParentIdMessageById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatByParentIdMessageByIdRequest(array $params = [])
+    protected function getAgentChatByParentIdMessageByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::getAgentChatByParentIdMessageByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::getAgentChatByParentIdMessageByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in ChatsApi::getAgentChatByParentIdMessageByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in ChatsApi::getAgentChatByParentIdMessageByIdRequest().');
         }
         
 
@@ -2721,20 +2659,27 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2812,39 +2757,34 @@ class ChatsApi
      * Operation getAgentChatByParentIdMessageByIdPage
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatByParentIdMessageByIdPage(array $params = [])
+    public function getAgentChatByParentIdMessageByIdPage($parent_id, $id)
     {
-        list($response) = $this->getAgentChatByParentIdMessageByIdPageWithHttpInfo($params);
+        list($response) = $this->getAgentChatByParentIdMessageByIdPageWithHttpInfo($parent_id, $id);
         return $response;
     }
 
     /**
      * Operation getAgentChatByParentIdMessageByIdPageWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatByParentIdMessageByIdPageWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageByIdPageWithHttpInfo($parent_id, $id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageByIdPageRequest($params);
+        $request = $this->getAgentChatByParentIdMessageByIdPageRequest($parent_id, $id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2918,20 +2858,18 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageByIdPageAsync(array $params = [])
+    public function getAgentChatByParentIdMessageByIdPageAsync($parent_id, $id)
     {
-        return $this->getAgentChatByParentIdMessageByIdPageAsyncWithHttpInfo($params)
+        return $this->getAgentChatByParentIdMessageByIdPageAsyncWithHttpInfo($parent_id, $id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2942,24 +2880,22 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageByIdPageAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageByIdPageAsyncWithHttpInfo($parent_id, $id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageByIdPageRequest($params);
+        $request = $this->getAgentChatByParentIdMessageByIdPageRequest($parent_id, $id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2979,7 +2915,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2999,22 +2935,19 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatByParentIdMessageByIdPage'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param string $id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatByParentIdMessageByIdPageRequest(array $params = [])
+    protected function getAgentChatByParentIdMessageByIdPageRequest($parent_id, $id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in ChatsApi::getAgentChatByParentIdMessageByIdPageRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in ChatsApi::getAgentChatByParentIdMessageByIdPageRequest().');
         }
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::getAgentChatByParentIdMessageByIdPageRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::getAgentChatByParentIdMessageByIdPageRequest().');
         }
         
 
@@ -3025,20 +2958,27 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -3116,37 +3056,32 @@ class ChatsApi
      * Operation getAgentChatByParentIdMessageCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatByParentIdMessageCount(array $params = [])
+    public function getAgentChatByParentIdMessageCount($parent_id)
     {
-        list($response) = $this->getAgentChatByParentIdMessageCountWithHttpInfo($params);
+        list($response) = $this->getAgentChatByParentIdMessageCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getAgentChatByParentIdMessageCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatByParentIdMessageCountWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageCountRequest($params);
+        $request = $this->getAgentChatByParentIdMessageCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3220,19 +3155,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageCountAsync(array $params = [])
+    public function getAgentChatByParentIdMessageCountAsync($parent_id)
     {
-        return $this->getAgentChatByParentIdMessageCountAsyncWithHttpInfo($params)
+        return $this->getAgentChatByParentIdMessageCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3243,23 +3176,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatByParentIdMessageCountAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatByParentIdMessageCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatByParentIdMessageCountRequest($params);
+        $request = $this->getAgentChatByParentIdMessageCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3279,7 +3210,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3299,18 +3230,15 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatByParentIdMessageCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatByParentIdMessageCountRequest(array $params = [])
+    protected function getAgentChatByParentIdMessageCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in ChatsApi::getAgentChatByParentIdMessageCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in ChatsApi::getAgentChatByParentIdMessageCountRequest().');
         }
         
 
@@ -3321,12 +3249,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -3404,35 +3336,30 @@ class ChatsApi
      * Operation getAgentChatCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatCount(array $params = [])
+    public function getAgentChatCount()
     {
-        list($response) = $this->getAgentChatCountWithHttpInfo($params);
+        list($response) = $this->getAgentChatCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentChatCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatCountWithHttpInfo(array $params = [])
+    public function getAgentChatCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatCountRequest($params);
+        $request = $this->getAgentChatCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -3506,18 +3433,16 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatCountAsync(array $params = [])
+    public function getAgentChatCountAsync()
     {
-        return $this->getAgentChatCountAsyncWithHttpInfo($params)
+        return $this->getAgentChatCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3528,22 +3453,20 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatCountAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatCountRequest($params);
+        $request = $this->getAgentChatCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3563,7 +3486,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3583,14 +3506,11 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatCountRequest(array $params = [])
+    protected function getAgentChatCountRequest()
     {
         
 
@@ -3601,6 +3521,7 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -3676,35 +3597,30 @@ class ChatsApi
      * Operation getAgentChatGroup
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatGroup(array $params = [])
+    public function getAgentChatGroup()
     {
-        list($response) = $this->getAgentChatGroupWithHttpInfo($params);
+        list($response) = $this->getAgentChatGroupWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentChatGroupWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatGroupWithHttpInfo(array $params = [])
+    public function getAgentChatGroupWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatGroupRequest($params);
+        $request = $this->getAgentChatGroupRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -3770,18 +3686,16 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatGroupAsync(array $params = [])
+    public function getAgentChatGroupAsync()
     {
-        return $this->getAgentChatGroupAsyncWithHttpInfo($params)
+        return $this->getAgentChatGroupAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3792,22 +3706,20 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatGroupAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatGroupAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatGroupRequest($params);
+        $request = $this->getAgentChatGroupRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3827,7 +3739,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3847,14 +3759,11 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatGroup'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatGroupRequest(array $params = [])
+    protected function getAgentChatGroupRequest()
     {
         
 
@@ -3865,6 +3774,7 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -3940,35 +3850,30 @@ class ChatsApi
      * Operation getAgentChatMessageCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChatMessageCount(array $params = [])
+    public function getAgentChatMessageCount()
     {
-        list($response) = $this->getAgentChatMessageCountWithHttpInfo($params);
+        list($response) = $this->getAgentChatMessageCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAgentChatMessageCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatMessageCountWithHttpInfo(array $params = [])
+    public function getAgentChatMessageCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatMessageCountRequest($params);
+        $request = $this->getAgentChatMessageCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -4042,18 +3947,16 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatMessageCountAsync(array $params = [])
+    public function getAgentChatMessageCountAsync()
     {
-        return $this->getAgentChatMessageCountAsyncWithHttpInfo($params)
+        return $this->getAgentChatMessageCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4064,22 +3967,20 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatMessageCountAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatMessageCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatMessageCountRequest($params);
+        $request = $this->getAgentChatMessageCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4099,7 +4000,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4119,14 +4020,11 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChatMessageCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatMessageCountRequest(array $params = [])
+    protected function getAgentChatMessageCountRequest()
     {
         
 
@@ -4137,6 +4035,7 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -4211,44 +4110,43 @@ class ChatsApi
     /**
      * Operation getAgentChats
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAgentChats(array $params = [])
+    public function getAgentChats(array $filters = [])
     {
-        list($response) = $this->getAgentChatsWithHttpInfo($params);
+        list($response) = $this->getAgentChatsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getAgentChatsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentChatsWithHttpInfo(array $params = [])
+    public function getAgentChatsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatsRequest($params);
+        $request = $this->getAgentChatsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4322,22 +4220,22 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatsAsync(array $params = [])
+    public function getAgentChatsAsync(array $filters = [])
     {
-        return $this->getAgentChatsAsyncWithHttpInfo($params)
+        return $this->getAgentChatsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4348,26 +4246,26 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentChatsAsyncWithHttpInfo(array $params = [])
+    public function getAgentChatsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAgentChatsRequest($params);
+        $request = $this->getAgentChatsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4387,7 +4285,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4407,30 +4305,29 @@ class ChatsApi
     /**
      * Create request for operation 'getAgentChats'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAgentChatsRequest(array $params = [])
+    protected function getAgentChatsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -4441,21 +4338,22 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -4531,9 +4429,7 @@ class ChatsApi
     /**
      * Operation getUserChatByConversationIdMessage
      *
-     *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -4541,23 +4437,23 @@ class ChatsApi
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserChatByConversationIdMessage(array $params = [])
+    public function getUserChatByConversationIdMessage($conversation_id, array $filters = [])
     {
-        list($response) = $this->getUserChatByConversationIdMessageWithHttpInfo($params);
+        list($response) = $this->getUserChatByConversationIdMessageWithHttpInfo($conversation_id, $filters);
         return $response;
     }
 
     /**
      * Operation getUserChatByConversationIdMessageWithHttpInfo
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -4565,16 +4461,17 @@ class ChatsApi
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserChatByConversationIdMessageWithHttpInfo(array $params = [])
+    public function getUserChatByConversationIdMessageWithHttpInfo($conversation_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatByConversationIdMessageRequest($params);
+        $request = $this->getUserChatByConversationIdMessageRequest($conversation_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4648,8 +4545,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -4657,16 +4553,17 @@ class ChatsApi
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatByConversationIdMessageAsync(array $params = [])
+    public function getUserChatByConversationIdMessageAsync($conversation_id, array $filters = [])
     {
-        return $this->getUserChatByConversationIdMessageAsyncWithHttpInfo($params)
+        return $this->getUserChatByConversationIdMessageAsyncWithHttpInfo($conversation_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4677,8 +4574,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -4686,20 +4582,21 @@ class ChatsApi
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatByConversationIdMessageAsyncWithHttpInfo(array $params = [])
+    public function getUserChatByConversationIdMessageAsyncWithHttpInfo($conversation_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatByConversationIdMessageRequest($params);
+        $request = $this->getUserChatByConversationIdMessageRequest($conversation_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4719,7 +4616,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4739,8 +4636,7 @@ class ChatsApi
     /**
      * Create request for operation 'getUserChatByConversationIdMessage'
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -4748,33 +4644,33 @@ class ChatsApi
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserChatByConversationIdMessageRequest(array $params = [])
+    protected function getUserChatByConversationIdMessageRequest($conversation_id, array $filters = [])
     {
-        if (empty($params['conversation_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "conversation_id" in ChatsApi::getUserChatByConversationIdMessageRequest().');
+        if (empty($conversation_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$conversation_id" in ChatsApi::getUserChatByConversationIdMessageRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['last_message_id'])) {
-            $params['last_message_id'] = null;
+        if (!isset($filters['last_message_id'])) {
+            $filters['last_message_id'] = null;
         }
-        if (!isset($params['agent_only'])) {
-            $params['agent_only'] = null;
+        if (!isset($filters['agent_only'])) {
+            $filters['agent_only'] = null;
         }
         
 
@@ -4785,36 +4681,40 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($conversation_id !== null) {
+            $conversation_id = ObjectSerializer::toQueryValue($conversation_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['last_message_id'] !== null) {
-            $queryParams['last_message_id'] = ObjectSerializer::toQueryValue($params['last_message_id']);
+        if ($filters['last_message_id'] !== null) {
+            $queryParams['last_message_id'] = ObjectSerializer::toQueryValue($filters['last_message_id']);
         }
         // query params
-        if ($params['agent_only'] !== null) {
-            $queryParams['agent_only'] = ObjectSerializer::toQueryValue($params['agent_only']);
+        if ($filters['agent_only'] !== null) {
+            $queryParams['agent_only'] = ObjectSerializer::toQueryValue($filters['agent_only']);
         }
 
         // path params
-        if ($params['conversation_id'] !== null) {
+        if ($conversation_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'conversationId' . '}',
-                ObjectSerializer::toPathValue($params['conversation_id']),
+                ObjectSerializer::toPathValue($conversation_id),
                 $resourcePath
             );
         }
@@ -4891,42 +4791,41 @@ class ChatsApi
     /**
      * Operation getUserChatByConversationIdMessageCount
      *
-     *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserChatByConversationIdMessageCount(array $params = [])
+    public function getUserChatByConversationIdMessageCount($conversation_id, array $filters = [])
     {
-        list($response) = $this->getUserChatByConversationIdMessageCountWithHttpInfo($params);
+        list($response) = $this->getUserChatByConversationIdMessageCountWithHttpInfo($conversation_id, $filters);
         return $response;
     }
 
     /**
      * Operation getUserChatByConversationIdMessageCountWithHttpInfo
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserChatByConversationIdMessageCountWithHttpInfo(array $params = [])
+    public function getUserChatByConversationIdMessageCountWithHttpInfo($conversation_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatByConversationIdMessageCountRequest($params);
+        $request = $this->getUserChatByConversationIdMessageCountRequest($conversation_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5000,21 +4899,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatByConversationIdMessageCountAsync(array $params = [])
+    public function getUserChatByConversationIdMessageCountAsync($conversation_id, array $filters = [])
     {
-        return $this->getUserChatByConversationIdMessageCountAsyncWithHttpInfo($params)
+        return $this->getUserChatByConversationIdMessageCountAsyncWithHttpInfo($conversation_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5025,25 +4924,25 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatByConversationIdMessageCountAsyncWithHttpInfo(array $params = [])
+    public function getUserChatByConversationIdMessageCountAsyncWithHttpInfo($conversation_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatByConversationIdMessageCountRequest($params);
+        $request = $this->getUserChatByConversationIdMessageCountRequest($conversation_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5063,7 +4962,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5083,26 +4982,25 @@ class ChatsApi
     /**
      * Create request for operation 'getUserChatByConversationIdMessageCount'
      *
-     * Parameters:
-     *   "conversation_id" string   (required)
+     * Filters:
      *   "last_message_id" int   (optional)
      *   "agent_only" int   (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $conversation_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserChatByConversationIdMessageCountRequest(array $params = [])
+    protected function getUserChatByConversationIdMessageCountRequest($conversation_id, array $filters = [])
     {
-        if (empty($params['conversation_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "conversation_id" in ChatsApi::getUserChatByConversationIdMessageCountRequest().');
+        if (empty($conversation_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$conversation_id" in ChatsApi::getUserChatByConversationIdMessageCountRequest().');
         }
-        if (!isset($params['last_message_id'])) {
-            $params['last_message_id'] = null;
+        if (!isset($filters['last_message_id'])) {
+            $filters['last_message_id'] = null;
         }
-        if (!isset($params['agent_only'])) {
-            $params['agent_only'] = null;
+        if (!isset($filters['agent_only'])) {
+            $filters['agent_only'] = null;
         }
         
 
@@ -5113,20 +5011,24 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($conversation_id !== null) {
+            $conversation_id = ObjectSerializer::toQueryValue($conversation_id);
+        }
+        
         // query params
-        if ($params['last_message_id'] !== null) {
-            $queryParams['last_message_id'] = ObjectSerializer::toQueryValue($params['last_message_id']);
+        if ($filters['last_message_id'] !== null) {
+            $queryParams['last_message_id'] = ObjectSerializer::toQueryValue($filters['last_message_id']);
         }
         // query params
-        if ($params['agent_only'] !== null) {
-            $queryParams['agent_only'] = ObjectSerializer::toQueryValue($params['agent_only']);
+        if ($filters['agent_only'] !== null) {
+            $queryParams['agent_only'] = ObjectSerializer::toQueryValue($filters['agent_only']);
         }
 
         // path params
-        if ($params['conversation_id'] !== null) {
+        if ($conversation_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'conversationId' . '}',
-                ObjectSerializer::toPathValue($params['conversation_id']),
+                ObjectSerializer::toPathValue($conversation_id),
                 $resourcePath
             );
         }
@@ -5204,37 +5106,32 @@ class ChatsApi
      * Operation getUserChatById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserChatById(array $params = [])
+    public function getUserChatById($id)
     {
-        list($response) = $this->getUserChatByIdWithHttpInfo($params);
+        list($response) = $this->getUserChatByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getUserChatByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserChatByIdWithHttpInfo(array $params = [])
+    public function getUserChatByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatByIdRequest($params);
+        $request = $this->getUserChatByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5308,19 +5205,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatByIdAsync(array $params = [])
+    public function getUserChatByIdAsync($id)
     {
-        return $this->getUserChatByIdAsyncWithHttpInfo($params)
+        return $this->getUserChatByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5331,23 +5226,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatByIdAsyncWithHttpInfo(array $params = [])
+    public function getUserChatByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatByIdRequest($params);
+        $request = $this->getUserChatByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5367,7 +5260,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5387,18 +5280,15 @@ class ChatsApi
     /**
      * Create request for operation 'getUserChatById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserChatByIdRequest(array $params = [])
+    protected function getUserChatByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::getUserChatByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::getUserChatByIdRequest().');
         }
         
 
@@ -5409,12 +5299,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -5491,8 +5385,7 @@ class ChatsApi
     /**
      * Operation getUserChatCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "date_created" string   (optional)
      *   "date_period" string   (optional)
      *   "agent" int   (optional)
@@ -5500,22 +5393,22 @@ class ChatsApi
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserChatCount(array $params = [])
+    public function getUserChatCount(array $filters = [])
     {
-        list($response) = $this->getUserChatCountWithHttpInfo($params);
+        list($response) = $this->getUserChatCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getUserChatCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "date_created" string   (optional)
      *   "date_period" string   (optional)
      *   "agent" int   (optional)
@@ -5523,16 +5416,16 @@ class ChatsApi
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserChatCountWithHttpInfo(array $params = [])
+    public function getUserChatCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatCountRequest($params);
+        $request = $this->getUserChatCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5606,7 +5499,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "date_created" string   (optional)
      *   "date_period" string   (optional)
      *   "agent" int   (optional)
@@ -5614,16 +5507,16 @@ class ChatsApi
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatCountAsync(array $params = [])
+    public function getUserChatCountAsync(array $filters = [])
     {
-        return $this->getUserChatCountAsyncWithHttpInfo($params)
+        return $this->getUserChatCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5634,7 +5527,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "date_created" string   (optional)
      *   "date_period" string   (optional)
      *   "agent" int   (optional)
@@ -5642,20 +5535,20 @@ class ChatsApi
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatCountAsyncWithHttpInfo(array $params = [])
+    public function getUserChatCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatCountRequest($params);
+        $request = $this->getUserChatCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5675,7 +5568,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5695,7 +5588,7 @@ class ChatsApi
     /**
      * Create request for operation 'getUserChatCount'
      *
-     * Parameters:
+     * Filters:
      *   "date_created" string   (optional)
      *   "date_period" string   (optional)
      *   "agent" int   (optional)
@@ -5703,30 +5596,29 @@ class ChatsApi
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *   "group_by" bool  how to group counts (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserChatCountRequest(array $params = [])
+    protected function getUserChatCountRequest(array $filters = [])
     {
-        if (!isset($params['date_created'])) {
-            $params['date_created'] = null;
+        if (!isset($filters['date_created'])) {
+            $filters['date_created'] = null;
         }
-        if (!isset($params['date_period'])) {
-            $params['date_period'] = null;
+        if (!isset($filters['date_period'])) {
+            $filters['date_period'] = null;
         }
-        if (!isset($params['agent'])) {
-            $params['agent'] = null;
+        if (!isset($filters['agent'])) {
+            $filters['agent'] = null;
         }
-        if (!isset($params['department'])) {
-            $params['department'] = null;
+        if (!isset($filters['department'])) {
+            $filters['department'] = null;
         }
-        if (!isset($params['chat_field_id'])) {
-            $params['chat_field_id'] = null;
+        if (!isset($filters['chat_field_id'])) {
+            $filters['chat_field_id'] = null;
         }
-        if (!isset($params['group_by'])) {
-            $params['group_by'] = null;
+        if (!isset($filters['group_by'])) {
+            $filters['group_by'] = null;
         }
         
 
@@ -5737,29 +5629,30 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['date_created'] !== null) {
-            $queryParams['date_created'] = ObjectSerializer::toQueryValue($params['date_created']);
+        if ($filters['date_created'] !== null) {
+            $queryParams['date_created'] = ObjectSerializer::toQueryValue($filters['date_created']);
         }
         // query params
-        if ($params['date_period'] !== null) {
-            $queryParams['date_period'] = ObjectSerializer::toQueryValue($params['date_period']);
+        if ($filters['date_period'] !== null) {
+            $queryParams['date_period'] = ObjectSerializer::toQueryValue($filters['date_period']);
         }
         // query params
-        if ($params['agent'] !== null) {
-            $queryParams['agent'] = ObjectSerializer::toQueryValue($params['agent']);
+        if ($filters['agent'] !== null) {
+            $queryParams['agent'] = ObjectSerializer::toQueryValue($filters['agent']);
         }
         // query params
-        if ($params['department'] !== null) {
-            $queryParams['department'] = ObjectSerializer::toQueryValue($params['department']);
+        if ($filters['department'] !== null) {
+            $queryParams['department'] = ObjectSerializer::toQueryValue($filters['department']);
         }
         // query params
-        if ($params['chat_field_id'] !== null) {
-            $queryParams['chat_field.{id}'] = ObjectSerializer::toQueryValue($params['chat_field_id']);
+        if ($filters['chat_field_id'] !== null) {
+            $queryParams['chat_field.{id}'] = ObjectSerializer::toQueryValue($filters['chat_field_id']);
         }
         // query params
-        if ($params['group_by'] !== null) {
-            $queryParams['group_by'] = ObjectSerializer::toQueryValue($params['group_by']);
+        if ($filters['group_by'] !== null) {
+            $queryParams['group_by'] = ObjectSerializer::toQueryValue($filters['group_by']);
         }
 
 
@@ -5836,37 +5729,32 @@ class ChatsApi
      * Operation getUserChatCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserChatCustomFieldById(array $params = [])
+    public function getUserChatCustomFieldById($id)
     {
-        list($response) = $this->getUserChatCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->getUserChatCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getUserChatCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserChatCustomFieldByIdWithHttpInfo(array $params = [])
+    public function getUserChatCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatCustomFieldByIdRequest($params);
+        $request = $this->getUserChatCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5940,19 +5828,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatCustomFieldByIdAsync(array $params = [])
+    public function getUserChatCustomFieldByIdAsync($id)
     {
-        return $this->getUserChatCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->getUserChatCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5963,23 +5849,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function getUserChatCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatCustomFieldByIdRequest($params);
+        $request = $this->getUserChatCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5999,7 +5883,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6019,18 +5903,15 @@ class ChatsApi
     /**
      * Create request for operation 'getUserChatCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserChatCustomFieldByIdRequest(array $params = [])
+    protected function getUserChatCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::getUserChatCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::getUserChatCustomFieldByIdRequest().');
         }
         
 
@@ -6041,12 +5922,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -6123,44 +6008,43 @@ class ChatsApi
     /**
      * Operation getUserChatCustomFields
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserChatCustomFields(array $params = [])
+    public function getUserChatCustomFields(array $filters = [])
     {
-        list($response) = $this->getUserChatCustomFieldsWithHttpInfo($params);
+        list($response) = $this->getUserChatCustomFieldsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getUserChatCustomFieldsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserChatCustomFieldsWithHttpInfo(array $params = [])
+    public function getUserChatCustomFieldsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatCustomFieldsRequest($params);
+        $request = $this->getUserChatCustomFieldsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6234,22 +6118,22 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatCustomFieldsAsync(array $params = [])
+    public function getUserChatCustomFieldsAsync(array $filters = [])
     {
-        return $this->getUserChatCustomFieldsAsyncWithHttpInfo($params)
+        return $this->getUserChatCustomFieldsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6260,26 +6144,26 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatCustomFieldsAsyncWithHttpInfo(array $params = [])
+    public function getUserChatCustomFieldsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatCustomFieldsRequest($params);
+        $request = $this->getUserChatCustomFieldsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6299,7 +6183,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6319,30 +6203,29 @@ class ChatsApi
     /**
      * Create request for operation 'getUserChatCustomFields'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserChatCustomFieldsRequest(array $params = [])
+    protected function getUserChatCustomFieldsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -6353,21 +6236,22 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -6443,8 +6327,7 @@ class ChatsApi
     /**
      * Operation getUserChats
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6455,22 +6338,22 @@ class ChatsApi
      *   "department" int   (optional)
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getUserChats(array $params = [])
+    public function getUserChats(array $filters = [])
     {
-        list($response) = $this->getUserChatsWithHttpInfo($params);
+        list($response) = $this->getUserChatsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getUserChatsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6481,16 +6364,16 @@ class ChatsApi
      *   "department" int   (optional)
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getUserChatsWithHttpInfo(array $params = [])
+    public function getUserChatsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatsRequest($params);
+        $request = $this->getUserChatsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6564,7 +6447,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6575,16 +6458,16 @@ class ChatsApi
      *   "department" int   (optional)
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatsAsync(array $params = [])
+    public function getUserChatsAsync(array $filters = [])
     {
-        return $this->getUserChatsAsyncWithHttpInfo($params)
+        return $this->getUserChatsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6595,7 +6478,7 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6606,20 +6489,20 @@ class ChatsApi
      *   "department" int   (optional)
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getUserChatsAsyncWithHttpInfo(array $params = [])
+    public function getUserChatsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getUserChatsRequest($params);
+        $request = $this->getUserChatsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6639,7 +6522,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -6659,7 +6542,7 @@ class ChatsApi
     /**
      * Create request for operation 'getUserChats'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -6670,39 +6553,38 @@ class ChatsApi
      *   "department" int   (optional)
      *   "chat_field_id" string  *                  Custom chat field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?chat_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getUserChatsRequest(array $params = [])
+    protected function getUserChatsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['date_created'])) {
-            $params['date_created'] = null;
+        if (!isset($filters['date_created'])) {
+            $filters['date_created'] = null;
         }
-        if (!isset($params['date_period'])) {
-            $params['date_period'] = null;
+        if (!isset($filters['date_period'])) {
+            $filters['date_period'] = null;
         }
-        if (!isset($params['agent'])) {
-            $params['agent'] = null;
+        if (!isset($filters['agent'])) {
+            $filters['agent'] = null;
         }
-        if (!isset($params['department'])) {
-            $params['department'] = null;
+        if (!isset($filters['department'])) {
+            $filters['department'] = null;
         }
-        if (!isset($params['chat_field_id'])) {
-            $params['chat_field_id'] = null;
+        if (!isset($filters['chat_field_id'])) {
+            $filters['chat_field_id'] = null;
         }
         
 
@@ -6713,41 +6595,42 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['date_created'] !== null) {
-            $queryParams['date_created'] = ObjectSerializer::toQueryValue($params['date_created']);
+        if ($filters['date_created'] !== null) {
+            $queryParams['date_created'] = ObjectSerializer::toQueryValue($filters['date_created']);
         }
         // query params
-        if ($params['date_period'] !== null) {
-            $queryParams['date_period'] = ObjectSerializer::toQueryValue($params['date_period']);
+        if ($filters['date_period'] !== null) {
+            $queryParams['date_period'] = ObjectSerializer::toQueryValue($filters['date_period']);
         }
         // query params
-        if ($params['agent'] !== null) {
-            $queryParams['agent'] = ObjectSerializer::toQueryValue($params['agent']);
+        if ($filters['agent'] !== null) {
+            $queryParams['agent'] = ObjectSerializer::toQueryValue($filters['agent']);
         }
         // query params
-        if ($params['department'] !== null) {
-            $queryParams['department'] = ObjectSerializer::toQueryValue($params['department']);
+        if ($filters['department'] !== null) {
+            $queryParams['department'] = ObjectSerializer::toQueryValue($filters['department']);
         }
         // query params
-        if ($params['chat_field_id'] !== null) {
-            $queryParams['chat_field.{id}'] = ObjectSerializer::toQueryValue($params['chat_field_id']);
+        if ($filters['chat_field_id'] !== null) {
+            $queryParams['chat_field.{id}'] = ObjectSerializer::toQueryValue($filters['chat_field_id']);
         }
 
 
@@ -6824,37 +6707,32 @@ class ChatsApi
      * Operation updateAgentChatByParentIdMessageMarkAll
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateAgentChatByParentIdMessageMarkAll(array $params = [])
+    public function updateAgentChatByParentIdMessageMarkAll($parent_id)
     {
-        list($response) = $this->updateAgentChatByParentIdMessageMarkAllWithHttpInfo($params);
+        list($response) = $this->updateAgentChatByParentIdMessageMarkAllWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation updateAgentChatByParentIdMessageMarkAllWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateAgentChatByParentIdMessageMarkAllWithHttpInfo(array $params = [])
+    public function updateAgentChatByParentIdMessageMarkAllWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateAgentChatByParentIdMessageMarkAllRequest($params);
+        $request = $this->updateAgentChatByParentIdMessageMarkAllRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6928,19 +6806,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateAgentChatByParentIdMessageMarkAllAsync(array $params = [])
+    public function updateAgentChatByParentIdMessageMarkAllAsync($parent_id)
     {
-        return $this->updateAgentChatByParentIdMessageMarkAllAsyncWithHttpInfo($params)
+        return $this->updateAgentChatByParentIdMessageMarkAllAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -6951,23 +6827,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateAgentChatByParentIdMessageMarkAllAsyncWithHttpInfo(array $params = [])
+    public function updateAgentChatByParentIdMessageMarkAllAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateAgentChatByParentIdMessageMarkAllRequest($params);
+        $request = $this->updateAgentChatByParentIdMessageMarkAllRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -6987,7 +6861,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7007,18 +6881,15 @@ class ChatsApi
     /**
      * Create request for operation 'updateAgentChatByParentIdMessageMarkAll'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateAgentChatByParentIdMessageMarkAllRequest(array $params = [])
+    protected function updateAgentChatByParentIdMessageMarkAllRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in ChatsApi::updateAgentChatByParentIdMessageMarkAllRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in ChatsApi::updateAgentChatByParentIdMessageMarkAllRequest().');
         }
         
 
@@ -7029,12 +6900,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -7112,39 +6987,34 @@ class ChatsApi
      * Operation updateUserChatByIdAssignByAgentId
      *
      *
-     * Parameters:
-     *   "id" int   (required)
-     *   "agent_id" int   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id 
+     * @param int $agent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateUserChatByIdAssignByAgentId(array $params = [])
+    public function updateUserChatByIdAssignByAgentId($id, $agent_id)
     {
-        list($response) = $this->updateUserChatByIdAssignByAgentIdWithHttpInfo($params);
+        list($response) = $this->updateUserChatByIdAssignByAgentIdWithHttpInfo($id, $agent_id);
         return $response;
     }
 
     /**
      * Operation updateUserChatByIdAssignByAgentIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int   (required)
-     *   "agent_id" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id 
+     * @param int $agent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateUserChatByIdAssignByAgentIdWithHttpInfo(array $params = [])
+    public function updateUserChatByIdAssignByAgentIdWithHttpInfo($id, $agent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateUserChatByIdAssignByAgentIdRequest($params);
+        $request = $this->updateUserChatByIdAssignByAgentIdRequest($id, $agent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7218,20 +7088,18 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int   (required)
-     *   "agent_id" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id 
+     * @param int $agent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateUserChatByIdAssignByAgentIdAsync(array $params = [])
+    public function updateUserChatByIdAssignByAgentIdAsync($id, $agent_id)
     {
-        return $this->updateUserChatByIdAssignByAgentIdAsyncWithHttpInfo($params)
+        return $this->updateUserChatByIdAssignByAgentIdAsyncWithHttpInfo($id, $agent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7242,24 +7110,22 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int   (required)
-     *   "agent_id" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id 
+     * @param int $agent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateUserChatByIdAssignByAgentIdAsyncWithHttpInfo(array $params = [])
+    public function updateUserChatByIdAssignByAgentIdAsyncWithHttpInfo($id, $agent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateUserChatByIdAssignByAgentIdRequest($params);
+        $request = $this->updateUserChatByIdAssignByAgentIdRequest($id, $agent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7279,7 +7145,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7299,22 +7165,19 @@ class ChatsApi
     /**
      * Create request for operation 'updateUserChatByIdAssignByAgentId'
      *
-     * Parameters:
-     *   "id" int   (required)
-     *   "agent_id" int   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id 
+     * @param int $agent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateUserChatByIdAssignByAgentIdRequest(array $params = [])
+    protected function updateUserChatByIdAssignByAgentIdRequest($id, $agent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::updateUserChatByIdAssignByAgentIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::updateUserChatByIdAssignByAgentIdRequest().');
         }
-        if (empty($params['agent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "agent_id" in ChatsApi::updateUserChatByIdAssignByAgentIdRequest().');
+        if (empty($agent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$agent_id" in ChatsApi::updateUserChatByIdAssignByAgentIdRequest().');
         }
         
 
@@ -7325,20 +7188,27 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($agent_id !== null) {
+            $agent_id = ObjectSerializer::toQueryValue($agent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['agent_id'] !== null) {
+        if ($agent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'agentId' . '}',
-                ObjectSerializer::toPathValue($params['agent_id']),
+                ObjectSerializer::toPathValue($agent_id),
                 $resourcePath
             );
         }
@@ -7416,37 +7286,32 @@ class ChatsApi
      * Operation updateUserChatByIdEnd
      *
      *
-     * Parameters:
-     *   "id" int   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateUserChatByIdEnd(array $params = [])
+    public function updateUserChatByIdEnd($id)
     {
-        list($response) = $this->updateUserChatByIdEndWithHttpInfo($params);
+        list($response) = $this->updateUserChatByIdEndWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation updateUserChatByIdEndWithHttpInfo
      *
-     * Parameters:
-     *   "id" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateUserChatByIdEndWithHttpInfo(array $params = [])
+    public function updateUserChatByIdEndWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateUserChatByIdEndRequest($params);
+        $request = $this->updateUserChatByIdEndRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7520,19 +7385,17 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateUserChatByIdEndAsync(array $params = [])
+    public function updateUserChatByIdEndAsync($id)
     {
-        return $this->updateUserChatByIdEndAsyncWithHttpInfo($params)
+        return $this->updateUserChatByIdEndAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -7543,23 +7406,21 @@ class ChatsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateUserChatByIdEndAsyncWithHttpInfo(array $params = [])
+    public function updateUserChatByIdEndAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateUserChatByIdEndRequest($params);
+        $request = $this->updateUserChatByIdEndRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -7579,7 +7440,7 @@ class ChatsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -7599,18 +7460,15 @@ class ChatsApi
     /**
      * Create request for operation 'updateUserChatByIdEnd'
      *
-     * Parameters:
-     *   "id" int   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateUserChatByIdEndRequest(array $params = [])
+    protected function updateUserChatByIdEndRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in ChatsApi::updateUserChatByIdEndRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in ChatsApi::updateUserChatByIdEndRequest().');
         }
         
 
@@ -7621,12 +7479,16 @@ class ChatsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }

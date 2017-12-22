@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class OrganizationsApi
      * Operation deleteOrganizationById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteOrganizationById(array $params = [])
+    public function deleteOrganizationById($id)
     {
-        list($response) = $this->deleteOrganizationByIdWithHttpInfo($params);
+        list($response) = $this->deleteOrganizationByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteOrganizationByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteOrganizationByIdWithHttpInfo(array $params = [])
+    public function deleteOrganizationByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationByIdRequest($params);
+        $request = $this->deleteOrganizationByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -220,19 +216,17 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationByIdAsync(array $params = [])
+    public function deleteOrganizationByIdAsync($id)
     {
-        return $this->deleteOrganizationByIdAsyncWithHttpInfo($params)
+        return $this->deleteOrganizationByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -243,23 +237,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteOrganizationByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationByIdRequest($params);
+        $request = $this->deleteOrganizationByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -279,7 +271,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -299,18 +291,15 @@ class OrganizationsApi
     /**
      * Create request for operation 'deleteOrganizationById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteOrganizationByIdRequest(array $params = [])
+    protected function deleteOrganizationByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::deleteOrganizationByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::deleteOrganizationByIdRequest().');
         }
         
 
@@ -321,12 +310,16 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -403,42 +396,41 @@ class OrganizationsApi
     /**
      * Operation deleteOrganizationByParentIdMemberByPerson
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "person" string   (required)
+     * Filters:
      *   "id" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $person 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteOrganizationByParentIdMemberByPerson(array $params = [])
+    public function deleteOrganizationByParentIdMemberByPerson($parent_id, $person, array $filters = [])
     {
-        list($response) = $this->deleteOrganizationByParentIdMemberByPersonWithHttpInfo($params);
+        list($response) = $this->deleteOrganizationByParentIdMemberByPersonWithHttpInfo($parent_id, $person, $filters);
         return $response;
     }
 
     /**
      * Operation deleteOrganizationByParentIdMemberByPersonWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "person" string   (required)
+     * Filters:
      *   "id" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $person 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteOrganizationByParentIdMemberByPersonWithHttpInfo(array $params = [])
+    public function deleteOrganizationByParentIdMemberByPersonWithHttpInfo($parent_id, $person, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationByParentIdMemberByPersonRequest($params);
+        $request = $this->deleteOrganizationByParentIdMemberByPersonRequest($parent_id, $person, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -504,21 +496,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "person" string   (required)
+     * Filters:
      *   "id" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $person 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationByParentIdMemberByPersonAsync(array $params = [])
+    public function deleteOrganizationByParentIdMemberByPersonAsync($parent_id, $person, array $filters = [])
     {
-        return $this->deleteOrganizationByParentIdMemberByPersonAsyncWithHttpInfo($params)
+        return $this->deleteOrganizationByParentIdMemberByPersonAsyncWithHttpInfo($parent_id, $person, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -529,25 +521,25 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "person" string   (required)
+     * Filters:
      *   "id" string   (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param string $person 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationByParentIdMemberByPersonAsyncWithHttpInfo(array $params = [])
+    public function deleteOrganizationByParentIdMemberByPersonAsyncWithHttpInfo($parent_id, $person, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationByParentIdMemberByPersonRequest($params);
+        $request = $this->deleteOrganizationByParentIdMemberByPersonRequest($parent_id, $person, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -567,7 +559,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -587,26 +579,25 @@ class OrganizationsApi
     /**
      * Create request for operation 'deleteOrganizationByParentIdMemberByPerson'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *   "person" string   (required)
+     * Filters:
      *   "id" string   (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param string $person 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteOrganizationByParentIdMemberByPersonRequest(array $params = [])
+    protected function deleteOrganizationByParentIdMemberByPersonRequest($parent_id, $person, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::deleteOrganizationByParentIdMemberByPersonRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::deleteOrganizationByParentIdMemberByPersonRequest().');
         }
-        if (empty($params['person'])) {
-            throw new \InvalidArgumentException('Missing parameter "person" in OrganizationsApi::deleteOrganizationByParentIdMemberByPersonRequest().');
+        if (empty($person)) {
+            throw new \InvalidArgumentException('Missing parameter "$person" in OrganizationsApi::deleteOrganizationByParentIdMemberByPersonRequest().');
         }
-        if (!isset($params['id'])) {
-            $params['id'] = null;
+        if (!isset($filters['id'])) {
+            $filters['id'] = null;
         }
         
 
@@ -617,24 +608,31 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        if ($person !== null) {
+            $person = ObjectSerializer::toQueryValue($person);
+        }
+        
         // query params
-        if ($params['id'] !== null) {
-            $queryParams['id'] = ObjectSerializer::toQueryValue($params['id']);
+        if ($filters['id'] !== null) {
+            $queryParams['id'] = ObjectSerializer::toQueryValue($filters['id']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['person'] !== null) {
+        if ($person !== null) {
             $resourcePath = str_replace(
                 '{' . 'person' . '}',
-                ObjectSerializer::toPathValue($params['person']),
+                ObjectSerializer::toPathValue($person),
                 $resourcePath
             );
         }
@@ -712,39 +710,34 @@ class OrganizationsApi
      * Operation deleteOrganizationByParentIdNoteById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteOrganizationByParentIdNoteById(array $params = [])
+    public function deleteOrganizationByParentIdNoteById($id, $parent_id)
     {
-        list($response) = $this->deleteOrganizationByParentIdNoteByIdWithHttpInfo($params);
+        list($response) = $this->deleteOrganizationByParentIdNoteByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation deleteOrganizationByParentIdNoteByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteOrganizationByParentIdNoteByIdWithHttpInfo(array $params = [])
+    public function deleteOrganizationByParentIdNoteByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationByParentIdNoteByIdRequest($params);
+        $request = $this->deleteOrganizationByParentIdNoteByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -818,20 +811,18 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationByParentIdNoteByIdAsync(array $params = [])
+    public function deleteOrganizationByParentIdNoteByIdAsync($id, $parent_id)
     {
-        return $this->deleteOrganizationByParentIdNoteByIdAsyncWithHttpInfo($params)
+        return $this->deleteOrganizationByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -842,24 +833,22 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationByParentIdNoteByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteOrganizationByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationByParentIdNoteByIdRequest($params);
+        $request = $this->deleteOrganizationByParentIdNoteByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -879,7 +868,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -899,22 +888,19 @@ class OrganizationsApi
     /**
      * Create request for operation 'deleteOrganizationByParentIdNoteById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteOrganizationByParentIdNoteByIdRequest(array $params = [])
+    protected function deleteOrganizationByParentIdNoteByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::deleteOrganizationByParentIdNoteByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::deleteOrganizationByParentIdNoteByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::deleteOrganizationByParentIdNoteByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::deleteOrganizationByParentIdNoteByIdRequest().');
         }
         
 
@@ -925,20 +911,27 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -1016,37 +1009,32 @@ class OrganizationsApi
      * Operation deleteOrganizationCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteOrganizationCustomFieldById(array $params = [])
+    public function deleteOrganizationCustomFieldById($id)
     {
-        list($response) = $this->deleteOrganizationCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->deleteOrganizationCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteOrganizationCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteOrganizationCustomFieldByIdWithHttpInfo(array $params = [])
+    public function deleteOrganizationCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationCustomFieldByIdRequest($params);
+        $request = $this->deleteOrganizationCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1120,19 +1108,17 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationCustomFieldByIdAsync(array $params = [])
+    public function deleteOrganizationCustomFieldByIdAsync($id)
     {
-        return $this->deleteOrganizationCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->deleteOrganizationCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1143,23 +1129,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteOrganizationCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteOrganizationCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteOrganizationCustomFieldByIdRequest($params);
+        $request = $this->deleteOrganizationCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1179,7 +1163,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1199,18 +1183,15 @@ class OrganizationsApi
     /**
      * Create request for operation 'deleteOrganizationCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteOrganizationCustomFieldByIdRequest(array $params = [])
+    protected function deleteOrganizationCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::deleteOrganizationCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::deleteOrganizationCustomFieldByIdRequest().');
         }
         
 
@@ -1221,12 +1202,16 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1304,37 +1289,32 @@ class OrganizationsApi
      * Operation getOrganizationById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationById(array $params = [])
+    public function getOrganizationById($id)
     {
-        list($response) = $this->getOrganizationByIdWithHttpInfo($params);
+        list($response) = $this->getOrganizationByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getOrganizationByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByIdWithHttpInfo(array $params = [])
+    public function getOrganizationByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByIdRequest($params);
+        $request = $this->getOrganizationByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1408,19 +1388,17 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByIdAsync(array $params = [])
+    public function getOrganizationByIdAsync($id)
     {
-        return $this->getOrganizationByIdAsyncWithHttpInfo($params)
+        return $this->getOrganizationByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1431,23 +1409,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByIdAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByIdRequest($params);
+        $request = $this->getOrganizationByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1467,7 +1443,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1487,18 +1463,15 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByIdRequest(array $params = [])
+    protected function getOrganizationByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::getOrganizationByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::getOrganizationByIdRequest().');
         }
         
 
@@ -1509,12 +1482,16 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1592,37 +1569,32 @@ class OrganizationsApi
      * Operation getOrganizationByIdTicket
      *
      *
-     * Parameters:
-     *   "id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByIdTicket(array $params = [])
+    public function getOrganizationByIdTicket($id)
     {
-        list($response) = $this->getOrganizationByIdTicketWithHttpInfo($params);
+        list($response) = $this->getOrganizationByIdTicketWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getOrganizationByIdTicketWithHttpInfo
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByIdTicketWithHttpInfo(array $params = [])
+    public function getOrganizationByIdTicketWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByIdTicketRequest($params);
+        $request = $this->getOrganizationByIdTicketRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1696,19 +1668,17 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByIdTicketAsync(array $params = [])
+    public function getOrganizationByIdTicketAsync($id)
     {
-        return $this->getOrganizationByIdTicketAsyncWithHttpInfo($params)
+        return $this->getOrganizationByIdTicketAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1719,23 +1689,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByIdTicketAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByIdTicketAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByIdTicketRequest($params);
+        $request = $this->getOrganizationByIdTicketRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1755,7 +1723,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1775,18 +1743,15 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByIdTicket'
      *
-     * Parameters:
-     *   "id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByIdTicketRequest(array $params = [])
+    protected function getOrganizationByIdTicketRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::getOrganizationByIdTicketRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::getOrganizationByIdTicketRequest().');
         }
         
 
@@ -1797,12 +1762,16 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -1879,46 +1848,45 @@ class OrganizationsApi
     /**
      * Operation getOrganizationByParentIdContactData
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByParentIdContactData(array $params = [])
+    public function getOrganizationByParentIdContactData($parent_id, array $filters = [])
     {
-        list($response) = $this->getOrganizationByParentIdContactDataWithHttpInfo($params);
+        list($response) = $this->getOrganizationByParentIdContactDataWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getOrganizationByParentIdContactDataWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByParentIdContactDataWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdContactDataWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdContactDataRequest($params);
+        $request = $this->getOrganizationByParentIdContactDataRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1992,23 +1960,23 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdContactDataAsync(array $params = [])
+    public function getOrganizationByParentIdContactDataAsync($parent_id, array $filters = [])
     {
-        return $this->getOrganizationByParentIdContactDataAsyncWithHttpInfo($params)
+        return $this->getOrganizationByParentIdContactDataAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2019,27 +1987,27 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdContactDataAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdContactDataAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdContactDataRequest($params);
+        $request = $this->getOrganizationByParentIdContactDataRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2059,7 +2027,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2079,34 +2047,33 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByParentIdContactData'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByParentIdContactDataRequest(array $params = [])
+    protected function getOrganizationByParentIdContactDataRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::getOrganizationByParentIdContactDataRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::getOrganizationByParentIdContactDataRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -2117,28 +2084,32 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2216,39 +2187,34 @@ class OrganizationsApi
      * Operation getOrganizationByParentIdContactDataById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByParentIdContactDataById(array $params = [])
+    public function getOrganizationByParentIdContactDataById($id, $parent_id)
     {
-        list($response) = $this->getOrganizationByParentIdContactDataByIdWithHttpInfo($params);
+        list($response) = $this->getOrganizationByParentIdContactDataByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getOrganizationByParentIdContactDataByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByParentIdContactDataByIdWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdContactDataByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdContactDataByIdRequest($params);
+        $request = $this->getOrganizationByParentIdContactDataByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2322,20 +2288,18 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdContactDataByIdAsync(array $params = [])
+    public function getOrganizationByParentIdContactDataByIdAsync($id, $parent_id)
     {
-        return $this->getOrganizationByParentIdContactDataByIdAsyncWithHttpInfo($params)
+        return $this->getOrganizationByParentIdContactDataByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2346,24 +2310,22 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdContactDataByIdAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdContactDataByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdContactDataByIdRequest($params);
+        $request = $this->getOrganizationByParentIdContactDataByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2383,7 +2345,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2403,22 +2365,19 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByParentIdContactDataById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByParentIdContactDataByIdRequest(array $params = [])
+    protected function getOrganizationByParentIdContactDataByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::getOrganizationByParentIdContactDataByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::getOrganizationByParentIdContactDataByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::getOrganizationByParentIdContactDataByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::getOrganizationByParentIdContactDataByIdRequest().');
         }
         
 
@@ -2429,20 +2388,27 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2520,37 +2486,32 @@ class OrganizationsApi
      * Operation getOrganizationByParentIdContactDataCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByParentIdContactDataCount(array $params = [])
+    public function getOrganizationByParentIdContactDataCount($parent_id)
     {
-        list($response) = $this->getOrganizationByParentIdContactDataCountWithHttpInfo($params);
+        list($response) = $this->getOrganizationByParentIdContactDataCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getOrganizationByParentIdContactDataCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByParentIdContactDataCountWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdContactDataCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdContactDataCountRequest($params);
+        $request = $this->getOrganizationByParentIdContactDataCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2624,19 +2585,17 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdContactDataCountAsync(array $params = [])
+    public function getOrganizationByParentIdContactDataCountAsync($parent_id)
     {
-        return $this->getOrganizationByParentIdContactDataCountAsyncWithHttpInfo($params)
+        return $this->getOrganizationByParentIdContactDataCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2647,23 +2606,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdContactDataCountAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdContactDataCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdContactDataCountRequest($params);
+        $request = $this->getOrganizationByParentIdContactDataCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2683,7 +2640,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2703,18 +2660,15 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByParentIdContactDataCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByParentIdContactDataCountRequest(array $params = [])
+    protected function getOrganizationByParentIdContactDataCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::getOrganizationByParentIdContactDataCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::getOrganizationByParentIdContactDataCountRequest().');
         }
         
 
@@ -2725,12 +2679,16 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -2807,46 +2765,45 @@ class OrganizationsApi
     /**
      * Operation getOrganizationByParentIdMember
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByParentIdMember(array $params = [])
+    public function getOrganizationByParentIdMember($parent_id, array $filters = [])
     {
-        list($response) = $this->getOrganizationByParentIdMemberWithHttpInfo($params);
+        list($response) = $this->getOrganizationByParentIdMemberWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getOrganizationByParentIdMemberWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByParentIdMemberWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdMemberWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdMemberRequest($params);
+        $request = $this->getOrganizationByParentIdMemberRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2920,23 +2877,23 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdMemberAsync(array $params = [])
+    public function getOrganizationByParentIdMemberAsync($parent_id, array $filters = [])
     {
-        return $this->getOrganizationByParentIdMemberAsyncWithHttpInfo($params)
+        return $this->getOrganizationByParentIdMemberAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2947,27 +2904,27 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdMemberAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdMemberAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdMemberRequest($params);
+        $request = $this->getOrganizationByParentIdMemberRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2987,7 +2944,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3007,34 +2964,33 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByParentIdMember'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByParentIdMemberRequest(array $params = [])
+    protected function getOrganizationByParentIdMemberRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::getOrganizationByParentIdMemberRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::getOrganizationByParentIdMemberRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -3045,28 +3001,32 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -3143,46 +3103,45 @@ class OrganizationsApi
     /**
      * Operation getOrganizationByParentIdNote
      *
-     *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByParentIdNote(array $params = [])
+    public function getOrganizationByParentIdNote($parent_id, array $filters = [])
     {
-        list($response) = $this->getOrganizationByParentIdNoteWithHttpInfo($params);
+        list($response) = $this->getOrganizationByParentIdNoteWithHttpInfo($parent_id, $filters);
         return $response;
     }
 
     /**
      * Operation getOrganizationByParentIdNoteWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByParentIdNoteWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdNoteWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdNoteRequest($params);
+        $request = $this->getOrganizationByParentIdNoteRequest($parent_id, $filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3256,23 +3215,23 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdNoteAsync(array $params = [])
+    public function getOrganizationByParentIdNoteAsync($parent_id, array $filters = [])
     {
-        return $this->getOrganizationByParentIdNoteAsyncWithHttpInfo($params)
+        return $this->getOrganizationByParentIdNoteAsyncWithHttpInfo($parent_id, $filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3283,27 +3242,27 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdNoteAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdNoteAsyncWithHttpInfo($parent_id, array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdNoteRequest($params);
+        $request = $this->getOrganizationByParentIdNoteRequest($parent_id, $filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3323,7 +3282,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3343,34 +3302,33 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByParentIdNote'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByParentIdNoteRequest(array $params = [])
+    protected function getOrganizationByParentIdNoteRequest($parent_id, array $filters = [])
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::getOrganizationByParentIdNoteRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::getOrganizationByParentIdNoteRequest().');
         }
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -3381,28 +3339,32 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -3480,39 +3442,34 @@ class OrganizationsApi
      * Operation getOrganizationByParentIdNoteById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByParentIdNoteById(array $params = [])
+    public function getOrganizationByParentIdNoteById($id, $parent_id)
     {
-        list($response) = $this->getOrganizationByParentIdNoteByIdWithHttpInfo($params);
+        list($response) = $this->getOrganizationByParentIdNoteByIdWithHttpInfo($id, $parent_id);
         return $response;
     }
 
     /**
      * Operation getOrganizationByParentIdNoteByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByParentIdNoteByIdWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdNoteByIdWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdNoteByIdRequest($params);
+        $request = $this->getOrganizationByParentIdNoteByIdRequest($id, $parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3586,20 +3543,18 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdNoteByIdAsync(array $params = [])
+    public function getOrganizationByParentIdNoteByIdAsync($id, $parent_id)
     {
-        return $this->getOrganizationByParentIdNoteByIdAsyncWithHttpInfo($params)
+        return $this->getOrganizationByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3610,24 +3565,22 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdNoteByIdAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdNoteByIdAsyncWithHttpInfo($id, $parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdNoteByIdRequest($params);
+        $request = $this->getOrganizationByParentIdNoteByIdRequest($id, $parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3647,7 +3600,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3667,22 +3620,19 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByParentIdNoteById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByParentIdNoteByIdRequest(array $params = [])
+    protected function getOrganizationByParentIdNoteByIdRequest($id, $parent_id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::getOrganizationByParentIdNoteByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::getOrganizationByParentIdNoteByIdRequest().');
         }
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::getOrganizationByParentIdNoteByIdRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::getOrganizationByParentIdNoteByIdRequest().');
         }
         
 
@@ -3693,20 +3643,27 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -3784,37 +3741,32 @@ class OrganizationsApi
      * Operation getOrganizationByParentIdNoteCount
      *
      *
-     * Parameters:
-     *   "parent_id" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationByParentIdNoteCount(array $params = [])
+    public function getOrganizationByParentIdNoteCount($parent_id)
     {
-        list($response) = $this->getOrganizationByParentIdNoteCountWithHttpInfo($params);
+        list($response) = $this->getOrganizationByParentIdNoteCountWithHttpInfo($parent_id);
         return $response;
     }
 
     /**
      * Operation getOrganizationByParentIdNoteCountWithHttpInfo
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationByParentIdNoteCountWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdNoteCountWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdNoteCountRequest($params);
+        $request = $this->getOrganizationByParentIdNoteCountRequest($parent_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3888,19 +3840,17 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdNoteCountAsync(array $params = [])
+    public function getOrganizationByParentIdNoteCountAsync($parent_id)
     {
-        return $this->getOrganizationByParentIdNoteCountAsyncWithHttpInfo($params)
+        return $this->getOrganizationByParentIdNoteCountAsyncWithHttpInfo($parent_id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3911,23 +3861,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $parent_id 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationByParentIdNoteCountAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationByParentIdNoteCountAsyncWithHttpInfo($parent_id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationByParentIdNoteCountRequest($params);
+        $request = $this->getOrganizationByParentIdNoteCountRequest($parent_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3947,7 +3895,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3967,18 +3915,15 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationByParentIdNoteCount'
      *
-     * Parameters:
-     *   "parent_id" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $parent_id 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationByParentIdNoteCountRequest(array $params = [])
+    protected function getOrganizationByParentIdNoteCountRequest($parent_id)
     {
-        if (empty($params['parent_id'])) {
-            throw new \InvalidArgumentException('Missing parameter "parent_id" in OrganizationsApi::getOrganizationByParentIdNoteCountRequest().');
+        if (empty($parent_id)) {
+            throw new \InvalidArgumentException('Missing parameter "$parent_id" in OrganizationsApi::getOrganizationByParentIdNoteCountRequest().');
         }
         
 
@@ -3989,12 +3934,16 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($parent_id !== null) {
+            $parent_id = ObjectSerializer::toQueryValue($parent_id);
+        }
+        
 
         // path params
-        if ($params['parent_id'] !== null) {
+        if ($parent_id !== null) {
             $resourcePath = str_replace(
                 '{' . 'parentId' . '}',
-                ObjectSerializer::toPathValue($params['parent_id']),
+                ObjectSerializer::toPathValue($parent_id),
                 $resourcePath
             );
         }
@@ -4071,46 +4020,45 @@ class OrganizationsApi
     /**
      * Operation getOrganizationCount
      *
-     *
-     * Parameters:
+     * Filters:
      *   "name" string  name filter (optional)
      *   "period_created" string  period created filter (optional)
      *   "user_group" string[]  usergroups filter (optional)
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationCount(array $params = [])
+    public function getOrganizationCount(array $filters = [])
     {
-        list($response) = $this->getOrganizationCountWithHttpInfo($params);
+        list($response) = $this->getOrganizationCountWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getOrganizationCountWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "name" string  name filter (optional)
      *   "period_created" string  period created filter (optional)
      *   "user_group" string[]  usergroups filter (optional)
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationCountWithHttpInfo(array $params = [])
+    public function getOrganizationCountWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationCountRequest($params);
+        $request = $this->getOrganizationCountRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4184,23 +4132,23 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "name" string  name filter (optional)
      *   "period_created" string  period created filter (optional)
      *   "user_group" string[]  usergroups filter (optional)
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationCountAsync(array $params = [])
+    public function getOrganizationCountAsync(array $filters = [])
     {
-        return $this->getOrganizationCountAsyncWithHttpInfo($params)
+        return $this->getOrganizationCountAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4211,27 +4159,27 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "name" string  name filter (optional)
      *   "period_created" string  period created filter (optional)
      *   "user_group" string[]  usergroups filter (optional)
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationCountAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationCountAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationCountRequest($params);
+        $request = $this->getOrganizationCountRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4251,7 +4199,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4271,34 +4219,33 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationCount'
      *
-     * Parameters:
+     * Filters:
      *   "name" string  name filter (optional)
      *   "period_created" string  period created filter (optional)
      *   "user_group" string[]  usergroups filter (optional)
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationCountRequest(array $params = [])
+    protected function getOrganizationCountRequest(array $filters = [])
     {
-        if (!isset($params['name'])) {
-            $params['name'] = null;
+        if (!isset($filters['name'])) {
+            $filters['name'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['user_group'])) {
-            $params['user_group'] = null;
+        if (!isset($filters['user_group'])) {
+            $filters['user_group'] = null;
         }
-        if (!isset($params['labels'])) {
-            $params['labels'] = null;
+        if (!isset($filters['labels'])) {
+            $filters['labels'] = null;
         }
-        if (!isset($params['org_field_id'])) {
-            $params['org_field_id'] = null;
+        if (!isset($filters['org_field_id'])) {
+            $filters['org_field_id'] = null;
         }
         
 
@@ -4309,31 +4256,32 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['name'] !== null) {
-            $queryParams['name'] = ObjectSerializer::toQueryValue($params['name']);
-        }
-        // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['name'] !== null) {
+            $queryParams['name'] = ObjectSerializer::toQueryValue($filters['name']);
         }
         // query params
-        if (is_array($params['user_group'])) {
-            $params['user_group'] = ObjectSerializer::serializeCollection($params['user_group'], 'csv', true);
-        }
-        if ($params['user_group'] !== null) {
-            $queryParams['user_group'] = ObjectSerializer::toQueryValue($params['user_group']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if (is_array($params['labels'])) {
-            $params['labels'] = ObjectSerializer::serializeCollection($params['labels'], 'csv', true);
+        if (is_array($filters['user_group'])) {
+            $filters['user_group'] = ObjectSerializer::serializeCollection($filters['user_group'], 'csv', true);
         }
-        if ($params['labels'] !== null) {
-            $queryParams['labels'] = ObjectSerializer::toQueryValue($params['labels']);
+        if ($filters['user_group'] !== null) {
+            $queryParams['user_group'] = ObjectSerializer::toQueryValue($filters['user_group']);
         }
         // query params
-        if ($params['org_field_id'] !== null) {
-            $queryParams['org_field.{id}'] = ObjectSerializer::toQueryValue($params['org_field_id']);
+        if (is_array($filters['labels'])) {
+            $filters['labels'] = ObjectSerializer::serializeCollection($filters['labels'], 'csv', true);
+        }
+        if ($filters['labels'] !== null) {
+            $queryParams['labels'] = ObjectSerializer::toQueryValue($filters['labels']);
+        }
+        // query params
+        if ($filters['org_field_id'] !== null) {
+            $queryParams['org_field.{id}'] = ObjectSerializer::toQueryValue($filters['org_field_id']);
         }
 
 
@@ -4410,37 +4358,32 @@ class OrganizationsApi
      * Operation getOrganizationCustomFieldById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationCustomFieldById(array $params = [])
+    public function getOrganizationCustomFieldById($id)
     {
-        list($response) = $this->getOrganizationCustomFieldByIdWithHttpInfo($params);
+        list($response) = $this->getOrganizationCustomFieldByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getOrganizationCustomFieldByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationCustomFieldByIdWithHttpInfo(array $params = [])
+    public function getOrganizationCustomFieldByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationCustomFieldByIdRequest($params);
+        $request = $this->getOrganizationCustomFieldByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4514,19 +4457,17 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationCustomFieldByIdAsync(array $params = [])
+    public function getOrganizationCustomFieldByIdAsync($id)
     {
-        return $this->getOrganizationCustomFieldByIdAsyncWithHttpInfo($params)
+        return $this->getOrganizationCustomFieldByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4537,23 +4478,21 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationCustomFieldByIdAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationCustomFieldByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationCustomFieldByIdRequest($params);
+        $request = $this->getOrganizationCustomFieldByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4573,7 +4512,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4593,18 +4532,15 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationCustomFieldById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationCustomFieldByIdRequest(array $params = [])
+    protected function getOrganizationCustomFieldByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in OrganizationsApi::getOrganizationCustomFieldByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in OrganizationsApi::getOrganizationCustomFieldByIdRequest().');
         }
         
 
@@ -4615,12 +4551,16 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -4697,44 +4637,43 @@ class OrganizationsApi
     /**
      * Operation getOrganizationCustomFields
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizationCustomFields(array $params = [])
+    public function getOrganizationCustomFields(array $filters = [])
     {
-        list($response) = $this->getOrganizationCustomFieldsWithHttpInfo($params);
+        list($response) = $this->getOrganizationCustomFieldsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getOrganizationCustomFieldsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationCustomFieldsWithHttpInfo(array $params = [])
+    public function getOrganizationCustomFieldsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationCustomFieldsRequest($params);
+        $request = $this->getOrganizationCustomFieldsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4808,22 +4747,22 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationCustomFieldsAsync(array $params = [])
+    public function getOrganizationCustomFieldsAsync(array $filters = [])
     {
-        return $this->getOrganizationCustomFieldsAsyncWithHttpInfo($params)
+        return $this->getOrganizationCustomFieldsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -4834,26 +4773,26 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationCustomFieldsAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationCustomFieldsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationCustomFieldsRequest($params);
+        $request = $this->getOrganizationCustomFieldsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -4873,7 +4812,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -4893,30 +4832,29 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizationCustomFields'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationCustomFieldsRequest(array $params = [])
+    protected function getOrganizationCustomFieldsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -4927,21 +4865,22 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -5017,8 +4956,7 @@ class OrganizationsApi
     /**
      * Operation getOrganizations
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5029,22 +4967,22 @@ class OrganizationsApi
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getOrganizations(array $params = [])
+    public function getOrganizations(array $filters = [])
     {
-        list($response) = $this->getOrganizationsWithHttpInfo($params);
+        list($response) = $this->getOrganizationsWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getOrganizationsWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5055,16 +4993,16 @@ class OrganizationsApi
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getOrganizationsWithHttpInfo(array $params = [])
+    public function getOrganizationsWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationsRequest($params);
+        $request = $this->getOrganizationsRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5138,7 +5076,7 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5149,16 +5087,16 @@ class OrganizationsApi
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationsAsync(array $params = [])
+    public function getOrganizationsAsync(array $filters = [])
     {
-        return $this->getOrganizationsAsyncWithHttpInfo($params)
+        return $this->getOrganizationsAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -5169,7 +5107,7 @@ class OrganizationsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5180,20 +5118,20 @@ class OrganizationsApi
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getOrganizationsAsyncWithHttpInfo(array $params = [])
+    public function getOrganizationsAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getOrganizationsRequest($params);
+        $request = $this->getOrganizationsRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -5213,7 +5151,7 @@ class OrganizationsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -5233,7 +5171,7 @@ class OrganizationsApi
     /**
      * Create request for operation 'getOrganizations'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
@@ -5244,39 +5182,38 @@ class OrganizationsApi
      *   "labels" string[]  labels filter option (optional)
      *   "org_field_id" string  *                  Custom organization field filter. To filter by a custom field with ID&#x3D;1 you need to add  *                  ?org_field.1&#x3D;value to the query string (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getOrganizationsRequest(array $params = [])
+    protected function getOrganizationsRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
-        if (!isset($params['name'])) {
-            $params['name'] = null;
+        if (!isset($filters['name'])) {
+            $filters['name'] = null;
         }
-        if (!isset($params['period_created'])) {
-            $params['period_created'] = null;
+        if (!isset($filters['period_created'])) {
+            $filters['period_created'] = null;
         }
-        if (!isset($params['user_group'])) {
-            $params['user_group'] = null;
+        if (!isset($filters['user_group'])) {
+            $filters['user_group'] = null;
         }
-        if (!isset($params['labels'])) {
-            $params['labels'] = null;
+        if (!isset($filters['labels'])) {
+            $filters['labels'] = null;
         }
-        if (!isset($params['org_field_id'])) {
-            $params['org_field_id'] = null;
+        if (!isset($filters['org_field_id'])) {
+            $filters['org_field_id'] = null;
         }
         
 
@@ -5287,47 +5224,48 @@ class OrganizationsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
-        }
-        // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['name'] !== null) {
-            $queryParams['name'] = ObjectSerializer::toQueryValue($params['name']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
         // query params
-        if ($params['period_created'] !== null) {
-            $queryParams['period_created'] = ObjectSerializer::toQueryValue($params['period_created']);
+        if ($filters['name'] !== null) {
+            $queryParams['name'] = ObjectSerializer::toQueryValue($filters['name']);
         }
         // query params
-        if (is_array($params['user_group'])) {
-            $params['user_group'] = ObjectSerializer::serializeCollection($params['user_group'], 'csv', true);
-        }
-        if ($params['user_group'] !== null) {
-            $queryParams['user_group'] = ObjectSerializer::toQueryValue($params['user_group']);
+        if ($filters['period_created'] !== null) {
+            $queryParams['period_created'] = ObjectSerializer::toQueryValue($filters['period_created']);
         }
         // query params
-        if (is_array($params['labels'])) {
-            $params['labels'] = ObjectSerializer::serializeCollection($params['labels'], 'csv', true);
+        if (is_array($filters['user_group'])) {
+            $filters['user_group'] = ObjectSerializer::serializeCollection($filters['user_group'], 'csv', true);
         }
-        if ($params['labels'] !== null) {
-            $queryParams['labels'] = ObjectSerializer::toQueryValue($params['labels']);
+        if ($filters['user_group'] !== null) {
+            $queryParams['user_group'] = ObjectSerializer::toQueryValue($filters['user_group']);
         }
         // query params
-        if ($params['org_field_id'] !== null) {
-            $queryParams['org_field.{id}'] = ObjectSerializer::toQueryValue($params['org_field_id']);
+        if (is_array($filters['labels'])) {
+            $filters['labels'] = ObjectSerializer::serializeCollection($filters['labels'], 'csv', true);
+        }
+        if ($filters['labels'] !== null) {
+            $queryParams['labels'] = ObjectSerializer::toQueryValue($filters['labels']);
+        }
+        // query params
+        if ($filters['org_field_id'] !== null) {
+            $queryParams['org_field.{id}'] = ObjectSerializer::toQueryValue($filters['org_field_id']);
         }
 
 

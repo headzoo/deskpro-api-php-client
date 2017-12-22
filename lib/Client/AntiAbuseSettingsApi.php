@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class AntiAbuseSettingsApi
      * Operation getSettingAntiAbuseCaptcha
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingAntiAbuseCaptcha(array $params = [])
+    public function getSettingAntiAbuseCaptcha()
     {
-        list($response) = $this->getSettingAntiAbuseCaptchaWithHttpInfo($params);
+        list($response) = $this->getSettingAntiAbuseCaptchaWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getSettingAntiAbuseCaptchaWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingAntiAbuseCaptchaWithHttpInfo(array $params = [])
+    public function getSettingAntiAbuseCaptchaWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingAntiAbuseCaptchaRequest($params);
+        $request = $this->getSettingAntiAbuseCaptchaRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class AntiAbuseSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingAntiAbuseCaptchaAsync(array $params = [])
+    public function getSettingAntiAbuseCaptchaAsync()
     {
-        return $this->getSettingAntiAbuseCaptchaAsyncWithHttpInfo($params)
+        return $this->getSettingAntiAbuseCaptchaAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class AntiAbuseSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingAntiAbuseCaptchaAsyncWithHttpInfo(array $params = [])
+    public function getSettingAntiAbuseCaptchaAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingAntiAbuseCaptchaRequest($params);
+        $request = $this->getSettingAntiAbuseCaptchaRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class AntiAbuseSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class AntiAbuseSettingsApi
     /**
      * Create request for operation 'getSettingAntiAbuseCaptcha'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingAntiAbuseCaptchaRequest(array $params = [])
+    protected function getSettingAntiAbuseCaptchaRequest()
     {
         
 
@@ -305,6 +294,7 @@ class AntiAbuseSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -380,35 +370,30 @@ class AntiAbuseSettingsApi
      * Operation getSettingAntiAbusePortal
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingAntiAbusePortal(array $params = [])
+    public function getSettingAntiAbusePortal()
     {
-        list($response) = $this->getSettingAntiAbusePortalWithHttpInfo($params);
+        list($response) = $this->getSettingAntiAbusePortalWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getSettingAntiAbusePortalWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingAntiAbusePortalWithHttpInfo(array $params = [])
+    public function getSettingAntiAbusePortalWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingAntiAbusePortalRequest($params);
+        $request = $this->getSettingAntiAbusePortalRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -474,18 +459,16 @@ class AntiAbuseSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingAntiAbusePortalAsync(array $params = [])
+    public function getSettingAntiAbusePortalAsync()
     {
-        return $this->getSettingAntiAbusePortalAsyncWithHttpInfo($params)
+        return $this->getSettingAntiAbusePortalAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -496,22 +479,20 @@ class AntiAbuseSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingAntiAbusePortalAsyncWithHttpInfo(array $params = [])
+    public function getSettingAntiAbusePortalAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingAntiAbusePortalRequest($params);
+        $request = $this->getSettingAntiAbusePortalRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -531,7 +512,7 @@ class AntiAbuseSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -551,14 +532,11 @@ class AntiAbuseSettingsApi
     /**
      * Create request for operation 'getSettingAntiAbusePortal'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingAntiAbusePortalRequest(array $params = [])
+    protected function getSettingAntiAbusePortalRequest()
     {
         
 
@@ -569,6 +547,7 @@ class AntiAbuseSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

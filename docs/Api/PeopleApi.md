@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 
 # **deletePeopleById**
-> \DeskPRO\API\Model\Response deletePeopleById(array $params = [])
+> \DeskPRO\API\Model\Response deletePeopleById(int $id)
 
 
 
@@ -43,13 +43,11 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deletePeopleById($params);
-    print_r($result);
+    $result = $api->deletePeopleById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -58,9 +56,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -78,7 +81,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deletePeopleByParentIdNoteById**
-> \DeskPRO\API\Model\Response deletePeopleByParentIdNoteById(array $params = [])
+> \DeskPRO\API\Model\Response deletePeopleByParentIdNoteById(int $id, string $parent_id)
 
 
 
@@ -96,14 +99,12 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->deletePeopleByParentIdNoteById($params);
-    print_r($result);
+    $result = $api->deletePeopleByParentIdNoteById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -112,10 +113,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -133,7 +139,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deletePersonCustomFieldById**
-> \DeskPRO\API\Model\Response deletePersonCustomFieldById(array $params = [])
+> \DeskPRO\API\Model\Response deletePersonCustomFieldById(int $id)
 
 
 
@@ -151,13 +157,11 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->deletePersonCustomFieldById($params);
-    print_r($result);
+    $result = $api->deletePersonCustomFieldById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -166,9 +170,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -186,7 +195,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeople**
-> \DeskPRO\API\Model\Response getPeople(array $params = [])
+> \DeskPRO\API\Model\Response getPeople(array $filters = [])
 
 
 
@@ -204,7 +213,7 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -223,8 +232,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getPeople($params);
-    print_r($result);
+    $result = $api->getPeople($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -232,6 +241,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -267,7 +283,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleById**
-> \DeskPRO\API\Model\Response getPeopleById(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleById(int $id)
 
 
 
@@ -285,13 +301,11 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getPeopleById($params);
-    print_r($result);
+    $result = $api->getPeopleById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -300,9 +314,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -320,7 +339,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleByIdTicket**
-> \DeskPRO\API\Model\Response getPeopleByIdTicket(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleByIdTicket(string $id)
 
 
 
@@ -338,13 +357,11 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => "id_example" // string | Person ID
-];
+$id = "id_example"; // string | Person ID
 
 try {
-    $result = $api->getPeopleByIdTicket($params);
-    print_r($result);
+    $result = $api->getPeopleByIdTicket($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -353,9 +370,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| Person ID |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -373,7 +395,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleByParentIdContactData**
-> \DeskPRO\API\Model\Response getPeopleByParentIdContactData(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleByParentIdContactData(string $parent_id, array $filters = [])
 
 
 
@@ -391,8 +413,8 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -400,8 +422,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getPeopleByParentIdContactData($params);
-    print_r($result);
+    $result = $api->getPeopleByParentIdContactData($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -410,9 +432,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -434,7 +463,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleByParentIdContactDataById**
-> \DeskPRO\API\Model\Response getPeopleByParentIdContactDataById(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleByParentIdContactDataById(int $id, string $parent_id)
 
 
 
@@ -452,14 +481,12 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getPeopleByParentIdContactDataById($params);
-    print_r($result);
+    $result = $api->getPeopleByParentIdContactDataById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -468,10 +495,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -489,7 +521,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleByParentIdContactDataCount**
-> \DeskPRO\API\Model\Response getPeopleByParentIdContactDataCount(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleByParentIdContactDataCount(string $parent_id)
 
 
 
@@ -507,13 +539,11 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getPeopleByParentIdContactDataCount($params);
-    print_r($result);
+    $result = $api->getPeopleByParentIdContactDataCount($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -522,9 +552,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -542,7 +577,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleByParentIdNote**
-> \DeskPRO\API\Model\Response getPeopleByParentIdNote(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleByParentIdNote(string $parent_id, array $filters = [])
 
 
 
@@ -560,8 +595,8 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -569,8 +604,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getPeopleByParentIdNote($params);
-    print_r($result);
+    $result = $api->getPeopleByParentIdNote($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -579,9 +614,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -603,7 +645,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleByParentIdNoteById**
-> \DeskPRO\API\Model\Response getPeopleByParentIdNoteById(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleByParentIdNoteById(int $id, string $parent_id)
 
 
 
@@ -621,14 +663,12 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getPeopleByParentIdNoteById($params);
-    print_r($result);
+    $result = $api->getPeopleByParentIdNoteById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -637,10 +677,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -658,7 +703,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleByParentIdNoteCount**
-> \DeskPRO\API\Model\Response getPeopleByParentIdNoteCount(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleByParentIdNoteCount(string $parent_id)
 
 
 
@@ -676,13 +721,11 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getPeopleByParentIdNoteCount($params);
-    print_r($result);
+    $result = $api->getPeopleByParentIdNoteCount($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -691,9 +734,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -711,7 +759,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleCount**
-> \DeskPRO\API\Model\Response getPeopleCount(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleCount(array $filters = [])
 
 
 
@@ -729,7 +777,7 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "order_by" => "order_by_example", // string | people list sort
 "order_dir" => "order_dir_example", // string | list sort order
 "primary_email" => "primary_email_example", // string | primary email filter
@@ -744,8 +792,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getPeopleCount($params);
-    print_r($result);
+    $result = $api->getPeopleCount($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -753,6 +801,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -784,7 +839,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleOnboardingNew**
-> \DeskPRO\API\Model\Response getPeopleOnboardingNew(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleOnboardingNew()
 
 
 
@@ -802,12 +857,10 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getPeopleOnboardingNew($params);
-    print_r($result);
+    $result = $api->getPeopleOnboardingNew();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -815,7 +868,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -833,7 +891,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPeopleOnboardingPending**
-> \DeskPRO\API\Model\Response getPeopleOnboardingPending(array $params = [])
+> \DeskPRO\API\Model\Response getPeopleOnboardingPending()
 
 
 
@@ -851,12 +909,10 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getPeopleOnboardingPending($params);
-    print_r($result);
+    $result = $api->getPeopleOnboardingPending();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -864,7 +920,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -882,7 +943,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPersonCustomFieldById**
-> \DeskPRO\API\Model\Response getPersonCustomFieldById(array $params = [])
+> \DeskPRO\API\Model\Response getPersonCustomFieldById(int $id)
 
 
 
@@ -900,13 +961,11 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getPersonCustomFieldById($params);
-    print_r($result);
+    $result = $api->getPersonCustomFieldById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -915,9 +974,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -935,7 +999,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPersonCustomFields**
-> \DeskPRO\API\Model\Response getPersonCustomFields(array $params = [])
+> \DeskPRO\API\Model\Response getPersonCustomFields(array $filters = [])
 
 
 
@@ -953,7 +1017,7 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -961,8 +1025,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getPersonCustomFields($params);
-    print_r($result);
+    $result = $api->getPersonCustomFields($filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -970,6 +1034,13 @@ try {
 ```
 
 ### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+### Filters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -994,7 +1065,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updatePeopleByIdPermission**
-> \DeskPRO\API\Model\Response updatePeopleByIdPermission(array $params = [])
+> \DeskPRO\API\Model\Response updatePeopleByIdPermission(string $id, bool $agent)
 
 
 
@@ -1012,14 +1083,12 @@ $api = new PeopleApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => "id_example", // string | 
-"agent" => true // bool | set as agent
-];
+$id = "id_example"; // string | 
+$agent = true; // bool | set as agent
 
 try {
-    $result = $api->updatePeopleByIdPermission($params);
-    print_r($result);
+    $result = $api->updatePeopleByIdPermission($id, $agent);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -1028,9 +1097,17 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**|  |
+ **agent** | **bool**| set as agent |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **agent** | **bool**| set as agent |
 
 ### Return type

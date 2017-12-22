@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class SLAsApi
      * Operation getSlaById
      *
      *
-     * Parameters:
-     *   "id" int  the id of SLA (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of SLA
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSlaById(array $params = [])
+    public function getSlaById($id)
     {
-        list($response) = $this->getSlaByIdWithHttpInfo($params);
+        list($response) = $this->getSlaByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getSlaByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  the id of SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of SLA
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSlaByIdWithHttpInfo(array $params = [])
+    public function getSlaByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSlaByIdRequest($params);
+        $request = $this->getSlaByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -212,19 +208,17 @@ class SLAsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of SLA
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSlaByIdAsync(array $params = [])
+    public function getSlaByIdAsync($id)
     {
-        return $this->getSlaByIdAsyncWithHttpInfo($params)
+        return $this->getSlaByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -235,23 +229,21 @@ class SLAsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  the id of SLA (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id the id of SLA
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSlaByIdAsyncWithHttpInfo(array $params = [])
+    public function getSlaByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSlaByIdRequest($params);
+        $request = $this->getSlaByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -271,7 +263,7 @@ class SLAsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -291,18 +283,15 @@ class SLAsApi
     /**
      * Create request for operation 'getSlaById'
      *
-     * Parameters:
-     *   "id" int  the id of SLA (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id the id of SLA
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSlaByIdRequest(array $params = [])
+    protected function getSlaByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in SLAsApi::getSlaByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in SLAsApi::getSlaByIdRequest().');
         }
         
 
@@ -313,12 +302,16 @@ class SLAsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -396,35 +389,30 @@ class SLAsApi
      * Operation getSlas
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSlas(array $params = [])
+    public function getSlas()
     {
-        list($response) = $this->getSlasWithHttpInfo($params);
+        list($response) = $this->getSlasWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getSlasWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSlasWithHttpInfo(array $params = [])
+    public function getSlasWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSlasRequest($params);
+        $request = $this->getSlasRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -490,18 +478,16 @@ class SLAsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSlasAsync(array $params = [])
+    public function getSlasAsync()
     {
-        return $this->getSlasAsyncWithHttpInfo($params)
+        return $this->getSlasAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -512,22 +498,20 @@ class SLAsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSlasAsyncWithHttpInfo(array $params = [])
+    public function getSlasAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSlasRequest($params);
+        $request = $this->getSlasRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -547,7 +531,7 @@ class SLAsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -567,14 +551,11 @@ class SLAsApi
     /**
      * Create request for operation 'getSlas'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSlasRequest(array $params = [])
+    protected function getSlasRequest()
     {
         
 
@@ -585,6 +566,7 @@ class SLAsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

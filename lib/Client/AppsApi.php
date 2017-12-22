@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,37 +117,32 @@ class AppsApi
      * Operation deleteAppProxyHttpByInstance
      *
      *
-     * Parameters:
-     *   "instance" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAppProxyHttpByInstance(array $params = [])
+    public function deleteAppProxyHttpByInstance($instance)
     {
-        list($response) = $this->deleteAppProxyHttpByInstanceWithHttpInfo($params);
+        list($response) = $this->deleteAppProxyHttpByInstanceWithHttpInfo($instance);
         return $response;
     }
 
     /**
      * Operation deleteAppProxyHttpByInstanceWithHttpInfo
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAppProxyHttpByInstanceWithHttpInfo(array $params = [])
+    public function deleteAppProxyHttpByInstanceWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAppProxyHttpByInstanceRequest($params);
+        $request = $this->deleteAppProxyHttpByInstanceRequest($instance);
 
         try {
             $options = $this->createHttpClientOption();
@@ -212,19 +208,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAppProxyHttpByInstanceAsync(array $params = [])
+    public function deleteAppProxyHttpByInstanceAsync($instance)
     {
-        return $this->deleteAppProxyHttpByInstanceAsyncWithHttpInfo($params)
+        return $this->deleteAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -235,23 +229,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAppProxyHttpByInstanceAsyncWithHttpInfo(array $params = [])
+    public function deleteAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAppProxyHttpByInstanceRequest($params);
+        $request = $this->deleteAppProxyHttpByInstanceRequest($instance);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -271,7 +263,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -291,18 +283,15 @@ class AppsApi
     /**
      * Create request for operation 'deleteAppProxyHttpByInstance'
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $instance 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAppProxyHttpByInstanceRequest(array $params = [])
+    protected function deleteAppProxyHttpByInstanceRequest($instance)
     {
-        if (empty($params['instance'])) {
-            throw new \InvalidArgumentException('Missing parameter "instance" in AppsApi::deleteAppProxyHttpByInstanceRequest().');
+        if (empty($instance)) {
+            throw new \InvalidArgumentException('Missing parameter "$instance" in AppsApi::deleteAppProxyHttpByInstanceRequest().');
         }
         
 
@@ -313,12 +302,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($instance !== null) {
+            $instance = ObjectSerializer::toQueryValue($instance);
+        }
+        
 
         // path params
-        if ($params['instance'] !== null) {
+        if ($instance !== null) {
             $resourcePath = str_replace(
                 '{' . 'instance' . '}',
-                ObjectSerializer::toPathValue($params['instance']),
+                ObjectSerializer::toPathValue($instance),
                 $resourcePath
             );
         }
@@ -396,37 +389,32 @@ class AppsApi
      * Operation deleteAppZapierHookById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function deleteAppZapierHookById(array $params = [])
+    public function deleteAppZapierHookById($id)
     {
-        list($response) = $this->deleteAppZapierHookByIdWithHttpInfo($params);
+        list($response) = $this->deleteAppZapierHookByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation deleteAppZapierHookByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAppZapierHookByIdWithHttpInfo(array $params = [])
+    public function deleteAppZapierHookByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAppZapierHookByIdRequest($params);
+        $request = $this->deleteAppZapierHookByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -500,19 +488,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAppZapierHookByIdAsync(array $params = [])
+    public function deleteAppZapierHookByIdAsync($id)
     {
-        return $this->deleteAppZapierHookByIdAsyncWithHttpInfo($params)
+        return $this->deleteAppZapierHookByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -523,23 +509,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAppZapierHookByIdAsyncWithHttpInfo(array $params = [])
+    public function deleteAppZapierHookByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->deleteAppZapierHookByIdRequest($params);
+        $request = $this->deleteAppZapierHookByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -559,7 +543,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -579,18 +563,15 @@ class AppsApi
     /**
      * Create request for operation 'deleteAppZapierHookById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function deleteAppZapierHookByIdRequest(array $params = [])
+    protected function deleteAppZapierHookByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AppsApi::deleteAppZapierHookByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AppsApi::deleteAppZapierHookByIdRequest().');
         }
         
 
@@ -601,12 +582,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -684,37 +669,32 @@ class AppsApi
      * Operation getAppPackageById
      *
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAppPackageById(array $params = [])
+    public function getAppPackageById($id)
     {
-        list($response) = $this->getAppPackageByIdWithHttpInfo($params);
+        list($response) = $this->getAppPackageByIdWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation getAppPackageByIdWithHttpInfo
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAppPackageByIdWithHttpInfo(array $params = [])
+    public function getAppPackageByIdWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppPackageByIdRequest($params);
+        $request = $this->getAppPackageByIdRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -788,19 +768,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppPackageByIdAsync(array $params = [])
+    public function getAppPackageByIdAsync($id)
     {
-        return $this->getAppPackageByIdAsyncWithHttpInfo($params)
+        return $this->getAppPackageByIdAsyncWithHttpInfo($id)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -811,23 +789,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
+     * @param int $id The id of the resource
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppPackageByIdAsyncWithHttpInfo(array $params = [])
+    public function getAppPackageByIdAsyncWithHttpInfo($id)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppPackageByIdRequest($params);
+        $request = $this->getAppPackageByIdRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -847,7 +823,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -867,18 +843,15 @@ class AppsApi
     /**
      * Create request for operation 'getAppPackageById'
      *
-     * Parameters:
-     *   "id" int  The id of the resource (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param int $id The id of the resource
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAppPackageByIdRequest(array $params = [])
+    protected function getAppPackageByIdRequest($id)
     {
-        if (empty($params['id'])) {
-            throw new \InvalidArgumentException('Missing parameter "id" in AppsApi::getAppPackageByIdRequest().');
+        if (empty($id)) {
+            throw new \InvalidArgumentException('Missing parameter "$id" in AppsApi::getAppPackageByIdRequest().');
         }
         
 
@@ -889,12 +862,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($id !== null) {
+            $id = ObjectSerializer::toQueryValue($id);
+        }
+        
 
         // path params
-        if ($params['id'] !== null) {
+        if ($id !== null) {
             $resourcePath = str_replace(
                 '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($params['id']),
+                ObjectSerializer::toPathValue($id),
                 $resourcePath
             );
         }
@@ -967,35 +944,30 @@ class AppsApi
      * Operation getAppPackageCount
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAppPackageCount(array $params = [])
+    public function getAppPackageCount()
     {
-        list($response) = $this->getAppPackageCountWithHttpInfo($params);
+        list($response) = $this->getAppPackageCountWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAppPackageCountWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAppPackageCountWithHttpInfo(array $params = [])
+    public function getAppPackageCountWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppPackageCountRequest($params);
+        $request = $this->getAppPackageCountRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1069,18 +1041,16 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppPackageCountAsync(array $params = [])
+    public function getAppPackageCountAsync()
     {
-        return $this->getAppPackageCountAsyncWithHttpInfo($params)
+        return $this->getAppPackageCountAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1091,22 +1061,20 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppPackageCountAsyncWithHttpInfo(array $params = [])
+    public function getAppPackageCountAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppPackageCountRequest($params);
+        $request = $this->getAppPackageCountRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1126,7 +1094,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1146,14 +1114,11 @@ class AppsApi
     /**
      * Create request for operation 'getAppPackageCount'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAppPackageCountRequest(array $params = [])
+    protected function getAppPackageCountRequest()
     {
         
 
@@ -1164,6 +1129,7 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -1233,44 +1199,43 @@ class AppsApi
     /**
      * Operation getAppPackages
      *
-     *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAppPackages(array $params = [])
+    public function getAppPackages(array $filters = [])
     {
-        list($response) = $this->getAppPackagesWithHttpInfo($params);
+        list($response) = $this->getAppPackagesWithHttpInfo($filters);
         return $response;
     }
 
     /**
      * Operation getAppPackagesWithHttpInfo
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAppPackagesWithHttpInfo(array $params = [])
+    public function getAppPackagesWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppPackagesRequest($params);
+        $request = $this->getAppPackagesRequest($filters);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1344,22 +1309,22 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppPackagesAsync(array $params = [])
+    public function getAppPackagesAsync(array $filters = [])
     {
-        return $this->getAppPackagesAsyncWithHttpInfo($params)
+        return $this->getAppPackagesAsyncWithHttpInfo($filters)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1370,26 +1335,26 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
+     * @param array $filters API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppPackagesAsyncWithHttpInfo(array $params = [])
+    public function getAppPackagesAsyncWithHttpInfo(array $filters = [])
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppPackagesRequest($params);
+        $request = $this->getAppPackagesRequest($filters);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1409,7 +1374,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1429,30 +1394,29 @@ class AppsApi
     /**
      * Create request for operation 'getAppPackages'
      *
-     * Parameters:
+     * Filters:
      *   "page" int  Which page to display (optional)
      *   "count" int  Resource per page count (optional)
      *   "limit" int  Max number of resources to return (optional)
      *   "ids" string  Comma separated list of IDs (optional)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param array $filters API endpoint parameters
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAppPackagesRequest(array $params = [])
+    protected function getAppPackagesRequest(array $filters = [])
     {
-        if (!isset($params['page'])) {
-            $params['page'] = null;
+        if (!isset($filters['page'])) {
+            $filters['page'] = null;
         }
-        if (!isset($params['count'])) {
-            $params['count'] = null;
+        if (!isset($filters['count'])) {
+            $filters['count'] = null;
         }
-        if (!isset($params['limit'])) {
-            $params['limit'] = null;
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = null;
         }
-        if (!isset($params['ids'])) {
-            $params['ids'] = null;
+        if (!isset($filters['ids'])) {
+            $filters['ids'] = null;
         }
         
 
@@ -1463,21 +1427,22 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        
         // query params
-        if ($params['page'] !== null) {
-            $queryParams['page'] = ObjectSerializer::toQueryValue($params['page']);
+        if ($filters['page'] !== null) {
+            $queryParams['page'] = ObjectSerializer::toQueryValue($filters['page']);
         }
         // query params
-        if ($params['count'] !== null) {
-            $queryParams['count'] = ObjectSerializer::toQueryValue($params['count']);
+        if ($filters['count'] !== null) {
+            $queryParams['count'] = ObjectSerializer::toQueryValue($filters['count']);
         }
         // query params
-        if ($params['limit'] !== null) {
-            $queryParams['limit'] = ObjectSerializer::toQueryValue($params['limit']);
+        if ($filters['limit'] !== null) {
+            $queryParams['limit'] = ObjectSerializer::toQueryValue($filters['limit']);
         }
         // query params
-        if ($params['ids'] !== null) {
-            $queryParams['ids'] = ObjectSerializer::toQueryValue($params['ids']);
+        if ($filters['ids'] !== null) {
+            $queryParams['ids'] = ObjectSerializer::toQueryValue($filters['ids']);
         }
 
 
@@ -1549,37 +1514,32 @@ class AppsApi
      * Operation getAppProxyHttpByInstance
      *
      *
-     * Parameters:
-     *   "instance" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAppProxyHttpByInstance(array $params = [])
+    public function getAppProxyHttpByInstance($instance)
     {
-        list($response) = $this->getAppProxyHttpByInstanceWithHttpInfo($params);
+        list($response) = $this->getAppProxyHttpByInstanceWithHttpInfo($instance);
         return $response;
     }
 
     /**
      * Operation getAppProxyHttpByInstanceWithHttpInfo
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAppProxyHttpByInstanceWithHttpInfo(array $params = [])
+    public function getAppProxyHttpByInstanceWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppProxyHttpByInstanceRequest($params);
+        $request = $this->getAppProxyHttpByInstanceRequest($instance);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1645,19 +1605,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppProxyHttpByInstanceAsync(array $params = [])
+    public function getAppProxyHttpByInstanceAsync($instance)
     {
-        return $this->getAppProxyHttpByInstanceAsyncWithHttpInfo($params)
+        return $this->getAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1668,23 +1626,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppProxyHttpByInstanceAsyncWithHttpInfo(array $params = [])
+    public function getAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppProxyHttpByInstanceRequest($params);
+        $request = $this->getAppProxyHttpByInstanceRequest($instance);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1704,7 +1660,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1724,18 +1680,15 @@ class AppsApi
     /**
      * Create request for operation 'getAppProxyHttpByInstance'
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $instance 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAppProxyHttpByInstanceRequest(array $params = [])
+    protected function getAppProxyHttpByInstanceRequest($instance)
     {
-        if (empty($params['instance'])) {
-            throw new \InvalidArgumentException('Missing parameter "instance" in AppsApi::getAppProxyHttpByInstanceRequest().');
+        if (empty($instance)) {
+            throw new \InvalidArgumentException('Missing parameter "$instance" in AppsApi::getAppProxyHttpByInstanceRequest().');
         }
         
 
@@ -1746,12 +1699,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($instance !== null) {
+            $instance = ObjectSerializer::toQueryValue($instance);
+        }
+        
 
         // path params
-        if ($params['instance'] !== null) {
+        if ($instance !== null) {
             $resourcePath = str_replace(
                 '{' . 'instance' . '}',
-                ObjectSerializer::toPathValue($params['instance']),
+                ObjectSerializer::toPathValue($instance),
                 $resourcePath
             );
         }
@@ -1829,35 +1786,30 @@ class AppsApi
      * Operation getAppZapierPing
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getAppZapierPing(array $params = [])
+    public function getAppZapierPing()
     {
-        list($response) = $this->getAppZapierPingWithHttpInfo($params);
+        list($response) = $this->getAppZapierPingWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAppZapierPingWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAppZapierPingWithHttpInfo(array $params = [])
+    public function getAppZapierPingWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppZapierPingRequest($params);
+        $request = $this->getAppZapierPingRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -1923,18 +1875,16 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppZapierPingAsync(array $params = [])
+    public function getAppZapierPingAsync()
     {
-        return $this->getAppZapierPingAsyncWithHttpInfo($params)
+        return $this->getAppZapierPingAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1945,22 +1895,20 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppZapierPingAsyncWithHttpInfo(array $params = [])
+    public function getAppZapierPingAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppZapierPingRequest($params);
+        $request = $this->getAppZapierPingRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1980,7 +1928,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2000,14 +1948,11 @@ class AppsApi
     /**
      * Create request for operation 'getAppZapierPing'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAppZapierPingRequest(array $params = [])
+    protected function getAppZapierPingRequest()
     {
         
 
@@ -2018,6 +1963,7 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2093,35 +2039,30 @@ class AppsApi
      * Operation getApps
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getApps(array $params = [])
+    public function getApps()
     {
-        list($response) = $this->getAppsWithHttpInfo($params);
+        list($response) = $this->getAppsWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getAppsWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAppsWithHttpInfo(array $params = [])
+    public function getAppsWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppsRequest($params);
+        $request = $this->getAppsRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -2187,18 +2128,16 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppsAsync(array $params = [])
+    public function getAppsAsync()
     {
-        return $this->getAppsAsyncWithHttpInfo($params)
+        return $this->getAppsAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2209,22 +2148,20 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAppsAsyncWithHttpInfo(array $params = [])
+    public function getAppsAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getAppsRequest($params);
+        $request = $this->getAppsRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2244,7 +2181,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2264,14 +2201,11 @@ class AppsApi
     /**
      * Create request for operation 'getApps'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAppsRequest(array $params = [])
+    protected function getAppsRequest()
     {
         
 
@@ -2282,6 +2216,7 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -2357,37 +2292,32 @@ class AppsApi
      * Operation headAppProxyHttpByInstance
      *
      *
-     * Parameters:
-     *   "instance" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function headAppProxyHttpByInstance(array $params = [])
+    public function headAppProxyHttpByInstance($instance)
     {
-        list($response) = $this->headAppProxyHttpByInstanceWithHttpInfo($params);
+        list($response) = $this->headAppProxyHttpByInstanceWithHttpInfo($instance);
         return $response;
     }
 
     /**
      * Operation headAppProxyHttpByInstanceWithHttpInfo
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function headAppProxyHttpByInstanceWithHttpInfo(array $params = [])
+    public function headAppProxyHttpByInstanceWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->headAppProxyHttpByInstanceRequest($params);
+        $request = $this->headAppProxyHttpByInstanceRequest($instance);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2453,19 +2383,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function headAppProxyHttpByInstanceAsync(array $params = [])
+    public function headAppProxyHttpByInstanceAsync($instance)
     {
-        return $this->headAppProxyHttpByInstanceAsyncWithHttpInfo($params)
+        return $this->headAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2476,23 +2404,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function headAppProxyHttpByInstanceAsyncWithHttpInfo(array $params = [])
+    public function headAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->headAppProxyHttpByInstanceRequest($params);
+        $request = $this->headAppProxyHttpByInstanceRequest($instance);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2512,7 +2438,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2532,18 +2458,15 @@ class AppsApi
     /**
      * Create request for operation 'headAppProxyHttpByInstance'
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $instance 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function headAppProxyHttpByInstanceRequest(array $params = [])
+    protected function headAppProxyHttpByInstanceRequest($instance)
     {
-        if (empty($params['instance'])) {
-            throw new \InvalidArgumentException('Missing parameter "instance" in AppsApi::headAppProxyHttpByInstanceRequest().');
+        if (empty($instance)) {
+            throw new \InvalidArgumentException('Missing parameter "$instance" in AppsApi::headAppProxyHttpByInstanceRequest().');
         }
         
 
@@ -2554,12 +2477,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($instance !== null) {
+            $instance = ObjectSerializer::toQueryValue($instance);
+        }
+        
 
         // path params
-        if ($params['instance'] !== null) {
+        if ($instance !== null) {
             $resourcePath = str_replace(
                 '{' . 'instance' . '}',
-                ObjectSerializer::toPathValue($params['instance']),
+                ObjectSerializer::toPathValue($instance),
                 $resourcePath
             );
         }
@@ -2637,37 +2564,32 @@ class AppsApi
      * Operation optionsAppProxyHttpByInstance
      *
      *
-     * Parameters:
-     *   "instance" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function optionsAppProxyHttpByInstance(array $params = [])
+    public function optionsAppProxyHttpByInstance($instance)
     {
-        list($response) = $this->optionsAppProxyHttpByInstanceWithHttpInfo($params);
+        list($response) = $this->optionsAppProxyHttpByInstanceWithHttpInfo($instance);
         return $response;
     }
 
     /**
      * Operation optionsAppProxyHttpByInstanceWithHttpInfo
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function optionsAppProxyHttpByInstanceWithHttpInfo(array $params = [])
+    public function optionsAppProxyHttpByInstanceWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->optionsAppProxyHttpByInstanceRequest($params);
+        $request = $this->optionsAppProxyHttpByInstanceRequest($instance);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2733,19 +2655,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function optionsAppProxyHttpByInstanceAsync(array $params = [])
+    public function optionsAppProxyHttpByInstanceAsync($instance)
     {
-        return $this->optionsAppProxyHttpByInstanceAsyncWithHttpInfo($params)
+        return $this->optionsAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -2756,23 +2676,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function optionsAppProxyHttpByInstanceAsyncWithHttpInfo(array $params = [])
+    public function optionsAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->optionsAppProxyHttpByInstanceRequest($params);
+        $request = $this->optionsAppProxyHttpByInstanceRequest($instance);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -2792,7 +2710,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -2812,18 +2730,15 @@ class AppsApi
     /**
      * Create request for operation 'optionsAppProxyHttpByInstance'
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $instance 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function optionsAppProxyHttpByInstanceRequest(array $params = [])
+    protected function optionsAppProxyHttpByInstanceRequest($instance)
     {
-        if (empty($params['instance'])) {
-            throw new \InvalidArgumentException('Missing parameter "instance" in AppsApi::optionsAppProxyHttpByInstanceRequest().');
+        if (empty($instance)) {
+            throw new \InvalidArgumentException('Missing parameter "$instance" in AppsApi::optionsAppProxyHttpByInstanceRequest().');
         }
         
 
@@ -2834,12 +2749,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($instance !== null) {
+            $instance = ObjectSerializer::toQueryValue($instance);
+        }
+        
 
         // path params
-        if ($params['instance'] !== null) {
+        if ($instance !== null) {
             $resourcePath = str_replace(
                 '{' . 'instance' . '}',
-                ObjectSerializer::toPathValue($params['instance']),
+                ObjectSerializer::toPathValue($instance),
                 $resourcePath
             );
         }
@@ -2917,37 +2836,32 @@ class AppsApi
      * Operation patchAppProxyHttpByInstance
      *
      *
-     * Parameters:
-     *   "instance" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function patchAppProxyHttpByInstance(array $params = [])
+    public function patchAppProxyHttpByInstance($instance)
     {
-        list($response) = $this->patchAppProxyHttpByInstanceWithHttpInfo($params);
+        list($response) = $this->patchAppProxyHttpByInstanceWithHttpInfo($instance);
         return $response;
     }
 
     /**
      * Operation patchAppProxyHttpByInstanceWithHttpInfo
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAppProxyHttpByInstanceWithHttpInfo(array $params = [])
+    public function patchAppProxyHttpByInstanceWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->patchAppProxyHttpByInstanceRequest($params);
+        $request = $this->patchAppProxyHttpByInstanceRequest($instance);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3013,19 +2927,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAppProxyHttpByInstanceAsync(array $params = [])
+    public function patchAppProxyHttpByInstanceAsync($instance)
     {
-        return $this->patchAppProxyHttpByInstanceAsyncWithHttpInfo($params)
+        return $this->patchAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3036,23 +2948,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAppProxyHttpByInstanceAsyncWithHttpInfo(array $params = [])
+    public function patchAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->patchAppProxyHttpByInstanceRequest($params);
+        $request = $this->patchAppProxyHttpByInstanceRequest($instance);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3072,7 +2982,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3092,18 +3002,15 @@ class AppsApi
     /**
      * Create request for operation 'patchAppProxyHttpByInstance'
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $instance 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function patchAppProxyHttpByInstanceRequest(array $params = [])
+    protected function patchAppProxyHttpByInstanceRequest($instance)
     {
-        if (empty($params['instance'])) {
-            throw new \InvalidArgumentException('Missing parameter "instance" in AppsApi::patchAppProxyHttpByInstanceRequest().');
+        if (empty($instance)) {
+            throw new \InvalidArgumentException('Missing parameter "$instance" in AppsApi::patchAppProxyHttpByInstanceRequest().');
         }
         
 
@@ -3114,12 +3021,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($instance !== null) {
+            $instance = ObjectSerializer::toQueryValue($instance);
+        }
+        
 
         // path params
-        if ($params['instance'] !== null) {
+        if ($instance !== null) {
             $resourcePath = str_replace(
                 '{' . 'instance' . '}',
-                ObjectSerializer::toPathValue($params['instance']),
+                ObjectSerializer::toPathValue($instance),
                 $resourcePath
             );
         }
@@ -3197,37 +3108,32 @@ class AppsApi
      * Operation setAppProxyHttpByInstance
      *
      *
-     * Parameters:
-     *   "instance" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setAppProxyHttpByInstance(array $params = [])
+    public function setAppProxyHttpByInstance($instance)
     {
-        list($response) = $this->setAppProxyHttpByInstanceWithHttpInfo($params);
+        list($response) = $this->setAppProxyHttpByInstanceWithHttpInfo($instance);
         return $response;
     }
 
     /**
      * Operation setAppProxyHttpByInstanceWithHttpInfo
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setAppProxyHttpByInstanceWithHttpInfo(array $params = [])
+    public function setAppProxyHttpByInstanceWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setAppProxyHttpByInstanceRequest($params);
+        $request = $this->setAppProxyHttpByInstanceRequest($instance);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3293,19 +3199,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setAppProxyHttpByInstanceAsync(array $params = [])
+    public function setAppProxyHttpByInstanceAsync($instance)
     {
-        return $this->setAppProxyHttpByInstanceAsyncWithHttpInfo($params)
+        return $this->setAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3316,23 +3220,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setAppProxyHttpByInstanceAsyncWithHttpInfo(array $params = [])
+    public function setAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setAppProxyHttpByInstanceRequest($params);
+        $request = $this->setAppProxyHttpByInstanceRequest($instance);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3352,7 +3254,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3372,18 +3274,15 @@ class AppsApi
     /**
      * Create request for operation 'setAppProxyHttpByInstance'
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $instance 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setAppProxyHttpByInstanceRequest(array $params = [])
+    protected function setAppProxyHttpByInstanceRequest($instance)
     {
-        if (empty($params['instance'])) {
-            throw new \InvalidArgumentException('Missing parameter "instance" in AppsApi::setAppProxyHttpByInstanceRequest().');
+        if (empty($instance)) {
+            throw new \InvalidArgumentException('Missing parameter "$instance" in AppsApi::setAppProxyHttpByInstanceRequest().');
         }
         
 
@@ -3394,12 +3293,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($instance !== null) {
+            $instance = ObjectSerializer::toQueryValue($instance);
+        }
+        
 
         // path params
-        if ($params['instance'] !== null) {
+        if ($instance !== null) {
             $resourcePath = str_replace(
                 '{' . 'instance' . '}',
-                ObjectSerializer::toPathValue($params['instance']),
+                ObjectSerializer::toPathValue($instance),
                 $resourcePath
             );
         }
@@ -3477,37 +3380,32 @@ class AppsApi
      * Operation updateAppProxyHttpByInstance
      *
      *
-     * Parameters:
-     *   "instance" string   (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updateAppProxyHttpByInstance(array $params = [])
+    public function updateAppProxyHttpByInstance($instance)
     {
-        list($response) = $this->updateAppProxyHttpByInstanceWithHttpInfo($params);
+        list($response) = $this->updateAppProxyHttpByInstanceWithHttpInfo($instance);
         return $response;
     }
 
     /**
      * Operation updateAppProxyHttpByInstanceWithHttpInfo
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateAppProxyHttpByInstanceWithHttpInfo(array $params = [])
+    public function updateAppProxyHttpByInstanceWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateAppProxyHttpByInstanceRequest($params);
+        $request = $this->updateAppProxyHttpByInstanceRequest($instance);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3573,19 +3471,17 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateAppProxyHttpByInstanceAsync(array $params = [])
+    public function updateAppProxyHttpByInstanceAsync($instance)
     {
-        return $this->updateAppProxyHttpByInstanceAsyncWithHttpInfo($params)
+        return $this->updateAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -3596,23 +3492,21 @@ class AppsApi
      *
      * 
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $instance 
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateAppProxyHttpByInstanceAsyncWithHttpInfo(array $params = [])
+    public function updateAppProxyHttpByInstanceAsyncWithHttpInfo($instance)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updateAppProxyHttpByInstanceRequest($params);
+        $request = $this->updateAppProxyHttpByInstanceRequest($instance);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -3632,7 +3526,7 @@ class AppsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -3652,18 +3546,15 @@ class AppsApi
     /**
      * Create request for operation 'updateAppProxyHttpByInstance'
      *
-     * Parameters:
-     *   "instance" string   (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $instance 
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateAppProxyHttpByInstanceRequest(array $params = [])
+    protected function updateAppProxyHttpByInstanceRequest($instance)
     {
-        if (empty($params['instance'])) {
-            throw new \InvalidArgumentException('Missing parameter "instance" in AppsApi::updateAppProxyHttpByInstanceRequest().');
+        if (empty($instance)) {
+            throw new \InvalidArgumentException('Missing parameter "$instance" in AppsApi::updateAppProxyHttpByInstanceRequest().');
         }
         
 
@@ -3674,12 +3565,16 @@ class AppsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($instance !== null) {
+            $instance = ObjectSerializer::toQueryValue($instance);
+        }
+        
 
         // path params
-        if ($params['instance'] !== null) {
+        if ($instance !== null) {
             $resourcePath = str_replace(
                 '{' . 'instance' . '}',
-                ObjectSerializer::toPathValue($params['instance']),
+                ObjectSerializer::toPathValue($instance),
                 $resourcePath
             );
         }

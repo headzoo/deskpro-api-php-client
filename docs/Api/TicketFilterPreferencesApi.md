@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **deleteNewTicketFilterByParentIdPrefById**
-> \DeskPRO\API\Model\Response deleteNewTicketFilterByParentIdPrefById(array $params = [])
+> \DeskPRO\API\Model\Response deleteNewTicketFilterByParentIdPrefById(int $id, string $parent_id)
 
 
 
@@ -29,14 +29,12 @@ $api = new TicketFilterPreferencesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->deleteNewTicketFilterByParentIdPrefById($params);
-    print_r($result);
+    $result = $api->deleteNewTicketFilterByParentIdPrefById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -45,10 +43,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -66,7 +69,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterByParentIdPref**
-> \DeskPRO\API\Model\Response getNewTicketFilterByParentIdPref(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterByParentIdPref(string $parent_id, array $filters = [])
 
 
 
@@ -84,8 +87,8 @@ $api = new TicketFilterPreferencesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example", // string | 
+$parent_id = "parent_id_example"; // string | 
+$filters = [
 "page" => 56, // int | Which page to display
 "count" => 56, // int | Resource per page count
 "limit" => 56, // int | Max number of resources to return
@@ -93,8 +96,8 @@ $params = [
 ];
 
 try {
-    $result = $api->getNewTicketFilterByParentIdPref($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterByParentIdPref($parent_id, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -103,9 +106,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **page** | **int**| Which page to display | [optional]
  **count** | **int**| Resource per page count | [optional]
  **limit** | **int**| Max number of resources to return | [optional]
@@ -127,7 +137,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterByParentIdPrefById**
-> \DeskPRO\API\Model\Response getNewTicketFilterByParentIdPrefById(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterByParentIdPrefById(int $id, string $parent_id)
 
 
 
@@ -145,14 +155,12 @@ $api = new TicketFilterPreferencesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56, // int | The id of the resource
-"parent_id" => "parent_id_example" // string | 
-];
+$id = 56; // int | The id of the resource
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getNewTicketFilterByParentIdPrefById($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterByParentIdPrefById($id, $parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -161,10 +169,15 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -182,7 +195,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNewTicketFilterByParentIdPrefCount**
-> \DeskPRO\API\Model\Response getNewTicketFilterByParentIdPrefCount(array $params = [])
+> \DeskPRO\API\Model\Response getNewTicketFilterByParentIdPrefCount(string $parent_id)
 
 
 
@@ -200,13 +213,11 @@ $api = new TicketFilterPreferencesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"parent_id" => "parent_id_example" // string | 
-];
+$parent_id = "parent_id_example"; // string | 
 
 try {
-    $result = $api->getNewTicketFilterByParentIdPrefCount($params);
-    print_r($result);
+    $result = $api->getNewTicketFilterByParentIdPrefCount($parent_id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -215,9 +226,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **parent_id** | **string**|  |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

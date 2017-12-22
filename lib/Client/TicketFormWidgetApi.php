@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class TicketFormWidgetApi
      * Operation getTicketFormWidgetCode
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getTicketFormWidgetCode(array $params = [])
+    public function getTicketFormWidgetCode()
     {
-        list($response) = $this->getTicketFormWidgetCodeWithHttpInfo($params);
+        list($response) = $this->getTicketFormWidgetCodeWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getTicketFormWidgetCodeWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTicketFormWidgetCodeWithHttpInfo(array $params = [])
+    public function getTicketFormWidgetCodeWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFormWidgetCodeRequest($params);
+        $request = $this->getTicketFormWidgetCodeRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class TicketFormWidgetApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFormWidgetCodeAsync(array $params = [])
+    public function getTicketFormWidgetCodeAsync()
     {
-        return $this->getTicketFormWidgetCodeAsyncWithHttpInfo($params)
+        return $this->getTicketFormWidgetCodeAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class TicketFormWidgetApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTicketFormWidgetCodeAsyncWithHttpInfo(array $params = [])
+    public function getTicketFormWidgetCodeAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getTicketFormWidgetCodeRequest($params);
+        $request = $this->getTicketFormWidgetCodeRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class TicketFormWidgetApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class TicketFormWidgetApi
     /**
      * Create request for operation 'getTicketFormWidgetCode'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getTicketFormWidgetCodeRequest(array $params = [])
+    protected function getTicketFormWidgetCodeRequest()
     {
         
 
@@ -305,6 +294,7 @@ class TicketFormWidgetApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

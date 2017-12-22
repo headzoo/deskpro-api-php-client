@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **getJobById**
-> \DeskPRO\API\Model\Response getJobById(array $params = [])
+> \DeskPRO\API\Model\Response getJobById(int $id)
 
 
 
@@ -27,13 +27,11 @@ $api = new JobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"id" => 56 // int | The id of the resource
-];
+$id = 56; // int | The id of the resource
 
 try {
-    $result = $api->getJobById($params);
-    print_r($result);
+    $result = $api->getJobById($id);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -42,9 +40,14 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| The id of the resource |
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -62,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getJobs**
-> \DeskPRO\API\Model\Response getJobs(array $params = [])
+> \DeskPRO\API\Model\Response getJobs()
 
 
 
@@ -80,12 +83,10 @@ $api = new JobsApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getJobs($params);
-    print_r($result);
+    $result = $api->getJobs();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -93,7 +94,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 

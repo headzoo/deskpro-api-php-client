@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class PortalNewSettingsApi
      * Operation getSettingBrandNewPortalGeneral
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getSettingBrandNewPortalGeneral(array $params = [])
+    public function getSettingBrandNewPortalGeneral()
     {
-        list($response) = $this->getSettingBrandNewPortalGeneralWithHttpInfo($params);
+        list($response) = $this->getSettingBrandNewPortalGeneralWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getSettingBrandNewPortalGeneralWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSettingBrandNewPortalGeneralWithHttpInfo(array $params = [])
+    public function getSettingBrandNewPortalGeneralWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandNewPortalGeneralRequest($params);
+        $request = $this->getSettingBrandNewPortalGeneralRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -218,18 +214,16 @@ class PortalNewSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandNewPortalGeneralAsync(array $params = [])
+    public function getSettingBrandNewPortalGeneralAsync()
     {
-        return $this->getSettingBrandNewPortalGeneralAsyncWithHttpInfo($params)
+        return $this->getSettingBrandNewPortalGeneralAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -240,22 +234,20 @@ class PortalNewSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSettingBrandNewPortalGeneralAsyncWithHttpInfo(array $params = [])
+    public function getSettingBrandNewPortalGeneralAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getSettingBrandNewPortalGeneralRequest($params);
+        $request = $this->getSettingBrandNewPortalGeneralRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -275,7 +267,7 @@ class PortalNewSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -295,14 +287,11 @@ class PortalNewSettingsApi
     /**
      * Create request for operation 'getSettingBrandNewPortalGeneral'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSettingBrandNewPortalGeneralRequest(array $params = [])
+    protected function getSettingBrandNewPortalGeneralRequest()
     {
         
 
@@ -313,6 +302,7 @@ class PortalNewSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params

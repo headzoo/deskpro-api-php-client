@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **getFeatureByFeature**
-> \DeskPRO\API\Model\Response getFeatureByFeature(array $params = [])
+> \DeskPRO\API\Model\Response getFeatureByFeature(string $feature, array $filters = [])
 
 
 
@@ -29,14 +29,14 @@ $api = new FeaturesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"feature" => "feature_example", // string | 
+$feature = "feature_example"; // string | 
+$filters = [
 "id" => "id_example" // string | id of the feature
 ];
 
 try {
-    $result = $api->getFeatureByFeature($params);
-    print_r($result);
+    $result = $api->getFeatureByFeature($feature, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -45,9 +45,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **feature** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **id** | **string**| id of the feature | [optional]
 
 ### Return type
@@ -66,7 +73,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getFeatures**
-> \DeskPRO\API\Model\Response getFeatures(array $params = [])
+> \DeskPRO\API\Model\Response getFeatures()
 
 
 
@@ -84,12 +91,10 @@ $api = new FeaturesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-];
 
 try {
-    $result = $api->getFeatures($params);
-    print_r($result);
+    $result = $api->getFeatures();
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -97,7 +102,12 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+This endpoint does not need any parameters.
+
+
+### Filters
+This endpoint does not need any filters.
+
 
 ### Return type
 
@@ -115,7 +125,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateFeatureByFeatureDisable**
-> \DeskPRO\API\Model\Response updateFeatureByFeatureDisable(array $params = [])
+> \DeskPRO\API\Model\Response updateFeatureByFeatureDisable(string $feature, array $filters = [])
 
 
 
@@ -133,14 +143,14 @@ $api = new FeaturesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"feature" => "feature_example", // string | 
+$feature = "feature_example"; // string | 
+$filters = [
 "id" => "id_example" // string | id of the feature
 ];
 
 try {
-    $result = $api->updateFeatureByFeatureDisable($params);
-    print_r($result);
+    $result = $api->updateFeatureByFeatureDisable($feature, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -149,9 +159,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **feature** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **id** | **string**| id of the feature | [optional]
 
 ### Return type
@@ -170,7 +187,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateFeatureByFeatureEnable**
-> \DeskPRO\API\Model\Response updateFeatureByFeatureEnable(array $params = [])
+> \DeskPRO\API\Model\Response updateFeatureByFeatureEnable(string $feature, array $filters = [])
 
 
 
@@ -188,14 +205,14 @@ $api = new FeaturesApi(
     new Configuration('YOUR_API_KEY')
 );
 
-$params = [
-"feature" => "feature_example", // string | 
+$feature = "feature_example"; // string | 
+$filters = [
 "id" => "id_example" // string | id of the feature
 ];
 
 try {
-    $result = $api->updateFeatureByFeatureEnable($params);
-    print_r($result);
+    $result = $api->updateFeatureByFeatureEnable($feature, $filters);
+    print_r($result->getData());
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
@@ -204,9 +221,16 @@ try {
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **feature** | **string**|  |
+
+### Filters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
  **id** | **string**| id of the feature | [optional]
 
 ### Return type

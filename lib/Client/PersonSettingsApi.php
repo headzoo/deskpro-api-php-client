@@ -53,6 +53,7 @@
 
 namespace DeskPRO\API\Client;
 
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
@@ -116,35 +117,30 @@ class PersonSettingsApi
      * Operation getPersonSetting
      *
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPersonSetting(array $params = [])
+    public function getPersonSetting()
     {
-        list($response) = $this->getPersonSettingWithHttpInfo($params);
+        list($response) = $this->getPersonSettingWithHttpInfo();
         return $response;
     }
 
     /**
      * Operation getPersonSettingWithHttpInfo
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPersonSettingWithHttpInfo(array $params = [])
+    public function getPersonSettingWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonSettingRequest($params);
+        $request = $this->getPersonSettingRequest();
 
         try {
             $options = $this->createHttpClientOption();
@@ -210,18 +206,16 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonSettingAsync(array $params = [])
+    public function getPersonSettingAsync()
     {
-        return $this->getPersonSettingAsyncWithHttpInfo($params)
+        return $this->getPersonSettingAsyncWithHttpInfo()
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -232,22 +226,20 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
      *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonSettingAsyncWithHttpInfo(array $params = [])
+    public function getPersonSettingAsyncWithHttpInfo()
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonSettingRequest($params);
+        $request = $this->getPersonSettingRequest();
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -267,7 +259,7 @@ class PersonSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -287,14 +279,11 @@ class PersonSettingsApi
     /**
      * Create request for operation 'getPersonSetting'
      *
-     * Parameters:
-     *
-     * @param array $params API endpoint parameters
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPersonSettingRequest(array $params = [])
+    protected function getPersonSettingRequest()
     {
         
 
@@ -305,6 +294,7 @@ class PersonSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        
 
 
         // body params
@@ -380,37 +370,32 @@ class PersonSettingsApi
      * Operation getPersonSettingByName
      *
      *
-     * Parameters:
-     *   "name" string  the name of the setting (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $name the name of the setting
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function getPersonSettingByName(array $params = [])
+    public function getPersonSettingByName($name)
     {
-        list($response) = $this->getPersonSettingByNameWithHttpInfo($params);
+        list($response) = $this->getPersonSettingByNameWithHttpInfo($name);
         return $response;
     }
 
     /**
      * Operation getPersonSettingByNameWithHttpInfo
      *
-     * Parameters:
-     *   "name" string  the name of the setting (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name the name of the setting
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPersonSettingByNameWithHttpInfo(array $params = [])
+    public function getPersonSettingByNameWithHttpInfo($name)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonSettingByNameRequest($params);
+        $request = $this->getPersonSettingByNameRequest($name);
 
         try {
             $options = $this->createHttpClientOption();
@@ -484,19 +469,17 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "name" string  the name of the setting (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name the name of the setting
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonSettingByNameAsync(array $params = [])
+    public function getPersonSettingByNameAsync($name)
     {
-        return $this->getPersonSettingByNameAsyncWithHttpInfo($params)
+        return $this->getPersonSettingByNameAsyncWithHttpInfo($name)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -507,23 +490,21 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "name" string  the name of the setting (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name the name of the setting
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPersonSettingByNameAsyncWithHttpInfo(array $params = [])
+    public function getPersonSettingByNameAsyncWithHttpInfo($name)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->getPersonSettingByNameRequest($params);
+        $request = $this->getPersonSettingByNameRequest($name);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -543,7 +524,7 @@ class PersonSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -563,18 +544,15 @@ class PersonSettingsApi
     /**
      * Create request for operation 'getPersonSettingByName'
      *
-     * Parameters:
-     *   "name" string  the name of the setting (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $name the name of the setting
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getPersonSettingByNameRequest(array $params = [])
+    protected function getPersonSettingByNameRequest($name)
     {
-        if (empty($params['name'])) {
-            throw new \InvalidArgumentException('Missing parameter "name" in PersonSettingsApi::getPersonSettingByNameRequest().');
+        if (empty($name)) {
+            throw new \InvalidArgumentException('Missing parameter "$name" in PersonSettingsApi::getPersonSettingByNameRequest().');
         }
         
 
@@ -585,12 +563,16 @@ class PersonSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($name !== null) {
+            $name = ObjectSerializer::toQueryValue($name);
+        }
+        
 
         // path params
-        if ($params['name'] !== null) {
+        if ($name !== null) {
             $resourcePath = str_replace(
                 '{' . 'name' . '}',
-                ObjectSerializer::toPathValue($params['name']),
+                ObjectSerializer::toPathValue($name),
                 $resourcePath
             );
         }
@@ -668,39 +650,34 @@ class PersonSettingsApi
      * Operation setPersonSetting
      *
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function setPersonSetting(array $params = [])
+    public function setPersonSetting($name, $value)
     {
-        list($response) = $this->setPersonSettingWithHttpInfo($params);
+        list($response) = $this->setPersonSettingWithHttpInfo($name, $value);
         return $response;
     }
 
     /**
      * Operation setPersonSettingWithHttpInfo
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function setPersonSettingWithHttpInfo(array $params = [])
+    public function setPersonSettingWithHttpInfo($name, $value)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setPersonSettingRequest($params);
+        $request = $this->setPersonSettingRequest($name, $value);
 
         try {
             $options = $this->createHttpClientOption();
@@ -774,20 +751,18 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setPersonSettingAsync(array $params = [])
+    public function setPersonSettingAsync($name, $value)
     {
-        return $this->setPersonSettingAsyncWithHttpInfo($params)
+        return $this->setPersonSettingAsyncWithHttpInfo($name, $value)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -798,24 +773,22 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function setPersonSettingAsyncWithHttpInfo(array $params = [])
+    public function setPersonSettingAsyncWithHttpInfo($name, $value)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->setPersonSettingRequest($params);
+        $request = $this->setPersonSettingRequest($name, $value);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -835,7 +808,7 @@ class PersonSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -855,22 +828,19 @@ class PersonSettingsApi
     /**
      * Create request for operation 'setPersonSetting'
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $name setting name
+     * @param string $value setting value
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function setPersonSettingRequest(array $params = [])
+    protected function setPersonSettingRequest($name, $value)
     {
-        if (empty($params['name'])) {
-            throw new \InvalidArgumentException('Missing parameter "name" in PersonSettingsApi::setPersonSettingRequest().');
+        if (empty($name)) {
+            throw new \InvalidArgumentException('Missing parameter "$name" in PersonSettingsApi::setPersonSettingRequest().');
         }
-        if (empty($params['value'])) {
-            throw new \InvalidArgumentException('Missing parameter "value" in PersonSettingsApi::setPersonSettingRequest().');
+        if (empty($value)) {
+            throw new \InvalidArgumentException('Missing parameter "$value" in PersonSettingsApi::setPersonSettingRequest().');
         }
         
 
@@ -881,13 +851,20 @@ class PersonSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($name !== null) {
+            $name = ObjectSerializer::toQueryValue($name);
+        }
+        if ($value !== null) {
+            $value = ObjectSerializer::toQueryValue($value);
+        }
+        
         // query params
-        if ($params['name'] !== null) {
-            $queryParams['name'] = ObjectSerializer::toQueryValue($params['name']);
+        if ($filters['name'] !== null) {
+            $queryParams['name'] = ObjectSerializer::toQueryValue($filters['name']);
         }
         // query params
-        if ($params['value'] !== null) {
-            $queryParams['value'] = ObjectSerializer::toQueryValue($params['value']);
+        if ($filters['value'] !== null) {
+            $queryParams['value'] = ObjectSerializer::toQueryValue($filters['value']);
         }
 
 
@@ -964,39 +941,34 @@ class PersonSettingsApi
      * Operation updatePersonSetting
      *
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
-     *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \DeskPRO\API\Model\Response
      */
-    public function updatePersonSetting(array $params = [])
+    public function updatePersonSetting($name, $value)
     {
-        list($response) = $this->updatePersonSettingWithHttpInfo($params);
+        list($response) = $this->updatePersonSettingWithHttpInfo($name, $value);
         return $response;
     }
 
     /**
      * Operation updatePersonSettingWithHttpInfo
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \DeskPRO\API\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \DeskPRO\API\Model\Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updatePersonSettingWithHttpInfo(array $params = [])
+    public function updatePersonSettingWithHttpInfo($name, $value)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updatePersonSettingRequest($params);
+        $request = $this->updatePersonSettingRequest($name, $value);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1078,20 +1050,18 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updatePersonSettingAsync(array $params = [])
+    public function updatePersonSettingAsync($name, $value)
     {
-        return $this->updatePersonSettingAsyncWithHttpInfo($params)
+        return $this->updatePersonSettingAsyncWithHttpInfo($name, $value)
             ->then(
-                function ($response) {
+                function (array $response) {
                     return $response[0];
                 }
             );
@@ -1102,24 +1072,22 @@ class PersonSettingsApi
      *
      * 
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
+     * @param string $name setting name
+     * @param string $value setting value
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updatePersonSettingAsyncWithHttpInfo(array $params = [])
+    public function updatePersonSettingAsyncWithHttpInfo($name, $value)
     {
         $returnType = '\DeskPRO\API\Model\Response';
-        $request = $this->updatePersonSettingRequest($params);
+        $request = $this->updatePersonSettingRequest($name, $value);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
-                function ($response) use ($returnType) {
+                function (ResponseInterface $response) use ($returnType) {
                     $responseBody = $response->getBody();
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
@@ -1139,7 +1107,7 @@ class PersonSettingsApi
                         $response->getHeaders()
                     ];
                 },
-                function ($exception) {
+                function (RequestException $exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
                     throw new ApiException(
@@ -1159,22 +1127,19 @@ class PersonSettingsApi
     /**
      * Create request for operation 'updatePersonSetting'
      *
-     * Parameters:
-     *   "name" string  setting name (required)
-     *   "value" string  setting value (required)
      *
-     * @param array $params API endpoint parameters
-     *
+     * @param string $name setting name
+     * @param string $value setting value
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updatePersonSettingRequest(array $params = [])
+    protected function updatePersonSettingRequest($name, $value)
     {
-        if (empty($params['name'])) {
-            throw new \InvalidArgumentException('Missing parameter "name" in PersonSettingsApi::updatePersonSettingRequest().');
+        if (empty($name)) {
+            throw new \InvalidArgumentException('Missing parameter "$name" in PersonSettingsApi::updatePersonSettingRequest().');
         }
-        if (empty($params['value'])) {
-            throw new \InvalidArgumentException('Missing parameter "value" in PersonSettingsApi::updatePersonSettingRequest().');
+        if (empty($value)) {
+            throw new \InvalidArgumentException('Missing parameter "$value" in PersonSettingsApi::updatePersonSettingRequest().');
         }
         
 
@@ -1185,13 +1150,20 @@ class PersonSettingsApi
         $httpBody = '';
         $multipart = false;
 
+        if ($name !== null) {
+            $name = ObjectSerializer::toQueryValue($name);
+        }
+        if ($value !== null) {
+            $value = ObjectSerializer::toQueryValue($value);
+        }
+        
         // query params
-        if ($params['name'] !== null) {
-            $queryParams['name'] = ObjectSerializer::toQueryValue($params['name']);
+        if ($filters['name'] !== null) {
+            $queryParams['name'] = ObjectSerializer::toQueryValue($filters['name']);
         }
         // query params
-        if ($params['value'] !== null) {
-            $queryParams['value'] = ObjectSerializer::toQueryValue($params['value']);
+        if ($filters['value'] !== null) {
+            $queryParams['value'] = ObjectSerializer::toQueryValue($filters['value']);
         }
 
 
