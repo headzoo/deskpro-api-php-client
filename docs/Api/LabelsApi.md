@@ -23,7 +23,7 @@ use DeskPRO\API\Client\LabelsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new LabelsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $type = "type_example"; // string | Which entity type labels we are searching?

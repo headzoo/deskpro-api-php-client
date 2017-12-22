@@ -32,7 +32,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -90,7 +90,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -148,7 +148,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -206,7 +206,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | the id of the snippet
@@ -270,7 +270,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $context = "context_example"; // string | 
@@ -338,7 +338,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -396,7 +396,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | the id of the category
@@ -460,7 +460,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $context = "context_example"; // string | 
@@ -516,7 +516,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $context = "context_example"; // string | 
@@ -572,7 +572,7 @@ use DeskPRO\API\Client\TextSnippetsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TextSnippetsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $context = "context_example"; // string | 

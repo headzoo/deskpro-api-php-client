@@ -28,7 +28,7 @@ use DeskPRO\API\Client\BlobsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new BlobsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $auth_id = 56; // int | The id of the resource
@@ -84,7 +84,7 @@ use DeskPRO\API\Client\BlobsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new BlobsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $auth_id = 56; // int | The id of the resource
@@ -140,7 +140,7 @@ use DeskPRO\API\Client\BlobsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new BlobsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $auth_id = 56; // int | The id of the resource
@@ -196,7 +196,7 @@ use DeskPRO\API\Client\BlobsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new BlobsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $auth_id = 56; // int | The id of the resource
@@ -254,7 +254,7 @@ use DeskPRO\API\Client\BlobsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new BlobsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $auth_id = 56; // int | The id of the resource
@@ -310,7 +310,7 @@ use DeskPRO\API\Client\BlobsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new BlobsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [

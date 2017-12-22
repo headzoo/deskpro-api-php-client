@@ -35,7 +35,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -91,7 +91,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $auth = "auth_example"; // string | 
@@ -147,7 +147,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -199,7 +199,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $format = "format_example"; // string | 
@@ -257,7 +257,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $usersource = "usersource_example"; // string | 
@@ -312,7 +312,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $context = "context_example"; // string | 
@@ -369,7 +369,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -421,7 +421,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -473,7 +473,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -525,7 +525,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -581,7 +581,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -633,7 +633,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
@@ -699,7 +699,7 @@ use DeskPRO\API\Client\AuthApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new AuthApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $format = "format_example"; // string | 

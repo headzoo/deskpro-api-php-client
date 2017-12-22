@@ -60,7 +60,7 @@ use Exception;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new ContentApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 try {

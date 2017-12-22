@@ -25,7 +25,7 @@ use DeskPRO\API\Client\EmailAccountsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new EmailAccountsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the email account
@@ -81,7 +81,7 @@ use DeskPRO\API\Client\EmailAccountsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new EmailAccountsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the email account
@@ -137,7 +137,7 @@ use DeskPRO\API\Client\EmailAccountsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new EmailAccountsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the email account

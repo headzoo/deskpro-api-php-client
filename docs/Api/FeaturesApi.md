@@ -26,7 +26,7 @@ use DeskPRO\API\Client\FeaturesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new FeaturesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $feature = "feature_example"; // string | 
@@ -88,7 +88,7 @@ use DeskPRO\API\Client\FeaturesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new FeaturesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -140,7 +140,7 @@ use DeskPRO\API\Client\FeaturesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new FeaturesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $feature = "feature_example"; // string | 
@@ -202,7 +202,7 @@ use DeskPRO\API\Client\FeaturesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new FeaturesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $feature = "feature_example"; // string | 

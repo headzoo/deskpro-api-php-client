@@ -24,7 +24,7 @@ use DeskPRO\API\Client\SLAsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new SLAsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | the id of SLA
@@ -80,7 +80,7 @@ use DeskPRO\API\Client\SLAsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new SLAsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 

@@ -26,7 +26,7 @@ use DeskPRO\API\Client\WidgetSetupApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new WidgetSetupApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $brand = "brand_example"; // string | 
@@ -82,7 +82,7 @@ use DeskPRO\API\Client\WidgetSetupApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new WidgetSetupApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $brand = "brand_example"; // string | 
@@ -138,7 +138,7 @@ use DeskPRO\API\Client\WidgetSetupApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new WidgetSetupApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $brand = "brand_example"; // string | 
@@ -194,7 +194,7 @@ use DeskPRO\API\Client\WidgetSetupApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new WidgetSetupApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $brand = "brand_example"; // string | 

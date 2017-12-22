@@ -25,7 +25,7 @@ use DeskPRO\API\Client\SearchApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new SearchApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
@@ -89,7 +89,7 @@ use DeskPRO\API\Client\SearchApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new SearchApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $type = "type_example"; // string | 
@@ -153,7 +153,7 @@ use DeskPRO\API\Client\SearchApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new SearchApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [

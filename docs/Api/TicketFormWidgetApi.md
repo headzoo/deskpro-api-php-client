@@ -23,7 +23,7 @@ use DeskPRO\API\Client\TicketFormWidgetApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFormWidgetApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 

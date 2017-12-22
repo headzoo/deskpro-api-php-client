@@ -25,7 +25,7 @@ use DeskPRO\API\Client\TagsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TagsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of key
@@ -81,7 +81,7 @@ use DeskPRO\API\Client\TagsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TagsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of key
@@ -137,7 +137,7 @@ use DeskPRO\API\Client\TagsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TagsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of key

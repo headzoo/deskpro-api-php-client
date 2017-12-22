@@ -26,7 +26,7 @@ use DeskPRO\API\Client\PersonSettingsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new PersonSettingsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -78,7 +78,7 @@ use DeskPRO\API\Client\PersonSettingsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new PersonSettingsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $name = "name_example"; // string | the name of the setting
@@ -134,7 +134,7 @@ use DeskPRO\API\Client\PersonSettingsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new PersonSettingsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $name = "name_example"; // string | setting name
@@ -196,7 +196,7 @@ use DeskPRO\API\Client\PersonSettingsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new PersonSettingsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $name = "name_example"; // string | setting name

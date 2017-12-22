@@ -39,7 +39,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -95,7 +95,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $parent_id = "parent_id_example"; // string | 
@@ -159,7 +159,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -217,7 +217,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -273,7 +273,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -329,7 +329,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = "id_example"; // string | 
@@ -385,7 +385,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $parent_id = "parent_id_example"; // string | 
@@ -453,7 +453,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -511,7 +511,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $parent_id = "parent_id_example"; // string | 
@@ -567,7 +567,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $parent_id = "parent_id_example"; // string | 
@@ -635,7 +635,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $parent_id = "parent_id_example"; // string | 
@@ -703,7 +703,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -761,7 +761,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $parent_id = "parent_id_example"; // string | 
@@ -817,7 +817,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
@@ -885,7 +885,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -941,7 +941,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
@@ -1007,7 +1007,7 @@ use DeskPRO\API\Client\OrganizationsApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new OrganizationsApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [

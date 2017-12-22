@@ -26,7 +26,7 @@ use DeskPRO\API\Client\ClientDevicesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new ClientDevicesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id or device_id of the resource
@@ -84,7 +84,7 @@ use DeskPRO\API\Client\ClientDevicesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new ClientDevicesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $app_type = "app_type_example"; // string | 
@@ -152,7 +152,7 @@ use DeskPRO\API\Client\ClientDevicesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new ClientDevicesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id or device_id of the resource
@@ -210,7 +210,7 @@ use DeskPRO\API\Client\ClientDevicesApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new ClientDevicesApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $app_type = "app_type_example"; // string | 

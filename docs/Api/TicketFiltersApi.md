@@ -36,7 +36,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -92,7 +92,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -148,7 +148,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
@@ -214,7 +214,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filter = 56; // int | the id of the filter
@@ -276,7 +276,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filter = "filter_example"; // string | 
@@ -332,7 +332,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -388,7 +388,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -440,7 +440,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
@@ -506,7 +506,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
@@ -566,7 +566,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $id = 56; // int | The id of the resource
@@ -622,7 +622,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $set = 56; // int | the id of the filter
@@ -684,7 +684,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $set = "set_example"; // string | 
@@ -746,7 +746,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 
@@ -798,7 +798,7 @@ use DeskPRO\API\Client\TicketFiltersApi;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api = new TicketFiltersApi(
-    new Configuration('YOUR_API_KEY')
+    new Configuration('YOUR_API_KEY') // Optional api key configuration
 );
 
 $filters = [
